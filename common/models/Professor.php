@@ -8,10 +8,10 @@ use Yii;
  * This is the model class for table "professor".
  *
  * @property int $MarterikelNr
- * @property string $Büro
+ * @property string $Buero
  *
  * @property ModulLeitetProfessor[] $modulLeitetProfessors
- * @property Modul[] $modul-s
+ * @property Modul[] $moduls
  * @property Benutzer $marterikelNr
  */
 class Professor extends \yii\db\ActiveRecord
@@ -32,7 +32,7 @@ class Professor extends \yii\db\ActiveRecord
         return [
             [['MarterikelNr'], 'required'],
             [['MarterikelNr'], 'integer'],
-            [['Büro'], 'string', 'max' => 255],
+            [['Buero'], 'string', 'max' => 255],
             [['MarterikelNr'], 'unique'],
             [['MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['MarterikelNr' => 'marterikelnr']],
         ];
@@ -45,7 +45,7 @@ class Professor extends \yii\db\ActiveRecord
     {
         return [
             'MarterikelNr' => 'Marterikel Nr',
-            'Büro' => 'Büro',
+            'Buero' => 'Buero',
         ];
     }
 
@@ -54,7 +54,7 @@ class Professor extends \yii\db\ActiveRecord
      */
     public function getModulLeitetProfessors()
     {
-        return $this->hasMany(ModulLeitetProfessor::className(), ['Professor-MarterikelNr' => 'marterikelnr']);
+        return $this->hasMany(ModulLeitetProfessor::className(), ['Professor_MarterikelNr' => 'marterikelnr']);
     }
 
     /**
@@ -62,7 +62,7 @@ class Professor extends \yii\db\ActiveRecord
      */
     public function getModuls()
     {
-        return $this->hasMany(Modul::className(), ['modul-id' => 'Modul-ID'])->viaTable('modul_leitet_professor', ['Professor-MarterikelNr' => 'marterikelnr']);
+        return $this->hasMany(Modul::className(), ['ModulID' => 'ModulID'])->viaTable('modul_leitet_professor', ['Professor_MarterikelNr' => 'marterikelnr']);
     }
 
     /**

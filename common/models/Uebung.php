@@ -7,13 +7,13 @@ use Yii;
 /**
  * This is the model class for table "uebung".
  *
- * @property int $Übungs-ID
- * @property int $Modul-ID
- * @property int $Mitarbeiter-MarterikelNr
+ * @property int $UebungsID
+ * @property int $ModulID
+ * @property int $Mitarbeiter_MarterikelNr
  * @property string $Bezeichnung
  *
- * @property Mitarbeiter $mitarbeiter-MarterikelNr
- * @property Modul $modul-
+ * @property Mitarbeiter $mitarbeiterMarterikelNr
+ * @property Modul $modul
  * @property Uebungsblaetter[] $uebungsblaetters
  * @property Uebungsgruppe[] $uebungsgruppes
  */
@@ -33,11 +33,11 @@ class Uebung extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Modul-ID', 'Mitarbeiter-MarterikelNr', 'Bezeichnung'], 'required'],
-            [['Modul-ID', 'Mitarbeiter-MarterikelNr'], 'integer'],
+            [['ModulID', 'Mitarbeiter_MarterikelNr', 'Bezeichnung'], 'required'],
+            [['ModulID', 'Mitarbeiter_MarterikelNr'], 'integer'],
             [['Bezeichnung'], 'string', 'max' => 255],
-            [['Mitarbeiter-MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Mitarbeiter::className(), 'targetAttribute' => ['Mitarbeiter-MarterikelNr' => 'marterikelnr']],
-            [['Modul-ID'], 'exist', 'skipOnError' => true, 'targetClass' => Modul::className(), 'targetAttribute' => ['Modul-ID' => 'modul-id']],
+            [['Mitarbeiter_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Mitarbeiter::className(), 'targetAttribute' => ['Mitarbeiter_MarterikelNr' => 'marterikelnr']],
+            [['ModulID'], 'exist', 'skipOnError' => true, 'targetClass' => Modul::className(), 'targetAttribute' => ['ModulID' => 'ModulID']],
         ];
     }
 
@@ -47,9 +47,9 @@ class Uebung extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'Übungs-ID' => 'Übungs  ID',
-            'Modul-ID' => 'Modul  ID',
-            'Mitarbeiter-MarterikelNr' => 'Mitarbeiter  Marterikel Nr',
+            'UebungsID' => 'Uebungs ID',
+            'ModulID' => 'Modul ID',
+            'Mitarbeiter_MarterikelNr' => 'Mitarbeiter  Marterikel Nr',
             'Bezeichnung' => 'Bezeichnung',
         ];
     }
@@ -59,7 +59,7 @@ class Uebung extends \yii\db\ActiveRecord
      */
     public function getMitarbeiterMarterikelNr()
     {
-        return $this->hasOne(Mitarbeiter::className(), ['marterikelnr' => 'Mitarbeiter-MarterikelNr']);
+        return $this->hasOne(Mitarbeiter::className(), ['marterikelnr' => 'Mitarbeiter_MarterikelNr']);
     }
 
     /**
@@ -67,7 +67,7 @@ class Uebung extends \yii\db\ActiveRecord
      */
     public function getModul()
     {
-        return $this->hasOne(Modul::className(), ['modul-id' => 'Modul-ID']);
+        return $this->hasOne(Modul::className(), ['ModulID' => 'ModulID']);
     }
 
     /**
@@ -75,7 +75,7 @@ class Uebung extends \yii\db\ActiveRecord
      */
     public function getUebungsblaetters()
     {
-        return $this->hasMany(Uebungsblaetter::className(), ['Übungs-ID' => 'übungs-id']);
+        return $this->hasMany(Uebungsblaetter::className(), ['UebungsID' => 'UebungsID']);
     }
 
     /**
@@ -83,6 +83,6 @@ class Uebung extends \yii\db\ActiveRecord
      */
     public function getUebungsgruppes()
     {
-        return $this->hasMany(Uebungsgruppe::className(), ['Übungs-ID' => 'übungs-id']);
+        return $this->hasMany(Uebungsgruppe::className(), ['UebungsID' => 'UebungsID']);
     }
 }

@@ -7,9 +7,9 @@ use Yii;
 /**
  * This is the model class for table "einzelaufgabe".
  *
- * @property int $Einzelaufgabe-ID
- * @property int $Abgabe-ID
- * @property int $Übungsblätter-ID
+ * @property int $EinzelaufgabeID
+ * @property int $AbgabeID
+ * @property int $UebungsblaetterID
  * @property int $AufgabeNr
  * @property string $Text
  * @property string $Datein
@@ -17,8 +17,8 @@ use Yii;
  * @property string $Bewertung
  * @property int $Max.Punkt
  *
- * @property Abgabe $abgabe-
- * @property Uebungsblaetter $Übungsblätter-
+ * @property Abgabe $abgabe
+ * @property Uebungsblaetter $uebungsblaetter
  */
 class Einzelaufgabe extends \yii\db\ActiveRecord
 {
@@ -36,13 +36,13 @@ class Einzelaufgabe extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Abgabe-ID', 'Übungsblätter-ID', 'AufgabeNr', 'Max.Punkt'], 'required'],
-            [['Abgabe-ID', 'Übungsblätter-ID', 'AufgabeNr', 'Max.Punkt'], 'integer'],
+            [['AbgabeID', 'UebungsblaetterID', 'AufgabeNr', 'Max.Punkt'], 'required'],
+            [['AbgabeID', 'UebungsblaetterID', 'AufgabeNr', 'Max.Punkt'], 'integer'],
             [['Text', 'Datein'], 'string'],
             [['Punkte'], 'number'],
             [['Bewertung'], 'string', 'max' => 255],
-            [['Abgabe-ID'], 'exist', 'skipOnError' => true, 'targetClass' => Abgabe::className(), 'targetAttribute' => ['Abgabe-ID' => 'abgabe-id']],
-            [['Übungsblätter-ID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebungsblaetter::className(), 'targetAttribute' => ['Übungsblätter-ID' => 'übungsblätter-id']],
+            [['AbgabeID'], 'exist', 'skipOnError' => true, 'targetClass' => Abgabe::className(), 'targetAttribute' => ['AbgabeID' => 'AbgabeID']],
+            [['UebungsblaetterID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebungsblaetter::className(), 'targetAttribute' => ['UebungsblaetterID' => 'UebungsblatterID']],
         ];
     }
 
@@ -52,9 +52,9 @@ class Einzelaufgabe extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'Einzelaufgabe-ID' => 'Einzelaufgabe  ID',
-            'Abgabe-ID' => 'Abgabe  ID',
-            'Übungsblätter-ID' => 'Übungsblätter  ID',
+            'EinzelaufgabeID' => 'Einzelaufgabe ID',
+            'AbgabeID' => 'Abgabe ID',
+            'UebungsblaetterID' => 'Uebungsblaetter ID',
             'AufgabeNr' => 'Aufgabe Nr',
             'Text' => 'Text',
             'Datein' => 'Datein',
@@ -69,14 +69,14 @@ class Einzelaufgabe extends \yii\db\ActiveRecord
      */
     public function getAbgabe()
     {
-        return $this->hasOne(Abgabe::className(), ['abgabe-id' => 'Abgabe-ID']);
+        return $this->hasOne(Abgabe::className(), ['AbgabeID' => 'AbgabeID']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getÜbungsblätter()
+    public function getUebungsblaetter()
     {
-        return $this->hasOne(Uebungsblaetter::className(), ['übungsblätter-id' => 'Übungsblätter-ID']);
+        return $this->hasOne(Uebungsblaetter::className(), ['UebungsblatterID' => 'UebungsblaetterID']);
     }
 }

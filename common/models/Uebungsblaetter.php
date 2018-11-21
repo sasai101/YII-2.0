@@ -7,16 +7,16 @@ use Yii;
 /**
  * This is the model class for table "uebungsblaetter".
  *
- * @property int $Übungsblätter-ID
- * @property int $Übungs-ID
- * @property int $ÜbungsNr
- * @property int $Anzahl der Aufgabe
+ * @property int $UebungsblatterID
+ * @property int $UebungsID
+ * @property int $UebungsNr
+ * @property int $Anzahl_der_Aufgabe
  * @property int $Deadline
  * @property int $Ausgabedatum
  * @property string $Datein
  *
  * @property Einzelaufgabe[] $einzelaufgabes
- * @property Uebung $Übungs-
+ * @property Uebung $uebungs
  */
 class Uebungsblaetter extends \yii\db\ActiveRecord
 {
@@ -34,10 +34,10 @@ class Uebungsblaetter extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Übungs-ID', 'ÜbungsNr', 'Anzahl der Aufgabe', 'Datein'], 'required'],
-            [['Übungs-ID', 'ÜbungsNr', 'Anzahl der Aufgabe', 'Deadline', 'Ausgabedatum'], 'integer'],
+            [['UebungsID', 'UebungsNr', 'Anzahl_der_Aufgabe', 'Datein'], 'required'],
+            [['UebungsID', 'UebungsNr', 'Anzahl_der_Aufgabe', 'Deadline', 'Ausgabedatum'], 'integer'],
             [['Datein'], 'string', 'max' => 225],
-            [['Übungs-ID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebung::className(), 'targetAttribute' => ['Übungs-ID' => 'übungs-id']],
+            [['UebungsID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebung::className(), 'targetAttribute' => ['UebungsID' => 'UebungsID']],
         ];
     }
 
@@ -47,10 +47,10 @@ class Uebungsblaetter extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'Übungsblätter-ID' => 'Übungsblätter  ID',
-            'Übungs-ID' => 'Übungs  ID',
-            'ÜbungsNr' => 'Übungs Nr',
-            'Anzahl der Aufgabe' => 'Anzahl Der  Aufgabe',
+            'UebungsblatterID' => 'Uebungsblatter ID',
+            'UebungsID' => 'Uebungs ID',
+            'UebungsNr' => 'Uebungs Nr',
+            'Anzahl_der_Aufgabe' => 'Anzahl Der  Aufgabe',
             'Deadline' => 'Deadline',
             'Ausgabedatum' => 'Ausgabedatum',
             'Datein' => 'Datein',
@@ -62,14 +62,14 @@ class Uebungsblaetter extends \yii\db\ActiveRecord
      */
     public function getEinzelaufgabes()
     {
-        return $this->hasMany(Einzelaufgabe::className(), ['Übungsblätter-ID' => 'übungsblätter-id']);
+        return $this->hasMany(Einzelaufgabe::className(), ['UebungsblaetterID' => 'UebungsblatterID']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getÜbungs()
+    public function getUebungs()
     {
-        return $this->hasOne(Uebung::className(), ['übungs-id' => 'Übungs-ID']);
+        return $this->hasOne(Uebung::className(), ['UebungsID' => 'UebungsID']);
     }
 }

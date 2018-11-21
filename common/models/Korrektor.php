@@ -50,7 +50,7 @@ class Korrektor extends \yii\db\ActiveRecord
      */
     public function getAbgabes()
     {
-        return $this->hasMany(Abgabe::className(), ['Korrektor-MarterikelNr' => 'marterikelnr']);
+        return $this->hasMany(Abgabe::className(), ['Korrektor_MarterikelNr' => 'marterikelnr']);
     }
 
     /**

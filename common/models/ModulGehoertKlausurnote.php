@@ -7,11 +7,11 @@ use Yii;
 /**
  * This is the model class for table "modul_gehoert_klausurnote".
  *
- * @property int $Modul-ID
- * @property int $Klausurnote-ID
+ * @property int $Modul_ID
+ * @property int $Klausurnote_ID
  *
- * @property Modul $modul-
- * @property Klausurnote $klausurnote-
+ * @property Modul $modul
+ * @property Klausurnote $klausurnote
  */
 class ModulGehoertKlausurnote extends \yii\db\ActiveRecord
 {
@@ -29,11 +29,11 @@ class ModulGehoertKlausurnote extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Modul-ID', 'Klausurnote-ID'], 'required'],
-            [['Modul-ID', 'Klausurnote-ID'], 'integer'],
-            [['Modul-ID', 'Klausurnote-ID'], 'unique', 'targetAttribute' => ['Modul-ID', 'Klausurnote-ID']],
-            [['Modul-ID'], 'exist', 'skipOnError' => true, 'targetClass' => Modul::className(), 'targetAttribute' => ['Modul-ID' => 'modul-id']],
-            [['Klausurnote-ID'], 'exist', 'skipOnError' => true, 'targetClass' => Klausurnote::className(), 'targetAttribute' => ['Klausurnote-ID' => 'klausurnote-id']],
+            [['Modul_ID', 'Klausurnote_ID'], 'required'],
+            [['Modul_ID', 'Klausurnote_ID'], 'integer'],
+            [['Modul_ID', 'Klausurnote_ID'], 'unique', 'targetAttribute' => ['Modul_ID', 'Klausurnote_ID']],
+            [['Modul_ID'], 'exist', 'skipOnError' => true, 'targetClass' => Modul::className(), 'targetAttribute' => ['Modul_ID' => 'ModulID']],
+            [['Klausurnote_ID'], 'exist', 'skipOnError' => true, 'targetClass' => Klausurnote::className(), 'targetAttribute' => ['Klausurnote_ID' => 'KlausurnoteID']],
         ];
     }
 
@@ -43,8 +43,8 @@ class ModulGehoertKlausurnote extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'Modul-ID' => 'Modul  ID',
-            'Klausurnote-ID' => 'Klausurnote  ID',
+            'Modul_ID' => 'Modul  ID',
+            'Klausurnote_ID' => 'Klausurnote  ID',
         ];
     }
 
@@ -53,7 +53,7 @@ class ModulGehoertKlausurnote extends \yii\db\ActiveRecord
      */
     public function getModul()
     {
-        return $this->hasOne(Modul::className(), ['modul-id' => 'Modul-ID']);
+        return $this->hasOne(Modul::className(), ['ModulID' => 'Modul_ID']);
     }
 
     /**
@@ -61,6 +61,6 @@ class ModulGehoertKlausurnote extends \yii\db\ActiveRecord
      */
     public function getKlausurnote()
     {
-        return $this->hasOne(Klausurnote::className(), ['klausurnote-id' => 'Klausurnote-ID']);
+        return $this->hasOne(Klausurnote::className(), ['KlausurnoteID' => 'Klausurnote_ID']);
     }
 }

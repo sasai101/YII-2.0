@@ -7,13 +7,13 @@ use Yii;
 /**
  * This is the model class for table "benutzer_anmelden_klausur".
  *
- * @property int $Benutzer-MarterikelNr
- * @property int $Klausur-ID
+ * @property int $Benutzer_MarterikelNr
+ * @property int $KlausurID
  * @property int $Anmeldungszeit
  * @property string $Anmeldungsstatus
  *
- * @property Benutzer $benutzer-MarterikelNr
- * @property Klausur $klausur-
+ * @property Benutzer $benutzerMarterikelNr
+ * @property Klausur $klausur
  */
 class BenutzerAnmeldenKlausur extends \yii\db\ActiveRecord
 {
@@ -31,12 +31,12 @@ class BenutzerAnmeldenKlausur extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Benutzer-MarterikelNr', 'Klausur-ID', 'Anmeldungsstatus'], 'required'],
-            [['Benutzer-MarterikelNr', 'Klausur-ID', 'Anmeldungszeit'], 'integer'],
+            [['Benutzer_MarterikelNr', 'KlausurID', 'Anmeldungsstatus'], 'required'],
+            [['Benutzer_MarterikelNr', 'KlausurID', 'Anmeldungszeit'], 'integer'],
             [['Anmeldungsstatus'], 'string', 'max' => 255],
-            [['Benutzer-MarterikelNr', 'Klausur-ID'], 'unique', 'targetAttribute' => ['Benutzer-MarterikelNr', 'Klausur-ID']],
-            [['Benutzer-MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['Benutzer-MarterikelNr' => 'marterikelnr']],
-            [['Klausur-ID'], 'exist', 'skipOnError' => true, 'targetClass' => Klausur::className(), 'targetAttribute' => ['Klausur-ID' => 'klausur-id']],
+            [['Benutzer_MarterikelNr', 'KlausurID'], 'unique', 'targetAttribute' => ['Benutzer_MarterikelNr', 'KlausurID']],
+            [['Benutzer_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['Benutzer_MarterikelNr' => 'marterikelnr']],
+            [['KlausurID'], 'exist', 'skipOnError' => true, 'targetClass' => Klausur::className(), 'targetAttribute' => ['KlausurID' => 'KlausurID']],
         ];
     }
 
@@ -46,8 +46,8 @@ class BenutzerAnmeldenKlausur extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'Benutzer-MarterikelNr' => 'Benutzer  Marterikel Nr',
-            'Klausur-ID' => 'Klausur  ID',
+            'Benutzer_MarterikelNr' => 'Benutzer  Marterikel Nr',
+            'KlausurID' => 'Klausur ID',
             'Anmeldungszeit' => 'Anmeldungszeit',
             'Anmeldungsstatus' => 'Anmeldungsstatus',
         ];
@@ -58,7 +58,7 @@ class BenutzerAnmeldenKlausur extends \yii\db\ActiveRecord
      */
     public function getBenutzerMarterikelNr()
     {
-        return $this->hasOne(Benutzer::className(), ['marterikelnr' => 'Benutzer-MarterikelNr']);
+        return $this->hasOne(Benutzer::className(), ['marterikelnr' => 'Benutzer_MarterikelNr']);
     }
 
     /**
@@ -66,6 +66,6 @@ class BenutzerAnmeldenKlausur extends \yii\db\ActiveRecord
      */
     public function getKlausur()
     {
-        return $this->hasOne(Klausur::className(), ['klausur-id' => 'Klausur-ID']);
+        return $this->hasOne(Klausur::className(), ['KlausurID' => 'KlausurID']);
     }
 }

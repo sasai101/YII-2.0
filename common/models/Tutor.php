@@ -58,6 +58,6 @@ class Tutor extends \yii\db\ActiveRecord
      */
     public function getUebungsgruppes()
     {
-        return $this->hasMany(Uebungsgruppe::className(), ['Tutor-MarterikelNr' => 'marterikelnr']);
+        return $this->hasMany(Uebungsgruppe::className(), ['Tutor_MarterikelNr' => 'marterikelnr']);
     }
 }

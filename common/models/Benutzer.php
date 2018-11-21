@@ -12,28 +12,28 @@ use yii\db\ActiveRecord;
  * This is the model class for table "benutzer".
  *
  * @property int $MarterikelNr
- * @property string $Benutzername
- * @property string $auth_key
+ * @property string $email
  * @property string $password_hash
  * @property string $password_reset_token
- * @property string $email
+ * @property string $auth_key
  * @property string $Vorname
  * @property string $Nachname
  * @property int $created_at
  * @property int $updated_at
- * 
- * @property Abgabe[] $abgabes 
- * @property BenutzerAnmeldenKlausur[] $benutzerAnmeldenKlausurs 
- * @property Klausur[] $klausur-s 
- * @property BenutzerTeilnimmtübungsgruppe[] $benutzerTeilnimmtübungsgruppes 
- * @property übungsgruppe[] $Übungsgruppe-s 
- * @property Klausurnote[] $klausurnotes 
- * @property Korrektor $korrektor 
- * @property Mitarbeiter $mitarbeiter 
- * @property ModulAnmeldenBenutzer[] $modulAnmeldenBenutzers 
- * @property Modul[] $modul-s 
- * @property Professor $professor 
- * @property Tutor $tutor 
+ * @property string $Benutzername
+ *
+ * @property Abgabe[] $abgabes
+ * @property BenutzerAnmeldenKlausur[] $benutzerAnmeldenKlausurs
+ * @property Klausur[] $klausurs
+ * @property BenutzerTeilnimmtUebungsgruppe[] $benutzerTeilnimmtUebungsgruppes
+ * @property Uebungsgruppe[] $uebungsgruppes
+ * @property Klausurnote[] $klausurnotes
+ * @property Korrektor $korrektor
+ * @property Mitarbeiter $mitarbeiter
+ * @property ModulAnmeldenBenutzer[] $modulAnmeldenBenutzers
+ * @property Modul[] $moduls
+ * @property Professor $professor
+ * @property Tutor $tutor
  */
 class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -70,16 +70,16 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'MarterikelNr' => 'MarterikelNr',
-            'Benutzername' => 'Benutzername',
-            'auth_key' => 'Auth Key',
+            'MarterikelNr' => 'Marterikel Nr',
+            'email' => 'Email',
             'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',
-            'email' => 'Email',
+            'auth_key' => 'Auth Key',
             'Vorname' => 'Vorname',
             'Nachname' => 'Nachname',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'Benutzername' => 'Benutzername',
         ];
     }
     public static function findIdentity($MarterikelNr)
@@ -209,12 +209,9 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
     
-     /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAbgabes()
+     public function getAbgabes()
     {
-        return $this->hasMany(Abgabe::className(), ['Benutzer-MarterikelNr' => 'marterikelnr']);
+        return $this->hasMany(Abgabe::className(), ['Benutzer_MarterikelNr' => 'marterikelnr']);
     }
 
     /**
@@ -222,15 +219,15 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function getBenutzerAnmeldenKlausurs()
     {
-        return $this->hasMany(BenutzerAnmeldenKlausur::className(), ['Benutzer-MarterikelNr' => 'marterikelnr']);
+        return $this->hasMany(BenutzerAnmeldenKlausur::className(), ['Benutzer_MarterikelNr' => 'marterikelnr']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getKlausur()
+    public function getKlausurs()
     {
-        return $this->hasMany(Klausur::className(), ['klausur-id' => 'Klausur-ID'])->viaTable('benutzer_anmelden_klausur', ['Benutzer-MarterikelNr' => 'marterikelnr']);
+        return $this->hasMany(Klausur::className(), ['KlausurID' => 'KlausurID'])->viaTable('benutzer_anmelden_klausur', ['Benutzer_MarterikelNr' => 'marterikelnr']);
     }
 
     /**
@@ -238,15 +235,15 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function getBenutzerTeilnimmtUebungsgruppes()
     {
-        return $this->hasMany(BenutzerTeilnimmtUebungsgruppe::className(), ['Benuter-MarterikelNr' => 'marterikelnr']);
+        return $this->hasMany(BenutzerTeilnimmtUebungsgruppe::className(), ['Benuter_MarterikelNr' => 'marterikelnr']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getÜbungsgruppe()
+    public function getUebungsgruppes()
     {
-        return $this->hasMany(Uebungsgruppe::className(), ['übungsgruppe-id' => 'Übungsgruppe-ID'])->viaTable('benutzer_teilnimmt_uebungsgruppe', ['Benuter-MarterikelNr' => 'marterikelnr']);
+        return $this->hasMany(Uebungsgruppe::className(), ['UebungsgruppeID' => 'UebungsgruppeID'])->viaTable('benutzer_teilnimmt_uebungsgruppe', ['Benuter_MarterikelNr' => 'marterikelnr']);
     }
 
     /**
@@ -254,7 +251,7 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function getKlausurnotes()
     {
-        return $this->hasMany(Klausurnote::className(), ['Benutzer-MarterikelNr' => 'marterikelnr']);
+        return $this->hasMany(Klausurnote::className(), ['Benutzer_MarterikelNr' => 'marterikelnr']);
     }
 
     /**
@@ -272,21 +269,21 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->hasOne(Mitarbeiter::className(), ['MarterikelNr' => 'marterikelnr']);
     }
- 
+
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getModulAnmeldenBenutzers()
     {
-        return $this->hasMany(ModulAnmeldenBenutzer::className(), ['Benutzer-MarterikelNr' => 'marterikelnr']);
+        return $this->hasMany(ModulAnmeldenBenutzer::className(), ['Benutzer_MarterikelNr' => 'marterikelnr']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getModul()
+    public function getModuls()
     {
-        return $this->hasMany(Modul::className(), ['modul-id' => 'Modul-ID'])->viaTable('modul_anmelden_benutzer', ['Benutzer-MarterikelNr' => 'marterikelnr']);
+        return $this->hasMany(Modul::className(), ['ModulID' => 'ModulID'])->viaTable('modul_anmelden_benutzer', ['Benutzer_MarterikelNr' => 'marterikelnr']);
     }
 
     /**

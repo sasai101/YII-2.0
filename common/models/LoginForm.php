@@ -65,7 +65,7 @@ class LoginForm extends Model
     /**
      * Finds user by [[Benutzername]]
      *
-     * @return User|null
+     * @return Benutzer|null
      */
     protected function getUser()
     {

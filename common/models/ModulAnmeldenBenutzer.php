@@ -7,11 +7,11 @@ use Yii;
 /**
  * This is the model class for table "modul_anmelden_benutzer".
  *
- * @property int $Modul-ID
- * @property int $Benutzer-MarterikelNr
+ * @property int $ModulID
+ * @property int $Benutzer_MarterikelNr
  *
- * @property Modul $modul-
- * @property Benutzer $benutzer-MarterikelNr
+ * @property Modul $modul
+ * @property Benutzer $benutzerMarterikelNr
  */
 class ModulAnmeldenBenutzer extends \yii\db\ActiveRecord
 {
@@ -29,11 +29,11 @@ class ModulAnmeldenBenutzer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Modul-ID', 'Benutzer-MarterikelNr'], 'required'],
-            [['Modul-ID', 'Benutzer-MarterikelNr'], 'integer'],
-            [['Modul-ID', 'Benutzer-MarterikelNr'], 'unique', 'targetAttribute' => ['Modul-ID', 'Benutzer-MarterikelNr']],
-            [['Modul-ID'], 'exist', 'skipOnError' => true, 'targetClass' => Modul::className(), 'targetAttribute' => ['Modul-ID' => 'modul-id']],
-            [['Benutzer-MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['Benutzer-MarterikelNr' => 'marterikelnr']],
+            [['ModulID', 'Benutzer_MarterikelNr'], 'required'],
+            [['ModulID', 'Benutzer_MarterikelNr'], 'integer'],
+            [['ModulID', 'Benutzer_MarterikelNr'], 'unique', 'targetAttribute' => ['ModulID', 'Benutzer_MarterikelNr']],
+            [['ModulID'], 'exist', 'skipOnError' => true, 'targetClass' => Modul::className(), 'targetAttribute' => ['ModulID' => 'ModulID']],
+            [['Benutzer_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['Benutzer_MarterikelNr' => 'marterikelnr']],
         ];
     }
 
@@ -43,8 +43,8 @@ class ModulAnmeldenBenutzer extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'Modul-ID' => 'Modul  ID',
-            'Benutzer-MarterikelNr' => 'Benutzer  Marterikel Nr',
+            'ModulID' => 'Modul ID',
+            'Benutzer_MarterikelNr' => 'Benutzer  Marterikel Nr',
         ];
     }
 
@@ -53,7 +53,7 @@ class ModulAnmeldenBenutzer extends \yii\db\ActiveRecord
      */
     public function getModul()
     {
-        return $this->hasOne(Modul::className(), ['modul-id' => 'Modul-ID']);
+        return $this->hasOne(Modul::className(), ['ModulID' => 'ModulID']);
     }
 
     /**
@@ -61,6 +61,6 @@ class ModulAnmeldenBenutzer extends \yii\db\ActiveRecord
      */
     public function getBenutzerMarterikelNr()
     {
-        return $this->hasOne(Benutzer::className(), ['marterikelnr' => 'Benutzer-MarterikelNr']);
+        return $this->hasOne(Benutzer::className(), ['marterikelnr' => 'Benutzer_MarterikelNr']);
     }
 }

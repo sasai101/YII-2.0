@@ -7,11 +7,11 @@ use Yii;
 /**
  * This is the model class for table "benutzer_teilnimmt_uebungsgruppe".
  *
- * @property int $Benuter-MarterikelNr
- * @property int $Übungsgruppe-ID
+ * @property int $Benuter_MarterikelNr
+ * @property int $UebungsgruppeID
  *
- * @property Benutzer $benuter-MarterikelNr
- * @property Uebungsgruppe $Übungsgruppe-
+ * @property Benutzer $benuterMarterikelNr
+ * @property Uebungsgruppe $uebungsgruppe
  */
 class BenutzerTeilnimmtUebungsgruppe extends \yii\db\ActiveRecord
 {
@@ -29,11 +29,11 @@ class BenutzerTeilnimmtUebungsgruppe extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Benuter-MarterikelNr', 'Übungsgruppe-ID'], 'required'],
-            [['Benuter-MarterikelNr', 'Übungsgruppe-ID'], 'integer'],
-            [['Benuter-MarterikelNr', 'Übungsgruppe-ID'], 'unique', 'targetAttribute' => ['Benuter-MarterikelNr', 'Übungsgruppe-ID']],
-            [['Benuter-MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['Benuter-MarterikelNr' => 'marterikelnr']],
-            [['Übungsgruppe-ID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebungsgruppe::className(), 'targetAttribute' => ['Übungsgruppe-ID' => 'übungsgruppe-id']],
+            [['Benuter_MarterikelNr', 'UebungsgruppeID'], 'required'],
+            [['Benuter_MarterikelNr', 'UebungsgruppeID'], 'integer'],
+            [['Benuter_MarterikelNr', 'UebungsgruppeID'], 'unique', 'targetAttribute' => ['Benuter_MarterikelNr', 'UebungsgruppeID']],
+            [['Benuter_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['Benuter_MarterikelNr' => 'marterikelnr']],
+            [['UebungsgruppeID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebungsgruppe::className(), 'targetAttribute' => ['UebungsgruppeID' => 'UebungsgruppeID']],
         ];
     }
 
@@ -43,8 +43,8 @@ class BenutzerTeilnimmtUebungsgruppe extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'Benuter-MarterikelNr' => 'Benuter  Marterikel Nr',
-            'Übungsgruppe-ID' => 'Übungsgruppe  ID',
+            'Benuter_MarterikelNr' => 'Benuter  Marterikel Nr',
+            'UebungsgruppeID' => 'Uebungsgruppe ID',
         ];
     }
 
@@ -53,14 +53,14 @@ class BenutzerTeilnimmtUebungsgruppe extends \yii\db\ActiveRecord
      */
     public function getBenuterMarterikelNr()
     {
-        return $this->hasOne(Benutzer::className(), ['marterikelnr' => 'Benuter-MarterikelNr']);
+        return $this->hasOne(Benutzer::className(), ['marterikelnr' => 'Benuter_MarterikelNr']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getÜbungsgruppe()
+    public function getUebungsgruppe()
     {
-        return $this->hasOne(Uebungsgruppe::className(), ['übungsgruppe-id' => 'Übungsgruppe-ID']);
+        return $this->hasOne(Uebungsgruppe::className(), ['UebungsgruppeID' => 'UebungsgruppeID']);
     }
 }

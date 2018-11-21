@@ -7,11 +7,11 @@ use Yii;
 /**
  * This is the model class for table "modul_leitet_professor".
  *
- * @property int $Modul-ID
- * @property int $Professor-MarterikelNr
+ * @property int $ModulID
+ * @property int $Professor_MarterikelNr
  *
- * @property Modul $modul-
- * @property Professor $professor-MarterikelNr
+ * @property Modul $modul
+ * @property Professor $professorMarterikelNr
  */
 class ModulLeitetProfessor extends \yii\db\ActiveRecord
 {
@@ -29,11 +29,11 @@ class ModulLeitetProfessor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Modul-ID', 'Professor-MarterikelNr'], 'required'],
-            [['Modul-ID', 'Professor-MarterikelNr'], 'integer'],
-            [['Modul-ID', 'Professor-MarterikelNr'], 'unique', 'targetAttribute' => ['Modul-ID', 'Professor-MarterikelNr']],
-            [['Modul-ID'], 'exist', 'skipOnError' => true, 'targetClass' => Modul::className(), 'targetAttribute' => ['Modul-ID' => 'modul-id']],
-            [['Professor-MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Professor::className(), 'targetAttribute' => ['Professor-MarterikelNr' => 'marterikelnr']],
+            [['ModulID', 'Professor_MarterikelNr'], 'required'],
+            [['ModulID', 'Professor_MarterikelNr'], 'integer'],
+            [['ModulID', 'Professor_MarterikelNr'], 'unique', 'targetAttribute' => ['ModulID', 'Professor_MarterikelNr']],
+            [['ModulID'], 'exist', 'skipOnError' => true, 'targetClass' => Modul::className(), 'targetAttribute' => ['ModulID' => 'ModulID']],
+            [['Professor_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Professor::className(), 'targetAttribute' => ['Professor_MarterikelNr' => 'marterikelnr']],
         ];
     }
 
@@ -43,8 +43,8 @@ class ModulLeitetProfessor extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'Modul-ID' => 'Modul  ID',
-            'Professor-MarterikelNr' => 'Professor  Marterikel Nr',
+            'ModulID' => 'Modul ID',
+            'Professor_MarterikelNr' => 'Professor  Marterikel Nr',
         ];
     }
 
@@ -53,7 +53,7 @@ class ModulLeitetProfessor extends \yii\db\ActiveRecord
      */
     public function getModul()
     {
-        return $this->hasOne(Modul::className(), ['modul-id' => 'Modul-ID']);
+        return $this->hasOne(Modul::className(), ['ModulID' => 'ModulID']);
     }
 
     /**
@@ -61,6 +61,6 @@ class ModulLeitetProfessor extends \yii\db\ActiveRecord
      */
     public function getProfessorMarterikelNr()
     {
-        return $this->hasOne(Professor::className(), ['marterikelnr' => 'Professor-MarterikelNr']);
+        return $this->hasOne(Professor::className(), ['marterikelnr' => 'Professor_MarterikelNr']);
     }
 }

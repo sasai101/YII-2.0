@@ -7,15 +7,15 @@ use Yii;
 /**
  * This is the model class for table "abgabe".
  *
- * @property int $Abgabe-ID
- * @property int $Benutzer-MarterikelNr
- * @property int $Korrektor-MarterikelNr
- * @property int $Korregierte Zeit
- * @property int $Abgabe Zeit
- * @property int $Gesamte Punkt
+ * @property int $AbgabeID
+ * @property int $Benutzer_MarterikelNr
+ * @property int $Korrektor_MarterikelNr
+ * @property int $KorregierteZeit
+ * @property int $AbgabeZeit
+ * @property int $GesamtePunkt
  *
- * @property Benutzer $benutzer-MarterikelNr
- * @property Korrektor $korrektor-MarterikelNr
+ * @property Benutzer $benutzerMarterikelNr
+ * @property Korrektor $korrektorMarterikelNr
  * @property Einzelaufgabe[] $einzelaufgabes
  */
 class Abgabe extends \yii\db\ActiveRecord
@@ -34,10 +34,10 @@ class Abgabe extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Benutzer-MarterikelNr', 'Korrektor-MarterikelNr'], 'required'],
-            [['Benutzer-MarterikelNr', 'Korrektor-MarterikelNr', 'Korregierte Zeit', 'Abgabe Zeit', 'Gesamte Punkt'], 'integer'],
-            [['Benutzer-MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['Benutzer-MarterikelNr' => 'marterikelnr']],
-            [['Korrektor-MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Korrektor::className(), 'targetAttribute' => ['Korrektor-MarterikelNr' => 'marterikelnr']],
+            [['Benutzer_MarterikelNr', 'Korrektor_MarterikelNr'], 'required'],
+            [['Benutzer_MarterikelNr', 'Korrektor_MarterikelNr', 'KorregierteZeit', 'AbgabeZeit', 'GesamtePunkt'], 'integer'],
+            [['Benutzer_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['Benutzer_MarterikelNr' => 'marterikelnr']],
+            [['Korrektor_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Korrektor::className(), 'targetAttribute' => ['Korrektor_MarterikelNr' => 'marterikelnr']],
         ];
     }
 
@@ -47,12 +47,12 @@ class Abgabe extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'Abgabe-ID' => 'Abgabe  ID',
-            'Benutzer-MarterikelNr' => 'Benutzer  Marterikel Nr',
-            'Korrektor-MarterikelNr' => 'Korrektor  Marterikel Nr',
-            'Korregierte Zeit' => 'Korregierte  Zeit',
-            'Abgabe Zeit' => 'Abgabe  Zeit',
-            'Gesamte Punkt' => 'Gesamte  Punkt',
+            'AbgabeID' => 'Abgabe ID',
+            'Benutzer_MarterikelNr' => 'Benutzer  Marterikel Nr',
+            'Korrektor_MarterikelNr' => 'Korrektor  Marterikel Nr',
+            'KorregierteZeit' => 'Korregierte Zeit',
+            'AbgabeZeit' => 'Abgabe Zeit',
+            'GesamtePunkt' => 'Gesamte Punkt',
         ];
     }
 
@@ -61,7 +61,7 @@ class Abgabe extends \yii\db\ActiveRecord
      */
     public function getBenutzerMarterikelNr()
     {
-        return $this->hasOne(Benutzer::className(), ['marterikelnr' => 'Benutzer-MarterikelNr']);
+        return $this->hasOne(Benutzer::className(), ['marterikelnr' => 'Benutzer_MarterikelNr']);
     }
 
     /**
@@ -69,7 +69,7 @@ class Abgabe extends \yii\db\ActiveRecord
      */
     public function getKorrektorMarterikelNr()
     {
-        return $this->hasOne(Korrektor::className(), ['marterikelnr' => 'Korrektor-MarterikelNr']);
+        return $this->hasOne(Korrektor::className(), ['marterikelnr' => 'Korrektor_MarterikelNr']);
     }
 
     /**
@@ -77,6 +77,6 @@ class Abgabe extends \yii\db\ActiveRecord
      */
     public function getEinzelaufgabes()
     {
-        return $this->hasMany(Einzelaufgabe::className(), ['Abgabe-ID' => 'abgabe-id']);
+        return $this->hasMany(Einzelaufgabe::className(), ['AbgabeID' => 'AbgabeID']);
     }
 }

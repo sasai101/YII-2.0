@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "mitarbeiter".
  *
  * @property int $MarterikelNr
- * @property string $Büro
+ * @property string $Buero
  *
  * @property Klausur[] $klausurs
  * @property Klausurnote[] $klausurnotes
@@ -33,7 +33,7 @@ class Mitarbeiter extends \yii\db\ActiveRecord
         return [
             [['MarterikelNr'], 'required'],
             [['MarterikelNr'], 'integer'],
-            [['Büro'], 'string', 'max' => 255],
+            [['Buero'], 'string', 'max' => 255],
             [['MarterikelNr'], 'unique'],
             [['MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['MarterikelNr' => 'marterikelnr']],
         ];
@@ -46,7 +46,7 @@ class Mitarbeiter extends \yii\db\ActiveRecord
     {
         return [
             'MarterikelNr' => 'Marterikel Nr',
-            'Büro' => 'Büro',
+            'Buero' => 'Buero',
         ];
     }
 
@@ -55,7 +55,7 @@ class Mitarbeiter extends \yii\db\ActiveRecord
      */
     public function getKlausurs()
     {
-        return $this->hasMany(Klausur::className(), ['Mitarbeiter-MarterikelNr' => 'marterikelnr']);
+        return $this->hasMany(Klausur::className(), ['Mitarbeiter_MarterikelNr' => 'marterikelnr']);
     }
 
     /**
@@ -63,7 +63,7 @@ class Mitarbeiter extends \yii\db\ActiveRecord
      */
     public function getKlausurnotes()
     {
-        return $this->hasMany(Klausurnote::className(), ['Mitarbeiter-MarterikelNr' => 'marterikelnr']);
+        return $this->hasMany(Klausurnote::className(), ['Mitarbeiter_MarterikelNr' => 'marterikelnr']);
     }
 
     /**
@@ -79,6 +79,6 @@ class Mitarbeiter extends \yii\db\ActiveRecord
      */
     public function getUebungs()
     {
-        return $this->hasMany(Uebung::className(), ['Mitarbeiter-MarterikelNr' => 'marterikelnr']);
+        return $this->hasMany(Uebung::className(), ['Mitarbeiter_MarterikelNr' => 'marterikelnr']);
     }
 }

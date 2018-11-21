@@ -7,17 +7,17 @@ use Yii;
 /**
  * This is the model class for table "uebungsgruppe".
  *
- * @property int $Übungsgruppe-ID
- * @property int $Übungs-ID
- * @property int $Tutor-MarterikelNr
- * @property int $Anzahl der Personen
+ * @property int $UebungsgruppeID
+ * @property int $UebungsID
+ * @property int $Tutor_MarterikelNr
+ * @property int $Anzahl_der_Personen
  * @property int $GruppenNr
- * @property int $Max Person
+ * @property int $Max_Person
  *
  * @property BenutzerTeilnimmtUebungsgruppe[] $benutzerTeilnimmtUebungsgruppes
- * @property Benutzer[] $benuter-MarterikelNrs
- * @property Uebung $Übungs-
- * @property Tutor $tutor-MarterikelNr
+ * @property Benutzer[] $benuterMarterikelNrs
+ * @property Uebung $uebungs
+ * @property Tutor $tutorMarterikelNr
  */
 class Uebungsgruppe extends \yii\db\ActiveRecord
 {
@@ -35,10 +35,10 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Übungs-ID', 'Tutor-MarterikelNr', 'Anzahl der Personen', 'GruppenNr', 'Max Person'], 'required'],
-            [['Übungs-ID', 'Tutor-MarterikelNr', 'Anzahl der Personen', 'GruppenNr', 'Max Person'], 'integer'],
-            [['Übungs-ID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebung::className(), 'targetAttribute' => ['Übungs-ID' => 'übungs-id']],
-            [['Tutor-MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Tutor::className(), 'targetAttribute' => ['Tutor-MarterikelNr' => 'marterikelnr']],
+            [['UebungsID', 'Tutor_MarterikelNr', 'Anzahl_der_Personen', 'GruppenNr', 'Max_Person'], 'required'],
+            [['UebungsID', 'Tutor_MarterikelNr', 'Anzahl_der_Personen', 'GruppenNr', 'Max_Person'], 'integer'],
+            [['UebungsID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebung::className(), 'targetAttribute' => ['UebungsID' => 'UebungsID']],
+            [['Tutor_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Tutor::className(), 'targetAttribute' => ['Tutor_MarterikelNr' => 'marterikelnr']],
         ];
     }
 
@@ -48,12 +48,12 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'Übungsgruppe-ID' => 'Übungsgruppe  ID',
-            'Übungs-ID' => 'Übungs  ID',
-            'Tutor-MarterikelNr' => 'Tutor  Marterikel Nr',
-            'Anzahl der Personen' => 'Anzahl Der  Personen',
+            'UebungsgruppeID' => 'Uebungsgruppe ID',
+            'UebungsID' => 'Uebungs ID',
+            'Tutor_MarterikelNr' => 'Tutor  Marterikel Nr',
+            'Anzahl_der_Personen' => 'Anzahl Der  Personen',
             'GruppenNr' => 'Gruppen Nr',
-            'Max Person' => 'Max  Person',
+            'Max_Person' => 'Max  Person',
         ];
     }
 
@@ -62,7 +62,7 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
      */
     public function getBenutzerTeilnimmtUebungsgruppes()
     {
-        return $this->hasMany(BenutzerTeilnimmtUebungsgruppe::className(), ['Übungsgruppe-ID' => 'übungsgruppe-id']);
+        return $this->hasMany(BenutzerTeilnimmtUebungsgruppe::className(), ['UebungsgruppeID' => 'UebungsgruppeID']);
     }
 
     /**
@@ -70,15 +70,15 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
      */
     public function getBenuterMarterikelNrs()
     {
-        return $this->hasMany(Benutzer::className(), ['marterikelnr' => 'Benuter-MarterikelNr'])->viaTable('benutzer_teilnimmt_uebungsgruppe', ['Übungsgruppe-ID' => 'übungsgruppe-id']);
+        return $this->hasMany(Benutzer::className(), ['marterikelnr' => 'Benuter_MarterikelNr'])->viaTable('benutzer_teilnimmt_uebungsgruppe', ['UebungsgruppeID' => 'UebungsgruppeID']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getÜbungs()
+    public function getUebungs()
     {
-        return $this->hasOne(Uebung::className(), ['übungs-id' => 'Übungs-ID']);
+        return $this->hasOne(Uebung::className(), ['UebungsID' => 'UebungsID']);
     }
 
     /**
@@ -86,6 +86,6 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
      */
     public function getTutorMarterikelNr()
     {
-        return $this->hasOne(Tutor::className(), ['marterikelnr' => 'Tutor-MarterikelNr']);
+        return $this->hasOne(Tutor::className(), ['marterikelnr' => 'Tutor_MarterikelNr']);
     }
 }
