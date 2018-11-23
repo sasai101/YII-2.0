@@ -9,7 +9,7 @@ use kartik\datecontrol\DateControl;
  * @var common\models\Korrektor $model
  */
 
-$this->title = $model->MarterikelNr;
+$this->title = $model->marterikelNr->Vorname." ".$model->marterikelNr->Nachname;
 $this->params['breadcrumbs'][] = ['label' => 'Korrektors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -30,6 +30,22 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'attributes' => [
             'MarterikelNr',
+            [
+                'label' => 'Benutzername',
+                'value' => $model->marterikelNr->Benutzername,
+            ],
+            [
+                'label' => 'Voranme',
+                'value' => $model->marterikelNr->Vorname,
+            ],
+            [
+                'label' => 'Nachname',
+                'value' => $model->marterikelNr->Nachname,
+            ],
+            [
+                'label' => 'Email',
+                'value' => $model->marterikelNr->email,
+            ],
         ],
         'deleteOptions' => [
             'url' => ['delete', 'id' => $model->MarterikelNr],

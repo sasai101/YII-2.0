@@ -12,11 +12,23 @@ use common\models\Mitarbeiter;
  */
 class MitarbeiterSuchen extends Mitarbeiter
 {
+    
+    
+    /*
+     * eine neue Attribute einfügen, um die Suchfunktion zu schaffen
+     */
+    public function attributes()
+    {
+        return array_merge(parent::attributes(),['benutzername','email','vorname','nachname']);    
+    }
+    
     public function rules()
     {
         return [
             [['MarterikelNr'], 'integer'],
-            [['Buero'], 'safe'],
+            //[['Buero'], 'safe'],
+            //neue Regel für hinzufügende Attribute
+            [['benutzername','vorname','nachname','email'],'safe'],
         ];
     }
 
@@ -29,20 +41,50 @@ class MitarbeiterSuchen extends Mitarbeiter
     public function search($params)
     {
         $query = Mitarbeiter::find();
+        
+        
+        // join Funktion,um die Mitarbeitertabelle und Benutzertabelle zu verbinden, dann suchen und sortieren
+        $query->join('INNER JOIN','Benutzer','Benutzer.MarterikelNr=Mitarbeiter.MarterikelNr');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            // wie viel Inhalt pro Seite einzustellen
+            'pagination' => [
+                'pageSize'=>20
+            ],
+            // Sortieren nach folgende Attribute
+            'sort' => [
+                'defaultOrder' => [
+                    'MarterikelNr' => SORT_ASC,
+                ],
+                'attributes' => [
+                    'MarterikelNr',
+                    'vorname',
+                    'nachname',
+                    'benutzername',
+                ],
+            ],
         ]);
 
+        
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
-
+        
+        
         $query->andFilterWhere([
-            'MarterikelNr' => $this->MarterikelNr,
+            'Mitarbeiter.MarterikelNr' => $this->MarterikelNr,
         ]);
+        
 
-        $query->andFilterWhere(['like', 'Buero', $this->Buero]);
+        //$query->andFilterWhere(['like','Mitarbeiter.MarterikelNr',$this->MarterikelNr])
+        //$query->andFilterWhere(['like', 'Buero', $this->Buero]);
+        
+        //Such nach gegebene Wort in joinene Tabelle
+        $query->andFilterWhere(['like','Benutzer.Benutzername',$this->benutzername])
+              ->andFilterWhere(['like','Benutzer.email',$this->email])
+              ->andFilterWhere(['like','Benutzer.Vorname',$this->vorname])
+              ->andFilterWhere(['like','Benutzer.Benutzername',$this->nachname]);
 
         return $dataProvider;
     }

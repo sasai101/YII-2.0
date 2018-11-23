@@ -32,6 +32,7 @@ class Korrektor extends \yii\db\ActiveRecord
             [['MarterikelNr'], 'integer'],
             [['MarterikelNr'], 'unique'],
             [['MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['MarterikelNr' => 'marterikelnr']],
+       
         ];
     }
 
@@ -60,4 +61,37 @@ class Korrektor extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Benutzer::className(), ['marterikelnr' => 'MarterikelNr']);
     }
+    
+    /*
+     *  Durch die eigene Getter-Funktion die folgende Werte rauszuholen, für index des Korrektores 
+     */
+    public function getBenutzername()
+    {
+        return $this->marterikelNr->Benutzername;
+    }
+    
+    public function getVorname()
+    {
+        return $this->marterikelNr->Vorname;
+    }
+    
+    public function getNachname()
+    {
+        return $this->marterikelNr->Nachname;
+    }
+    
+    public function getEmail()
+    {
+        return $this->marterikelNr->email;
+    }
+    /*
+     * bis her
+     */
+    
+    
+    
+    
+    
+    
+    
 }

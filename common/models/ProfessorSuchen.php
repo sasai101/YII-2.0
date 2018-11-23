@@ -12,11 +12,22 @@ use common\models\Professor;
  */
 class ProfessorSuchen extends Professor
 {
+    /*
+     * eine neue Attribute einfügen, um die Suchfunktion zu schaffen
+     */
+    public function attributes()
+    {
+        return array_merge(parent::attributes(),['benutzername','email','vorname','nachname']);
+    }
+    
+    
     public function rules()
     {
         return [
             [['MarterikelNr'], 'integer'],
-            [['Buero'], 'safe'],
+            //[['Buero'], 'safe'],
+            //neue Regel für hinzufügende Attribute
+            [['benutzername','vorname','nachname','email'],'safe'],
         ];
     }
 
@@ -29,9 +40,29 @@ class ProfessorSuchen extends Professor
     public function search($params)
     {
         $query = Professor::find();
+        
+        // join Funktion,um die Professortabelle und Benutzertabelle zu verbinden, dann suchen und sortieren
+        $query->join('INNER JOIN','Benutzer','Benutzer.MarterikelNr=Professor.MarterikelNr');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            // wie viel Inhalt pro Seite einzustellen
+            'pagination' => [
+                'pageSize'=>20
+            ],
+            // Sortieren nach folgende Attribute
+            'sort' => [
+                'defaultOrder' => [
+                    'MarterikelNr' => SORT_ASC,
+                ],
+                'attributes' => [
+                    'MarterikelNr',
+                    'vorname',
+                    'nachname',
+                    'benutzername',
+                ],
+            ],
+            
         ]);
 
         if (!($this->load($params) && $this->validate())) {
@@ -39,10 +70,16 @@ class ProfessorSuchen extends Professor
         }
 
         $query->andFilterWhere([
-            'MarterikelNr' => $this->MarterikelNr,
+            'Professor.MarterikelNr' => $this->MarterikelNr,
         ]);
 
-        $query->andFilterWhere(['like', 'Buero', $this->Buero]);
+        //$query->andFilterWhere(['like', 'Buero', $this->Buero]);
+        
+        //Such nach gegebene Wort in joinene Tabelle
+        $query->andFilterWhere(['like','Benutzer.Benutzername',$this->benutzername])
+        ->andFilterWhere(['like','Benutzer.email',$this->email])
+        ->andFilterWhere(['like','Benutzer.Vorname',$this->vorname])
+        ->andFilterWhere(['like','Benutzer.Benutzername',$this->nachname]);
 
         return $dataProvider;
     }

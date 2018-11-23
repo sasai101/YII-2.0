@@ -114,4 +114,12 @@ class Modul extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Uebung::className(), ['ModulID' => 'ModulID']);
     }
+    
+    /*
+     * finde alle Model, gibt die gesamte Anzahl von Modul zurück
+     */ 
+    public static function alleModul()
+    {
+        return Modul::find()->count();
+    }
 }

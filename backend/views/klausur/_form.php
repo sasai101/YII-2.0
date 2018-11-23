@@ -35,25 +35,25 @@ use kartik\datecontrol\DateControl;
 
             'Max_Punkte' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Max  Punkte...']],
 
-            '1.0' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter 1 0...']],
+            'punkt1_0' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt1 0...']],
 
-            '1.3' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter 1 3...']],
+            'punkt1_3' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt1 3...']],
 
-            '1.7' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter 1 7...']],
+            'punkt1_7' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt1 7...']],
 
-            '2.0' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter 2 0...']],
+            'punkt2_0' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt2 0...']],
 
-            '2.3' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter 2 3...']],
+            'punkt2_3' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt2 3...']],
 
-            '3.0' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter 3 0...']],
+            'punkt3_0' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt3 0...']],
 
-            '3.3' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter 3 3...']],
+            'punkt3_3' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt3 3...']],
 
-            '3.7' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter 3 7...']],
+            'punkt3_7' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt3 7...']],
 
-            '4.0' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter 4 0...']],
+            'punkt4_0' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt4 0...']],
 
-            '5.0' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter 5 0...']],
+            'punkt5_0' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt5 0...']],
 
         ]
 

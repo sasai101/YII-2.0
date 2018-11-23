@@ -44,7 +44,7 @@ class VerwalterLoginForm extends Model
         if (!$this->hasErrors()) {
             $benutzer = $this->getUser();
             if (!$benutzer || !$benutzer->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, 'Flasche Benutzername oder Passwort');
             }
         }
     }
@@ -98,7 +98,7 @@ class VerwalterLoginForm extends Model
         if($this->_num===null){
             $this->_num = $model->MarterikelNr;
             if(Tutor::find()->where(['MarterikelNr'=>$this->_num])->one()!=null ){
-                $benutzer = true;  
+                $benutzer = true;
             }else if(Mitarbeiter::find()->where(['MarterikelNr'=>$this->_num])->one()!=null){
                 $benutzer = true;
             }else if(Professor::find()->where(['MarterikelNr'=>$this->_num])->one()!=null){

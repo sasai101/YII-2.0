@@ -33,25 +33,25 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'Max_Punkte') ?>
 
-    <?php // echo $form->field($model, '1.0') ?>
+    <?php // echo $form->field($model, 'punkt1_0') ?>
 
-    <?php // echo $form->field($model, '1.3') ?>
+    <?php // echo $form->field($model, 'punkt1_3') ?>
 
-    <?php // echo $form->field($model, '1.7') ?>
+    <?php // echo $form->field($model, 'punkt1_7') ?>
 
-    <?php // echo $form->field($model, '2.0') ?>
+    <?php // echo $form->field($model, 'punkt2_0') ?>
 
-    <?php // echo $form->field($model, '2.3') ?>
+    <?php // echo $form->field($model, 'punkt2_3') ?>
 
-    <?php // echo $form->field($model, '3.0') ?>
+    <?php // echo $form->field($model, 'punkt3_0') ?>
 
-    <?php // echo $form->field($model, '3.3') ?>
+    <?php // echo $form->field($model, 'punkt3_3') ?>
 
-    <?php // echo $form->field($model, '3.7') ?>
+    <?php // echo $form->field($model, 'punkt3_7') ?>
 
-    <?php // echo $form->field($model, '4.0') ?>
+    <?php // echo $form->field($model, 'punkt4_0') ?>
 
-    <?php // echo $form->field($model, '5.0') ?>
+    <?php // echo $form->field($model, 'punkt5_0') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
+use kartik\base\Widget;
 
 /**
  * @var yii\web\View $this
@@ -27,9 +28,29 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
-            'MarterikelNr',
+            //'MarterikelNr',
+            [
+                'attribute' => 'MarterikelNr',
+                'contentOptions' => ['width'=>'130px'],
+            ],
+            [
+                'attribute' => 'benutzername',
+                'label' => 'Benutzername',
+            ],
+            [
+                'attribute' => 'vorname',
+                'label' => 'Vorname',
+            ],
+            [
+                'attribute' => 'nachname',
+                'label' => 'Nachname',
+            ],
+            [
+                'attribute' => 'email',
+                'label' => 'Email',
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',
@@ -51,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
             'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
+            //'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
             'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],

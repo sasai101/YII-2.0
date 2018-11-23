@@ -15,16 +15,16 @@ use Yii;
  * @property string $Raum
  * @property string $Bezeichnung
  * @property int $Max_Punkte
- * @property int $1.0
- * @property int $1.3
- * @property int $1.7
- * @property int $2.0
- * @property int $2.3
- * @property int $3.0
- * @property int $3.3
- * @property int $3.7
- * @property int $4.0
- * @property int $5.0
+ * @property int $punkt1_0
+ * @property int $punkt1_3
+ * @property int $punkt1_7
+ * @property int $punkt2_0
+ * @property int $punkt2_3
+ * @property int $punkt3_0
+ * @property int $punkt3_3
+ * @property int $punkt3_7
+ * @property int $punkt4_0
+ * @property int $punkt5_0
  *
  * @property BenutzerAnmeldenKlausur[] $benutzerAnmeldenKlausurs
  * @property Benutzer[] $benutzerMarterikelNrs
@@ -47,8 +47,8 @@ class Klausur extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Mitarbeiter_MarterikelNr', 'ModulID', 'Kreditpunkt', 'Pruefungsdatum', 'Raum', 'Bezeichnung', 'Max_Punkte', '1.0', '1.3', '1.7', '2.0', '2.3', '3.0', '3.3', '3.7', '4.0', '5.0'], 'required'],
-            [['Mitarbeiter_MarterikelNr', 'ModulID', 'Kreditpunkt', 'Max_Punkte', '1.0', '1.3', '1.7', '2.0', '2.3', '3.0', '3.3', '3.7', '4.0', '5.0'], 'integer'],
+            [['Mitarbeiter_MarterikelNr', 'ModulID', 'Kreditpunkt', 'Pruefungsdatum', 'Raum', 'Bezeichnung', 'Max_Punkte', 'punkt1_0', 'punkt1_3', 'punkt1_7', 'punkt2_0', 'punkt2_3', 'punkt3_0', 'punkt3_3', 'punkt3_7', 'punkt4_0', 'punkt5_0'], 'required'],
+            [['Mitarbeiter_MarterikelNr', 'ModulID', 'Kreditpunkt', 'Max_Punkte', 'punkt1_0', 'punkt1_3', 'punkt1_7', 'punkt2_0', 'punkt2_3', 'punkt3_0', 'punkt3_3', 'punkt3_7', 'punkt4_0', 'punkt5_0'], 'integer'],
             [['Pruefungsdatum', 'Raum', 'Bezeichnung'], 'string', 'max' => 255],
             [['Mitarbeiter_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Mitarbeiter::className(), 'targetAttribute' => ['Mitarbeiter_MarterikelNr' => 'marterikelnr']],
             [['ModulID'], 'exist', 'skipOnError' => true, 'targetClass' => Modul::className(), 'targetAttribute' => ['ModulID' => 'ModulID']],
@@ -69,16 +69,16 @@ class Klausur extends \yii\db\ActiveRecord
             'Raum' => 'Raum',
             'Bezeichnung' => 'Bezeichnung',
             'Max_Punkte' => 'Max  Punkte',
-            '1.0' => '1 0',
-            '1.3' => '1 3',
-            '1.7' => '1 7',
-            '2.0' => '2 0',
-            '2.3' => '2 3',
-            '3.0' => '3 0',
-            '3.3' => '3 3',
-            '3.7' => '3 7',
-            '4.0' => '4 0',
-            '5.0' => '5 0',
+            'punkt1_0' => 'Punkt1 0',
+            'punkt1_3' => 'Punkt1 3',
+            'punkt1_7' => 'Punkt1 7',
+            'punkt2_0' => 'Punkt2 0',
+            'punkt2_3' => 'Punkt2 3',
+            'punkt3_0' => 'Punkt3 0',
+            'punkt3_3' => 'Punkt3 3',
+            'punkt3_7' => 'Punkt3 7',
+            'punkt4_0' => 'Punkt4 0',
+            'punkt5_0' => 'Punkt5 0',
         ];
     }
 

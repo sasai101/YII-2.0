@@ -9,7 +9,8 @@ use kartik\datecontrol\DateControl;
  * @var common\models\Benutzer $model
  */
 
-$this->title = $model->MarterikelNr;
+// Den ganzen Name von Benutzer in der Titelzeil zeigen
+$this->title = $model->Vorname." ".$model->Nachname;
 $this->params['breadcrumbs'][] = ['label' => 'Benutzers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -30,15 +31,23 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'attributes' => [
             'MarterikelNr',
+            'Benutzername',
             'email:email',
-            'password_hash',
-            'password_reset_token',
-            'auth_key',
+            //'password_hash',
+            //'password_reset_token',
+            //'auth_key',
             'Vorname',
             'Nachname',
-            'created_at',
-            'updated_at',
-            'Benutzername',
+            [
+                'attribute' => 'created_at',
+                'format'=>['date','php:d-m-Y H:i:s'],
+            ],
+            //'updated_at',
+            [
+                'attribute' => 'updated_at',
+                'format'=>['date','php:d-m-Y H:i:s'],
+            ],
+            
         ],
         'deleteOptions' => [
             'url' => ['delete', 'id' => $model->MarterikelNr],

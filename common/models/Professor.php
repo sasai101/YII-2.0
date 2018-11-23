@@ -72,4 +72,36 @@ class Professor extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Benutzer::className(), ['marterikelnr' => 'MarterikelNr']);
     }
+    
+    /*
+     * gibt die Benutzername zurück, damit es in der Gridview von Mitarbeit, Professor, Korrektor und Totur aufrufen kann
+     */
+    public function getBenutzername()
+    {
+        return $this->marterikelNr->Benutzername;
+    }
+    
+    /*
+     * gibt die Vorname zurück, damit es in der Gridview von Mitarbeit, Professor, Korrektor und Totur aufrufen kann
+     */
+    public function getVorname()
+    {
+        return $this->marterikelNr->Vorname;
+    }
+    
+    /*
+     * gibt die Nachname zurück, damit es in der Gridview von Mitarbeit, Professor, Korrektor und Totur aufrufen kann
+     */
+    public function getNachname()
+    {
+        return $this->marterikelNr->Nachname;
+    }
+    
+    /*
+     * gibt die Email zurück, damit es in der Gridview von Mitarbeit, Professor, Korrektor und Totur aufrufen kann
+     */
+    public function getEmail()
+    {
+        return $this->marterikelNr->email;
+    }
 }

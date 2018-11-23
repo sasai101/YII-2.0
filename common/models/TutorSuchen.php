@@ -12,10 +12,18 @@ use common\models\Tutor;
  */
 class TutorSuchen extends Tutor
 {
+    
+    public function attributes()
+    {
+        return array_merge(parent::attributes(),['benutzername','email','vorname','nachname']);
+    }
+    
     public function rules()
     {
         return [
             [['MarterikelNr'], 'integer'],
+            //neue Regel für hinzufügende Attribute
+            [['benutzername','vorname','nachname','email'],'safe'],
         ];
     }
 
@@ -29,8 +37,27 @@ class TutorSuchen extends Tutor
     {
         $query = Tutor::find();
 
+        // join Funktion,um die Mitarbeitertabelle und Benutzertabelle zu verbinden, dann suchen und sortieren
+        $query->join('INNER JOIN','Benutzer','Benutzer.MarterikelNr=Tutor.MarterikelNr');
+        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            // wie viel Inhalt pro Seite einzustellen
+            'pagination' => [
+                'pageSize'=>20
+            ],
+            // Sortieren nach folgende Attribute
+            'sort' => [
+                'defaultOrder' => [
+                    'MarterikelNr' => SORT_ASC,
+                ],
+                'attributes' => [
+                    'MarterikelNr',
+                    'vorname',
+                    'nachname',
+                    'benutzername',
+                ],
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {
@@ -38,8 +65,14 @@ class TutorSuchen extends Tutor
         }
 
         $query->andFilterWhere([
-            'MarterikelNr' => $this->MarterikelNr,
+            'Tutor.MarterikelNr' => $this->MarterikelNr,
         ]);
+        
+        $query->andFilterWhere(['like','Benutzer.Benutzername',$this->benutzername])
+        ->andFilterWhere(['like','Benutzer.email',$this->email])
+        ->andFilterWhere(['like','Benutzer.Vorname',$this->vorname])
+        ->andFilterWhere(['like','Benutzer.Benutzername',$this->nachname]);
+        
 
         return $dataProvider;
     }

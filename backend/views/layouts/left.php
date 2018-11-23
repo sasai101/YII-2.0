@@ -1,3 +1,6 @@
+<?php 
+use common\models\Modul;
+?>
 <aside class="main-sidebar">
 
     <section class="sidebar">
@@ -31,7 +34,7 @@
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
                     ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
-                    ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
+                    ['label' => 'Gii', 'icon' => 'glyphicon glyphicon-user', 'url' => ['/gii']],
                     ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                     [
@@ -52,12 +55,39 @@
                                         'icon' => 'circle-o',
                                         'url' => '#',
                                         'items' => [
-                                            ['label' => 'Level Three', 'icon' => 'circle-o', 'url' => '#',],
+                                            ['label' => 'Level Three', 'icon' => 'glyphicon glyphicon-user', 'url' => '#',],
                                             ['label' => 'Level Three', 'icon' => 'circle-o', 'url' => '#',],
                                         ],
                                     ],
                                 ],
                             ],
+                        ],
+                    ],
+                    [
+                        'label' => 'Alle Benutzer',
+                        'icon' => 'users',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Benutzer', 'icon' => 'user', 'url'=>['/benutzer/index']],
+                            ['label' => 'Mitarbeiter', 'icon' => 'user', 'url'=>['/mitarbeiter/index']],
+                            ['label' => 'Professor', 'icon' => 'user', 'url'=>['/professor/index']],
+                            ['label' => 'Tutor', 'icon' => 'user', 'url'=>['/tutor/index']],
+                            ['label' => 'Korrektor', 'icon' => 'user', 'url'=>['/korrektor/index']]
+                        ],
+                    ],
+                    
+                                        
+                    [
+                        'label' => 'Übung',
+                        'icon' => 'users',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Übungsgruppe', 'icon' => 'group', 'url'=>['/uebungsgruppe/index']],
+                            ['label' => 'Übungsabgabe', 'icon' => 'user', 'url'=>['/abgabe/index']],
+                            ['label' => 'Einzelaufgabe', 'icon' => 'user', 'url'=>['/einzelaufgabe/index']],
+                            ['label' => 'ÜbungsgruppeTeilnehmen', 'icon' => 'user', 'url'=>['/modul-anmelden-benutzer/index']],
+                            ['label' => 'Übungsbältter', 'icon' => 'file-pdf-o', 'url'=>['/uebungsblaetter/index']],
+                            ['label' => 'Übungen', 'icon' => 'user', 'url'=>['/uebung/index']]
                         ],
                     ],
                 ],

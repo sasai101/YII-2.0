@@ -22,14 +22,44 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?php /* echo Html::a('Create Mitarbeiter', ['create'], ['class' => 'btn btn-success'])*/  ?>
     </p>
+    
+    <?php //$searchModel = new common\models\Benutzer();?>
 
     <?php Pjax::begin(); echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
-            'MarterikelNr',
+            //'MarterikelNr',
+            [
+                'attribute' => 'MarterikelNr',
+                'contentOptions'=>['width'=>'130px'],
+            ],
+            //'benutzername',
+            [
+                'attribute' => 'benutzername',
+                'label' => 'Benutzername',
+                'value' => 'benutzername',
+            ],
+            //'email',
+            [
+                'attribute' => 'email',
+                'label' => 'Email',
+                'value' => 'email'
+            ],
+            //'vorname',
+            [
+                'attribute' => 'vorname',
+                'label' => 'Vorname',
+                'value' => 'vorname'
+            ],
+            //'nachname',
+            [
+                'attribute' => 'nachname',
+                'label' => 'Nachname',
+                'value' => 'nachname'
+            ],
             'Buero',
 
             [
@@ -52,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
             'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
+            //'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
             'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],

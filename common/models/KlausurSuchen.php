@@ -15,7 +15,7 @@ class KlausurSuchen extends Klausur
     public function rules()
     {
         return [
-            [['KlausurID', 'Mitarbeiter_MarterikelNr', 'ModulID', 'Kreditpunkt', 'Max_Punkte', '1.0', '1.3', '1.7', '2.0', '2.3', '3.0', '3.3', '3.7', '4.0', '5.0'], 'integer'],
+            [['KlausurID', 'Mitarbeiter_MarterikelNr', 'ModulID', 'Kreditpunkt', 'Max_Punkte', 'punkt1_0', 'punkt1_3', 'punkt1_7', 'punkt2_0', 'punkt2_3', 'punkt3_0', 'punkt3_3', 'punkt3_7', 'punkt4_0', 'punkt5_0'], 'integer'],
             [['Pruefungsdatum', 'Raum', 'Bezeichnung'], 'safe'],
         ];
     }
@@ -44,16 +44,16 @@ class KlausurSuchen extends Klausur
             'ModulID' => $this->ModulID,
             'Kreditpunkt' => $this->Kreditpunkt,
             'Max_Punkte' => $this->Max_Punkte,
-            '1.0' => $this->1.0,
-            '1.3' => $this->1.3,
-            '1.7' => $this->1.7,
-            '2.0' => $this->2.0,
-            '2.3' => $this->2.3,
-            '3.0' => $this->3.0,
-            '3.3' => $this->3.3,
-            '3.7' => $this->3.7,
-            '4.0' => $this->4.0,
-            '5.0' => $this->5.0,
+            'punkt1_0' => $this->punkt1_0,
+            'punkt1_3' => $this->punkt1_3,
+            'punkt1_7' => $this->punkt1_7,
+            'punkt2_0' => $this->punkt2_0,
+            'punkt2_3' => $this->punkt2_3,
+            'punkt3_0' => $this->punkt3_0,
+            'punkt3_3' => $this->punkt3_3,
+            'punkt3_7' => $this->punkt3_7,
+            'punkt4_0' => $this->punkt4_0,
+            'punkt5_0' => $this->punkt5_0,
         ]);
 
         $query->andFilterWhere(['like', 'Pruefungsdatum', $this->Pruefungsdatum])

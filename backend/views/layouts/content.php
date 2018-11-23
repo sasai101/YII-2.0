@@ -10,6 +10,7 @@ use dmstr\widgets\Alert;
         <?php } else { ?>
             <h1>
                 <?php
+                /*
                 if ($this->title !== null) {
                     echo \yii\helpers\Html::encode($this->title);
                 } else {
@@ -17,7 +18,9 @@ use dmstr\widgets\Alert;
                         \yii\helpers\Inflector::id2camel($this->context->module->id)
                     );
                     echo ($this->context->module->id !== \Yii::$app->id) ? '<small>Module</small>' : '';
-                } ?>
+                }
+                */ 
+                ?>
             </h1>
         <?php } ?>
 

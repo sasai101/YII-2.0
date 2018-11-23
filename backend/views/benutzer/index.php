@@ -27,18 +27,30 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
-            'MarterikelNr',
+            //'MarterikelNr',
+            [
+                'attribute'=>'MarterikelNr',
+                'label'=>'Marterikel Nr.'
+            ],
+            'Benutzername', 
             'email:email',
-            'password_hash',
-            'password_reset_token',
-            'auth_key',
-//            'Vorname', 
-//            'Nachname', 
-//            'created_at', 
-//            'updated_at', 
-//            'Benutzername', 
+            //'password_hash',
+            //'password_reset_token',
+            //'auth_key',
+            'Vorname', 
+            'Nachname', 
+            //'created_at', 
+            [
+                'attribute' => 'created_at',
+                'format'=>['date','php:d-m-Y H:i:s'],
+            ],
+            //'updated_at', 
+            [
+                'attribute' => 'updated_at',
+                'format'=>['date','php:d-m-Y H:i:s'],
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',

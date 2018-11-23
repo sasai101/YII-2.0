@@ -9,7 +9,8 @@ use kartik\datecontrol\DateControl;
  * @var common\models\Professor $model
  */
 
-$this->title = $model->MarterikelNr;
+// Die Name von Mitarbeiter in der Titelposition zu zeigen
+$this->title = $model->marterikelNr->Vorname." ".$model->marterikelNr->Nachname;
 $this->params['breadcrumbs'][] = ['label' => 'Professors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -30,6 +31,22 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'attributes' => [
             'MarterikelNr',
+            [
+                'label' => 'Benutzername',
+                'value' => $model->marterikelNr->Benutzername,
+            ],
+            [
+                'label' => 'Vorname',
+                'value' => $model->marterikelNr->Vorname,
+            ],
+            [
+                'label' => 'Nachname',
+                'value' => $model->marterikelNr->Nachname,
+            ],
+            [
+                'label' => 'Email',
+                'value' => $model->marterikelNr->email,
+            ],
             'Buero',
         ],
         'deleteOptions' => [
