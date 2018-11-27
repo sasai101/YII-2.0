@@ -1,5 +1,5 @@
 <?php 
-use common\models\Modul;
+use backend\controllers\ModulController;
 ?>
 <aside class="main-sidebar">
 
@@ -32,9 +32,11 @@ use common\models\Modul;
         <?= dmstr\widgets\Menu::widget(
             [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
+                
                 'items' => [
                     ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
                     ['label' => 'Gii', 'icon' => 'glyphicon glyphicon-user', 'url' => ['/gii']],
+                    /*
                     ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                     [
@@ -63,17 +65,32 @@ use common\models\Modul;
                             ],
                         ],
                     ],
+                    */
+                    [
+                        'label' => 'Hauptseite',
+                        'icon' => 'bar-chart',
+                        'url' => ['/site/index'],
+                    ],
+                    // Benutzer Menue
                     [
                         'label' => 'Alle Benutzer',
                         'icon' => 'users',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Benutzer', 'icon' => 'user', 'url'=>['/benutzer/index']],
+                            ['label' => 'Alle Benutzer', 'icon' => 'user', 'url'=>['/benutzer/index']],
                             ['label' => 'Mitarbeiter', 'icon' => 'user', 'url'=>['/mitarbeiter/index']],
                             ['label' => 'Professor', 'icon' => 'user', 'url'=>['/professor/index']],
                             ['label' => 'Tutor', 'icon' => 'user', 'url'=>['/tutor/index']],
                             ['label' => 'Korrektor', 'icon' => 'user', 'url'=>['/korrektor/index']]
                         ],
+                    ],
+                    // Dynamische Meue für Modul
+                    [
+                        'label' => 'Modul',
+                        'icon' => 'mortar-board',
+                        'url' => ['/modul/index'],
+                        // Aufruf von der funkiton Menue() in ModulControlle-Klasse
+                        'items' => ModulController::Menue(),
                     ],
                     
                                         

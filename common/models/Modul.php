@@ -21,6 +21,7 @@ use Yii;
  */
 class Modul extends \yii\db\ActiveRecord
 {
+    
     /**
      * {@inheritdoc}
      */
@@ -122,4 +123,5 @@ class Modul extends \yii\db\ActiveRecord
     {
         return Modul::find()->count();
     }
+   
 }

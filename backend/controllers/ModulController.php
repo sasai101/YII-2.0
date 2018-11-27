@@ -8,12 +8,45 @@ use common\models\ModulSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\db\Query;
 /**
  * ModulController implements the CRUD actions for Modul model.
  */
 class ModulController extends Controller
 {
+    
+    /*
+     * Dynamishce Menue zu zeigen
+     */
+    public static function Menue()
+    {
+        $items = (new Query())
+                ->select(['Bezeichnung'])
+                ->from('modul')
+                ->all();
+      
+        $menueItems = [];
+        foreach ($items as $key=>$value){
+            
+            //echo "<pre>";
+            //var_dump($value['Bezeichnung']);
+            //echo "</pre>";
+            //exit(0);
+            
+            $menueItems[] = 
+            [
+                'label' => $value['Bezeichnung'],
+                'icon'=>'info',
+                'url'=>['modul/index']
+            ];
+        }
+        //echo "<pre>";
+        //var_dump($menueItems);
+        //echo "</pre>";
+        //exit(0);
+        return $menueItems;
+    }
+    
     public function behaviors()
     {
         return [

@@ -2,6 +2,8 @@
 
 /* @var $this yii\web\View */
 
+use yii\bootstrap\Modal;
+
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">

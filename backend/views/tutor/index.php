@@ -41,12 +41,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Benutzername',
                 'value' => 'benutzername',
             ],
-            //'email',
-            [
-                'attribute' => 'email',
-                'label' => 'Email',
-                'value' => 'email'
-            ],
             //'vorname',
             [
                 'attribute' => 'vorname',
@@ -58,6 +52,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'nachname',
                 'label' => 'Nachname',
                 'value' => 'nachname'
+            ],
+            //'email',
+            [
+                'attribute' => 'email',
+                'label' => 'Email',
+                'value' => 'email'
             ],
 
             [

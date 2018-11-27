@@ -106,6 +106,21 @@ class BenutzerController extends Controller
 
         return $this->redirect(['index']);
     }
+    
+    public function actionProfiev()
+    {
+        
+        
+        return $this->renderAjax('profiev');
+        /*
+        $model = \Yii::$app->user->identity->Vorname;
+        echo "<pre>";
+        print_r($model);
+        echo "</pre>";
+        exit(0);
+        */
+    }
+    
 
     /**
      * Finds the Benutzer model based on its primary key value.

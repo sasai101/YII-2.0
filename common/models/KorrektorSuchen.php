@@ -46,6 +46,22 @@ class KorrektorSuchen extends Korrektor
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            // Seitenverteilung
+            'pagination' => [
+                'pageSize'=>20
+            ],
+            // sortieren nach Vorname Nachname, Benutzername und Marterikelnr
+            'sort' => [
+                'defaultOrder' => [
+                    'MarterikelNr' => SORT_ASC,
+                ],
+                'attributes' => [
+                    'MarterikelNr',
+                    'vorname',
+                    'nachname',
+                    'benutzername',
+                ],
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {

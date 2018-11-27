@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
@@ -35,12 +36,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>'Marterikel Nr.'
             ],
             'Benutzername', 
-            'email:email',
             //'password_hash',
             //'password_reset_token',
             //'auth_key',
             'Vorname', 
-            'Nachname', 
+            'Nachname',
+            'email:email',
             //'created_at', 
             [
                 'attribute' => 'created_at',
@@ -72,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
             'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
+            //'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
             'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],

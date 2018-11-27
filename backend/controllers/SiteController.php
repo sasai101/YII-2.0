@@ -12,6 +12,7 @@ use common\models\VerwalterLoginForm;
  */
 class SiteController extends Controller
 {
+    
     /**
      * {@inheritdoc}
      */
@@ -62,6 +63,7 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
+    
 
     /**
      * Login action.
@@ -97,4 +99,5 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+    
 }

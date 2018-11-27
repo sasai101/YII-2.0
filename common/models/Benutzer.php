@@ -5,8 +5,6 @@ namespace common\models;
 use Yii;
 use yii\web\IdentityInterface;
 use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "benutzer".
@@ -21,6 +19,7 @@ use yii\db\ActiveRecord;
  * @property int $created_at
  * @property int $updated_at
  * @property string $Benutzername
+ * * @property string $Passwort 
  *
  * @property Abgabe[] $abgabes
  * @property BenutzerAnmeldenKlausur[] $benutzerAnmeldenKlausurs
@@ -51,10 +50,10 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['Benutzername', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
+            [['Benutzername', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at', 'Passwort'], 'required'],
             [['MarterikelNr','created_at', 'updated_at'], 'integer'],
             //[['Benutzername', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
-            [['email', 'password_hash', 'password_reset_token', 'Vorname', 'Nachname', 'Benutzername'], 'string', 'max' => 255],
+            [['email', 'password_hash', 'password_reset_token', 'Vorname', 'Nachname', 'Benutzername', 'Passwort'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
             
             [['Benutzername'], 'unique'],
@@ -80,6 +79,7 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'Benutzername' => 'Benutzername',
+            'Passwort' => 'Passwort', 
         ];
     }
     public static function findIdentity($MarterikelNr)
