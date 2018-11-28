@@ -8,7 +8,8 @@ use common\models\BenutzerSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use backend\models\PasswortVerandern;
+use backend\models\ProfieVerandern;
 /**
  * BenutzerController implements the CRUD actions for Benutzer model.
  */
@@ -69,7 +70,7 @@ class BenutzerController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->MarterikelNr]);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }
@@ -106,21 +107,6 @@ class BenutzerController extends Controller
 
         return $this->redirect(['index']);
     }
-    
-    public function actionProfiev()
-    {
-        
-        
-        return $this->renderAjax('profiev');
-        /*
-        $model = \Yii::$app->user->identity->Vorname;
-        echo "<pre>";
-        print_r($model);
-        echo "</pre>";
-        exit(0);
-        */
-    }
-    
 
     /**
      * Finds the Benutzer model based on its primary key value.
@@ -137,4 +123,54 @@ class BenutzerController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    
+    /*
+     * Action für Profieveränderung für eingeloggten Person
+     */
+    public function actionProfiev()
+    {
+        $model = new ProfieVerandern();
+        
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->passwortZurucksetzen(\Yii::$app->user->getId()))
+            {
+                return $this->redirect(['index']);
+            }
+        }
+         
+        return $this->renderAjax('profiev',[
+            'model'=>$model
+            
+        ]);
+        /*
+         $model = \Yii::$app->user->identity->Vorname;
+         echo "<pre>";
+         print_r($model);
+         echo "</pre>";
+         exit(0);
+         */
+    }
+    
+    /*
+     * Action für Passwortveränderung für alle benutzer
+     */
+    public function actionPasswortveranderung($id)
+    {
+        $model = new PasswortVerandern();
+        
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->passwortZurucksetzen($id))
+            {
+                return $this->redirect(['index']);
+            }
+        }
+        
+        return $this->renderAjax('passwortveranderung', [
+            'model' => $model,
+        ]);
+    }
+    
 }

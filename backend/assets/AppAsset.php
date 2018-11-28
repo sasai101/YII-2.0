@@ -15,7 +15,8 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
-        'js/modal.js'
+        'js/modal.js',
+        //'js/passwortModal.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

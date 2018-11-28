@@ -312,7 +312,7 @@ use yii\helpers\Url;
     -->
     <?php
         Modal::begin([
-            'header' => '<h2>Ticket123 Manager</h2>',
+            'header' => '<h2>Profieverändern</h2>',
             'id' => 'modal',
             'size' => 'modal-lg',
         ]);
