@@ -19,7 +19,8 @@ use yii\base\NotSupportedException;
  * @property int $created_at
  * @property int $updated_at
  * @property string $Benutzername
- * * @property string $Passwort 
+ * @property string $Passwort 
+ * @property string $Profiefotoa
  *
  * @property Abgabe[] $abgabes
  * @property BenutzerAnmeldenKlausur[] $benutzerAnmeldenKlausurs
@@ -50,7 +51,7 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['Benutzername', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at', 'Passwort'], 'required'],
+            [['Benutzername', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at', 'Passwort', 'Profiefoto'], 'required'],
             [['MarterikelNr','created_at', 'updated_at'], 'integer'],
             //[['Benutzername', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             [['email', 'password_hash', 'password_reset_token', 'Vorname', 'Nachname', 'Benutzername', 'Passwort'], 'string', 'max' => 255],
@@ -80,6 +81,7 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
             'updated_at' => 'Updated At',
             'Benutzername' => 'Benutzername',
             'Passwort' => 'Passwort', 
+            'Profiefotoa' => 'Profiefoto',
         ];
     }
     public static function findIdentity($MarterikelNr)

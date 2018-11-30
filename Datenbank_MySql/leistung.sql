@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 28, 2018 at 05:16 PM
+-- Generation Time: Nov 30, 2018 at 12:20 PM
 -- Server version: 8.0.12
 -- PHP Version: 7.2.9
 
@@ -54,24 +54,25 @@ CREATE TABLE `benutzer` (
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
   `Benutzername` varchar(255) NOT NULL,
-  `Passwort` varchar(255) NOT NULL
+  `Passwort` varchar(255) NOT NULL,
+  `Profiefoto` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `benutzer`
 --
 
-INSERT INTO `benutzer` (`MarterikelNr`, `email`, `password_hash`, `password_reset_token`, `auth_key`, `Vorname`, `Nachname`, `created_at`, `updated_at`, `Benutzername`, `Passwort`) VALUES
-(2000001, 'jogi.loew@hhu.de', '$2y$13$dpgf4MjTMYNaOA1I4.1efe9uhQnIK7krHrHOTdkIWVBlrCh5E90me', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Jogi', 'Löw', 1442998314, 1442998314, 'jolw201', '*'),
-(2000002, 'klarissa.wolf@hhu.de', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Klarissa', 'Wolf', 1442998314, 1442998314, 'klawo202', ''),
-(2000003, 'kim.akers@hhu.de', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Kim', 'Akers', 1442998314, 1442998314, 'kiake203', ''),
-(2000004, 'andy.brauninger@hhu.de', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Andy', 'Brauninger', 1442998314, 1442998314, 'anbra204', ''),
-(2000005, 'saisai@hhu.com', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'saiyinwuchari', 'saiyinwuchari', 1442998314, 1442998314, 'sasai205', ''),
-(2000006, 'maggi.carttido@hhu.de', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Maggi', 'Carttido', 1442998314, 1442998314, 'magca206', ''),
-(2000007, 'alex.darrow@hhu.de', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Alex', 'Darrow', 1442998314, 1442998314, 'aldar207', ''),
-(2000008, 'qin.ying@hhu.de', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Qin', 'Ying', 1442998314, 1442998314, 'qying208', ''),
-(2000009, 'qiyhi.gao@hhu.de', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Qizhi', 'Gao', 1442998314, 1442998314, 'qzgao209', ''),
-(2000010, 'siwei.liu@hhu.de', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Siwe', 'Liu', 1442998314, 1442998314, 'swliu210', '');
+INSERT INTO `benutzer` (`MarterikelNr`, `email`, `password_hash`, `password_reset_token`, `auth_key`, `Vorname`, `Nachname`, `created_at`, `updated_at`, `Benutzername`, `Passwort`, `Profiefoto`) VALUES
+(2000001, 'jogi.loew@hhu.de', '$2y$13$dpgf4MjTMYNaOA1I4.1efe9uhQnIK7krHrHOTdkIWVBlrCh5E90me', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Jogi', 'Löw', 1442998314, 1442998314, 'jolw201', '*', ''),
+(2000002, 'klarissa.wolf@hhu.de', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Klarissa', 'Wolf', 1442998314, 1442998314, 'klawo202', '', ''),
+(2000003, 'kim.akers@hhu.de', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Kim', 'Akers', 1442998314, 1442998314, 'kiake203', '', ''),
+(2000004, 'andy.brauninger@hhu.de', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Andy', 'Brauninger', 1442998314, 1442998314, 'anbra204', '', ''),
+(2000005, 'saisai@hhu.com', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'saiyinwuchari', 'saiyinwuchari', 1442998314, 1442998314, 'sasai205', '', ''),
+(2000006, 'maggi.carttido@hhu.de', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Maggi', 'Carttido', 1442998314, 1442998314, 'magca206', '', ''),
+(2000007, 'alex.darrow@hhu.de', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Alex', 'Darrow', 1442998314, 1442998314, 'aldar207', '', ''),
+(2000008, 'qin.ying@hhu.de', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Qin', 'Ying', 1442998314, 1442998314, 'qying208', '', ''),
+(2000009, 'qiyhi.gao@hhu.de', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Qizhi', 'Gao', 1442998314, 1442998314, 'qzgao209', '', ''),
+(2000010, 'siwei.liu@hhu.de', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Siwe', 'Liu', 1442998314, 1442998314, 'swliu210', '', '');
 
 -- --------------------------------------------------------
 
@@ -563,21 +564,21 @@ ALTER TABLE `uebungsgruppe`
 -- Constraints for table `abgabe`
 --
 ALTER TABLE `abgabe`
-  ADD CONSTRAINT `abgabe_ibfk_1` FOREIGN KEY (`Benutzer_MarterikelNr`) REFERENCES `benutzer` (`marterikelnr`),
+  ADD CONSTRAINT `abgabe_ibfk_1` FOREIGN KEY (`Benutzer_MarterikelNr`) REFERENCES `benutzer` (`MarterikelNr`),
   ADD CONSTRAINT `abgabe_ibfk_2` FOREIGN KEY (`Korrektor_MarterikelNr`) REFERENCES `korrektor` (`marterikelnr`);
 
 --
 -- Constraints for table `benutzer_anmelden_klausur`
 --
 ALTER TABLE `benutzer_anmelden_klausur`
-  ADD CONSTRAINT `benutzer_anmelden_klausur_ibfk_1` FOREIGN KEY (`Benutzer_MarterikelNr`) REFERENCES `benutzer` (`marterikelnr`),
+  ADD CONSTRAINT `benutzer_anmelden_klausur_ibfk_1` FOREIGN KEY (`Benutzer_MarterikelNr`) REFERENCES `benutzer` (`MarterikelNr`),
   ADD CONSTRAINT `benutzer_anmelden_klausur_ibfk_2` FOREIGN KEY (`KlausurID`) REFERENCES `klausur` (`KlausurID`);
 
 --
 -- Constraints for table `benutzer_teilnimmt_uebungsgruppe`
 --
 ALTER TABLE `benutzer_teilnimmt_uebungsgruppe`
-  ADD CONSTRAINT `benutzer_teilnimmt_uebungsgruppe_ibfk_1` FOREIGN KEY (`Benuter_MarterikelNr`) REFERENCES `benutzer` (`marterikelnr`),
+  ADD CONSTRAINT `benutzer_teilnimmt_uebungsgruppe_ibfk_1` FOREIGN KEY (`Benuter_MarterikelNr`) REFERENCES `benutzer` (`MarterikelNr`),
   ADD CONSTRAINT `benutzer_teilnimmt_uebungsgruppe_ibfk_2` FOREIGN KEY (`UebungsgruppeID`) REFERENCES `uebungsgruppe` (`UebungsgruppeID`);
 
 --
@@ -598,27 +599,27 @@ ALTER TABLE `klausur`
 -- Constraints for table `klausurnote`
 --
 ALTER TABLE `klausurnote`
-  ADD CONSTRAINT `klausurnote_ibfk_1` FOREIGN KEY (`Benutzer_MarterikelNr`) REFERENCES `benutzer` (`marterikelnr`),
+  ADD CONSTRAINT `klausurnote_ibfk_1` FOREIGN KEY (`Benutzer_MarterikelNr`) REFERENCES `benutzer` (`MarterikelNr`),
   ADD CONSTRAINT `klausurnote_ibfk_2` FOREIGN KEY (`Mitarbeiter_MarterikelNr`) REFERENCES `mitarbeiter` (`marterikelnr`);
 
 --
 -- Constraints for table `korrektor`
 --
 ALTER TABLE `korrektor`
-  ADD CONSTRAINT `korrektor_ibfk_1` FOREIGN KEY (`MarterikelNr`) REFERENCES `benutzer` (`marterikelnr`);
+  ADD CONSTRAINT `korrektor_ibfk_1` FOREIGN KEY (`MarterikelNr`) REFERENCES `benutzer` (`MarterikelNr`);
 
 --
 -- Constraints for table `mitarbeiter`
 --
 ALTER TABLE `mitarbeiter`
-  ADD CONSTRAINT `mitarbeiter_ibfk_1` FOREIGN KEY (`MarterikelNr`) REFERENCES `benutzer` (`marterikelnr`);
+  ADD CONSTRAINT `mitarbeiter_ibfk_1` FOREIGN KEY (`MarterikelNr`) REFERENCES `benutzer` (`MarterikelNr`);
 
 --
 -- Constraints for table `modul_anmelden_benutzer`
 --
 ALTER TABLE `modul_anmelden_benutzer`
   ADD CONSTRAINT `modul_anmelden_benutzer_ibfk_1` FOREIGN KEY (`ModulID`) REFERENCES `modul` (`ModulID`),
-  ADD CONSTRAINT `modul_anmelden_benutzer_ibfk_2` FOREIGN KEY (`Benutzer_MarterikelNr`) REFERENCES `benutzer` (`marterikelnr`);
+  ADD CONSTRAINT `modul_anmelden_benutzer_ibfk_2` FOREIGN KEY (`Benutzer_MarterikelNr`) REFERENCES `benutzer` (`MarterikelNr`);
 
 --
 -- Constraints for table `modul_gehoert_klausurnote`
@@ -638,13 +639,13 @@ ALTER TABLE `modul_leitet_professor`
 -- Constraints for table `professor`
 --
 ALTER TABLE `professor`
-  ADD CONSTRAINT `professor_ibfk_1` FOREIGN KEY (`MarterikelNr`) REFERENCES `benutzer` (`marterikelnr`);
+  ADD CONSTRAINT `professor_ibfk_1` FOREIGN KEY (`MarterikelNr`) REFERENCES `benutzer` (`MarterikelNr`);
 
 --
 -- Constraints for table `tutor`
 --
 ALTER TABLE `tutor`
-  ADD CONSTRAINT `tutor_ibfk_1` FOREIGN KEY (`MarterikelNr`) REFERENCES `benutzer` (`marterikelnr`);
+  ADD CONSTRAINT `tutor_ibfk_1` FOREIGN KEY (`MarterikelNr`) REFERENCES `benutzer` (`MarterikelNr`);
 
 --
 -- Constraints for table `uebung`
