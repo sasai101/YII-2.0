@@ -69,7 +69,7 @@ use backend\controllers\ModulController;
                     [
                         'label' => 'Hauptseite',
                         'icon' => 'bar-chart',
-                        'url' => ['/site/index'],
+                        'url' => ['/benutzer/hauptseite'],
                     ],
                     // Benutzer Menue
                     [

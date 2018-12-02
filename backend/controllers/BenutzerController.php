@@ -152,6 +152,20 @@ class BenutzerController extends Controller
          exit(0);
          */
     }
+
+    /*
+    * Action fuer Hauptseite
+    */
+    public function actionHauptseite()
+    {
+        $searchModel = new BenutzerSuchen;
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+
+        return $this->render('hauptseite', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
     
     /*
      * Action für Passwortveränderung für alle benutzer
