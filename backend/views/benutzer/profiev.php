@@ -21,6 +21,13 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="benutzer-form">
 		
 		    <?php $form = ActiveForm::begin(); ?>
+
+
+		    <?= $form->field($model, 'Vorname')->textInput(['maxlength' => true]) ?>
+
+		    <?= $form->field($model, 'Nachname')->textInput(['maxlength' => true]) ?>
+
+		    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 		 		
 		    <?= $form->field($model, 'Passwort')->passwordInput(['maxlength' => true]) ?>
 		    
@@ -33,6 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
 		    <?php ActiveForm::end(); ?>
 		
 		</div>
+
+
     
 
 </div>

@@ -81,7 +81,7 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
             'updated_at' => 'Updated At',
             'Benutzername' => 'Benutzername',
             'Passwort' => 'Passwort', 
-            'Profiefotoa' => 'Profiefoto',
+            'Profiefoto' => 'Profiefoto',
         ];
     }
     public static function findIdentity($MarterikelNr)
@@ -303,4 +303,46 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->hasOne(Tutor::className(), ['MarterikelNr' => 'marterikelnr']);
     }
+
+    /*
+    * Funktion, um die anderte Attribute zu veraendern
+    */
+    public function setVorname($Vorname)
+    {
+        $this->Vorname = $Vorname;
+    }
+    public function setNachname($Nachname)
+    {
+        $this->Nachname = $Nachname;
+    }
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /*
+    * die befrsave Funktion umschreiben ,damit die datein richtig und automatisch gespeichert zu werden
+    */
+    public function beforeSave($insert)
+    {
+        // die orignale Funktion erstmal durchfueren,
+        if(parent::beforeSave($insert))
+        {
+            //um sich zu entscheiden ,ob es ein neue Kunde ist oder alte
+            if($insert)
+            {
+                $this->created_at = time();
+                $this->updated_at = time();
+            }
+            else 
+            {
+                $this->updated_at = time();
+            }
+            return true; 
+        }
+        else 
+        {
+            return false;
+        }
+    } 
 }

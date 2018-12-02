@@ -131,6 +131,9 @@ class BenutzerController extends Controller
     public function actionProfiev()
     {
         $model = new ProfieVerandern();
+        $model->Vorname = Yii::$app->user->identity->Vorname;
+        $model->Nachname = Yii::$app->user->identity->Nachname;
+        $model->email = Yii::$app->user->identity->email;
         
         if ($model->load(Yii::$app->request->post())) {
             
@@ -140,7 +143,7 @@ class BenutzerController extends Controller
             }
         }
          
-        return $this->renderAjax('profiev',[
+        return $this->render('profiev',[
             'model'=>$model
             
         ]);
