@@ -1,8 +1,6 @@
 <?php
 
-use yii\bootstrap\Modal;
 use yii\helpers\Html;
-use yii\helpers\Url;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
 
@@ -72,12 +70,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             'title'=>Yii::t('yii','Passwortverändern'),
                             'aria-label'=>Yii::t('yii','Passwortverändern'),
                             'data-pjax'=>'0',
-                            'data-toggle' => 'modal',
-                            'data-target' => '#passwort-modal',
-                            'class' => 'passwort-update',
-                            'data-id' => $key,
+                            
                         ];
-                        return Html::a('<span class="glyphicon glyphicon-lock"></span>','#',$options);
+                        return Html::a('<span class="glyphicon glyphicon-lock"></span>',$url,$options);
                     },
                 
                     'befugnis'=>function($url,$model,$key)
@@ -108,25 +103,4 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 
-<?php
-    $requestUpdateUrl = Url::toRoute('passwortveranderung');
-    $updateJs = <<<JS
-    $('.passwort-update').on('click', function () {
-        $.get('{$requestUpdateUrl}', { id: $(this).closest('tr').data('key') },
-            function (data) {
-                $('.modal-body').html(data);
-            }
-        );
-    });
-JS;
-    $this->registerJs($updateJs);
-    
- ?>
-
-<?php Modal::begin([
-    'id' => 'passwort-modal',
-    'header' => '<h4 class="modal-title">Passwort Verändern</h4>',
-    //'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
-]);
-Modal::end();?>
 

@@ -21,21 +21,21 @@ use kartik\datecontrol\DateControl;
         'columns' => 1,
         'attributes' => [
 
-            'Benutzername' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Benutzername...', 'maxlength' => 255]],
+            //'Benutzername' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Benutzername...', 'maxlength' => 255]],
 
-            'auth_key' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Auth Key...', 'maxlength' => 32]],
+            //'auth_key' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Auth Key...', 'maxlength' => 32]],
 
-            'password_hash' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Password Hash...', 'maxlength' => 255]],
+            //'password_hash' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Password Hash...', 'maxlength' => 255]],
 
             'email' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Email...', 'maxlength' => 255]],
 
-            'created_at' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Created At...']],
+            //'created_at' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Created At...']],
 
-            'updated_at' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Updated At...']],
+            //'updated_at' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Updated At...']],
 
-            'MarterikelNr' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Marterikel Nr...']],
+            //'MarterikelNr' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Marterikel Nr...']],
 
-            'password_reset_token' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Password Reset Token...', 'maxlength' => 255]],
+            //'password_reset_token' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Password Reset Token...', 'maxlength' => 255]],
 
             'Vorname' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Vorname...', 'maxlength' => 255]],
 

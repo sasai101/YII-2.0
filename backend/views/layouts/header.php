@@ -279,11 +279,9 @@ use yii\helpers\Url;
                             <!-- 
                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
                                 -->
-                                <?= Html::a(
-                                    'Profieveränderung',
-                                    ['/benutzer/profiev'],
-                                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
-                                );?>
+                                <p>
+                                 <?= Html::button('Profie',['value'=>Url::to('index.php?r=benutzer/profieview'),'class' =>'btn btn-default','id' => 'modalButton'])?>
+                                 </p>
                             </div>
                                  
                             <div class="pull-right">
@@ -313,7 +311,7 @@ use yii\helpers\Url;
     -->
     <?php
         Modal::begin([
-            'header' => '<h2>Profieverändern</h2>',
+            'header' => '<h2>Profie</h2>',
             'id' => 'modal',
             'size' => 'modal-lg',
         ]);

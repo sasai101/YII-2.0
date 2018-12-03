@@ -107,6 +107,16 @@ use backend\controllers\ModulController;
                             ['label' => 'Übungen', 'icon' => 'user', 'url'=>['/uebung/index']]
                         ],
                     ],
+                    [
+                        'label' => 'Profie',
+                        'icon' => 'users',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Profiepasswort veranderung', 'icon' => 'group', 'url'=>['/benutzer/profiepassword']],
+                            ['label' => 'Profieänderung', 'icon' => 'user', 'url'=>['/benutzer/profieandern']],
+                            ['label' => 'Einzelaufgabe', 'icon' => 'user', 'url'=>['/einzelaufgabe/index']],
+                        ],
+                    ],
                 ],
             ]
         ) ?>

@@ -8,10 +8,10 @@ use yii\bootstrap\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Benutzer */
 /*
-$this->title = "Passwortveränderung von ";
-$this->params['breadcrumbs'][] = ['label' => 'Benutzer', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-*/
+ $this->title = "Passwortveränderung von ";
+ $this->params['breadcrumbs'][] = ['label' => 'Benutzer', 'url' => ['index']];
+ $this->params['breadcrumbs'][] = $this->title;
+ */
 ?>
 <div class="benutzer-form">
 
@@ -21,14 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="benutzer-form">
 		
 		    <?php $form = ActiveForm::begin(); ?>
-
-
-		    <?= $form->field($model, 'Vorname')->textInput(['maxlength' => true]) ?>
-
-		    <?= $form->field($model, 'Nachname')->textInput(['maxlength' => true]) ?>
-
-		    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-		 		
+		    
 		    <?= $form->field($model, 'Passwort')->passwordInput(['maxlength' => true]) ?>
 		    
 		    <?= $form->field($model, 'Passwort_widerholung')->passwordInput(['maxlength' => true]) ?>
@@ -40,8 +33,4 @@ $this->params['breadcrumbs'][] = $this->title;
 		    <?php ActiveForm::end(); ?>
 		
 		</div>
-
-
-    
-
 </div>

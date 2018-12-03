@@ -9,7 +9,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\models\PasswortVerandern;
-use backend\models\ProfieVerandern;
 /**
  * BenutzerController implements the CRUD actions for Benutzer model.
  */
@@ -124,37 +123,6 @@ class BenutzerController extends Controller
         }
     }
     
-    
-    /*
-     * Action für Profieveränderung für eingeloggten Person
-     */
-    public function actionProfiev()
-    {
-        $model = new ProfieVerandern();
-        $model->Vorname = Yii::$app->user->identity->Vorname;
-        $model->Nachname = Yii::$app->user->identity->Nachname;
-        $model->email = Yii::$app->user->identity->email;
-        
-        if ($model->load(Yii::$app->request->post())) {
-            
-            if($model->passwortZurucksetzen(\Yii::$app->user->getId()))
-            {
-                return $this->redirect(['index']);
-            }
-        }
-         
-        return $this->render('profiev',[
-            'model'=>$model
-            
-        ]);
-        /*
-         $model = \Yii::$app->user->identity->Vorname;
-         echo "<pre>";
-         print_r($model);
-         echo "</pre>";
-         exit(0);
-         */
-    }
 
     /*
     * Action fuer Hauptseite
@@ -176,18 +144,75 @@ class BenutzerController extends Controller
     public function actionPasswortveranderung($id)
     {
         $model = new PasswortVerandern();
+        $model1 = Benutzer::findOne($id);
         
         if ($model->load(Yii::$app->request->post())) {
-            
             if($model->passwortZurucksetzen($id))
             {
                 return $this->redirect(['index']);
             }
         }
         
-        return $this->renderAjax('passwortveranderung', [
+        return $this->render('passwortveranderung', [
             'model' => $model,
+            'model1' => $model1,
         ]);
     }
     
+    /*
+     * Profiepasswort zu veraendern
+     */
+    public function actionProfiepassword()
+    {
+        $model = new PasswortVerandern();
+        
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->passwortZurucksetzen(\Yii::$app->user->getId()))
+            {
+                return $this->redirect(['index']);
+            }
+        }
+        
+        return $this->render('profiepassword',[
+            'model'=>$model
+            
+        ]);
+    }
+    
+    /*
+     * Profiepasswort anzusehen
+     */
+    public function actionProfieview() 
+    {
+        $model = $this->findModel(\Yii::$app->user->getId());
+        
+         /*
+         echo "<pre>";
+         print_r($model);
+         echo "</pre>";
+         exit(0);*/
+         
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->MarterikelNr]);
+        } else {
+            return $this->renderAjax('profieview', ['model' => $model]);
+        }
+    }
+    
+    /*
+     * Profie zu veraendern
+     */
+    public function actionProfieandern()
+    {
+        $model = $this->findModel(\Yii::$app->user->getId());
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->MarterikelNr]);
+        } else {
+            return $this->render('profieandern', [
+                'model' => $model,
+            ]);
+        }
+    }
 }
