@@ -320,7 +320,7 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
         $this->email = $email;
     }
 
-    /*
+    /*test
     * die befrsave Funktion umschreiben ,damit die datein richtig und automatisch gespeichert zu werden
     */
     public function beforeSave($insert)
@@ -340,7 +340,7 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
             }
             return true; 
         }
-        else 
+        else  
         {
             return false;
         }
