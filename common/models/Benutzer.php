@@ -20,7 +20,7 @@ use yii\base\NotSupportedException;
  * @property int $updated_at
  * @property string $Benutzername
  * @property string $Passwort 
- * @property string $Profiefotoa
+ * @property string $Profiefoto
  *
  * @property Abgabe[] $abgabes
  * @property BenutzerAnmeldenKlausur[] $benutzerAnmeldenKlausurs
@@ -37,6 +37,9 @@ use yii\base\NotSupportedException;
  */
 class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
 {
+    
+    public $file;
+    
     /**
      * {@inheritdoc}
      */
@@ -60,7 +63,10 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
             [['Benutzername'], 'unique'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
+            [['Profiefoto'], 'string', 'max' => 100],
             [['MarterikelNr'], 'unique'],
+            
+            [['file'],'file'],
         ];
     }
 
@@ -82,6 +88,7 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
             'Benutzername' => 'Benutzername',
             'Passwort' => 'Passwort', 
             'Profiefoto' => 'Profiefoto',
+            'file' => 'Profie Foto',
         ];
     }
     public static function findIdentity($MarterikelNr)

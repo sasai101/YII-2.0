@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
-use kartik\datecontrol\DateControl;
 
 /**
  * @var yii\web\View $this
@@ -26,6 +25,8 @@ use kartik\datecontrol\DateControl;
             //'auth_key' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Auth Key...', 'maxlength' => 32]],
 
             //'password_hash' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Password Hash...', 'maxlength' => 255]],
+            
+            'file' => ['type' => Form::INPUT_FILE],
 
             'email' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Email...', 'maxlength' => 255]],
 

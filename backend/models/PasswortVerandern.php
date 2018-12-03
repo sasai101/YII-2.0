@@ -55,7 +55,7 @@ class PasswortVerandern extends Model
         ==> [ 'Passwort' => [ 0 => 'Passwort darf nicht leer sein.' ] ]
         */
         $benutzer->Passwort = "*";
-        $benutzer->Profiefoto = "*";
+        //$benutzer->Profiefoto = "**";
         return $benutzer->save() ? true : false;
     }
 }

@@ -7,7 +7,9 @@ use common\models\Benutzer;
 use common\models\BenutzerSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
+use yii\helpers\VarDumper;
 use backend\models\PasswortVerandern;
 /**
  * BenutzerController implements the CRUD actions for Benutzer model.
@@ -84,8 +86,21 @@ class BenutzerController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
+            $FotoName = $model->MarterikelNr;
+            // die Instance von File zu kriegen
+            $model->file = UploadedFile::getInstance($model,'file'); 
+            $model->file->saveAs('../../profiefoto/'.$FotoName.'.'.$model->file->extension);
+            
+            $model->Profiefoto = '../../profiefoto/'.$FotoName.'.'.$model->file->extension;
+            $model->save();
+            /*
+            $model->save();
+            VarDumper::dump($model->errors);
+            exit(0);
+            */
             return $this->redirect(['view', 'id' => $model->MarterikelNr]);
         } else {
             return $this->render('update', [
@@ -147,6 +162,7 @@ class BenutzerController extends Controller
         $model1 = Benutzer::findOne($id);
         
         if ($model->load(Yii::$app->request->post())) {
+            
             if($model->passwortZurucksetzen($id))
             {
                 return $this->redirect(['index']);
@@ -208,6 +224,15 @@ class BenutzerController extends Controller
         $model = $this->findModel(\Yii::$app->user->getId());
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
+            $FotoName = $model->MarterikelNr;
+            // die Instance von File zu kriegen
+            $model->file = UploadedFile::getInstance($model,'file');
+            $model->file->saveAs('../../profiefoto/'.$FotoName.'.'.$model->file->extension);
+            
+            $model->Profiefoto = '../../profiefoto/'.$FotoName.'.'.$model->file->extension;
+            $model->save();
+            
             return $this->redirect(['view', 'id' => $model->MarterikelNr]);
         } else {
             return $this->render('profieandern', [

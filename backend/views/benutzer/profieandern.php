@@ -1,4 +1,5 @@
 <?php
+use opqnext\avatar\AvatarWidget;
 use yii\helpers\Html;
 
 /**
@@ -6,15 +7,15 @@ use yii\helpers\Html;
  * @var common\models\Benutzer $model
  */
 
-$this->title = 'Update Benutzer: ' . ' ' . $model->MarterikelNr;
+$this->title = 'Profieänderung';
 $this->params['breadcrumbs'][] = ['label' => 'Benutzers', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->MarterikelNr, 'url' => ['view', 'id' => $model->MarterikelNr]];
+//$this->params['breadcrumbs'][] = ['label' => $model->MarterikelNr, 'url' => ['view', 'id' => $model->MarterikelNr]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="benutzer-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+	
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
