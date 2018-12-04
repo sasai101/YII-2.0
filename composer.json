@@ -22,7 +22,8 @@
         "warrence/yii2-kartikgii": "dev-master",
         "daixianceng/yii2-echarts": "*",
         "bubifengyun/yii2-echarts": "*",
-        "yiisoft/yii2-imagine": "*"
+        "yiisoft/yii2-imagine": "*",
+        "kartik-v/yii2-tabs-x": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

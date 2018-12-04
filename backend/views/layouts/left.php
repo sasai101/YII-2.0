@@ -67,7 +67,7 @@ use backend\controllers\ModulController;
                     [
                         'label' => 'Hauptseite',
                         'icon' => 'bar-chart',
-                        'url' => ['/benutzer/hauptseite'],
+                        'url' => ['/site/index'],
                     ],
                     // Benutzer Menue
                     [
@@ -112,7 +112,6 @@ use backend\controllers\ModulController;
                         'items' => [
                             ['label' => 'Profiepasswort veranderung', 'icon' => 'group', 'url'=>['/benutzer/profiepassword']],
                             ['label' => 'Profieänderung', 'icon' => 'user', 'url'=>['/benutzer/profieandern']],
-                            ['label' => 'Einzelaufgabe', 'icon' => 'user', 'url'=>['/einzelaufgabe/index']],
                         ],
                     ],
                 ],
