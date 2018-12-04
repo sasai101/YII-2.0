@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\web\IdentityInterface;
 use yii\base\NotSupportedException;
+use phpDocumentor\Reflection\Types\Null_;
 
 /**
  * This is the model class for table "benutzer".
@@ -311,27 +312,12 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
         return $this->hasOne(Tutor::className(), ['MarterikelNr' => 'marterikelnr']);
     }
 
-    /*
-    * Funktion, um die anderte Attribute zu veraendern
-    */
-    public function setVorname($Vorname)
-    {
-        $this->Vorname = $Vorname;
-    }
-    public function setNachname($Nachname)
-    {
-        $this->Nachname = $Nachname;
-    }
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
     /*test
     * die befrsave Funktion umschreiben ,damit die datein richtig und automatisch gespeichert zu werden
     */
     public function beforeSave($insert)
     {
+
         // die orignale Funktion erstmal durchfueren,
         if(parent::beforeSave($insert))
         {

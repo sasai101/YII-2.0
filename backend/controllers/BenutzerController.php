@@ -9,8 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
-use yii\helpers\VarDumper;
 use backend\models\PasswortVerandern;
+use backend\models\NeueKunde;
 /**
  * BenutzerController implements the CRUD actions for Benutzer model.
  */
@@ -56,24 +56,6 @@ class BenutzerController extends Controller
             return $this->redirect(['view', 'id' => $model->MarterikelNr]);
         } else {
             return $this->render('view', ['model' => $model]);
-        }
-    }
-
-    /**
-     * Creates a new Benutzer model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Benutzer;
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->MarterikelNr]);
-        } else {
-            return $this->renderAjax('create', [
-                'model' => $model,
-            ]);
         }
     }
 
@@ -175,6 +157,27 @@ class BenutzerController extends Controller
         ]);
     }
     
+    /**
+     * Creates a new Benutzer model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionNeue()
+    {
+        $model = new NeueKunde();
+        
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if ($model->neukunden()) {
+                return $this->redirect(['index']);
+            }
+        } else {
+            return $this->render('neue', [
+                'model' => $model,
+            ]);
+        }
+    }
+    
     /*
      * Profiepasswort zu veraendern
      */
@@ -229,7 +232,6 @@ class BenutzerController extends Controller
             // die Instance von File zu kriegen
             $model->file = UploadedFile::getInstance($model,'file');
             $model->file->saveAs('../../profiefoto/'.$FotoName.'.'.$model->file->extension);
-            
             $model->Profiefoto = '../../profiefoto/'.$FotoName.'.'.$model->file->extension;
             $model->save();
             

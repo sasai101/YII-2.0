@@ -7,8 +7,9 @@ use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Benutzer */
-/*
- $this->title = "Passwortveränderung von ";
+
+ $this->title = "Passwortveränderung";
+ /*
  $this->params['breadcrumbs'][] = ['label' => 'Benutzer', 'url' => ['index']];
  $this->params['breadcrumbs'][] = $this->title;
  */
