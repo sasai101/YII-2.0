@@ -35,7 +35,7 @@ use yii\helpers\Url;
                                 <li><!-- start message -->
                                     <a href="#">
                                         <div class="pull-left">
-                                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle"
+                                            <img src="<?= Yii::$app->user->identity->Profiefoto ?>" class="img-circle"
                                                  alt="User Image"/>
                                         </div>
                                         <h4>
@@ -49,7 +49,7 @@ use yii\helpers\Url;
                                 <li>
                                     <a href="#">
                                         <div class="pull-left">
-                                            <img src="<?= $directoryAsset ?>/img/user3-128x128.jpg" class="img-circle"
+                                            <img src="<?= Yii::$app->user->identity->Profiefoto ?>" class="img-circle"
                                                  alt="user image"/>
                                         </div>
                                         <h4>
@@ -62,7 +62,7 @@ use yii\helpers\Url;
                                 <li>
                                     <a href="#">
                                         <div class="pull-left">
-                                            <img src="<?= $directoryAsset ?>/img/user4-128x128.jpg" class="img-circle"
+                                            <img src="<?= Yii::$app->user->identity->Profiefoto ?>" class="img-circle"
                                                  alt="user image"/>
                                         </div>
                                         <h4>
@@ -75,7 +75,7 @@ use yii\helpers\Url;
                                 <li>
                                     <a href="#">
                                         <div class="pull-left">
-                                            <img src="<?= $directoryAsset ?>/img/user3-128x128.jpg" class="img-circle"
+                                            <img src="<?= Yii::$app->user->identity->Profiefoto ?>" class="img-circle"
                                                  alt="user image"/>
                                         </div>
                                         <h4>
@@ -88,7 +88,7 @@ use yii\helpers\Url;
                                 <li>
                                     <a href="#">
                                         <div class="pull-left">
-                                            <img src="<?= $directoryAsset ?>/img/user4-128x128.jpg" class="img-circle"
+                                            <img src="<?= Yii::$app->user->identity->Profiefoto ?>" class="img-circle"
                                                  alt="user image"/>
                                         </div>
                                         <h4>
@@ -231,7 +231,7 @@ use yii\helpers\Url;
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                        <img src="<?= Yii::$app->user->identity->Profiefoto ?>" class="user-image" alt="User Image"/>
                         <span class="hidden-xs">
 								<?php 
                             	   echo Yii::$app->user->identity->Vorname." ".Yii::$app->user->identity->Nachname;
@@ -241,7 +241,7 @@ use yii\helpers\Url;
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle"
+                            <img src="<?= Yii::$app->user->identity->Profiefoto ?>" class="img-circle"
                                  alt="User Image"/>
 
                             <p>

@@ -5,7 +5,6 @@ namespace common\models;
 use Yii;
 use yii\web\IdentityInterface;
 use yii\base\NotSupportedException;
-use phpDocumentor\Reflection\Types\Null_;
 
 /**
  * This is the model class for table "benutzer".
@@ -67,7 +66,7 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
             [['Profiefoto'], 'string', 'max' => 100],
             [['MarterikelNr'], 'unique'],
             
-            [['file'],'file'],
+            [['file'],'file', 'extensions' => 'jpg','checkExtensionByMimeType'=>false],
         ];
     }
 

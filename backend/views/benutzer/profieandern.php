@@ -1,5 +1,4 @@
 <?php
-use opqnext\avatar\AvatarWidget;
 use yii\helpers\Html;
 
 /**
