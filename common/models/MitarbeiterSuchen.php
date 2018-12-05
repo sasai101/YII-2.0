@@ -88,4 +88,35 @@ class MitarbeiterSuchen extends Mitarbeiter
 
         return $dataProvider;
     }
+    
+    public function searchListview($params)
+    {
+        $query = Mitarbeiter::find();
+        
+        // join Funktion,um die Mitarbeitertabelle und Benutzertabelle zu verbinden, dann suchen und sortieren
+        $query->join('INNER JOIN','Benutzer','Benutzer.MarterikelNr=Mitarbeiter.MarterikelNr');
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            // wie viel Inhalt pro Seite einzustellen
+            'pagination' => [
+                'pageSize'=>50
+            ],
+            // Sortieren nach folgende Attribute
+            'sort' => [
+                'defaultOrder' => [
+                    'MarterikelNr' => SORT_ASC,
+                ],
+            ],
+        ]);
+        
+        
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere(['like','Benutzer.Benutzername',$this->benutzername]);
+     
+        return $dataProvider;
+    }
 }

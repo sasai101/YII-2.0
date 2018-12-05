@@ -84,6 +84,11 @@ class Korrektor extends \yii\db\ActiveRecord
     {
         return $this->marterikelNr->email;
     }
+    
+    public function getProfiefoto()
+    {
+        return $this->marterikelNr->Profiefoto;
+    }
     /*
      * bis her
      */

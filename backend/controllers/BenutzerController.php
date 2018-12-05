@@ -233,14 +233,4 @@ class BenutzerController extends Controller
         }
     }
     
-    public function actionListview() 
-    {
-        $searchModel = new BenutzerSuchen;
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-        
-        return $this->render('listview', [
-            'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
-        ]);
-    }
 }

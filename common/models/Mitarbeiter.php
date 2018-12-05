@@ -113,6 +113,13 @@ class Mitarbeiter extends \yii\db\ActiveRecord
     {
         return $this->marterikelNr->email;
     }
+    /*
+     * gibt die Email zurück, damit es in der Gridview von Mitarbeit, Professor, Korrektor und Totur aufrufen kann
+     */
+    public function getProfiefoto()
+    {
+        return $this->marterikelNr->Profiefoto;
+    }
  
     
 }
