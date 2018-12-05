@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 04, 2018 at 02:18 PM
+-- Generation Time: Dec 05, 2018 at 08:59 PM
 -- Server version: 8.0.12
 -- PHP Version: 7.2.9
 
@@ -40,6 +40,18 @@ CREATE TABLE `abgabe` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `anzahl_des_benutzers`
+--
+
+CREATE TABLE `anzahl_des_benutzers` (
+  `id` int(11) NOT NULL,
+  `Datum` varchar(255) NOT NULL,
+  `Anzahlen` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `benutzer`
 --
 
@@ -63,16 +75,16 @@ CREATE TABLE `benutzer` (
 --
 
 INSERT INTO `benutzer` (`MarterikelNr`, `email`, `password_hash`, `password_reset_token`, `auth_key`, `Vorname`, `Nachname`, `created_at`, `updated_at`, `Benutzername`, `Passwort`, `Profiefoto`) VALUES
-(2000001, 'jogi.loew@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Jogi1', 'Löw', 1442998314, 1543922193, 'jolw201', '*', '../../profiefoto/2000001.png'),
-(2000002, 'klarissa.wolf@hhu.de', '$2y$13$eNdcAIqmOnk.CQeW6wKCSu5cJMcGVNXMc799JwMkA95Xbh8FuHuz2', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Klarissa', 'Wolfe1', 1442998314, 1543924950, 'klawo202', '*', '../../profiefoto/2000002.png'),
-(2000003, 'kim.akers@hhu.de', '$2y$13$1gg.TAL6aL.8LDPlBhCtkO5f5HaW8fFR30PXLMq6arJHiERi5PQqO', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Kim', 'Akers', 1442998314, 1543840551, 'kiake203', '*', '*'),
-(2000004, 'andy.brauninger@hhu.de', '$2y$13$ggVOzXB2k7CBOw9GLTpLL.CF.V7bCOC91EWq8sYZ84J19EKi.Wds.', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Andy', 'Brauninger', 1442998314, 1442998314, 'anbra204', '*', '*'),
-(2000005, 'saisai@hhu.com', '$2y$13$dm5eD/PAyrrnZA2ttlrke.EoEQ7YY4DtKXiRJgB/kCULy1EBs73zC', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'saiyinwuchari', 'saiyinwuchari', 1442998314, 1543840483, 'sasai205', '*', '*'),
-(2000006, 'maggi.carttido@hhu.de', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Maggi', 'Carttido', 1442998314, 1442998314, 'magca206', '*', '*'),
-(2000007, 'alex.darrow@hhu.de', '$2y$13$drDmOQNTOjTCLKdpy3EkBeoVtVVLaoKqGAd2rGC9Ncr3CXSXElCC2', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Alex', 'Darrow', 1442998314, 1543840525, 'aldar207', '*', '*'),
-(2000008, 'qin.ying@hhu.de', '$2y$13$Ax5Unrds6sQJuqov3GFdFOnV3qTZb9KnpJJ/BPL.56Pnc5SQ29LHK', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Qin', 'Ying', 1442998314, 1543851616, 'qying208', '*', '*'),
-(2000009, 'qiyhi.gao@hhu.de', '$2y$13$yY1rlETD95969RLrVqLMAua95jlcbugLPY6XfC5g.soD0b3pe1UeG', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Qizhi', 'Gao', 1442998314, 1543851645, 'qzgao209', '*', '*'),
-(2000010, 'siwei.liu@hhu.de', '$2y$13$x5V9yKskPDunOYanWq59ROt4QqybAl/h471xhTjUfhtRuhW77MJ3C', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Siwe', 'Liuq', 1442998314, 1543874285, 'swliu210', '*', 'avatar/2000010.png'),
+(2000001, 'jogi.loew@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Jogi', 'Löw', 1442998314, 1543951436, 'jolw201', '*', '../../profiefoto/2000001.jpg'),
+(2000002, 'klarissa.wolf@hhu.de', '$2y$13$eNdcAIqmOnk.CQeW6wKCSu5cJMcGVNXMc799JwMkA95Xbh8FuHuz2', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Klarissa', 'Wolfe', 1442998314, 1543951571, 'klawo202', '*', '../../profiefoto/2000002.jpg'),
+(2000003, 'kim.akers@hhu.de', '$2y$13$1gg.TAL6aL.8LDPlBhCtkO5f5HaW8fFR30PXLMq6arJHiERi5PQqO', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Kim', 'Akers', 1442998314, 1543840551, 'kiake203', '*', '../../profiefoto/normal.jpg'),
+(2000004, 'andy.brauninger@hhu.de', '$2y$13$ggVOzXB2k7CBOw9GLTpLL.CF.V7bCOC91EWq8sYZ84J19EKi.Wds.', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Andy', 'Brauninger', 1442998314, 1442998314, 'anbra204', '*', '../../profiefoto/normal.jpg'),
+(2000005, 'saisai@hhu.com', '$2y$13$dm5eD/PAyrrnZA2ttlrke.EoEQ7YY4DtKXiRJgB/kCULy1EBs73zC', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'saiyinwuchari', 'saiyinwuchari', 1442998314, 1543840483, 'sasai205', '*', '../../profiefoto/normal.jpg'),
+(2000006, 'maggi.carttido@hhu.de', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Maggi', 'Carttido', 1442998314, 1442998314, 'magca206', '*', '../../profiefoto/normal.jpg'),
+(2000007, 'alex.darrow@hhu.de', '$2y$13$drDmOQNTOjTCLKdpy3EkBeoVtVVLaoKqGAd2rGC9Ncr3CXSXElCC2', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Alex', 'Darrow', 1442998314, 1543840525, 'aldar207', '*', '../../profiefoto/normal.jpg'),
+(2000008, 'qin.ying@hhu.de', '$2y$13$Ax5Unrds6sQJuqov3GFdFOnV3qTZb9KnpJJ/BPL.56Pnc5SQ29LHK', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Qin', 'Ying', 1442998314, 1543851616, 'qying208', '*', '../../profiefoto/normal.jpg'),
+(2000009, 'qiyhi.gao@hhu.de', '$2y$13$yY1rlETD95969RLrVqLMAua95jlcbugLPY6XfC5g.soD0b3pe1UeG', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Qizhi', 'Gao', 1442998314, 1543851645, 'qzgao209', '*', '../../profiefoto/normal.jpg'),
+(2000010, 'siwei.liu@hhu.de', '$2y$13$x5V9yKskPDunOYanWq59ROt4QqybAl/h471xhTjUfhtRuhW77MJ3C', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Siwe', 'Liuq', 1442998314, 1543874285, 'swliu210', '*', '../../profiefoto/normal.jpg'),
 (2000011, 'wuchari.wuchari@hhu.de', '$2y$13$0Z0Om1WeaSArVKpNugNXce83VtzRN9i4ntUishohiyPF8txfcJDae', NULL, 'TxZdr4GAbP0ijr07_JUeXPlss3Skki3_', 'wuchari', 'wuchari', 1543919159, 1543919159, 'wuwu211', '*', '../../profiefoto/normal.jpg'),
 (2000012, 'wuchari1.wuchari2@hhu.de', '$2y$13$iWA/KJ4LZjqlDC4wBFL0VOSIzT/.FKbVWp2yKxaIxG.Dl123CfkbK', NULL, 'ZfWb7k9TisSFLi96Xds_vMTnomk0xecF', 'wuchari1', 'wuchari2', 1543920663, 1543920663, 'wuwu212', '*', '../../profiefoto/normal.jpg'),
 (2000013, 'ssasasa.sssss@hhu.de', '$2y$13$AmlKI0.B9jpCLTu3twxlxOSkJ9jgo3BvK8M07jZlEMCXqJBI9gJRG', NULL, '3xwbm6cS5nRQgo47yHNKq6SvVv6Q77QI', 'ssasasaaa', 'ssssss', 1543923603, 1543923960, 'ssss213', '*', '../../profiefoto/normal.jpg'),
@@ -204,9 +216,9 @@ INSERT INTO `benutzer` (`MarterikelNr`, `email`, `password_hash`, `password_rese
 (2000155, 'Hugo.Marei@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Hugo', 'Marei', 1543929506, 1543929506, 'Hugo355', '*', '../../profiefoto/normal.jpg'),
 (2000156, 'Leopold.Hani@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Leopold', 'Hani', 1543929507, 1543929507, 'Leopold356', '*', '../../profiefoto/normal.jpg'),
 (2000157, 'Michael.Marianna@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Michael', 'Marianna', 1543929508, 1543929508, 'Michael357', '*', '../../profiefoto/normal.jpg'),
-(2000158, 'Peter.Herbert@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Peter1', 'Herbert', 1543929509, 1543933089, 'Peter358', '*', '../../profiefoto/2000158.png'),
+(2000158, 'Peter.Herbert@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Peter1', 'Herbert', 1543929509, 1544034600, 'Peter358', '*', '../../profiefoto/2000158.jpg'),
 (2000159, 'Carlotta.Marianne@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Carlotta', 'Marianne', 1543929510, 1543929510, 'Carlotta359', '*', '../../profiefoto/normal.jpg'),
-(2000160, 'Klara.Horst@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Klara', 'Horst', 1543929511, 1543929511, 'Klara360', '*', '../../profiefoto/normal.jpg'),
+(2000160, 'Klara.Horst@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Klara', 'Horst', 1543929511, 1544034633, 'Klara360', '*', '../../profiefoto/2000160.jpg'),
 (2000161, 'Romy.Marie-Louise@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Romy', 'Marie-Louise', 1543929512, 1543929512, 'Romy361', '*', '../../profiefoto/normal.jpg'),
 (2000162, 'Adam.Ilya@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Adam', 'Ilya', 1543929513, 1543929513, 'Adam362', '*', '../../profiefoto/normal.jpg'),
 (2000163, 'Caspar.Marion@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Caspar', 'Marion', 1543929514, 1543929514, 'Caspar363', '*', '../../profiefoto/normal.jpg'),
@@ -280,9 +292,9 @@ INSERT INTO `benutzer` (`MarterikelNr`, `email`, `password_hash`, `password_rese
 (2000231, 'Lennart.Mete@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Lennart', 'Mete', 1543929582, 1543929582, 'Lennart431', '*', '../../profiefoto/normal.jpg'),
 (2000232, 'Oscar.Theresia@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Oscar', 'Theresia', 1543929583, 1543929583, 'Oscar432', '*', '../../profiefoto/normal.jpg'),
 (2000233, 'Rafael.Metehan@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Rafael', 'Metehan', 1543929584, 1543929584, 'Rafael433', '*', '../../profiefoto/normal.jpg'),
-(2000234, 'Ruben.Tomma@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Ruben', 'Tomma', 1543929585, 1543929585, 'Ruben434', '*', '../../profiefoto/normal.jpg'),
-(2000235, 'Timo.Metin@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Timo', 'Metin', 1543929586, 1543929586, 'Timo435', '*', '../../profiefoto/normal.jpg');
+(2000234, 'Ruben.Tomma@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Ruben', 'Tomma', 1543929585, 1543929585, 'Ruben434', '*', '../../profiefoto/normal.jpg');
 INSERT INTO `benutzer` (`MarterikelNr`, `email`, `password_hash`, `password_reset_token`, `auth_key`, `Vorname`, `Nachname`, `created_at`, `updated_at`, `Benutzername`, `Passwort`, `Profiefoto`) VALUES
+(2000235, 'Timo.Metin@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Timo', 'Metin', 1543929586, 1543929586, 'Timo435', '*', '../../profiefoto/normal.jpg'),
 (2000236, 'Tobias.Toni@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Tobias', 'Toni', 1543929587, 1543929587, 'Tobias436', '*', '../../profiefoto/normal.jpg'),
 (2000237, 'Victor.Mick@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Victor', 'Mick', 1543929588, 1543929588, 'Victor437', '*', '../../profiefoto/normal.jpg'),
 (2000238, 'Amira.Ulrike@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Amira', 'Ulrike', 1543929589, 1543929589, 'Amira438', '*', '../../profiefoto/normal.jpg'),
@@ -304,7 +316,7 @@ INSERT INTO `benutzer` (`MarterikelNr`, `email`, `password_hash`, `password_rese
 (2000254, 'Christopher.Yade@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Christopher', 'Yade', 1543929605, 1543929605, 'Christopher454', '*', '../../profiefoto/normal.jpg'),
 (2000255, 'Deniz.No??l@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Deniz', 'No??l', 1543929606, 1543929606, 'Deniz455', '*', '../../profiefoto/normal.jpg'),
 (2000256, 'Florian.Yael@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Florian', 'Yael', 1543929607, 1543929607, 'Florian456', '*', '../../profiefoto/normal.jpg'),
-(2000257, 'Gustav.Nuri@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Gustav', 'Nuri', 1543929608, 1543929608, 'Gustav457', '*', '../../profiefoto/normal.jpg'),
+(2000257, 'Gustav.Nuri@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Gustav', 'Nuri', 1543929608, 1544029746, 'Gustav457', '*', '../../profiefoto/2000257.jpg'),
 (2000258, 'Jona.Yara@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Jona', 'Yara', 1543929609, 1543929609, 'Jona458', '*', '../../profiefoto/normal.jpg'),
 (2000259, 'Jonah.Pablo@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Jonah', 'Pablo', 1543929610, 1543929610, 'Jonah459', '*', '../../profiefoto/normal.jpg'),
 (2000260, 'Klaus.Yasmine@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Klaus', 'Yasmine', 1543929611, 1543929611, 'Klaus460', '*', '../../profiefoto/normal.jpg'),
@@ -608,6 +620,12 @@ ALTER TABLE `abgabe`
   ADD KEY `Korrektor-MarterikelNr` (`Korrektor_MarterikelNr`);
 
 --
+-- Indexes for table `anzahl_des_benutzers`
+--
+ALTER TABLE `anzahl_des_benutzers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `benutzer`
 --
 ALTER TABLE `benutzer`
@@ -758,6 +776,12 @@ ALTER TABLE `uebungsgruppe`
 --
 ALTER TABLE `abgabe`
   MODIFY `AbgabeID` int(32) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `anzahl_des_benutzers`
+--
+ALTER TABLE `anzahl_des_benutzers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `einzelaufgabe`
