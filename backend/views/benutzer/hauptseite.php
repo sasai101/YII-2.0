@@ -1,36 +1,66 @@
-<div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12">
-			<ul class="nav nav-tabs">
-				<li class="active">
-					<a href="#">首页</a>
-				</li>
-				<li>
-					<a href="#">资料</a>
-				</li>
-				<li class="disabled">
-					<a href="#">信息</a>
-				</li>
-				<li class="dropdown pull-right">
-					 <a href="#" data-toggle="dropdown" class="dropdown-toggle">下拉<strong class="caret"></strong></a>
-					<ul class="dropdown-menu">
-						<li>
-							<a href="#">操作</a>
-						</li>
-						<li>
-							<a href="#">设置栏目</a>
-						</li>
-						<li>
-							<a href="#">更多设置</a>
-						</li>
-						<li class="divider">
-						</li>
-						<li>
-							<a href="#">分割线</a>
-						</li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-	</div>
-</div>
+<script src="../../vendor/bower-asset/echarts/dist/echarts-en.min.js"></script>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+        	    title : {
+        	        text: 'Benutzer Anzahl',
+        	    },
+        	    tooltip : {
+        	    },
+        	    legend: {
+        	        data:['最高气温','最低气温']
+        	    },
+        	    toolbox: {
+        	        show : true,
+        	        feature : {
+        	            mark : {show: true},
+        	            dataView : {show: true, readOnly: false},
+        	            magicType : {show: true, type: ['line', 'bar']},
+        	            restore : {show: true},
+        	            saveAsImage : {show: true}
+        	        }
+        	    },
+        	    calculable : true,
+        	    xAxis : [
+        	        {
+        	            type : 'category',
+        	            boundaryGap : false,
+        	            data : ['周一','周二','周三','周四','周五','周六','周日']
+        	        }
+        	    ],
+        	    yAxis : [
+        	        {
+        	            type : 'value',
+        	            axisLabel : {
+        	                formatter: '{value} °C'
+        	            }
+        	        }
+        	    ],
+        	    series : [
+        	        {
+        	            name:'最高气温',
+        	            type:'line',
+        	            data:[11, 11, 15, 13, 12, 13, 10],
+        	            markPoint : {
+        	                data : [
+        	                    {type : 'max', name: '最大值'},
+        	                    {type : 'min', name: '最小值'}
+        	                ]
+        	            },
+        	            markLine : {
+        	                data : [
+        	                    {type : 'average', name: '平均值'}
+        	                ]
+        	            }
+        	        },
+        	    ]
+        	};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>

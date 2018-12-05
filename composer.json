@@ -20,10 +20,10 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "dmstr/yii2-adminlte-asset": "2.*",
         "warrence/yii2-kartikgii": "dev-master",
-        "daixianceng/yii2-echarts": "*",
-        "bubifengyun/yii2-echarts": "*",
         "yiisoft/yii2-imagine": "*",
-        "kartik-v/yii2-tabs-x": "dev-master"
+        "kartik-v/yii2-tabs-x": "dev-master",
+        "bower-asset/echarts": "*",
+        "hisune/echarts-php": "^1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

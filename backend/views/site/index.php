@@ -9,9 +9,7 @@ use common\models\BenutzerSuchen;
 $searchModel = new BenutzerSuchen;
 $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 ?>
-<div class="site-index">
-
-    <?php Pjax::begin(); echo TabsX::widget([
+<?php Pjax::begin(); echo TabsX::widget([
     'position'=>TabsX::POS_ABOVE,
     'encodeLabels'=>false,
     'bordered'=>true,
@@ -26,8 +24,11 @@ $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
             'active'=>true
         ],
         [
-            'label'=>'<i class="fas fa-user"></i> Profile',
-            'content'=>"one",
+            'label'=>'<span class="glyphicon glyphicon-user"></span> Benutzer',
+            'content' => $this->render('..\benutzer\listview',[
+                //'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]),
             //'linkOptions'=>['data-url'=>\yii\helpers\Url::to(['/site/tabs-data'])]
         ],
         [

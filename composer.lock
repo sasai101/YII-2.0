@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a8bdd7c0831f83ad0978762d82017068",
+    "content-hash": "3598a0b416e9f51138eb1b774e81fc72",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -188,49 +188,6 @@
             "license": [
                 "MIT"
             ]
-        },
-        {
-            "name": "bubifengyun/yii2-echarts",
-            "version": "v0.0.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bubifengyun/yii2-echarts.git",
-                "reference": "cf5dfdda167b35ed68906d6c1280563c58a500f8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bubifengyun/yii2-echarts/zipball/cf5dfdda167b35ed68906d6c1280563c58a500f8",
-                "reference": "cf5dfdda167b35ed68906d6c1280563c58a500f8",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/echarts": "*",
-                "hisune/echarts-php": "^1.0",
-                "yiisoft/yii2": "*"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "bubifengyun\\echarts\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "bubifengyun",
-                    "email": "bubifengyun@sina.com"
-                }
-            ],
-            "description": "Using hisune/echarts-php and bower-asset/echarts, complete it.",
-            "keywords": [
-                "echarts",
-                "extension",
-                "yii2"
-            ],
-            "time": "2017-12-12T09:39:10+00:00"
         },
         {
             "name": "cebe/markdown",
@@ -494,51 +451,6 @@
             "time": "2018-08-27T06:10:37+00:00"
         },
         {
-            "name": "daixianceng/yii2-echarts",
-            "version": "v1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/daixianceng/yii2-echarts.git",
-                "reference": "511995efe02025b4b2d7f5723a5be668a06d1f2c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/daixianceng/yii2-echarts/zipball/511995efe02025b4b2d7f5723a5be668a06d1f2c",
-                "reference": "511995efe02025b4b2d7f5723a5be668a06d1f2c",
-                "shasum": ""
-            },
-            "require": {
-                "npm-asset/echarts": "*",
-                "yiisoft/yii2": "*"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "daixianceng\\echarts\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Cosmo",
-                    "email": "daixianceng@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Echarts widget for Yii2.",
-            "homepage": "https://github.com/daixianceng/yii2-echarts",
-            "keywords": [
-                "chart",
-                "echarts",
-                "extension",
-                "yii2"
-            ],
-            "time": "2018-09-02T02:53:11+00:00"
-        },
-        {
             "name": "dmstr/yii2-adminlte-asset",
             "version": "2.6.2",
             "source": {
@@ -654,16 +566,16 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "2.1.6",
+            "version": "2.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "0578b32b30b22de3e8664f797cf846fc9246f786"
+                "reference": "709f21f92707308cdf8f9bcfa1af4cb26586521e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/0578b32b30b22de3e8664f797cf846fc9246f786",
-                "reference": "0578b32b30b22de3e8664f797cf846fc9246f786",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/709f21f92707308cdf8f9bcfa1af4cb26586521e",
+                "reference": "709f21f92707308cdf8f9bcfa1af4cb26586521e",
                 "shasum": ""
             },
             "require": {
@@ -707,7 +619,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2018-09-25T20:47:26+00:00"
+            "time": "2018-12-04T22:38:24+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -2634,39 +2546,6 @@
             "time": "2018-10-09T17:40:19+00:00"
         },
         {
-            "name": "npm-asset/echarts",
-            "version": "4.1.0-patch1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/apache/incubator-echarts.git",
-                "reference": "02842e2f02a3ca9fca479732e3e91dc6a2b214db"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/apache/incubator-echarts/zipball/02842e2f02a3ca9fca479732e3e91dc6a2b214db",
-                "reference": "02842e2f02a3ca9fca479732e3e91dc6a2b214db",
-                "shasum": null
-            },
-            "require": {
-                "npm-asset/zrender": "4.0.4"
-            },
-            "type": "npm-asset"
-        },
-        {
-            "name": "npm-asset/zrender",
-            "version": "4.0.4",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/zrender/-/zrender-4.0.4.tgz",
-                "reference": null,
-                "shasum": null
-            },
-            "type": "npm-asset",
-            "license": [
-                "BSD"
-            ]
-        },
-        {
             "name": "rmrevin/yii2-fontawesome",
             "version": "2.17.1",
             "source": {
@@ -3559,16 +3438,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.5.1",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "9b809aa5fcc7c6bddf35bea6cec77e86b8485a5c"
+                "reference": "9f83dded91781a01c63574e387eaa769be769115"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/9b809aa5fcc7c6bddf35bea6cec77e86b8485a5c",
-                "reference": "9b809aa5fcc7c6bddf35bea6cec77e86b8485a5c",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/9f83dded91781a01c63574e387eaa769be769115",
+                "reference": "9f83dded91781a01c63574e387eaa769be769115",
                 "shasum": ""
             },
             "require": {
@@ -3622,7 +3501,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2018-12-04T18:48:06+00:00"
+            "time": "2018-12-04T20:46:45+00:00"
         },
         {
             "name": "myclabs/deep-copy",
