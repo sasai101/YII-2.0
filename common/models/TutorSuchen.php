@@ -78,7 +78,7 @@ class TutorSuchen extends Tutor
     }
     
     public function searchListview($params)
-    {
+    { 
         $query = Tutor::find();
         
         // join Funktion,um die Mitarbeitertabelle und Benutzertabelle zu verbinden, dann suchen und sortieren
