@@ -8,9 +8,10 @@ use common\models\BenutzerSuchen;
 use common\models\MitarbeiterSuchen;
 use common\models\KorrektorSuchen;
 use common\models\ProfessorSuchen;
+use common\models\TutorSuchen;
 
-$searchModel = new BenutzerSuchen;
-$dataProviderBenutzer = $searchModel->searchListview(Yii::$app->request->getQueryParams());
+$searchModelBenutzer = new BenutzerSuchen;
+$dataProviderBenutzer = $searchModelBenutzer->searchListview(Yii::$app->request->getQueryParams());
 
 $searchModelMitarbeiter = new MitarbeiterSuchen();
 $dataProviderMitarbeiter = $searchModelMitarbeiter->searchListview(Yii::$app->request->getQueryParams());
@@ -18,9 +19,13 @@ $dataProviderMitarbeiter = $searchModelMitarbeiter->searchListview(Yii::$app->re
 $searchModelKorrektor = new KorrektorSuchen();
 $dataProviderKorrektor = $searchModelKorrektor->searchListview(Yii::$app->request->getQueryParams());
 
+$searchModelTutor = new TutorSuchen();
+$dataProviderTutur = $searchModelTutor->searchListview(Yii::$app->request->getQueryParams());
+
 $searchModelProfessor = new ProfessorSuchen();
 $dataProviderProfessor = $searchModelProfessor->searchListview(Yii::$app->request->getQueryParams());
 ?>
+<div style="background-color:white">
 <?php Pjax::begin(); echo TabsX::widget([
     'position'=>TabsX::POS_ABOVE,
     'encodeLabels'=>false,
@@ -29,10 +34,7 @@ $dataProviderProfessor = $searchModelProfessor->searchListview(Yii::$app->reques
     'items' => [
         [
             'label'=>'<span class="glyphicon glyphicon-home"></span> Home',
-            'content' => $this->render('..\benutzer\hauptseite', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProviderBenutzer,
-            ]),
+            'content' => $this->render('..\benutzer\hauptseite'),
             'active'=>true
         ],
         [
@@ -40,7 +42,6 @@ $dataProviderProfessor = $searchModelProfessor->searchListview(Yii::$app->reques
             'content' => $this->render('..\benutzer\listview',[
                 'dataProvider' => $dataProviderBenutzer,
             ]),
-            //'linkOptions'=>['data-url'=>\yii\helpers\Url::to(['/site/tabs-data'])]
         ],
         [
             'label'=>'<span class="glyphicon glyphicon-user"></span> Mitarbeiter',
@@ -53,6 +54,12 @@ $dataProviderProfessor = $searchModelProfessor->searchListview(Yii::$app->reques
             'label'=>'<span class="glyphicon glyphicon-user"></span> Korrektor',
             'content' => $this->render('..\korrektor\listview',[
                 'dataProvider' => $dataProviderKorrektor,
+            ]),
+        ],
+        [
+            'label'=>'<span class="glyphicon glyphicon-user"></span> Tutor',
+            'content' => $this->render('..\tutor\listview',[
+                'dataProvider' => $dataProviderTutur,
             ]),
         ],
         [

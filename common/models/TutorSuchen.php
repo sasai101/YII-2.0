@@ -76,4 +76,30 @@ class TutorSuchen extends Tutor
 
         return $dataProvider;
     }
+    
+    public function searchListview($params)
+    {
+        $query = Tutor::find();
+        
+        // join Funktion,um die Mitarbeitertabelle und Benutzertabelle zu verbinden, dann suchen und sortieren
+        $query->join('INNER JOIN','Benutzer','Benutzer.MarterikelNr=Tutor.MarterikelNr');
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            // wie viel Inhalt pro Seite einzustellen
+            'pagination' => [
+                'pageSize'=>50
+            ],
+            
+        ]);
+        
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+        
+        
+        $query->andFilterWhere(['like','Benutzer.Benutzername',$this->benutzername]);
+        
+        return $dataProvider;
+    }
 }
