@@ -88,7 +88,7 @@ use backend\controllers\ModulController;
                         'icon' => 'mortar-board',
                         'url' => ['/modul/index'],
                         // Aufruf von der funkiton Menue() in ModulControlle-Klasse
-                        'items' => ModulController::Menue(),
+                        //'items' => ModulController::Menue(),
                     ],
                     
                                         

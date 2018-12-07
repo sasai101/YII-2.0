@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 05, 2018 at 08:59 PM
+-- Generation Time: Dec 07, 2018 at 03:20 PM
 -- Server version: 8.0.12
 -- PHP Version: 7.2.9
 
@@ -469,7 +469,11 @@ CREATE TABLE `mitarbeiter` (
 
 INSERT INTO `mitarbeiter` (`MarterikelNr`, `Buero`) VALUES
 (2000001, '25.12.O1.51'),
-(2000010, '24.12.U1.52');
+(2000002, '24.12.U1.52'),
+(2000003, '24.12.U1.12'),
+(2000004, '24.12.U1.12'),
+(2000005, '24.12.U1.51'),
+(2000006, '24.12.O2.12');
 
 -- --------------------------------------------------------
 
@@ -543,8 +547,12 @@ CREATE TABLE `professor` (
 --
 
 INSERT INTO `professor` (`MarterikelNr`, `Buero`) VALUES
-(2000002, '25.12.O1.49'),
-(2000009, '25.12.O2.49');
+(2000007, '25.12.O1.49'),
+(2000008, '25.12.O2.49'),
+(2000009, '25.12.O2.50'),
+(2000010, '25.12.O2.56'),
+(2000011, '25.12.O2.20'),
+(2000012, '25.12.O3.21');
 
 -- --------------------------------------------------------
 
@@ -561,7 +569,42 @@ CREATE TABLE `tutor` (
 --
 
 INSERT INTO `tutor` (`MarterikelNr`) VALUES
-(2000003);
+(2000013),
+(2000014),
+(2000015),
+(2000016),
+(2000017),
+(2000025),
+(2000035),
+(2000036),
+(2000037),
+(2000038),
+(2000039),
+(2000040),
+(2000041),
+(2000042),
+(2000043),
+(2000044),
+(2000045),
+(2000046),
+(2000047),
+(2000048),
+(2000049),
+(2000050),
+(2000051),
+(2000052),
+(2000053),
+(2000054),
+(2000055),
+(2000056),
+(2000057),
+(2000058),
+(2000059),
+(2000060),
+(2000061),
+(2000062),
+(2000063),
+(2000064);
 
 -- --------------------------------------------------------
 
@@ -575,6 +618,20 @@ CREATE TABLE `uebung` (
   `Mitarbeiter_MarterikelNr` int(32) NOT NULL,
   `Bezeichnung` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `uebung`
+--
+
+INSERT INTO `uebung` (`UebungsID`, `ModulID`, `Mitarbeiter_MarterikelNr`, `Bezeichnung`) VALUES
+(1, 1, 2000001, 'Theritische Informatik I'),
+(2, 1, 2000001, 'Pratische Übung, JAVA-Programm'),
+(3, 2, 2000002, 'Informatik II (Grundlagen der technischen Informat...\r\nInformatik II (Grundlagen der technischen Informat...\r\n'),
+(4, 2, 2000002, 'Pratische Übung, Assemble'),
+(5, 3, 2000003, 'Theritische Übung von Programmierpraktikum '),
+(6, 4, 2000004, 'Übungen von Informatik III '),
+(7, 5, 2000005, 'Übungen von Informatik IV'),
+(8, 6, 2000006, 'Übungen von C Projekt');
 
 -- --------------------------------------------------------
 
@@ -606,6 +663,48 @@ CREATE TABLE `uebungsgruppe` (
   `GruppenNr` int(32) NOT NULL,
   `Max_Person` int(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `uebungsgruppe`
+--
+
+INSERT INTO `uebungsgruppe` (`UebungsgruppeID`, `UebungsID`, `Tutor_MarterikelNr`, `Anzahl_der_Personen`, `GruppenNr`, `Max_Person`) VALUES
+(1, 1, 2000013, 2, 1, 20),
+(2, 1, 2000014, 2, 2, 20),
+(3, 1, 2000015, 2, 3, 20),
+(4, 1, 2000016, 2, 4, 20),
+(5, 1, 2000017, 2, 5, 20),
+(6, 2, 2000025, 2, 1, 20),
+(7, 2, 2000035, 2, 2, 20),
+(8, 2, 2000036, 2, 3, 20),
+(9, 2, 2000037, 2, 4, 20),
+(10, 3, 2000038, 2, 1, 20),
+(11, 3, 2000039, 2, 2, 20),
+(12, 3, 2000040, 2, 3, 20),
+(13, 3, 2000041, 2, 4, 20),
+(14, 4, 2000042, 2, 1, 20),
+(15, 4, 2000043, 2, 2, 20),
+(16, 4, 2000044, 2, 3, 20),
+(17, 4, 2000045, 2, 4, 20),
+(18, 5, 2000046, 2, 1, 20),
+(19, 5, 2000047, 2, 2, 20),
+(20, 5, 2000048, 2, 3, 20),
+(21, 5, 2000049, 2, 4, 20),
+(22, 6, 2000050, 2, 1, 20),
+(23, 6, 2000051, 2, 2, 20),
+(24, 6, 2000052, 2, 3, 20),
+(25, 6, 2000053, 2, 4, 20),
+(26, 7, 2000054, 2, 1, 20),
+(27, 7, 2000055, 2, 2, 20),
+(28, 7, 2000056, 2, 3, 20),
+(29, 7, 2000057, 2, 4, 20),
+(30, 8, 2000058, 2, 1, 20),
+(31, 8, 2000059, 2, 2, 20),
+(32, 8, 2000060, 2, 3, 20),
+(33, 8, 2000061, 2, 4, 20),
+(34, 8, 2000062, 2, 5, 20),
+(35, 8, 2000063, 2, 6, 20),
+(36, 8, 2000064, 2, 7, 20);
 
 --
 -- Indexes for dumped tables
@@ -811,7 +910,7 @@ ALTER TABLE `modul`
 -- AUTO_INCREMENT for table `uebung`
 --
 ALTER TABLE `uebung`
-  MODIFY `UebungsID` int(32) NOT NULL AUTO_INCREMENT;
+  MODIFY `UebungsID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `uebungsblaetter`
@@ -823,7 +922,7 @@ ALTER TABLE `uebungsblaetter`
 -- AUTO_INCREMENT for table `uebungsgruppe`
 --
 ALTER TABLE `uebungsgruppe`
-  MODIFY `UebungsgruppeID` int(32) NOT NULL AUTO_INCREMENT;
+  MODIFY `UebungsgruppeID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- Constraints for dumped tables
