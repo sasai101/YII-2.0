@@ -18,6 +18,8 @@ class ModulController extends Controller
     /*
      * Dynamishce Menue zu zeigen
      */
+    
+    /*
     public static function Menue()
     {
         $items = (new Query())
@@ -46,6 +48,7 @@ class ModulController extends Controller
         //exit(0);
         return $menueItems;
     }
+    */
     
     public function behaviors()
     {
