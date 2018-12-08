@@ -24,33 +24,34 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?php /* echo Html::a('Create Modul', ['create'], ['class' => 'btn btn-success'])*/  ?>
     </p>
-    
-    <?php Pjax::begin(); echo ListView::widget([
-          'dataProvider' => $dataProvider,//数据提供器
-          'itemView' => '_modulListviewItem',//指定item视图（该视图文件与当前视图在同一个目录下)
-          'layout' => '{items}<div class="col-lg-12 sum-pager">{summary}{pager}</div>',//整个ListView布局
-          'itemOptions' => [//针对渲染的单个item
-            'tag' => 'div',
-            'class' => 'col-lg-3'
-          ],
-          /*
-          'options' => [//针对整个ListView
-            'tag' => 'div',
-            'class' => 'col-lg-3'
-          ],
-          */
-          'pager' => [
-            //'options' => ['class' => 'hidden'],//关闭分页（默认开启）
-            /* 分页按钮设置 */
-            'maxButtonCount' => 5,//最多显示几个分页按钮
-            'firstPageLabel' => '首页',
-            'prevPageLabel' => '上一页',
-            'nextPageLabel' => '下一页',
-            'lastPageLabel' => '尾页'
-          ]
-    ]);Pjax::end(); 
-    
-    ?>
+    <div class = "row">
+        <?php Pjax::begin(); echo ListView::widget([
+              'dataProvider' => $dataProvider,//数据提供器
+              'itemView' => '_modulListviewItem',//指定item视图（该视图文件与当前视图在同一个目录下)
+              'layout' => '{items}<div class="col-lg-12 sum-pager">{summary}{pager}</div>',//整个ListView布局
+              'itemOptions' => [//针对渲染的单个item
+                'tag' => 'div',
+                'class' => 'col-lg-3'
+              ],
+              /*
+              'options' => [//针对整个ListView
+                'tag' => 'div',
+                'class' => 'col-lg-3'
+              ],
+              */
+              'pager' => [
+                //'options' => ['class' => 'hidden'],//关闭分页（默认开启）
+                /* 分页按钮设置 */
+                'maxButtonCount' => 10,//最多显示几个分页按钮
+                'firstPageLabel' => '首页',
+                'prevPageLabel' => '上一页',
+                'nextPageLabel' => '下一页',
+                'lastPageLabel' => '尾页'
+              ]
+        ]);Pjax::end(); 
+        
+        ?>
+    </div>
 
     <?php /*Pjax::begin(); echo GridView::widget([
         'dataProvider' => $dataProvider,
