@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $ModulID
  * @property string $Bezeichnung
+ * @property int $Maximale_Person 
  *
  * @property Klausur[] $klausurs
  * @property ModulAnmeldenBenutzer[] $modulAnmeldenBenutzers
@@ -36,7 +37,8 @@ class Modul extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Bezeichnung'], 'required'],
+            [['Bezeichnung','Maximale_Person'], 'required'],
+            [['Maximale_Person'], 'integer'],
             [['Bezeichnung'], 'string', 'max' => 255],
         ];
     }
@@ -122,6 +124,15 @@ class Modul extends \yii\db\ActiveRecord
     public static function alleModul()
     {
         return Modul::find()->count();
+    }
+    /*
+     * Gibt den Name von Professor zurück
+     */
+    public function getBenutzerNname($id)
+    {
+        $model = Benutzer::findOne($id);
+        $Name = $model->Vorname." ".$model->Nachname;
+        return  $Name;
     }
    
 }

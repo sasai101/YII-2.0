@@ -85,4 +85,14 @@ class Uebung extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Uebungsgruppe::className(), ['UebungsID' => 'UebungsID']);
     }
+    
+    /*
+     * Gibt den Name von Professor zurück
+     */
+    public function getBenutzerNname($id)
+    {
+        $model = Benutzer::findOne($id);
+        $Name = $model->Vorname." ".$model->Nachname;
+        return  $Name;
+    }
 }

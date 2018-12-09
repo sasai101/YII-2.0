@@ -15,41 +15,6 @@ use yii\db\Query;
 class ModulController extends Controller
 {
     
-    /*
-     * Dynamishce Menue zu zeigen
-     */
-    
-    /*
-    public static function Menue()
-    {
-        $items = (new Query())
-                ->select(['Bezeichnung'])
-                ->from('modul')
-                ->all();
-      
-        $menueItems = [];
-        foreach ($items as $key=>$value){
-            
-            //echo "<pre>";
-            //var_dump($value['Bezeichnung']);
-            //echo "</pre>";
-            //exit(0);
-            
-            $menueItems[] = 
-            [
-                'label' => $value['Bezeichnung'],
-                'icon'=>'info',
-                'url'=>['modul/index']
-            ];
-        }
-        //echo "<pre>";
-        //var_dump($menueItems);
-        //echo "</pre>";
-        //exit(0);
-        return $menueItems;
-    }
-    */
-    
     public function behaviors()
     {
         return [
@@ -89,7 +54,7 @@ class ModulController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->ModulID]);
         } else {
-            return $this->render('view', ['model' => $model]);
+            return $this->renderAjax('view', ['model' => $model]);
         }
     }
 

@@ -13,6 +13,11 @@ $this->title = $model->ModulID;
 $this->params['breadcrumbs'][] = ['label' => 'Moduls', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<div>
+	<b>jfdklajfkdlsjfkl</b>
+</div>
+
 <div class="modul-view">
     <div class="page-header">
         <h1><?= Html::encode($this->title) ?></h1>

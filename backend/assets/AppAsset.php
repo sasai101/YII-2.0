@@ -16,6 +16,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/modal.js',
+        'js/viewModal.js',
         
     ];
     public $depends = [
