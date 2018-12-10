@@ -23,7 +23,8 @@
         "yiisoft/yii2-imagine": "*",
         "kartik-v/yii2-tabs-x": "dev-master",
         "bower-asset/echarts": "*",
-        "hisune/echarts-php": "^1.0"
+        "hisune/echarts-php": "^1.0",
+        "wbraganca/yii2-dynamicform": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

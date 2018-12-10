@@ -54,7 +54,12 @@ use yii\bootstrap\Modal;
             <div style="text-align:right">
                 <a class="modalButton" href="<?=Url::to(['view', 'id'=>$model->ModulID]); ?>"><span class="glyphicon glyphicon-eye-open"></span></a>
                 <a href="<?=Url::to(['update', 'id'=>$model->ModulID]); ?>"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a href="<?=Url::to(['delete', 'id'=>$model->ModulID]); ?>"><span class="glyphicon glyphicon-trash"></span></a>
+                <?= Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->ModulID], [
+                        'data' => [
+                            'confirm' => 'Sind sicher, um die Model zu löschen?',
+                            'method' => 'post',
+                        ],
+                ]) ?>
             </div>
         </div>
     </div>

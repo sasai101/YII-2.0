@@ -8,7 +8,11 @@ use common\models\ModulSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\VarDumper;
 use yii\db\Query;
+use common\models\ModulLeitetProfessor;
+use backend\models\Model;
+use common\models\Professor;
 /**
  * ModulController implements the CRUD actions for Modul model.
  */
@@ -65,16 +69,48 @@ class ModulController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Modul;
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ModulID]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        $modelModul = new Modul();
+        $modelsProfessor = [new ModulLeitetProfessor];
+        
+        if($modelModul->load(Yii::$app->request->post())){
+            //return $this->redirect(['view','id'=>$modelModul->ModulID]);
+            
+            $modelsProfessor = Model::createMultiple(ModulLeitetProfessor::classname());
+            Model::loadMultiple($modelsProfessor, Yii::$app->request->post());
+            //validieren
+            $valid = $modelModul->validate();
+            $valid = Model::validateMultiple($modelsProfessor) && $valid;
+            
+            if($valid){
+                
+                $transaction = Yii::$app->db->beginTransaction();
+                try{
+                    if ($flag = $modelModul->save(false)){
+                        foreach ($modelsProfessor as $professor ){
+                            
+                            $professor->ModulID = $modelModul->ModulID;
+                            if(!($flag=$professor->save(false))){
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+                    if($flag){
+                        $transaction->commit();
+                        return $this->redirect(['view','id'=>$modelModul->ModulID]);
+                    }
+                }catch ( \Exception $e){
+                    $transaction->rollBack();
+                }
+            }
         }
+        return $this->render('create',[
+            'modelModul' => $modelModul,
+            //'modelsProfessor' => $modelsProfessor,
+            'modelsProfessor' => (empty($modelsProfessor)) ? [new ModulLeitetProfessor] : $modelsProfessor
+        ]);
     }
+    
 
     /**
      * Updates an existing Modul model.
@@ -103,6 +139,19 @@ class ModulController extends Controller
      */
     public function actionDelete($id)
     {
+        // Löschen die Daten in der Tabelle ModullLeitetProfessor
+        /*
+        echo "<pre>";
+        print_r(Professor::profName());
+        echo "<pre>";
+        exit(0);*/
+
+        $model = ModulLeitetProfessor::findAll($id);
+        foreach ($model as $index){
+            ModulLeitetProfessor::findOne($index->ModulID, $index->professorMarterikelNr)->delete();
+        }
+        
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

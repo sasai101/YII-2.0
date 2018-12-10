@@ -15,8 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="page-header">
         <h1><?= Html::encode($this->title) ?></h1>
     </div>
-    <?= $this->render('_form', [
-        'model' => $model,
+    <?= $this->render('_dynamicForm', [
+        'modelModul' => $modelModul,
+        'modelsProfessor' => $modelsProfessor
     ]) ?>
 
 </div>

@@ -22,6 +22,8 @@ use kartik\datecontrol\DateControl;
         'attributes' => [
 
             'Bezeichnung' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Bezeichnung...', 'maxlength' => 255]],
+            
+            'Maximale_Person' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Maximale Anzahl der Person...']],
 
         ]
 

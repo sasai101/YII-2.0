@@ -108,4 +108,17 @@ class Professor extends \yii\db\ActiveRecord
     {
         return $this->marterikelNr->Profiefoto;
     }
+    
+    /*
+     * git Vorname von allen Rrofessoren zurück für Dropdownlist bei ModulCreate
+     */
+    public static function profName() {
+        //$model = Professor::find();
+        $model = Benutzer::find();
+        
+        return $model->join('INNER JOIN','professor','benutzer.MarterikelNr=professor.MarterikelNr')
+                     ->select(['Benutzer.Vorname','Benutzer.MarterikelNr'])
+                     ->indexBy('MarterikelNr')
+                     ->column();
+    }
 }

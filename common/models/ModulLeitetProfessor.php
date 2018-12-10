@@ -29,7 +29,7 @@ class ModulLeitetProfessor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ModulID', 'Professor_MarterikelNr'], 'required'],
+            //[['ModulID', 'Professor_MarterikelNr'], 'required'],
             [['ModulID', 'Professor_MarterikelNr'], 'integer'],
             [['ModulID', 'Professor_MarterikelNr'], 'unique', 'targetAttribute' => ['ModulID', 'Professor_MarterikelNr']],
             [['ModulID'], 'exist', 'skipOnError' => true, 'targetClass' => Modul::className(), 'targetAttribute' => ['ModulID' => 'ModulID']],
