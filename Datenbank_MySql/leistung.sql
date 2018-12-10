@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 07, 2018 at 03:20 PM
+-- Generation Time: Dec 10, 2018 at 10:23 AM
 -- Server version: 8.0.12
 -- PHP Version: 7.2.9
 
@@ -483,20 +483,21 @@ INSERT INTO `mitarbeiter` (`MarterikelNr`, `Buero`) VALUES
 
 CREATE TABLE `modul` (
   `ModulID` int(32) NOT NULL,
-  `Bezeichnung` varchar(255) NOT NULL
+  `Bezeichnung` varchar(255) NOT NULL,
+  `Maximale_Person` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `modul`
 --
 
-INSERT INTO `modul` (`ModulID`, `Bezeichnung`) VALUES
-(1, 'Informatik I (Grundl. der Softwareentw. & Programmierung)'),
-(2, 'Informatik II (Grundlagen der technischen Informatik)\r'),
-(3, 'Programmierpraktikum (evtl. erst im 4. FS)'),
-(4, 'Informatik III (Grundl. der Algorithmen & Datenstrukturen)'),
-(5, 'Informatik IV (Grundl. der Theoretischen Informatik)'),
-(6, 'C-Projekt');
+INSERT INTO `modul` (`ModulID`, `Bezeichnung`, `Maximale_Person`) VALUES
+(1, 'Informatik I (Grundl. der Softwareentw. & Programmierung)', 200),
+(2, 'Informatik II (Grundlagen der technischen Informatik)\r', 200),
+(3, 'Programmierpraktikum (evtl. erst im 4. FS)', 200),
+(4, 'Informatik III (Grundl. der Algorithmen & Datenstrukturen)', 200),
+(5, 'Informatik IV (Grundl. der Theoretischen Informatik)', 200),
+(6, 'C-Projekt', 200);
 
 -- --------------------------------------------------------
 
@@ -530,6 +531,18 @@ CREATE TABLE `modul_leitet_professor` (
   `ModulID` int(32) NOT NULL,
   `Professor_MarterikelNr` int(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `modul_leitet_professor`
+--
+
+INSERT INTO `modul_leitet_professor` (`ModulID`, `Professor_MarterikelNr`) VALUES
+(1, 2000007),
+(2, 2000008),
+(3, 2000009),
+(4, 2000010),
+(5, 2000011),
+(6, 2000012);
 
 -- --------------------------------------------------------
 
@@ -625,8 +638,8 @@ CREATE TABLE `uebung` (
 
 INSERT INTO `uebung` (`UebungsID`, `ModulID`, `Mitarbeiter_MarterikelNr`, `Bezeichnung`) VALUES
 (1, 1, 2000001, 'Theritische Informatik I'),
-(2, 1, 2000001, 'Pratische Übung, JAVA-Programm'),
-(3, 2, 2000002, 'Informatik II (Grundlagen der technischen Informat...\r\nInformatik II (Grundlagen der technischen Informat...\r\n'),
+(2, 1, 2000002, 'Pratische Übung, JAVA-Programm'),
+(3, 2, 2000001, 'Theritische Informatik II'),
 (4, 2, 2000002, 'Pratische Übung, Assemble'),
 (5, 3, 2000003, 'Theritische Übung von Programmierpraktikum '),
 (6, 4, 2000004, 'Übungen von Informatik III '),
