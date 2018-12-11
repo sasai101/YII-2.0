@@ -114,6 +114,7 @@ $this->registerJs($js);
                 </th>
             </tr>
         </thead>
+        <!-- Hier muss ein andern sein als oberen DynamicForm container, sonst wird nur ein von Übung gespeichert -->
         <tbody class="container-ubung">
         <?php foreach ($modelsUebung as $indexUebung => $modelUebung): ?>
             <tr class="house-item">

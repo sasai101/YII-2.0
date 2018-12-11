@@ -15,6 +15,7 @@ use backend\models\Model;
 use common\models\Professor;
 use common\models\Uebung;
 use common\models\Uebungsgruppe;
+use yii\helpers\ArrayHelper;
 /**
  * ModulController implements the CRUD actions for Modul model.
  */
@@ -161,7 +162,7 @@ class ModulController extends Controller
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
-     */
+     *//*
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -173,6 +174,126 @@ class ModulController extends Controller
                 'model' => $model,
             ]);
         }
+    }*/
+    public function actionUpdate($id)
+    {
+        $modelModul = $this->findModel($id);
+        $modelsProfessor = $modelModul->modulLeitetProfessors;
+        $modelsUebung = $modelModul->uebungs;
+        $modelsUebungsgruppe = [];
+        $alteUebungsgruppen = [];
+        
+        if(!empty($modelsUebung)){
+            foreach ($modelsUebung as $indexUebung => $modelUebung){
+                $uebungsgruppen = $modelUebung->uebungsgruppes;
+                $modelsUebungsgruppe[$indexUebung] = $uebungsgruppen;
+                $alteUebungsgruppen = ArrayHelper::merge(ArrayHelper::index($uebungsgruppen, 'UebungsgruppeID'), $alteUebungsgruppen);
+            }
+        }
+        
+        if($modelModul->load(Yii::$app->request->post())){
+            //Professor
+            $alteProfessorID = ArrayHelper::map($modelsProfessor, 'ModulID', 'Professor_MarterikelNr');
+            /*
+            echo "<pre>";
+            print_r($alteProfessorID);
+            echo "</pre>";
+            exit(0);
+            */
+            $modelsProfessor = Model::createMultiple(ModulLeitetProfessor::classname(), $modelsProfessor);
+            Model::loadMultiple($modelsProfessor, Yii::$app->request->post());
+            $deletedProfessorID = array_diff($alteProfessorID, array_filter(ArrayHelper::map($modelsProfessor, 'Professor_MarterikelNr', 'Professor_MarterikelNr')));
+            
+            //Übungen und Übungsgruppe
+            $modelsUebungsgruppe = [];
+            $alteUebungID = ArrayHelper::map($modelsUebung, 'UebungsID', 'UebungsID');
+            $modelsUebung = Model::createMultiple(Uebung::classname(), $modelsUebung);
+            Model::loadMultiple($modelsUebung, Yii::$app->request->post());
+            $deletedUebungID = array_diff($alteUebungID, array_filter(ArrayHelper::map($modelsUebung, 'UebungsID', 'UebungsID')));
+            
+            
+            $valid = $modelModul->validate();
+            $valid = Model::validateMultiple($modelsProfessor) && Model::validateMultiple($modelsUebung) && $valid;
+            
+            $uebungsgruppeID = [];
+            
+            //Übungsgruppe
+            if(isset($_POST['Uebungsgruppe'][0][0])){
+                foreach ($_POST['Uebungsgruppe'] as $indexUebung => $uebungsgruppen){
+                    $uebungsgruppeID = ArrayHelper::merge($uebungsgruppeID, array_filter(ArrayHelper::getColumn($uebungsgruppen, 'UebungsgruppeID')));
+                    foreach ($uebungsgruppen as $indexUebungsgrupe => $uebungsgruppe){
+                        $data['Uebungsgruppe'] = $uebungsgruppe;
+                        $modelUebungsgruppe = (isset($uebungsgruppe['UebungsgruppeID']) && isset($alteUebungsgruppen[$uebungsgruppe['UebungsgruppeID']]))? $alteUebungsgruppen[$uebungsgruppe['UebungsgruppeID']] : new Uebungsgruppe;
+                        $modelUebungsgruppe->load($data);
+                        $modelsUebungsgruppe[$indexUebung][$indexUebungsgrupe] = $modelUebungsgruppe;
+                        $valid = $modelUebungsgruppe->validate();
+                    }
+                }
+            }
+            $alteUebungsgruppeID = ArrayHelper::getColumn($alteUebungsgruppen, 'UebungsgruppeID');
+            $deletedUebungsgruppeID = array_diff($alteUebungsgruppeID, $uebungsgruppeID);
+            
+            
+            if($valid){
+                $transcation = Yii::$app->db->beginTransaction();
+                try{
+                    if($flag = $modelModul->save(false)){
+                        // Professor
+                        if(!empty($deletedProfessorID)){
+                            ModulLeitetProfessor::deleteAll(['ModulID'=>$deletedProfessorID]);
+                        }
+                        foreach ($modelsProfessor as $modelProfessor){
+                            $modelProfessor->ModulID = $modelModul->ModulID;
+                            if(!($flag = $modelProfessor->save(false))){
+                                $transcation->rollBack();
+                                break;
+                            }
+                        }
+                        
+                        // Uebungen und Übungsgruppen
+                        if(!empty($deletedUebungsgruppeID)){
+                            Uebungsgruppe::deleteAll(['UebungsgruppeID'=>$deletedUebungsgruppeID]);
+                        }
+                        if (!empty($deletedUebungID)){
+                            Uebung::deleteAll(['UebungsID'=>$deletedUebungID]);
+                        }
+                        foreach ($modelsUebung as $indexUebung => $modelUebung){
+                            if($flag ===false){
+                                break;
+                            }
+                            $modelUebung->ModulID = $modelModul->ModulID;
+                            if(!($flag=$modelUebung->save(false))){
+                                break;
+                            }
+                            
+                            if (isset($modelsUebungsgruppe[$indexUebung]) && is_array($modelsUebungsgruppe[$indexUebung])) {
+                                foreach ($modelsUebungsgruppe[$indexUebung] as $indexUebungsgrupe=>$modelUebungsgruppe){
+                                    $modelUebungsgruppe->UebungsID = $modelUebung->UebungsID;
+                                    if(!($flag = $modelUebungsgruppe->save(false))){
+                                        $transaction->rollBack();
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    
+                    }
+                    if($flag){
+                        $transcation->commit();
+                        return $this->redirect(['view','id'=>$modelModul->ModulID]);
+                    }
+                }catch (\Exception $e) {
+                    $transcation->rollBack();
+                }
+            }
+        }
+        return $this->render('update',[
+            'modelModul' => $modelModul,
+            'modelsProfessor' => (empty($modelsProfessor)) ? [new ModulLeitetProfessor] : $modelsProfessor,
+            'modelsUebung' => (empty($modelsUebung)) ? [new Uebung] : $modelsUebung,
+            'modelsUebungsgruppe' => (empty($modelsUebungsgruppe)) ? [[new Uebungsgruppe]] : $modelsUebungsgruppe,
+        ]);
+        
     }
 
     /**
