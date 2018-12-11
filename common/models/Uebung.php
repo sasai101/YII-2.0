@@ -33,7 +33,8 @@ class Uebung extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ModulID', 'Mitarbeiter_MarterikelNr', 'Bezeichnung'], 'required'],
+            //[['ModulID', 'Mitarbeiter_MarterikelNr', 'Bezeichnung'], 'required'],
+            [['Mitarbeiter_MarterikelNr', 'Bezeichnung'], 'required'],
             [['ModulID', 'Mitarbeiter_MarterikelNr'], 'integer'],
             [['Bezeichnung'], 'string', 'max' => 255],
             [['Mitarbeiter_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Mitarbeiter::className(), 'targetAttribute' => ['Mitarbeiter_MarterikelNr' => 'marterikelnr']],

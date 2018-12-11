@@ -120,6 +120,18 @@ class Mitarbeiter extends \yii\db\ActiveRecord
     {
         return $this->marterikelNr->Profiefoto;
     }
- 
+    
+    /*
+     * git Vorname von allen Mitarbeiter zurück für Dropdownlist bei ModulCreate
+     */
+    public static function mitarbeiterName() {
+        //$model = Professor::find();
+        $model = Benutzer::find();
+        
+        return $model->join('INNER JOIN','mitarbeiter','benutzer.MarterikelNr=mitarbeiter.MarterikelNr')
+        ->select(['Benutzer.Vorname','Benutzer.MarterikelNr'])
+        ->indexBy('MarterikelNr')
+        ->column();
+    }
     
 }

@@ -98,7 +98,18 @@ class Tutor extends \yii\db\ActiveRecord
         return $this->marterikelNr->Profiefoto;
     }
     
-    
+    /*
+     * git Vorname von allen Mitarbeiter zurück für Dropdownlist bei ModulCreate
+     */
+    public static function tutorName() {
+        //$model = Professor::find();
+        $model = Benutzer::find();
+        
+        return $model->join('INNER JOIN','tutor','benutzer.MarterikelNr=tutor.MarterikelNr')
+        ->select(['Benutzer.Vorname','Benutzer.MarterikelNr'])
+        ->indexBy('MarterikelNr')
+        ->column();
+    }
     
     
     

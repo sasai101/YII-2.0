@@ -17,7 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <?= $this->render('_dynamicForm', [
         'modelModul' => $modelModul,
-        'modelsProfessor' => $modelsProfessor
+        'modelsProfessor' => $modelsProfessor,
+        'modelsUebung' => $modelsUebung,
+        'modelsUebungsgruppe' => $modelsUebungsgruppe,
     ]) ?>
 
 </div>
