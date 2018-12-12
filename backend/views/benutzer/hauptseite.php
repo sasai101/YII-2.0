@@ -1,3 +1,7 @@
+<?php 
+use yii\helpers\Json;
+?>
+
 <script src="../../vendor/bower-asset/echarts/dist/echarts-en.min.js"></script>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="main" style="width: 600px;height:400px;"></div>
@@ -63,4 +67,13 @@
 
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
-    </script>
+</script>
+<?php 
+$row = (new \yii\db\Query())
+->select(['id','Datum','Anzahlen'])
+->from('anzahl_des_benutzers')
+->all();
+
+$ret = array_values($row);
+echo JSON::encode($ret);
+?>

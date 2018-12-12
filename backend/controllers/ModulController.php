@@ -179,9 +179,23 @@ class ModulController extends Controller
     {
         $modelModul = $this->findModel($id);
         $modelsProfessor = $modelModul->modulLeitetProfessors;
+        $modelsProfessor1 = ModulLeitetProfessor::find()->where(['ModulID'=>$id])->all();
+        //echo "<pre>";
+        //print_r($modelModul);
+        //print_r($modelsProfessor);
+        //print_r($modelsProfessor);
+        //echo "</pre>";
+        //exit(0);
+        
         $modelsUebung = $modelModul->uebungs;
         $modelsUebungsgruppe = [];
         $alteUebungsgruppen = [];
+        
+        echo "<pre>";
+        //print_r($modelsProfessor1);
+        print_r($modelsProfessor);
+        echo "</pre>";
+        //exit(0);
         
         if(!empty($modelsUebung)){
             foreach ($modelsUebung as $indexUebung => $modelUebung){
@@ -193,16 +207,27 @@ class ModulController extends Controller
         
         if($modelModul->load(Yii::$app->request->post())){
             //Professor
-            $alteProfessorID = ArrayHelper::map($modelsProfessor, 'ModulID', 'Professor_MarterikelNr');
-            /*
-            echo "<pre>";
-            print_r($alteProfessorID);
-            echo "</pre>";
-            exit(0);
-            */
+            $alteProfessorID = ArrayHelper::map($modelsProfessor, 'Professor_MarterikelNr', 'Professor_MarterikelNr');
+            
+            //echo "<pre>";
+            //print_r($alteProfessorID);
+            //echo "</pre>";
+            
+            
+            //echo "<pre>";
+            //print_r($modelsProfessor1);
+            //print_r($alteProfessorID);
+            //print_r($modelsProfessor);
+            //echo "</pre>";
+            //exit(0);
+            
             $modelsProfessor = Model::createMultiple(ModulLeitetProfessor::classname(), $modelsProfessor);
             Model::loadMultiple($modelsProfessor, Yii::$app->request->post());
-            $deletedProfessorID = array_diff($alteProfessorID, array_filter(ArrayHelper::map($modelsProfessor, 'Professor_MarterikelNr', 'Professor_MarterikelNr')));
+            $deletedProfessorID = array_diff($alteProfessorID, array_filter(ArrayHelper::map($modelsProfessor, 'ModulID', 'ModulID')));
+            //echo "<pre>";
+            //print_r($modelsProfessor1);
+            //print_r($alteProfessorID);
+            //echo "</pre>";
             
             //Übungen und Übungsgruppe
             $modelsUebungsgruppe = [];

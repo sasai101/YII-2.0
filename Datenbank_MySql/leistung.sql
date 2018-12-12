@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 10, 2018 at 10:23 AM
+-- Generation Time: Dec 12, 2018 at 07:58 PM
 -- Server version: 8.0.12
 -- PHP Version: 7.2.9
 
@@ -48,6 +48,136 @@ CREATE TABLE `anzahl_des_benutzers` (
   `Datum` varchar(255) NOT NULL,
   `Anzahlen` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `anzahl_des_benutzers`
+--
+
+INSERT INTO `anzahl_des_benutzers` (`id`, `Datum`, `Anzahlen`) VALUES
+(1, '2018/6/15', '2'),
+(2, '2018/6/16', '4'),
+(3, '2018/6/17', '6'),
+(4, '2018/6/18', '8'),
+(5, '2018/6/19', '10'),
+(6, '2018/6/20', '12'),
+(7, '2018/6/21', '14'),
+(8, '2018/6/22', '16'),
+(9, '2018/6/23', '18'),
+(10, '2018/6/24', '20'),
+(11, '2018/6/25', '22'),
+(12, '2018/6/26', '24'),
+(13, '2018/6/27', '26'),
+(14, '2018/6/28', '28'),
+(15, '2018/6/29', '30'),
+(16, '2018/6/30', '32'),
+(17, '2018/7/1', '34'),
+(18, '2018/7/2', '36'),
+(19, '2018/7/3', '38'),
+(20, '2018/7/4', '40'),
+(21, '2018/7/5', '42'),
+(22, '2018/7/6', '44'),
+(23, '2018/7/7', '46'),
+(24, '2018/7/8', '48'),
+(25, '2018/7/9', '50'),
+(26, '2018/7/10', '52'),
+(27, '2018/7/11', '54'),
+(28, '2018/7/12', '56'),
+(29, '2018/7/13', '58'),
+(30, '2018/7/14', '60'),
+(31, '2018/7/15', '62'),
+(32, '2018/7/16', '64'),
+(33, '2018/7/17', '66'),
+(34, '2018/7/18', '68'),
+(35, '2018/7/19', '70'),
+(36, '2018/7/20', '72'),
+(37, '2018/7/21', '74'),
+(38, '2018/7/22', '76'),
+(39, '2018/7/23', '78'),
+(40, '2018/7/24', '80'),
+(41, '2018/7/25', '82'),
+(42, '2018/7/26', '84'),
+(43, '2018/7/27', '86'),
+(44, '2018/7/28', '88'),
+(45, '2018/7/29', '90'),
+(46, '2018/7/30', '92'),
+(47, '2018/7/31', '94'),
+(48, '2018/8/1', '96'),
+(49, '2018/8/2', '98'),
+(50, '2018/8/3', '100'),
+(51, '2018/8/4', '102'),
+(52, '2018/8/5', '104'),
+(53, '2018/8/6', '106'),
+(54, '2018/8/7', '108'),
+(55, '2018/8/8', '110'),
+(56, '2018/8/9', '112'),
+(57, '2018/8/10', '114'),
+(58, '2018/8/11', '116'),
+(59, '2018/8/12', '118'),
+(60, '2018/8/13', '120'),
+(61, '2018/8/14', '122'),
+(62, '2018/8/15', '124'),
+(63, '2018/8/16', '126'),
+(64, '2018/8/17', '128'),
+(65, '2018/8/18', '130'),
+(66, '2018/8/19', '132'),
+(67, '2018/8/20', '134'),
+(68, '2018/8/21', '136'),
+(69, '2018/8/22', '138'),
+(70, '2018/8/23', '140'),
+(71, '2018/8/24', '142'),
+(72, '2018/8/25', '144'),
+(73, '2018/8/26', '146'),
+(74, '2018/8/27', '148'),
+(75, '2018/8/28', '150'),
+(76, '2018/8/29', '152'),
+(77, '2018/8/30', '154'),
+(78, '2018/8/31', '156'),
+(79, '2018/9/1', '158'),
+(80, '2018/9/2', '160'),
+(81, '2018/9/3', '162'),
+(82, '2018/9/4', '164'),
+(83, '2018/9/5', '166'),
+(84, '2018/9/6', '168'),
+(85, '2018/9/7', '170'),
+(86, '2018/9/8', '172'),
+(87, '2018/9/9', '174'),
+(88, '2018/9/10', '176'),
+(89, '2018/9/11', '178'),
+(90, '2018/9/12', '180'),
+(91, '2018/9/13', '182'),
+(92, '2018/9/14', '184'),
+(93, '2018/9/15', '186'),
+(94, '2018/9/16', '188'),
+(95, '2018/9/17', '190'),
+(96, '2018/9/18', '192'),
+(97, '2018/9/19', '194'),
+(98, '2018/9/20', '196'),
+(99, '2018/9/21', '198'),
+(100, '2018/9/22', '200'),
+(101, '2018/9/23', '202'),
+(102, '2018/9/24', '204'),
+(103, '2018/9/25', '206'),
+(104, '2018/9/26', '208'),
+(105, '2018/9/27', '210'),
+(106, '2018/9/28', '212'),
+(107, '2018/9/29', '214'),
+(108, '2018/9/30', '216'),
+(109, '2018/10/1', '218'),
+(110, '2018/10/2', '220'),
+(111, '2018/10/3', '222'),
+(112, '2018/10/4', '224'),
+(113, '2018/10/5', '226'),
+(114, '2018/10/6', '228'),
+(115, '2018/10/7', '230'),
+(116, '2018/10/8', '232'),
+(117, '2018/10/9', '234'),
+(118, '2018/10/10', '236'),
+(119, '2018/10/11', '238'),
+(120, '2018/10/12', '240'),
+(121, '2018/10/13', '242'),
+(122, '2018/10/14', '244'),
+(123, '2018/10/15', '246'),
+(124, '2018/12/16', '254');
 
 -- --------------------------------------------------------
 
@@ -492,12 +622,13 @@ CREATE TABLE `modul` (
 --
 
 INSERT INTO `modul` (`ModulID`, `Bezeichnung`, `Maximale_Person`) VALUES
-(1, 'Informatik I (Grundl. der Softwareentw. & Programmierung)', 200),
+(1, 'Informatik I(Grundl. der Softwareentw. & Programmierung)', 200),
 (2, 'Informatik II (Grundlagen der technischen Informatik)\r', 200),
 (3, 'Programmierpraktikum (evtl. erst im 4. FS)', 200),
 (4, 'Informatik III (Grundl. der Algorithmen & Datenstrukturen)', 200),
 (5, 'Informatik IV (Grundl. der Theoretischen Informatik)', 200),
-(6, 'C-Projekt', 200);
+(6, 'C-Projekt', 200),
+(125, 'Datenbanksystem', 123);
 
 -- --------------------------------------------------------
 
@@ -538,10 +669,16 @@ CREATE TABLE `modul_leitet_professor` (
 
 INSERT INTO `modul_leitet_professor` (`ModulID`, `Professor_MarterikelNr`) VALUES
 (1, 2000007),
+(3, 2000007),
+(4, 2000007),
 (2, 2000008),
+(2, 2000009),
 (3, 2000009),
+(125, 2000009),
+(1, 2000010),
 (4, 2000010),
 (5, 2000011),
+(125, 2000011),
 (6, 2000012);
 
 -- --------------------------------------------------------
@@ -644,7 +781,9 @@ INSERT INTO `uebung` (`UebungsID`, `ModulID`, `Mitarbeiter_MarterikelNr`, `Bezei
 (5, 3, 2000003, 'Theritische Übung von Programmierpraktikum '),
 (6, 4, 2000004, 'Übungen von Informatik III '),
 (7, 5, 2000005, 'Übungen von Informatik IV'),
-(8, 6, 2000006, 'Übungen von C Projekt');
+(8, 6, 2000006, 'Übungen von C Projekt'),
+(45, 125, 2000002, 'dsfdsfdsafdsf'),
+(46, 125, 2000003, 'dsfdsfdsafdsf123123123');
 
 -- --------------------------------------------------------
 
@@ -672,7 +811,7 @@ CREATE TABLE `uebungsgruppe` (
   `UebungsgruppeID` int(32) NOT NULL,
   `UebungsID` int(32) NOT NULL,
   `Tutor_MarterikelNr` int(32) NOT NULL,
-  `Anzahl_der_Personen` int(32) NOT NULL,
+  `Anzahl_der_Personen` int(32) DEFAULT NULL,
   `GruppenNr` int(32) NOT NULL,
   `Max_Person` int(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -717,7 +856,11 @@ INSERT INTO `uebungsgruppe` (`UebungsgruppeID`, `UebungsID`, `Tutor_MarterikelNr
 (33, 8, 2000061, 2, 4, 20),
 (34, 8, 2000062, 2, 5, 20),
 (35, 8, 2000063, 2, 6, 20),
-(36, 8, 2000064, 2, 7, 20);
+(36, 8, 2000064, 2, 7, 20),
+(86, 45, 2000044, NULL, 1, 11),
+(87, 45, 2000047, NULL, 2, 20),
+(88, 46, 2000042, NULL, 1, 11),
+(89, 46, 2000045, NULL, 2, 23);
 
 --
 -- Indexes for dumped tables
@@ -893,7 +1036,7 @@ ALTER TABLE `abgabe`
 -- AUTO_INCREMENT for table `anzahl_des_benutzers`
 --
 ALTER TABLE `anzahl_des_benutzers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `einzelaufgabe`
@@ -917,13 +1060,13 @@ ALTER TABLE `klausurnote`
 -- AUTO_INCREMENT for table `modul`
 --
 ALTER TABLE `modul`
-  MODIFY `ModulID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ModulID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 
 --
 -- AUTO_INCREMENT for table `uebung`
 --
 ALTER TABLE `uebung`
-  MODIFY `UebungsID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `UebungsID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `uebungsblaetter`
@@ -935,7 +1078,7 @@ ALTER TABLE `uebungsblaetter`
 -- AUTO_INCREMENT for table `uebungsgruppe`
 --
 ALTER TABLE `uebungsgruppe`
-  MODIFY `UebungsgruppeID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `UebungsgruppeID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- Constraints for dumped tables
