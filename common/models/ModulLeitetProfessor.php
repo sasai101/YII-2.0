@@ -29,7 +29,7 @@ class ModulLeitetProfessor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            //[['ModulID', 'Professor_MarterikelNr'], 'required'],
+            [['ModulID', 'Professor_MarterikelNr'], 'required'],
             [['Professor_MarterikelNr'], 'required'],
             [['ModulID', 'Professor_MarterikelNr'], 'integer'],
             [['ModulID', 'Professor_MarterikelNr'], 'unique', 'targetAttribute' => ['ModulID', 'Professor_MarterikelNr']],
@@ -63,5 +63,12 @@ class ModulLeitetProfessor extends \yii\db\ActiveRecord
     public function getProfessorMarterikelNr()
     {
         return $this->hasOne(Professor::className(), ['marterikelnr' => 'Professor_MarterikelNr']);
+    }
+    
+    public static function findModelleitetProf($ModulID, $Professor_MarterikelNr)
+    {
+        if (($model = ModulLeitetProfessor::findOne(['ModulID' => $ModulID, 'Professor_MarterikelNr' => $Professor_MarterikelNr])) !== null) {
+            return $model;
+        } 
     }
 }

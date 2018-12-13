@@ -8,14 +8,14 @@ use common\models\ModulSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\VarDumper;
 use yii\db\Query;
 use common\models\ModulLeitetProfessor;
 use backend\models\Model;
-use common\models\Professor;
 use common\models\Uebung;
 use common\models\Uebungsgruppe;
 use yii\helpers\ArrayHelper;
+use backend\models\ModelProfe;
+use backend\models\ModelUebung;
 /**
  * ModulController implements the CRUD actions for Modul model.
  */
@@ -162,40 +162,16 @@ class ModulController extends Controller
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
-     *//*
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ModulID]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }*/
+     */
     public function actionUpdate($id)
     {
         $modelModul = $this->findModel($id);
         $modelsProfessor = $modelModul->modulLeitetProfessors;
-        $modelsProfessor1 = ModulLeitetProfessor::find()->where(['ModulID'=>$id])->all();
-        //echo "<pre>";
-        //print_r($modelModul);
-        //print_r($modelsProfessor);
-        //print_r($modelsProfessor);
-        //echo "</pre>";
-        //exit(0);
         
         $modelsUebung = $modelModul->uebungs;
         $modelsUebungsgruppe = [];
         $alteUebungsgruppen = [];
         
-        echo "<pre>";
-        //print_r($modelsProfessor1);
-        print_r($modelsProfessor);
-        echo "</pre>";
-        //exit(0);
         
         if(!empty($modelsUebung)){
             foreach ($modelsUebung as $indexUebung => $modelUebung){
@@ -209,30 +185,34 @@ class ModulController extends Controller
             //Professor
             $alteProfessorID = ArrayHelper::map($modelsProfessor, 'Professor_MarterikelNr', 'Professor_MarterikelNr');
             
-            //echo "<pre>";
-            //print_r($alteProfessorID);
-            //echo "</pre>";
+            echo "<pre>";
+            echo "<p>jdklfsjkl</p>";
+            print_r($alteProfessorID);
+            echo "</pre>";
             
             
-            //echo "<pre>";
-            //print_r($modelsProfessor1);
-            //print_r($alteProfessorID);
-            //print_r($modelsProfessor);
-            //echo "</pre>";
-            //exit(0);
+            $modelsProfessor = ModelProfe::createMultiple(ModulLeitetProfessor::classname(), $modelsProfessor);
             
-            $modelsProfessor = Model::createMultiple(ModulLeitetProfessor::classname(), $modelsProfessor);
+//             echo "<pre>";
+//             print_r($modelsProfessor);
+//             echo "</pre>";
+            
             Model::loadMultiple($modelsProfessor, Yii::$app->request->post());
-            $deletedProfessorID = array_diff($alteProfessorID, array_filter(ArrayHelper::map($modelsProfessor, 'ModulID', 'ModulID')));
-            //echo "<pre>";
-            //print_r($modelsProfessor1);
-            //print_r($alteProfessorID);
-            //echo "</pre>";
+//             echo "<pre>";
+//             print_r($modelsProfessor);
+//             echo "</pre>";
+            // Erro position
+            $deletedProfessorID = array_diff($alteProfessorID, array_filter(ArrayHelper::map($modelsProfessor, 'Professor_MarterikelNr', 'Professor_MarterikelNr')));
+            
+            echo "<pre>";
+            print_r($deletedProfessorID);
+            echo "</pre>";
+            //exit(0);
             
             //Übungen und Übungsgruppe
             $modelsUebungsgruppe = [];
             $alteUebungID = ArrayHelper::map($modelsUebung, 'UebungsID', 'UebungsID');
-            $modelsUebung = Model::createMultiple(Uebung::classname(), $modelsUebung);
+            $modelsUebung = ModelUebung::createMultiple(Uebung::classname(), $modelsUebung);
             Model::loadMultiple($modelsUebung, Yii::$app->request->post());
             $deletedUebungID = array_diff($alteUebungID, array_filter(ArrayHelper::map($modelsUebung, 'UebungsID', 'UebungsID')));
             
@@ -264,8 +244,22 @@ class ModulController extends Controller
                 try{
                     if($flag = $modelModul->save(false)){
                         // Professor
+                        
                         if(!empty($deletedProfessorID)){
-                            ModulLeitetProfessor::deleteAll(['ModulID'=>$deletedProfessorID]);
+                            
+                            //Löschen die jenigen Items, die in der Tabelle ModolleitetProfess beim Update ausgewählt werden.
+                            $deletModulProf = ModulLeitetProfessor::findModelleitetProf($id, $deletedProfessorID);
+//                          echo "<pre>";
+//                          print_r($modelsProfessor);
+//                          echo "</pre>";
+//                          exit(0);
+
+                            ModulLeitetProfessor::deleteAll(['ModulID'=>$deletModulProf->ModulID, 'Professor_MarterikelNr'=>$deletedProfessorID]);
+//                          echo "<pre>";
+//                          print_r($modelsProfessor);
+//                          echo "</pre>";
+//                          exit(0);
+                            
                         }
                         foreach ($modelsProfessor as $modelProfessor){
                             $modelProfessor->ModulID = $modelModul->ModulID;
