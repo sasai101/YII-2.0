@@ -65,6 +65,9 @@ class ModulLeitetProfessor extends \yii\db\ActiveRecord
         return $this->hasOne(Professor::className(), ['marterikelnr' => 'Professor_MarterikelNr']);
     }
     
+    /*
+     * Die Absuchung von der ModelleiteProf für Modul-Update Funktion, Da es beim disem Tabelle eine Compound key gibt
+     */
     public static function findModelleitetProf($ModulID, $Professor_MarterikelNr)
     {
         if (($model = ModulLeitetProfessor::findOne(['ModulID' => $ModulID, 'Professor_MarterikelNr' => $Professor_MarterikelNr])) !== null) {
