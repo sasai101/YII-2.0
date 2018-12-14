@@ -311,7 +311,10 @@ use yii\helpers\Url;
     -->
     <?php
         Modal::begin([
-            'header' => '<h2>Profie</h2>',
+            'header' => '<div class="row">
+                            <div class="col-xs-12 col-md-4"><img src="../../modul/HHU.png" class="img-rounded" alt="user image" height = "90" width="180"/></div>
+                            <div class="col-xs-6 col-md-8"><h1><b>Studierenden System</b></h1></div>
+                         </div>',
             'id' => 'modal',
             'size' => 'modal-lg',
         ]);

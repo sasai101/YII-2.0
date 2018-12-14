@@ -8,6 +8,8 @@ use common\models\UebungSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\ModulSuchen;
+use common\models\Uebungsblaetter;
 
 /**
  * UebungController implements the CRUD actions for Uebung model.
@@ -32,10 +34,24 @@ class UebungController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new UebungSuchen;
+        $searchModel = new ModulSuchen();
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         return $this->render('index', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
+    
+    /*
+     * Gridview für Ubung bei jeden einzeln Modul
+     */
+    public function actionEinzelubung($id)
+    {
+        $searchModel = new UebungSuchen();
+        $dataProvider = $searchModel->search($id);
+        
+        return $this->render('einzelubung',[
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
         ]);

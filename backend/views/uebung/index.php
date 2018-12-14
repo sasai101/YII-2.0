@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
+use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
 /**
@@ -10,7 +11,7 @@ use yii\widgets\Pjax;
  * @var common\models\UebungSuchen $searchModel
  */
 
-$this->title = 'Uebungs';
+$this->title = 'Übung';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="uebung-index">
@@ -22,42 +23,26 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?php /* echo Html::a('Create Uebung', ['create'], ['class' => 'btn btn-success'])*/  ?>
     </p>
-
-    <?php Pjax::begin(); echo GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'UebungsID',
-            'ModulID',
-            'Mitarbeiter_MarterikelNr',
-            'Bezeichnung',
-
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'buttons' => [
-                    'update' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
-                            Yii::$app->urlManager->createUrl(['uebung/view', 'id' => $model->UebungsID, 'edit' => 't']),
-                            ['title' => Yii::t('yii', 'Edit'),]
-                        );
-                    }
-                ],
-            ],
-        ],
-        'responsive' => true,
-        'hover' => true,
-        'condensed' => true,
-        'floatHeader' => true,
-
-        'panel' => [
-            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
-            'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
-            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
-            'showFooter' => false
-        ],
-    ]); Pjax::end(); ?>
+    
+    <div class = "row">
+        <?php Pjax::begin(); echo ListView::widget([
+              'dataProvider' => $dataProvider,
+              'itemView' => '_uebunglistview',
+              'layout' => '{items}<div class="col-lg-12 sum-pager">{summary}{pager}</div>',
+              'itemOptions' => [
+                'tag' => 'div',
+                'class' => 'col-lg-3'
+              ],
+              
+              'pager' => [
+               
+                'maxButtonCount' => 12,
+                'prevPageLabel' => 'Vorne',
+                'nextPageLabel' => 'Nächste',
+              ]
+        ]);Pjax::end(); 
+        
+        ?>
+    </div>
 
 </div>

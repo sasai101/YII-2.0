@@ -65,12 +65,3 @@ use yii\bootstrap\Modal;
     </div>
 </div>
 
- <?php 
-    Modal::begin([
-        'header' => 'Test',
-        'id' => 'modal',
-        'size' => 'modal-lg',
-    ]);
-    echo "<div id='modalContent'></div>";
-    Modal::end();
-?>
