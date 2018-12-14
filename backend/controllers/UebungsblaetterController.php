@@ -30,10 +30,10 @@ class UebungsblaetterController extends Controller
      * Lists all Uebungsblaetter models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
         $searchModel = new UebungsblaetterSuchen;
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        $dataProvider = $searchModel->searchMitID($id);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,

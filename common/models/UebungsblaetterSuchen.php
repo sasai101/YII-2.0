@@ -51,4 +51,30 @@ class UebungsblaetterSuchen extends Uebungsblaetter
 
         return $dataProvider;
     }
+    
+    public function searchMitID($params)
+    {
+        $query = Uebungsblaetter::find()->where(['UebungsID'=>$params]);
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+        
+        $query->andFilterWhere([
+            'UebungsblatterID' => $this->UebungsblatterID,
+            'UebungsID' => $this->UebungsID,
+            'UebungsNr' => $this->UebungsNr,
+            'Anzahl_der_Aufgabe' => $this->Anzahl_der_Aufgabe,
+            'Deadline' => $this->Deadline,
+            'Ausgabedatum' => $this->Ausgabedatum,
+        ]);
+        
+        $query->andFilterWhere(['like', 'Datein', $this->Datein]);
+        
+        return $dataProvider;
+    }
 }
