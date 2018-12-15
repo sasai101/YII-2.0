@@ -21,17 +21,19 @@ use kartik\datecontrol\DateControl;
         'columns' => 1,
         'attributes' => [
 
-            'UebungsID' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Uebungs ID...']],
+            //'UebungsID' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Uebungs ID...']],
 
-            'UebungsNr' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Uebungs Nr...']],
+            //'UebungsNr' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Bitte geben Sie den Übungsblätternur ein']],
 
-            'Anzahl_der_Aufgabe' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Anzahl Der  Aufgabe...']],
+            'Anzahl_der_Aufgabe' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Bitte geben Sie die Anzahl der Aufgabe ein']],
 
-            'Datein' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Datein...', 'maxlength' => 225]],
+            'GesamtePunkte' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Geben Sie bitte die gesamte Punkte des Übungsbätters', 'maxlength' => 225]],
+            
+            'file' => ['type' => Form::INPUT_FILE],
 
-            'Deadline' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Deadline...']],
+            'Deadline' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Deadline']],
 
-            'Ausgabedatum' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Ausgabedatum...']],
+            //'Ausgabedatum' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Ausgabedatum']],
 
         ]
 

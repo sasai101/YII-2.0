@@ -312,7 +312,7 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
     /*test
-    * die befrsave Funktion umschreiben ,damit die datein richtig und automatisch gespeichert zu werden
+    * die befrsave Funktion umschreiben ,damit die Datum richtig und automatisch gespeichert zu werden
     */
     public function beforeSave($insert)
     {

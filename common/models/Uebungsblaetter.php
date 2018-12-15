@@ -14,12 +14,16 @@ use Yii;
  * @property int $Deadline
  * @property int $Ausgabedatum
  * @property string $Datein
+ * @property int $GesamtePunkte
  *
  * @property Einzelaufgabe[] $einzelaufgabes
  * @property Uebung $uebungs
  */
 class Uebungsblaetter extends \yii\db\ActiveRecord
 {
+    
+    public $file;
+    
     /**
      * {@inheritdoc}
      */
@@ -34,10 +38,12 @@ class Uebungsblaetter extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['UebungsID', 'UebungsNr', 'Anzahl_der_Aufgabe', 'Datein'], 'required'],
-            [['UebungsID', 'UebungsNr', 'Anzahl_der_Aufgabe', 'Deadline', 'Ausgabedatum'], 'integer'],
+            [['UebungsID', 'UebungsNr', 'Anzahl_der_Aufgabe', 'Datein', 'GesamtePunkte'], 'required'],
+            [['UebungsID', 'UebungsNr', 'Anzahl_der_Aufgabe', 'Deadline', 'Ausgabedatum', 'GesamtePunkte'], 'integer'],
             [['Datein'], 'string', 'max' => 225],
             [['UebungsID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebung::className(), 'targetAttribute' => ['UebungsID' => 'UebungsID']],
+            
+            [['file'],'file', 'extensions' => 'pdf','checkExtensionByMimeType'=>false],
         ];
     }
 
@@ -48,12 +54,14 @@ class Uebungsblaetter extends \yii\db\ActiveRecord
     {
         return [
             'UebungsblatterID' => 'Uebungsblatter ID',
-            'UebungsID' => 'Uebungs ID',
-            'UebungsNr' => 'Uebungs Nr',
-            'Anzahl_der_Aufgabe' => 'Anzahl Der  Aufgabe',
+            'UebungsID' => 'Übungsname',
+            'UebungsNr' => 'Übungsnummer',
+            'Anzahl_der_Aufgabe' => 'Insgesamte Aufgabe',
             'Deadline' => 'Deadline',
             'Ausgabedatum' => 'Ausgabedatum',
-            'Datein' => 'Datein',
+            'Datein' => 'Übungsblätter',
+            'file' => 'blätte',
+            'GesamtePunkte' => 'Gesamte Punkte',
         ];
     }
 
@@ -71,5 +79,35 @@ class Uebungsblaetter extends \yii\db\ActiveRecord
     public function getUebungs()
     {
         return $this->hasOne(Uebung::className(), ['UebungsID' => 'UebungsID']);
+    }
+    
+    /*
+     * gibt die Anzahl der verfügbaren Übungsblätter
+     */
+    public static function getAnzahlderBlaetter($id)
+    {
+        return Uebungsblaetter::find()->where(['UebungsID'=>$id])->count();
+    }
+    
+    
+    /*test
+     * die befrsave Funktion umschreiben ,damit die Datum richtig und automatisch gespeichert zu werden
+     */
+    public function beforeSave($insert)
+    {
+        
+        // die orignale Funktion erstmal durchfueren,
+        if(parent::beforeSave($insert))
+        {
+            if($insert)
+            {
+                $this->Ausgabedatum = time();
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

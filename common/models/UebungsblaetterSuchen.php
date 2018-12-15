@@ -51,7 +51,9 @@ class UebungsblaetterSuchen extends Uebungsblaetter
 
         return $dataProvider;
     }
-    
+    /*
+     * Neue Suchfunktion für Seite index, damit nur die entsprechende Übung zeigen
+     */
     public function searchMitID($params)
     {
         $query = Uebungsblaetter::find()->where(['UebungsID'=>$params]);
