@@ -183,13 +183,7 @@ class ModulController extends Controller
         
         if($modelModul->load(Yii::$app->request->post())){
             //Professor
-            $alteProfessorID = ArrayHelper::map($modelsProfessor, 'Professor_MarterikelNr', 'Professor_MarterikelNr');
-            
-            echo "<pre>";
-            echo "<p>jdklfsjkl</p>";
-            print_r($alteProfessorID);
-            echo "</pre>";
-            
+            $alteProfessorID = ArrayHelper::map($modelsProfessor, 'Professor_MarterikelNr', 'Professor_MarterikelNr');            
             
             $modelsProfessor = ModelProfe::createMultiple(ModulLeitetProfessor::classname(), $modelsProfessor);
             
@@ -204,10 +198,6 @@ class ModulController extends Controller
             // Erro position
             $deletedProfessorID = array_diff($alteProfessorID, array_filter(ArrayHelper::map($modelsProfessor, 'Professor_MarterikelNr', 'Professor_MarterikelNr')));
             
-            echo "<pre>";
-            print_r($deletedProfessorID);
-            echo "</pre>";
-            //exit(0);
             
             //Übungen und Übungsgruppe
             $modelsUebungsgruppe = [];

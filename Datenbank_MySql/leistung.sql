@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 16, 2018 at 12:36 AM
+-- Generation Time: Dec 16, 2018 at 09:16 PM
 -- Server version: 8.0.12
 -- PHP Version: 7.2.9
 
@@ -628,7 +628,7 @@ CREATE TABLE `modul` (
 
 INSERT INTO `modul` (`ModulID`, `Bezeichnung`, `Maximale_Person`) VALUES
 (1, 'Informatik I(Grundl. der Softwareentw. & Programmierung)', 200),
-(2, 'Informatik II (Grundlagen der technischen Informatik)\r', 200),
+(2, 'Informatik II (Grundlagen der technischen Informatik)', 200),
 (3, 'Programmierpraktikum (evtl. erst im 4. FS)', 200),
 (4, 'Informatik III (Grundl. der Algorithmen & Datenstrukturen)', 200),
 (5, 'Informatik IV (Grundl. der Theoretischen Informatik)', 200),
@@ -1102,9 +1102,9 @@ CREATE TABLE `uebung` (
 
 INSERT INTO `uebung` (`UebungsID`, `ModulID`, `Mitarbeiter_MarterikelNr`, `Bezeichnung`) VALUES
 (1, 1, 2000001, 'Theritische Informatik I'),
-(2, 1, 2000002, 'Pratische Übung, JAVA-Programm'),
+(2, 1, 2000002, 'PratischeÜbung JAVA-Programm'),
 (3, 2, 2000001, 'Theritische Informatik II'),
-(4, 2, 2000002, 'Pratische Übung, Assemble'),
+(4, 2, 2000002, 'Pratische Übung Assemble'),
 (5, 3, 2000003, 'Theritische Übung von Programmierpraktikum '),
 (6, 4, 2000004, 'Übungen von Informatik III '),
 (7, 5, 2000005, 'Übungen von Informatik IV'),
@@ -1132,15 +1132,26 @@ CREATE TABLE `uebungsblaetter` (
 --
 
 INSERT INTO `uebungsblaetter` (`UebungsblatterID`, `UebungsID`, `UebungsNr`, `Anzahl_der_Aufgabe`, `Deadline`, `Ausgabedatum`, `Datein`, `GesamtePunkte`) VALUES
-(42, 1, 1, 4, 1544916195, 1544919671, '../../Uebung/1 Informatik I(Grundl. der Softwareentw. & Programmierung)/Theritische Informatik I/Übungsblatt1.pdf', 25),
-(43, 1, 2, 4, 1544916195, 1544919687, '../../Uebung/1 Informatik I(Grundl. der Softwareentw. & Programmierung)/Theritische Informatik I/Übungsblatt2.pdf', 25),
-(44, 1, 3, 4, 1544916195, 1544919701, '../../Uebung/1 Informatik I(Grundl. der Softwareentw. & Programmierung)/Theritische Informatik I/Übungsblatt3.pdf', 25),
-(45, 1, 4, 4, 1544916195, 1544919745, '../../Uebung/1 Informatik I(Grundl. der Softwareentw. & Programmierung)/Theritische Informatik I/Übungsblatt4.pdf', 25),
-(46, 1, 5, 4, 1544916195, 1544919772, '../../Uebung/1 Informatik I(Grundl. der Softwareentw. & Programmierung)/Theritische Informatik I/Übungsblatt5.pdf', 25),
-(47, 1, 6, 4, 1544916195, 1544919789, '../../Uebung/1 Informatik I(Grundl. der Softwareentw. & Programmierung)/Theritische Informatik I/Übungsblatt6.pdf', 25),
-(48, 2, 1, 5, 1544916195, 1544919838, '../../Uebung/1 Informatik I(Grundl. der Softwareentw. & Programmierung)/Pratische Übung, JAVA-Programm/Übungsblatt1.pdf', 25),
-(49, 2, 2, 5, 1544916195, 1544919855, '../../Uebung/1 Informatik I(Grundl. der Softwareentw. & Programmierung)/Pratische Übung, JAVA-Programm/Übungsblatt2.pdf', 25),
-(50, 1, 7, 5, 1544916195, 1544920357, '../../Uebung/1 Informatik I(Grundl. der Softwareentw. & Programmierung)/Theritische Informatik I/Übungsblatt7.pdf', 28);
+(65, 1, 1, 5, 1544916195, 1544994444, '../../Uebung/Uebungsblaetter/Modul1/UebungsID1/Übungsblatt1.pdf', 25),
+(66, 1, 2, 4, 1544916195, 1544994547, '../../Uebung/Uebungsblaetter/Modul1/UebungsID1/Übungsblatt2.pdf', 25),
+(67, 1, 3, 4, 1544916195, 1544994564, '../../Uebung/Uebungsblaetter/Modul1/UebungsID1/Übungsblatt3.pdf', 25),
+(68, 2, 1, 4, 1544916195, 1544994583, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt1.pdf', 25),
+(69, 2, 2, 5, 1544916195, 1544994600, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt2.pdf', 25),
+(70, 2, 3, 5, 1544916195, 1544994616, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt3.pdf', 25),
+(71, 3, 1, 4, 1544916195, 1544994686, '../../Uebung/Uebungsblaetter/Modul2/UebungsID3/Übungsblatt1.pdf', 25),
+(72, 3, 2, 5, 1544916195, 1544994697, '../../Uebung/Uebungsblaetter/Modul2/UebungsID3/Übungsblatt2.pdf', 25),
+(73, 3, 3, 4, 1544916195, 1544994711, '../../Uebung/Uebungsblaetter/Modul2/UebungsID3/Übungsblatt3.pdf', 25),
+(74, 4, 1, 4, 1544916195, 1544994791, '../../Uebung/Uebungsblaetter/Modul2/UebungsID4/Übungsblatt1.pdf', 25),
+(75, 4, 2, 4, 1544916195, 1544994802, '../../Uebung/Uebungsblaetter/Modul2/UebungsID4/Übungsblatt2.pdf', 25),
+(76, 5, 1, 4, 1544916195, 1544994824, '../../Uebung/Uebungsblaetter/Modul3/UebungsID5/Übungsblatt1.pdf', 25),
+(77, 5, 2, 5, 1544916195, 1544994837, '../../Uebung/Uebungsblaetter/Modul3/UebungsID5/Übungsblatt2.pdf', 25),
+(78, 6, 1, 5, 1544916195, 1544994863, '../../Uebung/Uebungsblaetter/Modul4/UebungsID6/Übungsblatt1.pdf', 25),
+(79, 6, 2, 5, 1544916195, 1544994876, '../../Uebung/Uebungsblaetter/Modul4/UebungsID6/Übungsblatt2.pdf', 25),
+(80, 7, 1, 5, 1544916195, 1544994908, '../../Uebung/Uebungsblaetter/Modul5/UebungsID7/Übungsblatt1.pdf', 25),
+(81, 7, 2, 5, 1544916195, 1544994919, '../../Uebung/Uebungsblaetter/Modul5/UebungsID7/Übungsblatt2.pdf', 28),
+(82, 8, 1, 4, 1544916195, 1544994943, '../../Uebung/Uebungsblaetter/Modul6/UebungsID8/Übungsblatt1.pdf', 25),
+(83, 8, 2, 5, 1544916195, 1544994953, '../../Uebung/Uebungsblaetter/Modul6/UebungsID8/Übungsblatt2.pdf', 25),
+(84, 8, 3, 5, 1544916195, 1544994973, '../../Uebung/Uebungsblaetter/Modul6/UebungsID8/Übungsblatt3.pdf', 25);
 
 -- --------------------------------------------------------
 
@@ -1162,20 +1173,10 @@ CREATE TABLE `uebungsgruppe` (
 --
 
 INSERT INTO `uebungsgruppe` (`UebungsgruppeID`, `UebungsID`, `Tutor_MarterikelNr`, `Anzahl_der_Personen`, `GruppenNr`, `Max_Person`) VALUES
-(1, 1, 2000013, 2, 1, 20),
-(2, 1, 2000014, 2, 2, 20),
-(3, 1, 2000015, 2, 3, 20),
-(4, 1, 2000016, 2, 4, 20),
-(5, 1, 2000017, 2, 5, 20),
-(6, 2, 2000025, 2, 1, 20),
-(7, 2, 2000035, 2, 2, 20),
+(7, 1, 2000035, 2, 2, 20),
 (8, 2, 2000036, 2, 3, 20),
 (9, 2, 2000037, 2, 4, 20),
-(10, 3, 2000038, 2, 1, 20),
-(11, 3, 2000039, 2, 2, 20),
-(12, 3, 2000040, 2, 3, 20),
-(13, 3, 2000041, 2, 4, 20),
-(14, 4, 2000042, 2, 1, 20),
+(14, 3, 2000042, 2, 1, 20),
 (15, 4, 2000043, 2, 2, 20),
 (16, 4, 2000044, 2, 3, 20),
 (17, 4, 2000045, 2, 4, 20),
@@ -1409,7 +1410,7 @@ ALTER TABLE `uebung`
 -- AUTO_INCREMENT for table `uebungsblaetter`
 --
 ALTER TABLE `uebungsblaetter`
-  MODIFY `UebungsblatterID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `UebungsblatterID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `uebungsgruppe`

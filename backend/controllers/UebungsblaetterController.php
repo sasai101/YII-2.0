@@ -78,7 +78,7 @@ class UebungsblaetterController extends Controller
             
             
             // Path wo die Datein speichern
-            $modelPath = "../../Uebung/".$modelUebung->ModulID." ".$modelUebung->modul->Bezeichnung."/".$modelUebung->Bezeichnung;
+            $modelPath = "../../Uebung/Uebungsblaetter/Modul".$modelUebung->ModulID."/UebungsID".$modelUebung->UebungsID;
             
             //automatisch die beiben Attributen erfüllen
             $model->UebungsID = $id;
@@ -133,7 +133,7 @@ class UebungsblaetterController extends Controller
         $modelUebung = Uebung::findOne($model->UebungsID);
         
         // Path wo die Datein speichern
-        $modelPath = "../../Uebung/".$modelUebung->ModulID." ".$modelUebung->modul->Bezeichnung."/".$modelUebung->Bezeichnung;
+        $modelPath = "../../Uebung/Uebungsblaetter/Modul".$modelUebung->ModulID."/UebungsID".$modelUebung->UebungsID;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             
