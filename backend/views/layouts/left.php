@@ -97,12 +97,12 @@ use backend\controllers\ModulController;
                         'icon' => 'users',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Übungsgruppe', 'icon' => 'group', 'url'=>['/uebungsgruppe/index']],
-                            ['label' => 'Übungsabgabe', 'icon' => 'user', 'url'=>['/abgabe/index']],
-                            ['label' => 'Einzelaufgabe', 'icon' => 'user', 'url'=>['/einzelaufgabe/index']],
-                            ['label' => 'ÜbungsgruppeTeilnehmen', 'icon' => 'user', 'url'=>['/modul-anmelden-benutzer/index']],
-                            ['label' => 'Übungsbältter', 'icon' => 'file-pdf-o', 'url'=>['/uebungsblaetter/index']],
-                            ['label' => 'Übungen', 'icon' => 'user', 'url'=>['/uebung/index']]
+                            //['label' => 'Übungsabgabe', 'icon' => 'user', 'url'=>['/abgabe/index']],
+                            //['label' => 'Einzelaufgabe', 'icon' => 'user', 'url'=>['/einzelaufgabe/index']],
+                            //['label' => 'ÜbungsgruppeTeilnehmen', 'icon' => 'user', 'url'=>['/modul-anmelden-benutzer/index']],
+                            ['label' => 'Übungsbältter', 'icon' => 'file-pdf-o', 'url'=>['/uebung/index']],
+                            ['label' => 'Übungsgruppe', 'icon' => 'group', 'url'=>['/uebungsgruppe/alleuebungen']],
+                            //['label' => 'Übungen', 'icon' => 'user', 'url'=>[]]
                         ],
                     ],
                     [

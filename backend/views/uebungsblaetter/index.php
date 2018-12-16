@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
  * @var common\models\UebungsblaetterSuchen $searchModel
  */
 
-$this->title = $modelUebung->Bezeichnung;
+//$this->title = $modelUebung->Bezeichnung;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="uebungsblaetter-index">
@@ -64,7 +64,16 @@ $this->params['breadcrumbs'][] = $this->title;
                             Yii::$app->urlManager->createUrl(['uebungsblaetter/update', 'id' => $model->UebungsblatterID, 'edit' => 't']),
                             ['title' => Yii::t('yii', 'Edit'),]
                         );
+                    },
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->UebungsblatterID], [
+                            'data' => [
+                                'confirm' => 'Sind sicher, um die Model zu löschen?',
+                                'method' => 'post',
+                            ],
+                           ]);
                     }
+                    
                 ],
             ],
         ],

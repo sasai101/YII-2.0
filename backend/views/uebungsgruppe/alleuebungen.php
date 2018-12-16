@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use kartik\grid\GridView;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
@@ -11,7 +10,7 @@ use yii\widgets\Pjax;
  * @var common\models\UebungSuchen $searchModel
  */
 
-$this->title = 'Übungsblätter hochladen';
+$this->title = 'Übungsgruppe';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="uebung-index">
@@ -27,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class = "row">
         <?php Pjax::begin(); echo ListView::widget([
               'dataProvider' => $dataProvider,
-              'itemView' => '_uebunglistview',
+              'itemView' => '_uebungsgruppelistview',
               'layout' => '{items}<div class="col-lg-12 sum-pager">{summary}{pager}</div>',
               'itemOptions' => [
                 'tag' => 'div',

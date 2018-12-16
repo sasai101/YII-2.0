@@ -9,7 +9,7 @@ use kartik\datecontrol\DateControl;
  * @var common\models\Uebungsblaetter $model
  */
 
-$this->title = $model->UebungsblatterID;
+//$this->title = $model->UebungsblatterID;
 $this->params['breadcrumbs'][] = ['label' => 'Uebungsblaetters', 'url' => ['index', 'id' => $model->UebungsID]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

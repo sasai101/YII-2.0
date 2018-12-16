@@ -7,8 +7,9 @@ use yii\helpers\Html;
  * @var common\models\Uebungsblaetter $model
  */
 
-$this->title = 'Übungsblätter erstellen';
-$this->params['breadcrumbs'][] = ['label' => 'Uebungsblaetters', 'url' => ['index']];
+
+$this->title = 'Erstellt Uebungsblaetter';
+$this->params['breadcrumbs'][] = ['label' => 'Uebungsblaetters', 'url' => ['index', 'id' => $modelUebung->UebungsID]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="uebungsblaetter-create">

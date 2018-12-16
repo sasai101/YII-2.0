@@ -8,6 +8,7 @@ use common\models\UebungsgruppeSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\UebungSuchen;
 
 /**
  * UebungsgruppeController implements the CRUD actions for Uebungsgruppe model.
@@ -122,4 +123,33 @@ class UebungsgruppeController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    /*
+     * Aller Übungen als Image anzeigen unter Verzeichnis Übung->Übungsgruppe
+     */
+    public function actionAlleuebungen()
+    {
+        $searchModel = new UebungSuchen();
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        
+        return $this->render('alleuebungen', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

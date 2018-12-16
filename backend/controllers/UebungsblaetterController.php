@@ -73,18 +73,13 @@ class UebungsblaetterController extends Controller
     {
         $model = new Uebungsblaetter;
         $modelUebung = Uebung::findOne($id);
-        
-        // Path wo die Datein speichern
-        $modelPath = "../../Uebung/".$modelUebung->ModulID." ".$modelUebung->modul->Bezeichnung."/".$modelUebung->Bezeichnung;
-        
-        // die Instance von File zu kriegen
-        // 0777 ist Befugnis
-        if(!file_exists($modelPath)){
-            mkdir($modelPath, 0777, true);
-        }
-                    
+              
         if ($model->load(Yii::$app->request->post())) {
-
+            
+            
+            // Path wo die Datein speichern
+            $modelPath = "../../Uebung/".$modelUebung->ModulID." ".$modelUebung->modul->Bezeichnung."/".$modelUebung->Bezeichnung;
+            
             //automatisch die beiben Attributen erfüllen
             $model->UebungsID = $id;
             if(Uebungsblaetter::getAnzahlderBlaetter($id)==0)
@@ -93,9 +88,17 @@ class UebungsblaetterController extends Controller
             }else {
                 $model->UebungsNr = Uebungsblaetter::getAnzahlderBlaetter($id)+1;
             }
-                       
+            
+            
             //der Name des hochgeladenen Datein
             $blatterName = "Übungsblatt".$model->UebungsNr;
+
+            
+            // die Instance von File zu kriegen
+            // 0777 ist Befugnis
+            if(!file_exists($modelPath)){
+                mkdir($modelPath, 0777, true);
+            }
             
             if($model->file = UploadedFile::getInstance($model,'file')){
                 $model->file->saveAs($modelPath.'/'.$blatterName.'.'.$model->file->extension);
@@ -112,6 +115,7 @@ class UebungsblaetterController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'modelUebung' => $modelUebung,
             ]);
         }
     }
@@ -159,9 +163,12 @@ class UebungsblaetterController extends Controller
      */
     public function actionDelete($id)
     {
+        // Die UebungsID herausfinden und in der redirect weiter geben, um die richtig Gridview zu zeigen
+        $model = $this->findModel($id);
+        $uebungsID = $model->UebungsID;
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'id' => $uebungsID]);
     }
 
     /**
