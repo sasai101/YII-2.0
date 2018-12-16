@@ -38,12 +38,12 @@ class Uebungsblaetter extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['UebungsID', 'UebungsNr', 'Anzahl_der_Aufgabe', 'Datein', 'GesamtePunkte'], 'required'],
+            [['UebungsID', 'UebungsNr', 'Anzahl_der_Aufgabe', 'Datein', 'GesamtePunkte', 'Deadline', 'Ausgabedatum'], 'required'],
             [['UebungsID', 'UebungsNr', 'Anzahl_der_Aufgabe', 'Deadline', 'Ausgabedatum', 'GesamtePunkte'], 'integer'],
             [['Datein'], 'string', 'max' => 225],
             [['UebungsID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebung::className(), 'targetAttribute' => ['UebungsID' => 'UebungsID']],
             
-            [['file'],'file', 'extensions' => 'pdf','checkExtensionByMimeType'=>false],
+            [['file'],'file', 'extensions' => 'pdf' ,'checkExtensionByMimeType'=>false],
         ];
     }
 

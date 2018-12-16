@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 13, 2018 at 02:57 PM
+-- Generation Time: Dec 16, 2018 at 12:36 AM
 -- Server version: 8.0.12
 -- PHP Version: 7.2.9
 
@@ -205,7 +205,7 @@ CREATE TABLE `benutzer` (
 --
 
 INSERT INTO `benutzer` (`MarterikelNr`, `email`, `password_hash`, `password_reset_token`, `auth_key`, `Vorname`, `Nachname`, `created_at`, `updated_at`, `Benutzername`, `Passwort`, `Profiefoto`) VALUES
-(2000001, 'jogi.loew@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Jogi', 'Löw', 1442998314, 1543951436, 'jolw201', '*', '../../profiefoto/2000001.jpg'),
+(2000001, 'jogi.loew@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Jogi', 'Löw', 1442998314, 1544908237, 'jolw201', '*', '../../profiefoto/2000001.jpg'),
 (2000002, 'klarissa.wolf@hhu.de', '$2y$13$eNdcAIqmOnk.CQeW6wKCSu5cJMcGVNXMc799JwMkA95Xbh8FuHuz2', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Klarissa', 'Wolfe', 1442998314, 1543951571, 'klawo202', '*', '../../profiefoto/2000002.jpg'),
 (2000003, 'kim.akers@hhu.de', '$2y$13$1gg.TAL6aL.8LDPlBhCtkO5f5HaW8fFR30PXLMq6arJHiERi5PQqO', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Kim', 'Akers', 1442998314, 1543840551, 'kiake203', '*', '../../profiefoto/normal.jpg'),
 (2000004, 'andy.brauninger@hhu.de', '$2y$13$ggVOzXB2k7CBOw9GLTpLL.CF.V7bCOC91EWq8sYZ84J19EKi.Wds.', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Andy', 'Brauninger', 1442998314, 1442998314, 'anbra204', '*', '../../profiefoto/normal.jpg'),
@@ -561,7 +561,12 @@ CREATE TABLE `korrektor` (
 --
 
 INSERT INTO `korrektor` (`MarterikelNr`) VALUES
-(2000004);
+(2000004),
+(2000111),
+(2000112),
+(2000113),
+(2000115),
+(2000116);
 
 -- --------------------------------------------------------
 
@@ -1116,10 +1121,26 @@ CREATE TABLE `uebungsblaetter` (
   `UebungsID` int(32) NOT NULL,
   `UebungsNr` int(32) NOT NULL,
   `Anzahl_der_Aufgabe` int(8) NOT NULL,
-  `Deadline` int(11) DEFAULT NULL,
-  `Ausgabedatum` int(11) DEFAULT NULL,
-  `Datein` varchar(225) NOT NULL
+  `Deadline` int(11) NOT NULL,
+  `Ausgabedatum` int(11) NOT NULL,
+  `Datein` varchar(225) NOT NULL,
+  `GesamtePunkte` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `uebungsblaetter`
+--
+
+INSERT INTO `uebungsblaetter` (`UebungsblatterID`, `UebungsID`, `UebungsNr`, `Anzahl_der_Aufgabe`, `Deadline`, `Ausgabedatum`, `Datein`, `GesamtePunkte`) VALUES
+(42, 1, 1, 4, 1544916195, 1544919671, '../../Uebung/1 Informatik I(Grundl. der Softwareentw. & Programmierung)/Theritische Informatik I/Übungsblatt1.pdf', 25),
+(43, 1, 2, 4, 1544916195, 1544919687, '../../Uebung/1 Informatik I(Grundl. der Softwareentw. & Programmierung)/Theritische Informatik I/Übungsblatt2.pdf', 25),
+(44, 1, 3, 4, 1544916195, 1544919701, '../../Uebung/1 Informatik I(Grundl. der Softwareentw. & Programmierung)/Theritische Informatik I/Übungsblatt3.pdf', 25),
+(45, 1, 4, 4, 1544916195, 1544919745, '../../Uebung/1 Informatik I(Grundl. der Softwareentw. & Programmierung)/Theritische Informatik I/Übungsblatt4.pdf', 25),
+(46, 1, 5, 4, 1544916195, 1544919772, '../../Uebung/1 Informatik I(Grundl. der Softwareentw. & Programmierung)/Theritische Informatik I/Übungsblatt5.pdf', 25),
+(47, 1, 6, 4, 1544916195, 1544919789, '../../Uebung/1 Informatik I(Grundl. der Softwareentw. & Programmierung)/Theritische Informatik I/Übungsblatt6.pdf', 25),
+(48, 2, 1, 5, 1544916195, 1544919838, '../../Uebung/1 Informatik I(Grundl. der Softwareentw. & Programmierung)/Pratische Übung, JAVA-Programm/Übungsblatt1.pdf', 25),
+(49, 2, 2, 5, 1544916195, 1544919855, '../../Uebung/1 Informatik I(Grundl. der Softwareentw. & Programmierung)/Pratische Übung, JAVA-Programm/Übungsblatt2.pdf', 25),
+(50, 1, 7, 5, 1544916195, 1544920357, '../../Uebung/1 Informatik I(Grundl. der Softwareentw. & Programmierung)/Theritische Informatik I/Übungsblatt7.pdf', 28);
 
 -- --------------------------------------------------------
 
@@ -1388,7 +1409,7 @@ ALTER TABLE `uebung`
 -- AUTO_INCREMENT for table `uebungsblaetter`
 --
 ALTER TABLE `uebungsblaetter`
-  MODIFY `UebungsblatterID` int(32) NOT NULL AUTO_INCREMENT;
+  MODIFY `UebungsblatterID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `uebungsgruppe`

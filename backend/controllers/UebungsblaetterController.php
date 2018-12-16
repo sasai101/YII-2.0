@@ -73,34 +73,41 @@ class UebungsblaetterController extends Controller
     {
         $model = new Uebungsblaetter;
         $modelUebung = Uebung::findOne($id);
+        
         // Path wo die Datein speichern
         $modelPath = "../../Uebung/".$modelUebung->ModulID." ".$modelUebung->modul->Bezeichnung."/".$modelUebung->Bezeichnung;
         
-        //automatisch die beiben Attributen erfüllen
-        $model->UebungsID = $id;
-        if(Uebungsblaetter::getAnzahlderBlaetter($id)==0)
-        {
-            $model->UebungsNr = 1;
-        }else {
-            $model->UebungsNr = Uebungsblaetter::getAnzahlderBlaetter($id)+1;
+        // die Instance von File zu kriegen
+        // 0777 ist Befugnis
+        if(!file_exists($modelPath)){
+            mkdir($modelPath, 0777, true);
         }
-        
-        //der Name des hochgeladenen Datein
-        $blatterName = "Übungsblatt".$model->UebungsNr;
- 
-        
-              
+                    
         if ($model->load(Yii::$app->request->post())) {
-            // die Instance von File zu kriegen
-            // 0777 ist Befugnis
-            if(!file_exists($modelPath)){
-                mkdir($modelPath, 0777, true);
+
+            //automatisch die beiben Attributen erfüllen
+            $model->UebungsID = $id;
+            if(Uebungsblaetter::getAnzahlderBlaetter($id)==0)
+            {
+                $model->UebungsNr = 1;
+            }else {
+                $model->UebungsNr = Uebungsblaetter::getAnzahlderBlaetter($id)+1;
             }
+                       
+            //der Name des hochgeladenen Datein
+            $blatterName = "Übungsblatt".$model->UebungsNr;
+            
             if($model->file = UploadedFile::getInstance($model,'file')){
                 $model->file->saveAs($modelPath.'/'.$blatterName.'.'.$model->file->extension);
                 $model->Datein = $modelPath.'/'.$blatterName.'.'.$model->file->extension;
             }
-            $model->save();
+            // Bei der Validierung tritt ein Fehler, weshalb setze hier save->(false) ein.
+            /*
+             * Heir muss man die Konfigurationsdatei von PHP (also php.ini) mal korrigieren. Also upload_max_filesize und post_max_size ein neue Grösse geben.
+             * sonst wird die Hochladung des Dateis verfalscht
+             */
+            $model->save(false);
+            
             return $this->redirect(['view', 'id' => $model->UebungsblatterID]);
         } else {
             return $this->render('create', [
@@ -118,16 +125,22 @@ class UebungsblaetterController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        
+        $modelUebung = Uebung::findOne($model->UebungsID);
+        
+        // Path wo die Datein speichern
+        $modelPath = "../../Uebung/".$modelUebung->ModulID." ".$modelUebung->modul->Bezeichnung."/".$modelUebung->Bezeichnung;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            //Datein hochladen
-            // die Instance von File zu kriegen
-            // 0777 ist Befugnis
             
+            //der Name des hochgeladenen Datein
+            $blatterName = "Übungsblatt".$model->UebungsNr;
+
             if($model->file = UploadedFile::getInstance($model,'file')){
-                $model->file->saveAs($model->Datein);
-                $model->Datein = $model->Datein;
+                $model->file->saveAs($modelPath.'/'.$blatterName.'.'.$model->file->extension);
+                $model->Datein = $modelPath.'/'.$blatterName.'.'.$model->file->extension;
             }
+            
             $model->save();
             
             return $this->redirect(['view', 'id' => $model->UebungsblatterID]);
