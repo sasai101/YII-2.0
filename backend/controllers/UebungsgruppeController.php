@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\UebungSuchen;
+use common\models\BenutzerTeilnimmtUebungsgruppe;
+use common\models\BenutzerTeilnimmtUebungsgruppeSuchen;
 
 /**
  * UebungsgruppeController implements the CRUD actions for Uebungsgruppe model.
@@ -138,7 +140,35 @@ class UebungsgruppeController extends Controller
         ]);
     }
     
+    /*
+     * Zeigen die entsprechende Übungsguppe mit Tutorprofiefoto
+     */
+    public function actionAlleuebungsgruppe($id) 
+    {
+        $searchModel = new UebungsgruppeSuchen();
+        $dateProvider = $searchModel->searchGruppe($id);
+        
+        return $this->render('alleuebungsgruppe',[
+            'dataProvider' => $dateProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
     
+    /*
+     * Zeigen die Ausführlichkeit von eine Gruppe
+     */
+    public function actionGruppendetails($id) 
+    {
+        $searchModel = new BenutzerTeilnimmtUebungsgruppeSuchen();
+        $dataProvider = $searchModel->searchAlleBenutzer($id);
+        $model = $this->findModel($id);
+        
+        return $this->render('gruppendetails',[
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+            'model' => $model,
+        ]);
+    }
     
     
     

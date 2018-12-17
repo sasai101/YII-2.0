@@ -39,13 +39,13 @@ $this->registerJs($js);
         <div class="line line-dashed"></div>
     </div>
     <?php DynamicFormWidget::begin([
-        'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
-        'widgetBody' => '.container-items', // required: css class selector
-        'widgetItem' => '.item', // required: css class
-        'limit' => 4, // the maximum times, an element can be cloned (default 999)
-        'min' => 1, // 0 or 1 (default 1)
-        'insertButton' => '.add-item', // css class
-        'deleteButton' => '.remove-item', // css class
+        'widgetContainer' => 'dynamicform_wrapper', 
+        'widgetBody' => '.container-items', 
+        'widgetItem' => '.item', 
+        'limit' => 20, 
+        'min' => 1, 
+        'insertButton' => '.add-item', 
+        'deleteButton' => '.remove-item', 
         'model' => $modelsProfessor[0],
         'formId' => 'dynamic-form',
         'formFields' => [

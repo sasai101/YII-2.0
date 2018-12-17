@@ -12,6 +12,7 @@ use yii\filters\VerbFilter;
 use yii\helpers\VarDumper;
 use common\models\Uebung;
 use phpDocumentor\Reflection\Types\Null_;
+use common\models\UebungSuchen;
 
 /**
  * UebungsblaetterController implements the CRUD actions for Uebungsblaetter model.
@@ -185,5 +186,19 @@ class UebungsblaetterController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    /*
+     * Aller Übungen als Image anzeigen unter Verzeichnis Übung->Übungsblätter
+     */
+    public function actionAlleuebungen()
+    {
+        $searchModel = new UebungSuchen();
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        
+        return $this->render('alleuebungen', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
     }
 }

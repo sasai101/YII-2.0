@@ -100,7 +100,7 @@ use backend\controllers\ModulController;
                             //['label' => 'Übungsabgabe', 'icon' => 'user', 'url'=>['/abgabe/index']],
                             //['label' => 'Einzelaufgabe', 'icon' => 'user', 'url'=>['/einzelaufgabe/index']],
                             //['label' => 'ÜbungsgruppeTeilnehmen', 'icon' => 'user', 'url'=>['/modul-anmelden-benutzer/index']],
-                            ['label' => 'Übungsbältter', 'icon' => 'file-pdf-o', 'url'=>['/uebung/index']],
+                            ['label' => 'Übungsbältter', 'icon' => 'file-pdf-o', 'url'=>['/uebungsblaetter/alleuebungen']],
                             ['label' => 'Übungsgruppe', 'icon' => 'group', 'url'=>['/uebungsgruppe/alleuebungen']],
                             //['label' => 'Übungen', 'icon' => 'user', 'url'=>[]]
                         ],

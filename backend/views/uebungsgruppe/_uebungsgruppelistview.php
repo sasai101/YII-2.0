@@ -8,7 +8,7 @@ use yii\bootstrap\Modal;
 <div class = "item" >
     <div align="center">
     <?php //echo "$model->UebungsID"?>
-    	<?= Html::a('<img src = "../../Uebung/U.png" class="img-circle" alt="user image" height = "200" width="200" />', ['uebungsblaetter/index', 'id' => $model->UebungsID]) ?>
+    	<?= Html::a('<img src = "../../Uebung/Uebungsgruppe.png" class="img-circle" alt="user image" height = "150" width="150" />', ['uebungsgruppe/alleuebungsgruppe', 'id' => $model->UebungsID]) ?>
     </div>
     <div>&nbsp</div>
     <div align = "center"><b><?= $model->Bezeichnung?></b></div>

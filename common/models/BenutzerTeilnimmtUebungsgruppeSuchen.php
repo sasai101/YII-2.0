@@ -44,4 +44,26 @@ class BenutzerTeilnimmtUebungsgruppeSuchen extends BenutzerTeilnimmtUebungsgrupp
 
         return $dataProvider;
     }
+    /*
+     * Such alle Teilnahmer, die in der entsprechenden Gruppe teilnehmen 
+     */
+    public function searchAlleBenutzer($params)
+    {
+        $query = BenutzerTeilnimmtUebungsgruppe::find()->where(['UebungsgruppeID'=>$params]);
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+        
+        $query->andFilterWhere([
+            'Benuter_MarterikelNr' => $this->Benuter_MarterikelNr,
+            'UebungsgruppeID' => $this->UebungsgruppeID,
+        ]);
+        
+        return $dataProvider;
+    }
 }

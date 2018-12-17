@@ -89,4 +89,22 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Tutor::className(), ['marterikelnr' => 'Tutor_MarterikelNr']);
     }
+    
+    /*
+     *  gibt die URL des Profifotos von Tutor zurück
+     */
+    public function getProffotoURL($MarterikelNr)
+    {
+        return Benutzer::findOne($MarterikelNr)->Profiefoto;
+    }
+    
+    /*
+     *  gibt die Namen von entsprechendem Tutor zurück
+     */
+    public function getTutorname($MarterikelNr)
+    {
+        $model = Benutzer::findOne($MarterikelNr);
+        $name = $model->Vorname.' '.$model->Nachname;
+        return $name;
+    }
 }

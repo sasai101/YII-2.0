@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class = "row">
         <?php Pjax::begin(); echo ListView::widget([
               'dataProvider' => $dataProvider,
-              'itemView' => '_uebunglistview',
+              'itemView' => '_uebungsblaetterlistview',
               'layout' => '{items}<div class="col-lg-12 sum-pager">{summary}{pager}</div>',
               'itemOptions' => [
                 'tag' => 'div',
