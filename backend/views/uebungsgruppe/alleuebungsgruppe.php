@@ -13,6 +13,7 @@ use yii\widgets\Pjax;
 $this->title = 'Übungsgruppe';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="uebung-index">
     <div class="page-header">
         <h1><?= Html::encode($this->title) ?></h1>
@@ -45,4 +46,3 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 </div>
-s

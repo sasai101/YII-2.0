@@ -5,6 +5,8 @@ use yii\helpers\Url;
 use yii\bootstrap\Modal;
 ?>
 
+<!-- $model ist Tablle uebung -->
+
 <div class = "item" >
     <div align="center">
     <?php //echo "$model->UebungsID"?>

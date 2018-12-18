@@ -79,4 +79,34 @@ class UebungsblaetterSuchen extends Uebungsblaetter
         
         return $dataProvider;
     }
+    
+    /*
+     * Such die Übungsblätter für passende Übungen
+     */
+    public function searchUebungsblaetter($params)
+    {
+        $query = Uebungsgruppe::find()->where(['UebungsgruppeID'=>$params]);
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+        
+        $query->andFilterWhere([
+            'UebungsblatterID' => $this->UebungsblatterID,
+            'UebungsID' => $this->UebungsID,
+            'UebungsNr' => $this->UebungsNr,
+            'Anzahl_der_Aufgabe' => $this->Anzahl_der_Aufgabe,
+            'Deadline' => $this->Deadline,
+            'Ausgabedatum' => $this->Ausgabedatum,
+        ]);
+        
+        $query->andFilterWhere(['like', 'Datein', $this->Datein]);
+        
+        return $dataProvider;
+    }
+    
 }

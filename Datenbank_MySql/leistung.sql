@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 16, 2018 at 09:16 PM
+-- Generation Time: Dec 18, 2018 at 09:58 PM
 -- Server version: 8.0.12
 -- PHP Version: 7.2.9
 
@@ -217,13 +217,13 @@ INSERT INTO `benutzer` (`MarterikelNr`, `email`, `password_hash`, `password_rese
 (2000010, 'siwei.liu@hhu.de', '$2y$13$x5V9yKskPDunOYanWq59ROt4QqybAl/h471xhTjUfhtRuhW77MJ3C', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Siwe', 'Liuq', 1442998314, 1543874285, 'swliu210', '*', '../../profiefoto/normal.jpg'),
 (2000011, 'wuchari.wuchari@hhu.de', '$2y$13$0Z0Om1WeaSArVKpNugNXce83VtzRN9i4ntUishohiyPF8txfcJDae', NULL, 'TxZdr4GAbP0ijr07_JUeXPlss3Skki3_', 'wuchari', 'wuchari', 1543919159, 1543919159, 'wuwu211', '*', '../../profiefoto/normal.jpg'),
 (2000012, 'wuchari1.wuchari2@hhu.de', '$2y$13$iWA/KJ4LZjqlDC4wBFL0VOSIzT/.FKbVWp2yKxaIxG.Dl123CfkbK', NULL, 'ZfWb7k9TisSFLi96Xds_vMTnomk0xecF', 'wuchari1', 'wuchari2', 1543920663, 1543920663, 'wuwu212', '*', '../../profiefoto/normal.jpg'),
-(2000013, 'ssasasa.sssss@hhu.de', '$2y$13$AmlKI0.B9jpCLTu3twxlxOSkJ9jgo3BvK8M07jZlEMCXqJBI9gJRG', NULL, '3xwbm6cS5nRQgo47yHNKq6SvVv6Q77QI', 'ssasasaaa', 'ssssss', 1543923603, 1543923960, 'ssss213', '*', '../../profiefoto/normal.jpg'),
-(2000014, 'ssasasaaa.sadfsdaf@hhu.de', '$2y$13$X.uLRZ3R/sZEroYgSgk/dOWSG2MOi0xN/2r73qQpUCF9jHjXpJ2km', NULL, '7EZ-de823ZI9pYIIjsFjcvpMDVZ0SBzR', 'ssasasaaa', 'sadfsdaf', 1543925277, 1543925277, 'sasasa214', '*', '../../profiefoto/normal.jpg'),
+(2000013, 'ssasasa.sssss@hhu.de', '$2y$13$AmlKI0.B9jpCLTu3twxlxOSkJ9jgo3BvK8M07jZlEMCXqJBI9gJRG', NULL, '3xwbm6cS5nRQgo47yHNKq6SvVv6Q77QI', 'ssasasaaa', 'ssssss', 1543923603, 1545058091, 'ssss213', '*', '../../profiefoto/2000013.jpg'),
+(2000014, 'ssasasaaa.sadfsdaf@hhu.de', '$2y$13$X.uLRZ3R/sZEroYgSgk/dOWSG2MOi0xN/2r73qQpUCF9jHjXpJ2km', NULL, '7EZ-de823ZI9pYIIjsFjcvpMDVZ0SBzR', 'ssasasaaa', 'sadfsdaf', 1543925277, 1545058174, 'sasasa214', '*', '../../profiefoto/2000014.jpg'),
 (2000015, 'wuchariqwe.wuchariewq@hhu.de', '$2y$13$O9gW/D.HgiByGZ.EUZa.7uqy1dTezatQS7jcPzANjQXqgWVWdRcZS', NULL, 'O2MLX6IsEw1M9yez0a5WzXuctXVjb0yg', 'wuchariqwe', 'wuchariewq', 1543927459, 1543927459, 'qwe215', '*', '../../profiefoto/normal.jpg'),
 (2000016, 'wang.dajun@hhu.de', '$2y$13$1TDtrYd/.Qhw9rE1kGe.ZeSCeMhXZUxotrLfyrChDO0cynHpOy8VK', NULL, 'CDyq4Rjc9TNRedo1PCkzo5nan4YoPFyn', 'wang', 'dajun', 1543927710, 1543927710, 'wang2016', '*', '../../profiefoto/normal.jpg'),
 (2000017, 'sheng.daweii@hhu.de', '$2y$13$UNSNSF/IqJGGoeJ8UkpUQOX6PnhcuOKPhRevFN.2WXKuE2scoewni', '', '7d9imS8AzJY4GLuDh1bCNNjcKucQPbR5', 'sheng', 'daweii', 1543929368, 1543929368, 'dawei217', '*', '../../profiefoto/normal.jpg'),
 (2000025, 'Alexander.Marianna@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', NULL, 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Alexander', 'Marianna', 1543929376, 1543929376, 'Alexander225', '*', '../../profiefoto/normal.jpg'),
-(2000035, 'Felix.Marlen@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Felix', 'Marlen', 1543929386, 1543929386, 'Felix235', '*', '../../profiefoto/normal.jpg'),
+(2000035, 'Felix.Marlen@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Felix', 'Marlen', 1543929386, 1545058267, 'Felix235', '*', '../../profiefoto/2000035.jpg'),
 (2000036, 'Jakob.Janko@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Jakob', 'Janko', 1543929387, 1543929387, 'Jakob236', '*', '../../profiefoto/normal.jpg'),
 (2000037, 'Elisabeth.Maroua@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Elisabeth', 'Maroua', 1543929388, 1543929388, 'Elisabeth237', '*', '../../profiefoto/normal.jpg'),
 (2000038, 'Noah.Jannick@hhu.de', '$2y$13$zadxFJJ7h3qs1AdS0BrdDOyGDoV8lFpPxa3ly/2fT7HCltgaYyFPG', '', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', 'Noah', 'Jannick', 1543929389, 1543929389, 'Noah238', '*', '../../profiefoto/normal.jpg'),
@@ -484,6 +484,49 @@ CREATE TABLE `benutzer_teilnimmt_uebungsgruppe` (
   `Benuter_MarterikelNr` int(32) NOT NULL,
   `UebungsgruppeID` int(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `benutzer_teilnimmt_uebungsgruppe`
+--
+
+INSERT INTO `benutzer_teilnimmt_uebungsgruppe` (`Benuter_MarterikelNr`, `UebungsgruppeID`) VALUES
+(2000067, 8),
+(2000068, 8),
+(2000069, 8),
+(2000070, 8),
+(2000069, 9),
+(2000070, 9),
+(2000165, 14),
+(2000166, 14),
+(2000174, 18),
+(2000175, 18),
+(2000207, 19),
+(2000208, 19),
+(2000209, 20),
+(2000210, 20),
+(2000211, 21),
+(2000073, 26),
+(2000075, 26),
+(2000071, 27),
+(2000083, 27),
+(2000079, 28),
+(2000115, 28),
+(2000115, 29),
+(2000228, 29),
+(2000229, 30),
+(2000230, 30),
+(2000231, 31),
+(2000232, 31),
+(2000233, 32),
+(2000234, 32),
+(2000235, 33),
+(2000236, 33),
+(2000237, 34),
+(2000238, 34),
+(2000239, 35),
+(2000240, 35),
+(2000241, 36),
+(2000242, 36);
 
 -- --------------------------------------------------------
 
@@ -999,6 +1042,7 @@ INSERT INTO `modul_leitet_professor` (`ModulID`, `Professor_MarterikelNr`) VALUE
 (1, 2000007),
 (3, 2000007),
 (4, 2000007),
+(5, 2000007),
 (6, 2000007),
 (2, 2000008),
 (2, 2000009),
@@ -1101,10 +1145,8 @@ CREATE TABLE `uebung` (
 --
 
 INSERT INTO `uebung` (`UebungsID`, `ModulID`, `Mitarbeiter_MarterikelNr`, `Bezeichnung`) VALUES
-(1, 1, 2000001, 'Theritische Informatik I'),
 (2, 1, 2000002, 'PratischeÜbung JAVA-Programm'),
 (3, 2, 2000001, 'Theritische Informatik II'),
-(4, 2, 2000002, 'Pratische Übung Assemble'),
 (5, 3, 2000003, 'Theritische Übung von Programmierpraktikum '),
 (6, 4, 2000004, 'Übungen von Informatik III '),
 (7, 5, 2000005, 'Übungen von Informatik IV'),
@@ -1132,17 +1174,12 @@ CREATE TABLE `uebungsblaetter` (
 --
 
 INSERT INTO `uebungsblaetter` (`UebungsblatterID`, `UebungsID`, `UebungsNr`, `Anzahl_der_Aufgabe`, `Deadline`, `Ausgabedatum`, `Datein`, `GesamtePunkte`) VALUES
-(65, 1, 1, 5, 1544916195, 1544994444, '../../Uebung/Uebungsblaetter/Modul1/UebungsID1/Übungsblatt1.pdf', 25),
-(66, 1, 2, 4, 1544916195, 1544994547, '../../Uebung/Uebungsblaetter/Modul1/UebungsID1/Übungsblatt2.pdf', 25),
-(67, 1, 3, 4, 1544916195, 1544994564, '../../Uebung/Uebungsblaetter/Modul1/UebungsID1/Übungsblatt3.pdf', 25),
 (68, 2, 1, 4, 1544916195, 1544994583, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt1.pdf', 25),
 (69, 2, 2, 5, 1544916195, 1544994600, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt2.pdf', 25),
 (70, 2, 3, 5, 1544916195, 1544994616, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt3.pdf', 25),
 (71, 3, 1, 4, 1544916195, 1544994686, '../../Uebung/Uebungsblaetter/Modul2/UebungsID3/Übungsblatt1.pdf', 25),
 (72, 3, 2, 5, 1544916195, 1544994697, '../../Uebung/Uebungsblaetter/Modul2/UebungsID3/Übungsblatt2.pdf', 25),
 (73, 3, 3, 4, 1544916195, 1544994711, '../../Uebung/Uebungsblaetter/Modul2/UebungsID3/Übungsblatt3.pdf', 25),
-(74, 4, 1, 4, 1544916195, 1544994791, '../../Uebung/Uebungsblaetter/Modul2/UebungsID4/Übungsblatt1.pdf', 25),
-(75, 4, 2, 4, 1544916195, 1544994802, '../../Uebung/Uebungsblaetter/Modul2/UebungsID4/Übungsblatt2.pdf', 25),
 (76, 5, 1, 4, 1544916195, 1544994824, '../../Uebung/Uebungsblaetter/Modul3/UebungsID5/Übungsblatt1.pdf', 25),
 (77, 5, 2, 5, 1544916195, 1544994837, '../../Uebung/Uebungsblaetter/Modul3/UebungsID5/Übungsblatt2.pdf', 25),
 (78, 6, 1, 5, 1544916195, 1544994863, '../../Uebung/Uebungsblaetter/Modul4/UebungsID6/Übungsblatt1.pdf', 25),
@@ -1151,7 +1188,11 @@ INSERT INTO `uebungsblaetter` (`UebungsblatterID`, `UebungsID`, `UebungsNr`, `An
 (81, 7, 2, 5, 1544916195, 1544994919, '../../Uebung/Uebungsblaetter/Modul5/UebungsID7/Übungsblatt2.pdf', 28),
 (82, 8, 1, 4, 1544916195, 1544994943, '../../Uebung/Uebungsblaetter/Modul6/UebungsID8/Übungsblatt1.pdf', 25),
 (83, 8, 2, 5, 1544916195, 1544994953, '../../Uebung/Uebungsblaetter/Modul6/UebungsID8/Übungsblatt2.pdf', 25),
-(84, 8, 3, 5, 1544916195, 1544994973, '../../Uebung/Uebungsblaetter/Modul6/UebungsID8/Übungsblatt3.pdf', 25);
+(84, 8, 3, 5, 1544916195, 1544994973, '../../Uebung/Uebungsblaetter/Modul6/UebungsID8/Übungsblatt3.pdf', 25),
+(86, 3, 4, 5, 1544916195, 1545042416, '../../Uebung/Uebungsblaetter/Modul2/UebungsID3/Übungsblatt4.pdf', 25),
+(87, 2, 4, 4, 12312, 1545140274, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt4.pdf', 25),
+(88, 2, 5, 4, 1544916195, 1545151313, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt5.pdf', 25),
+(89, 2, 6, 4, 1544916195, 1545169667, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt6.pdf', 25);
 
 -- --------------------------------------------------------
 
@@ -1173,13 +1214,9 @@ CREATE TABLE `uebungsgruppe` (
 --
 
 INSERT INTO `uebungsgruppe` (`UebungsgruppeID`, `UebungsID`, `Tutor_MarterikelNr`, `Anzahl_der_Personen`, `GruppenNr`, `Max_Person`) VALUES
-(7, 1, 2000035, 2, 2, 20),
-(8, 2, 2000036, 2, 3, 20),
+(8, 2, 2000036, 2, 1, 20),
 (9, 2, 2000037, 2, 4, 20),
 (14, 3, 2000042, 2, 1, 20),
-(15, 4, 2000043, 2, 2, 20),
-(16, 4, 2000044, 2, 3, 20),
-(17, 4, 2000045, 2, 4, 20),
 (18, 5, 2000046, 2, 1, 20),
 (19, 5, 2000047, 2, 2, 20),
 (20, 5, 2000048, 2, 3, 20),
@@ -1398,25 +1435,25 @@ ALTER TABLE `klausurnote`
 -- AUTO_INCREMENT for table `modul`
 --
 ALTER TABLE `modul`
-  MODIFY `ModulID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+  MODIFY `ModulID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
 
 --
 -- AUTO_INCREMENT for table `uebung`
 --
 ALTER TABLE `uebung`
-  MODIFY `UebungsID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `UebungsID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `uebungsblaetter`
 --
 ALTER TABLE `uebungsblaetter`
-  MODIFY `UebungsblatterID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `UebungsblatterID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT for table `uebungsgruppe`
 --
 ALTER TABLE `uebungsgruppe`
-  MODIFY `UebungsgruppeID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `UebungsgruppeID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- Constraints for dumped tables

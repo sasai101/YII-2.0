@@ -7,6 +7,8 @@ $this->title = 'Übungsgruppes';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+<?php Pjax::begin();?>
+<div class="uebungsgruppe">
 <h1><?= Html::encode($this->title) ?></h1>
 <div class="panel panel-primary">
 	<div class="panel-heading">
@@ -34,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             // 'layout' => '{items} {pager}',
             'pager' => [
-                'maxButtonCount' => 10,
+                'maxButtonCount' => 30,
                 'nextPageLabel' => Yii::t('app', 'nächste'),
                 'prevPageLabel' => Yii::t('app', 'vorne')
             ]
@@ -69,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             // 'layout' => '{items} {pager}',
             'pager' => [
-                'maxButtonCount' => 10,
+                'maxButtonCount' => 30,
                 'nextPageLabel' => Yii::t('app', 'nächste'),
                 'prevPageLabel' => Yii::t('app', 'vorne')
             ]
@@ -77,6 +79,8 @@ $this->params['breadcrumbs'][] = $this->title;
         Pjax::end()?>
 	</div>
 </div>
+</div>
+<?php Pjax::end();?>
 
 
 

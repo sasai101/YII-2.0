@@ -134,6 +134,7 @@ class UebungsgruppeController extends Controller
      */
     public function actionAlleuebungen()
     {
+        //tabelle uebung
         $searchModel = new UebungSuchen();
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
         
@@ -148,6 +149,7 @@ class UebungsgruppeController extends Controller
      */
     public function actionAlleuebungsgruppe($id) 
     {
+        //tablle uebungsgruppe
         $searchModel = new UebungsgruppeSuchen();
         $dateProvider = $searchModel->searchGruppe($id);
         
@@ -162,11 +164,20 @@ class UebungsgruppeController extends Controller
      */
     public function actionGruppendetails($id) 
     {
+        
+        //Tabelle benutzerTeilnimmtUebungsgruppen
         $searchModel = new BenutzerTeilnimmtUebungsgruppeSuchen();
         $dataProvider = $searchModel->searchAlleBenutzer($id);
         
-        $searchModel1 = new UebungsblaetterSuchen();
-        $dataProvider1 = $searchModel1->searchMitID($id);
+//         echo "<pre>";
+//         print_r($dataProvider);
+//         echo "</pre>";
+//         exit(0);
+        
+        
+        //Tabelle uebungsblaetter
+        $searchModel1 = new UebungsgruppeSuchen();
+        $dataProvider1 = $searchModel1->searchUbungsblaetter($id);
         
         
         $model = $this->findModel($id);

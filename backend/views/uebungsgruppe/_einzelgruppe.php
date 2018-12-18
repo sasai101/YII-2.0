@@ -5,6 +5,8 @@ use yii\helpers\Url;
 use yii\bootstrap\Modal;
 ?>
 
+<!-- $model ist tabelle uebungsgruppe -->
+
 <div class = "item" >
     <div align="center">
     
