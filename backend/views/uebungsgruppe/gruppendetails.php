@@ -6,6 +6,8 @@ use yii\widgets\Pjax;
 ?>
 
 
+
+
 <?php Pjax::begin()?>
 <div class="container-fluid" style="background-color:white">
 	<div class="row-fluid">
@@ -13,7 +15,10 @@ use yii\widgets\Pjax;
 			<div class="tabbable" id="tabs-747944">
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#panel-288582" data-toggle="tab">Teilname</a></li>
-					<li ><a href="#panel-913776" data-toggle="tab">第二部分</a></li>
+					<!-- Alle Abgabe von Übung für jeweilige Übunglsblätter -->
+					<?php for ($i = 1; $i <= $model->getUebungsblaetter($model->UebungsID); $i++): ?>
+						<li ><a href='#panel-913776' data-toggle="tab" >Übungsblatt<?= $i?></a></li>
+					<?php endfor;?>
 				</ul>
 
 
@@ -54,7 +59,10 @@ use yii\widgets\Pjax;
 						</div>
 					</div>
 					<div class="tab-pane" id="panel-913776">
-						<p>第二部分内容.</p>
+						<p><?php
+						echo "<pre>";
+						echo $i ;
+						echo "</pre>";?></p>
 					</div>
 				</div>
 

@@ -10,7 +10,7 @@ use common\models\Tutor;
     'widgetContainer' => 'dynamicform_inner',
     'widgetBody' => '.container-rooms',
     'widgetItem' => '.room-item',
-    'limit' => 50,
+    'limit' => 20,
     'min' => 1,
     'insertButton' => '.add-room',
     'deleteButton' => '.remove-room',

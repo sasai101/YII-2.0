@@ -166,9 +166,15 @@ class ModulController extends Controller
     public function actionUpdate($id)
     {
         $modelModul = $this->findModel($id);
+        //Professor
         $modelsProfessor = $modelModul->modulLeitetProfessors;
         
+        //Übung und Übungsgruppe
         $modelsUebung = $modelModul->uebungs;
+        echo "<pre>";
+        echo "deleOK0.5";
+        print_r($modelsUebung);
+        echo "</pre>";
         $modelsUebungsgruppe = [];
         $alteUebungsgruppen = [];
         
@@ -206,27 +212,83 @@ class ModulController extends Controller
             Model::loadMultiple($modelsUebung, Yii::$app->request->post());
             $deletedUebungID = array_diff($alteUebungID, array_filter(ArrayHelper::map($modelsUebung, 'UebungsID', 'UebungsID')));
             
+            echo "<pre>";
+            echo "deleOK1";
+            print_r($deletedUebungID);
+            echo "</pre>";
+            
             
             $valid = $modelModul->validate();
             $valid = Model::validateMultiple($modelsProfessor) && Model::validateMultiple($modelsUebung) && $valid;
             
             $uebungsgruppeID = [];
             
+            echo "<pre>";
+            echo "OK1";
+            print_r($uebungsgruppeID);
+            echo "</pre>";
+            
             //Übungsgruppe
             if(isset($_POST['Uebungsgruppe'][0][0])){
+                
+                echo "<pre>";
+                echo "OK1.5";
+                print_r($_POST['Uebungsgruppe']);
+                echo "</pre>";
+                
+                echo "<pre>";
+                echo "OK2";
+                print_r($uebungsgruppeID);
+                echo "</pre>";
+                
                 foreach ($_POST['Uebungsgruppe'] as $indexUebung => $uebungsgruppen){
+                    
+                    echo "<pre>";
+                    echo "OK3";
+                    print_r($_POST['Uebungsgruppe'][0][0]);
+                    print_r($uebungsgruppeID);
+                    echo "</pre>";
+                    
                     $uebungsgruppeID = ArrayHelper::merge($uebungsgruppeID, array_filter(ArrayHelper::getColumn($uebungsgruppen, 'UebungsgruppeID')));
+                    
+                    echo "<pre>";
+                    echo "OK4.5";
+                    print_r($uebungsgruppen);
+                    echo "</pre>";
+                    
                     foreach ($uebungsgruppen as $indexUebungsgrupe => $uebungsgruppe){
+                        
+                        echo "<pre>";
+                        echo "OK4";
+                        print_r($uebungsgruppeID);
+                        echo "</pre>";
+                        
                         $data['Uebungsgruppe'] = $uebungsgruppe;
                         $modelUebungsgruppe = (isset($uebungsgruppe['UebungsgruppeID']) && isset($alteUebungsgruppen[$uebungsgruppe['UebungsgruppeID']]))? $alteUebungsgruppen[$uebungsgruppe['UebungsgruppeID']] : new Uebungsgruppe;
                         $modelUebungsgruppe->load($data);
                         $modelsUebungsgruppe[$indexUebung][$indexUebungsgrupe] = $modelUebungsgruppe;
                         $valid = $modelUebungsgruppe->validate();
                     }
+                    
+                    echo "<pre>";
+                    echo "OK5";
+                    print_r($uebungsgruppeID);
+                    echo "</pre>";
                 }
+                
             }
             $alteUebungsgruppeID = ArrayHelper::getColumn($alteUebungsgruppen, 'UebungsgruppeID');
             $deletedUebungsgruppeID = array_diff($alteUebungsgruppeID, $uebungsgruppeID);
+            
+            echo "<pre>";
+            echo "OKOKOKOK end";
+            //print_r($alteUebungsgruppen);
+            print_r('UebungsgruppeID');
+            print_r($alteUebungsgruppeID);
+            print_r($deletedUebungsgruppeID);
+            echo "</pre>";
+            exit(0);
+            
             
             
             if($valid){
@@ -296,7 +358,7 @@ class ModulController extends Controller
                 }
             }
         }
-        return $this->render('update',[
+        return $this->render('_dynamicForm',[
             'modelModul' => $modelModul,
             'modelsProfessor' => (empty($modelsProfessor)) ? [new ModulLeitetProfessor] : $modelsProfessor,
             'modelsUebung' => (empty($modelsUebung)) ? [new Uebung] : $modelsUebung,

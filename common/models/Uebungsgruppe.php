@@ -107,4 +107,12 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
         $name = $model->Vorname.' '.$model->Nachname;
         return $name;
     }
+    
+    /*
+     *  giben die gesamte Anzahl der Übungsblätter von entsprechendem Übungen zurück
+     */
+    public function getUebungsblaetter($UebungsID)
+    {
+        return Uebungsblaetter::find()->where(['UebungsID'=>$UebungsID])->count();
+    }
 }

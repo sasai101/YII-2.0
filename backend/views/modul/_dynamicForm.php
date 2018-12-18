@@ -5,22 +5,8 @@ use yii\bootstrap\ActiveForm;
 use wbraganca\dynamicform\DynamicFormWidget;
 use common\models\Professor;
 use common\models\Mitarbeiter;
+use yii\widgets\Pjax;
 
-$js = '
-jQuery(".dynamicform_wrapper").on("afterInsert", function(e, item) {
-    jQuery(".dynamicform_wrapper .panel-title-address").each(function(index) {
-        jQuery(this).html("Address: " + (index + 1))
-    });
-});
-    
-jQuery(".dynamicform_wrapper").on("afterDelete", function(e) {
-    jQuery(".dynamicform_wrapper .panel-title-address").each(function(index) {
-        jQuery(this).html("Address: " + (index + 1))
-    });
-});
-';
-
-$this->registerJs($js);
 ?>
 
 <div class="customer-form">
@@ -38,11 +24,11 @@ $this->registerJs($js);
     <div class="padding-v-md">
         <div class="line line-dashed"></div>
     </div>
-    <?php DynamicFormWidget::begin([
+    <?php DynamicFormWidget::begin([ 
         'widgetContainer' => 'dynamicform_wrapper', 
         'widgetBody' => '.container-items', 
         'widgetItem' => '.item', 
-        'limit' => 20, 
+        'limit' => 4, 
         'min' => 1, 
         'insertButton' => '.add-item', 
         'deleteButton' => '.remove-item', 
