@@ -11,6 +11,9 @@ use yii\filters\VerbFilter;
 use common\models\UebungSuchen;
 use common\models\BenutzerTeilnimmtUebungsgruppe;
 use common\models\BenutzerTeilnimmtUebungsgruppeSuchen;
+use common\models\Uebungsblaetter;
+use common\models\EinzelaufgabeSuchen;
+use common\models\UebungsblaetterSuchen;
 
 /**
  * UebungsgruppeController implements the CRUD actions for Uebungsgruppe model.
@@ -161,11 +164,21 @@ class UebungsgruppeController extends Controller
     {
         $searchModel = new BenutzerTeilnimmtUebungsgruppeSuchen();
         $dataProvider = $searchModel->searchAlleBenutzer($id);
+        
+        $searchModel1 = new UebungsblaetterSuchen();
+        $dataProvider1 = $searchModel1->searchMitID($id);
+        
+        
         $model = $this->findModel($id);
         
         return $this->render('gruppendetails',[
+            //für alle Teilenahmer
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
+            //für Übungsblätter
+            'dataProvider1' => $dataProvider1,
+            'searchModel1' => $searchModel1,
+            
             'model' => $model,
         ]);
     }

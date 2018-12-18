@@ -40,12 +40,12 @@ $this->registerJs($js);
     </div>
     <?php DynamicFormWidget::begin([
         'widgetContainer' => 'dynamicform_wrapper', 
-        'widgetBody' => '.container-prof', 
-        'widgetItem' => '.prof-item', 
+        'widgetBody' => '.container-items', 
+        'widgetItem' => '.item', 
         'limit' => 4, 
         'min' => 1, 
-        'insertButton' => '.add-prof', 
-        'deleteButton' => '.remove-prof', 
+        'insertButton' => '.add-item', 
+        'deleteButton' => '.remove-item', 
         'model' => $modelsProfessor[0],
         'formId' => 'dynamic-form',
         'formFields' => [
@@ -55,15 +55,15 @@ $this->registerJs($js);
     <div class="panel panel-default">
         <div class="panel-heading">
             <i class="fa fa-envelope"></i> Professor
-            <button type="button" class="pull-right add-prof btn btn-success btn-xs"><i class="fa fa-plus"></i> Add Professor</button>
+            <button type="button" class="pull-right add-item btn btn-success btn-xs"><i class="fa fa-plus"></i> Add Professor</button>
             <div class="clearfix"></div>
         </div>
-        <div class="panel-body container-prof"><!-- widgetContainer -->
+        <div class="panel-body container-items"><!-- widgetContainer -->
             <?php foreach ($modelsProfessor as $index => $professor): ?>
-                <div class="prof-item panel panel-default"><!-- widgetBody -->
+                <div class="item panel panel-default"><!-- widgetBody -->
                     <div class="panel-heading">
                         <span class="panel-title-address">Professor: <?= ($index + 1) ?></span>
-                        <button type="button" class="pull-right remove-prof btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="pull-right remove-item btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
                         <div class="clearfix"></div>
                     </div>
                     <div class="panel-body">
@@ -95,8 +95,8 @@ $this->registerJs($js);
         'widgetItem' => '.house-item',
         'limit' => 10,
         'min' => 1,
-        'insertButton' => '.add-uebung',
-        'deleteButton' => '.remove-uebung',
+        'insertButton' => '.add-house',
+        'deleteButton' => '.remove-house',
         'model' => $modelsUebung[0],
         'formId' => 'dynamic-form',
         'formFields' => [
@@ -110,8 +110,7 @@ $this->registerJs($js);
                 <th>Übungen</th>
                 <th style="width: 450px;">Übungsgruppen</th>
                 <th class="text-center" style="width: 90px;">
-                	
-                    <!-- <button type="button" class="add-uebung btn btn-success btn-xs"><span class="fa fa-plus"></span>add Übung</button> -->
+                    <button type="button" class="add-house btn btn-success btn-xs"><span class="fa fa-plus"></span>add Übung</button>
                 </th>
             </tr>
         </thead>
@@ -139,7 +138,7 @@ $this->registerJs($js);
                     ]) ?>
                 </td>
                 <td class="text-center vcenter" style="width: 90px; verti">
-                    <button type="button" class="remove-uebung btn btn-danger btn-xs"><span class="fa fa-minus"></span></button>
+                    <button type="button" class="remove-house btn btn-danger btn-xs"><span class="fa fa-minus"></span></button>
                 </td>
             </tr>
          <?php endforeach; ?>

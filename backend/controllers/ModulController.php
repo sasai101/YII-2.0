@@ -141,7 +141,7 @@ class ModulController extends Controller
                     }
                     if($flag){
                         $transaction->commit();
-                        return $this->redirect(['view','id'=>$modelModul->ModulID]);
+                        return $this->redirect(['index']);
                     }
                 }catch ( \Exception $e){
                     $transaction->rollBack();
@@ -171,12 +171,14 @@ class ModulController extends Controller
         
         //Übung und Übungsgruppe
         $modelsUebung = $modelModul->uebungs;
-        echo "<pre>";
-        echo "deleOK0.5";
-        print_r($modelsUebung);
-        echo "</pre>";
         $modelsUebungsgruppe = [];
         $alteUebungsgruppen = [];
+        
+        
+//         echo "<pre>";
+//         echo "deleOK0.5";
+//         print_r($modelsUebung);
+//         echo "</pre>";
         
         
         if(!empty($modelsUebung)){
@@ -287,7 +289,7 @@ class ModulController extends Controller
             print_r($alteUebungsgruppeID);
             print_r($deletedUebungsgruppeID);
             echo "</pre>";
-            exit(0);
+            //exit(0);
             
             
             
@@ -351,14 +353,14 @@ class ModulController extends Controller
                     }
                     if($flag){
                         $transcation->commit();
-                        return $this->redirect(['view','id'=>$modelModul->ModulID]);
+                        return $this->redirect(['index']);
                     }
                 }catch (\Exception $e) {
                     $transcation->rollBack();
                 }
             }
         }
-        return $this->render('_dynamicForm',[
+        return $this->render('update',[
             'modelModul' => $modelModul,
             'modelsProfessor' => (empty($modelsProfessor)) ? [new ModulLeitetProfessor] : $modelsProfessor,
             'modelsUebung' => (empty($modelsUebung)) ? [new Uebung] : $modelsUebung,
