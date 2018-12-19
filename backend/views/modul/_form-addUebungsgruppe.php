@@ -1,8 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use wbraganca\dynamicform\DynamicFormWidget;
 use common\models\Tutor;
+use wbraganca\dynamicform\DynamicFormWidget;
 
 ?>
 
@@ -10,10 +10,10 @@ use common\models\Tutor;
     'widgetContainer' => 'dynamicform_inner',
     'widgetBody' => '.container-rooms',
     'widgetItem' => '.room-item',
-    'limit' => 20,
+    'limit' => 30,
     'min' => 1,
-    'insertButton' => '.add-room',
-    'deleteButton' => '.remove-room',
+    'insertButton' => '.add-uebungsgruppe',
+    'deleteButton' => '.remove-uebungsgruppe',
     'model' => $modelsUebungsgruppe[0],
     'formId' => 'dynamic-form',
     'formFields' => [
@@ -25,9 +25,9 @@ use common\models\Tutor;
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>Description</th>
+            <th>Übungsgruppe</th>
             <th class="text-center">
-                <button type="button" class="add-room btn btn-success btn-xs"><span class="glyphicon glyphicon-plus"></span>add Übungsgruppe</button>
+                <button type="button" class="add-uebungsgruppe btn btn-success btn-xs"><span class="glyphicon glyphicon-plus"></span></button>
             </th>
         </tr>
     </thead>
@@ -38,15 +38,15 @@ use common\models\Tutor;
                 <?php
                     // necessary for update action.
                     if (! $modelUebungsgruppe->isNewRecord) {
-                        echo Html::activeHiddenInput($modelUebungsgruppe, "[{$indexUebungsgruppe}][{$indexUebungsgruppe}]UebungsgruppeID");
+                        echo Html::activeHiddenInput($modelUebungsgruppe, "[{$indexUebung}][{$indexUebungsgruppe}]UebungsgruppeID");
                     }
                 ?>
-                <?= $form->field($modelUebungsgruppe, "[{$indexUebungsgruppe}][{$indexUebungsgruppe}]Tutor_MarterikelNr")->dropDownList(Tutor::tutorName(),['prompt'=>'Bitte wählen Sie einen Mitarbeiter aus'])?>
-                <?= $form->field($modelUebungsgruppe, "[{$indexUebungsgruppe}][{$indexUebungsgruppe}]GruppenNr")->textInput(['maxlength' => true])?>
-            	<?= $form->field($modelUebungsgruppe, "[{$indexUebungsgruppe}][{$indexUebungsgruppe}]Max_Person")->textInput(['maxlength' => true])?>
+                <?= $form->field($modelUebungsgruppe, "[{$indexUebung}][{$indexUebungsgruppe}]Tutor_MarterikelNr")->dropDownList(Tutor::tutorName(),['prompt'=>'Bitte wählen Sie einen Mitarbeiter aus'])?>
+                <?= $form->field($modelUebungsgruppe, "[{$indexUebung}][{$indexUebungsgruppe}]GruppenNr")->textInput(['maxlength' => true])?>
+            	<?= $form->field($modelUebungsgruppe, "[{$indexUebung}][{$indexUebungsgruppe}]Max_Person")->textInput(['maxlength' => true])?>
             </td>
             <td class="text-center vcenter" style="width: 90px;">
-                <button type="button" class="remove-room btn btn-danger btn-xs"><span class="glyphicon glyphicon-minus"></span></button>
+                <button type="button" class="remove-uebungsgruppe btn btn-danger btn-xs"><span class="glyphicon glyphicon-minus"></span></button>
             </td>
         </tr>
      <?php endforeach; ?>

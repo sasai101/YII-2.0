@@ -33,6 +33,7 @@ class Uebung extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            // sonst geht das beim Modulherstellung nicht mehr weiter
             //[['ModulID', 'Mitarbeiter_MarterikelNr', 'Bezeichnung'], 'required'],
             [['Mitarbeiter_MarterikelNr', 'Bezeichnung'], 'required'],
             [['ModulID', 'Mitarbeiter_MarterikelNr'], 'integer'],

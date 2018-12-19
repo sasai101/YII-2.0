@@ -35,8 +35,9 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            //[['UebungsID', 'Tutor_MarterikelNr', 'Anzahl_der_Personen', 'GruppenNr', 'Max_Person'], 'required'],
-            [['Tutor_MarterikelNr', 'GruppenNr', 'Max_Person'], 'required'],
+            // sonst geht das beim Modulherstellung nicht mehr weiter
+            //[['UebungsID'], 'required'],
+            //[['Tutor_MarterikelNr', 'GruppenNr', 'Max_Person'], 'required'],
             [['UebungsID', 'Tutor_MarterikelNr', 'Anzahl_der_Personen', 'GruppenNr', 'Max_Person'], 'integer'],
             [['UebungsID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebung::className(), 'targetAttribute' => ['UebungsID' => 'UebungsID']],
             [['Tutor_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Tutor::className(), 'targetAttribute' => ['Tutor_MarterikelNr' => 'marterikelnr']],

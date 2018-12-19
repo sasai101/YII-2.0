@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\Query;
 use common\models\ModulLeitetProfessor;
+use Behat\Gherkin\Exception\Exception;
 use backend\models\Model;
 use common\models\Uebung;
 use common\models\Uebungsgruppe;
@@ -80,34 +81,33 @@ class ModulController extends Controller
         if($modelModul->load(Yii::$app->request->post())){
             //return $this->redirect(['view','id'=>$modelModul->ModulID]);
             
-            $modelsProfessor = Model::createMultiple(ModulLeitetProfessor::classname());
+            $modelsProfessor = ModelProfe::createMultiple(ModulLeitetProfessor::classname());
             Model::loadMultiple($modelsProfessor, Yii::$app->request->post());
             // Ubungen und Uebungsgruppe
-            $modelsUebung = Model::createMultiple(Uebung::classname());
+            $modelsUebung = ModelUebung::createMultiple(Uebung::className());
             Model::loadMultiple($modelsUebung, Yii::$app->request->post());
             
             //validieren
             $valid = $modelModul->validate();
             $valid = Model::validateMultiple($modelsProfessor) && Model::validateMultiple($modelsUebung) && $valid;
             
-            if(isset($_POST['Uebungsgruppe'][0][0])){
-                foreach ($_POST['Uebungsgruppe'] as $indexUebung => $uebungsgruppen){
-                    foreach ($uebungsgruppen as $indexUebungsgrupe => $uebungsgruppe){
-                        $data['Uebungsgruppe'] = $uebungsgruppe;
+            if (isset($_POST['Uebungsgruppe'][0][0])) {
+                foreach ($_POST['Uebungsgruppe'] as $indexUebung => $Uebungsgruppen){
+                    foreach ($Uebungsgruppen as $indexUebungsgruppe => $Uebungsgruppe){
+                        $data['Uebungsgruppe'] = $Uebungsgruppe;
                         $modelUebungsgruppe = new Uebungsgruppe;
                         $modelUebungsgruppe->load($data);
-                        $modelsUebungsgruppe[$indexUebung][$indexUebungsgrupe] = $modelUebungsgruppe;
+                        $modelsUebungsgruppe[$indexUebung][$indexUebungsgruppe]=$modelUebungsgruppe;
                         $valid = $modelUebungsgruppe->validate();
                     }
                 }
-                
             }
             
             if($valid){
                 
                 $transaction = Yii::$app->db->beginTransaction();
                 try{
-                    if ($flag = $modelModul->save(false)){
+                    if($flag = $modelModul->save(false)){
                         //Professoren
                         foreach ($modelsProfessor as $professor ){
                             
@@ -120,30 +120,35 @@ class ModulController extends Controller
                         
                         //Übungen
                         foreach ($modelsUebung as $indexUebung => $modelUebung){
-                            if($flag ===false){
-                                break;
-                            }
-                            $modelUebung->ModulID = $modelModul->ModulID;
-                            if(!($flag=$modelUebung->save(false))){
+                            if($flag == false) {
                                 break;
                             }
                             
-                            if (isset($modelsUebungsgruppe[$indexUebung]) && is_array($modelsUebungsgruppe[$indexUebung])) {
-                                foreach ($modelsUebungsgruppe[$indexUebung] as $indexUebungsgrupe=>$modelUebungsgruppe){
+                            $modelUebung->ModulID = $modelModul->ModulID;
+                            
+                            if(!($flag = $modelUebung->save(false))){
+                                break;
+                            }
+                            
+                            if(isset($modelsUebungsgruppe[$indexUebung]) && is_array($modelsUebungsgruppe[$indexUebung])){
+                                foreach ($modelsUebungsgruppe[$indexUebung] as $indexUebungsgruppe => $modelUebungsgruppe){
                                     $modelUebungsgruppe->UebungsID = $modelUebung->UebungsID;
+                                    
                                     if(!($flag = $modelUebungsgruppe->save(false))){
-                                        $transaction->rollBack();
                                         break;
                                     }
                                 }
                             }
+                            
                         }
                     }
-                    if($flag){
+                    if($flag) {
                         $transaction->commit();
                         return $this->redirect(['index']);
+                    }else {
+                        $transaction->rollBack();
                     }
-                }catch ( \Exception $e){
+                }catch (Exception $e) {
                     $transaction->rollBack();
                 }
             }
@@ -183,23 +188,19 @@ class ModulController extends Controller
         
         if(!empty($modelsUebung)){
             foreach ($modelsUebung as $indexUebung => $modelUebung){
-                $uebungsgruppen = $modelUebung->uebungsgruppes;
-                $modelsUebungsgruppe[$indexUebung] = $uebungsgruppen;
-                $alteUebungsgruppen = ArrayHelper::merge(ArrayHelper::index($uebungsgruppen, 'UebungsgruppeID'), $alteUebungsgruppen);
+                $Uebungsgruppen = $modelUebung->uebungsgruppes;
+                $modelsUebungsgruppe[$indexUebung] = $Uebungsgruppen;
+                $alteUebungsgruppen = ArrayHelper::merge(ArrayHelper::index($Uebungsgruppen, 'UebungsgruppeID'), $alteUebungsgruppen);
             }
         }
         
         if($modelModul->load(Yii::$app->request->post())){
             //Professor
-            $alteProfessorID = ArrayHelper::map($modelsProfessor, 'Professor_MarterikelNr', 'Professor_MarterikelNr');            
-            
+            $alteProfessorID = ArrayHelper::map($modelsProfessor, 'Professor_MarterikelNr', 'Professor_MarterikelNr');                   
             $modelsProfessor = ModelProfe::createMultiple(ModulLeitetProfessor::classname(), $modelsProfessor);
+     
             
-//             echo "<pre>";
-//             print_r($modelsProfessor);
-//             echo "</pre>";
-            
-            Model::loadMultiple($modelsProfessor, Yii::$app->request->post());
+            ModelProfe::loadMultiple($modelsProfessor, Yii::$app->request->post());
 //             echo "<pre>";
 //             print_r($modelsProfessor);
 //             echo "</pre>";
@@ -209,94 +210,94 @@ class ModulController extends Controller
             
             //Übungen und Übungsgruppe
             $modelsUebungsgruppe = [];
-            $alteUebungID = ArrayHelper::map($modelsUebung, 'UebungsID', 'UebungsID');
-            $modelsUebung = ModelUebung::createMultiple(Uebung::classname(), $modelsUebung);
-            Model::loadMultiple($modelsUebung, Yii::$app->request->post());
-            $deletedUebungID = array_diff($alteUebungID, array_filter(ArrayHelper::map($modelsUebung, 'UebungsID', 'UebungsID')));
+            $alteUebungsIDs = ArrayHelper::map($modelsUebung, 'UebungsID', 'UebungsID');
+            $modelsUebung = ModelUebung::createMultiple(Uebung::className(), $modelsUebung);
+            ModelUebung::loadMultiple($modelsUebung, Yii::$app->request->post());
+            $deletedUebungsIDs = array_diff($alteUebungsIDs, array_filter(ArrayHelper::map($modelsUebung, 'UebungsID', 'UebungsID')));
             
             echo "<pre>";
             echo "deleOK1";
-            print_r($deletedUebungID);
+            print_r($deletedUebungsIDs);
             echo "</pre>";
             
             
             $valid = $modelModul->validate();
-            $valid = Model::validateMultiple($modelsProfessor) && Model::validateMultiple($modelsUebung) && $valid;
+            $valid = ModelProfe::validateMultiple($modelsProfessor) && ModelUebung::validateMultiple($modelsUebung) && $valid;
             
-            $uebungsgruppeID = [];
+            $UebungsgruppenIDs = [];
             
             echo "<pre>";
             echo "OK1";
-            print_r($uebungsgruppeID);
+            print_r($UebungsgruppenIDs);
             echo "</pre>";
             
             //Übungsgruppe
             if(isset($_POST['Uebungsgruppe'][0][0])){
                 
-                echo "<pre>";
-                echo "OK1.5";
-                print_r($_POST['Uebungsgruppe']);
-                echo "</pre>";
+//                 echo "<pre>";
+//                 echo "OK1.5";
+//                 print_r($_POST['Uebungsgruppe']);
+//                 echo "</pre>";
                 
-                echo "<pre>";
-                echo "OK2";
-                print_r($uebungsgruppeID);
-                echo "</pre>";
+//                 echo "<pre>";
+//                 echo "OK2";
+//                 print_r($UebungsgruppenIDs);
+//                 echo "</pre>";
                 
-                foreach ($_POST['Uebungsgruppe'] as $indexUebung => $uebungsgruppen){
+                foreach ($_POST['Uebungsgruppe'] as $indexUebung => $Uebungsgruppen){
                     
-                    echo "<pre>";
-                    echo "OK3";
-                    print_r($_POST['Uebungsgruppe'][0][0]);
-                    print_r($uebungsgruppeID);
-                    echo "</pre>";
+//                     echo "<pre>";
+//                     echo "OK3";
+//                     print_r($_POST['Uebungsgruppe'][0][0]);
+//                     print_r($uebungsgruppeID);
+//                     echo "</pre>";
                     
-                    $uebungsgruppeID = ArrayHelper::merge($uebungsgruppeID, array_filter(ArrayHelper::getColumn($uebungsgruppen, 'UebungsgruppeID')));
+                    $UebungsgruppenIDs = ArrayHelper::merge($UebungsgruppenIDs, array_filter(ArrayHelper::getColumn($Uebungsgruppen, 'UebungsgruppeID')));
                     
-                    echo "<pre>";
-                    echo "OK4.5";
-                    print_r($uebungsgruppen);
-                    echo "</pre>";
+//                     echo "<pre>";
+//                     echo "OK4.5";
+//                     print_r($uebungsgruppen);
+//                     echo "</pre>";
                     
-                    foreach ($uebungsgruppen as $indexUebungsgrupe => $uebungsgruppe){
+                    foreach ($Uebungsgruppen as $indexUebungsgruppe => $Uebungsgruppe){
                         
-                        echo "<pre>";
-                        echo "OK4";
-                        print_r($uebungsgruppeID);
-                        echo "</pre>";
+//                         echo "<pre>";
+//                         echo "OK4";
+//                         print_r($uebungsgruppeID);
+//                         echo "</pre>";
                         
-                        $data['Uebungsgruppe'] = $uebungsgruppe;
-                        $modelUebungsgruppe = (isset($uebungsgruppe['UebungsgruppeID']) && isset($alteUebungsgruppen[$uebungsgruppe['UebungsgruppeID']]))? $alteUebungsgruppen[$uebungsgruppe['UebungsgruppeID']] : new Uebungsgruppe;
+                        $data['Uebungsgruppe'] = $Uebungsgruppe;
+                        $modelUebungsgruppe = (isset($Uebungsgruppe['UebungsgruppeID']) && isset($alteUebungsgruppen[$Uebungsgruppe['UebungsgruppeID']])) ? $alteUebungsgruppen[$Uebungsgruppe['UebungsgruppeID']]: new Uebungsgruppe;
                         $modelUebungsgruppe->load($data);
-                        $modelsUebungsgruppe[$indexUebung][$indexUebungsgrupe] = $modelUebungsgruppe;
+                        $modelsUebungsgruppe[$indexUebung][$indexUebungsgruppe] = $modelUebungsgruppe;
                         $valid = $modelUebungsgruppe->validate();
                     }
                     
-                    echo "<pre>";
-                    echo "OK5";
-                    print_r($uebungsgruppeID);
-                    echo "</pre>";
+//                     echo "<pre>";
+//                     echo "OK5";
+//                     print_r($uebungsgruppeID);
+//                     echo "</pre>";
                 }
                 
             }
-            $alteUebungsgruppeID = ArrayHelper::getColumn($alteUebungsgruppen, 'UebungsgruppeID');
-            $deletedUebungsgruppeID = array_diff($alteUebungsgruppeID, $uebungsgruppeID);
+            $alteUebungsgruppenIDs = ArrayHelper::getColumn($alteUebungsgruppen, 'UebungsgruppeID');
+            $deletedUebungsgruppenIDs = array_diff($alteUebungsgruppenIDs, $UebungsgruppenIDs);
             
-            echo "<pre>";
-            echo "OKOKOKOK end";
-            //print_r($alteUebungsgruppen);
-            print_r('UebungsgruppeID');
-            print_r($alteUebungsgruppeID);
-            print_r($deletedUebungsgruppeID);
-            echo "</pre>";
-            //exit(0);
+//             echo "<pre>";
+//             echo "OKOKOKOK end";
+//             //print_r($alteUebungsgruppen);
+//             print_r('UebungsgruppeID');
+//             print_r($alteUebungsgruppeID);
+//             print_r($deletedUebungsgruppeID);
+//             echo "</pre>";
+//             //exit(0);
             
             
             
-            if($valid){
-                $transcation = Yii::$app->db->beginTransaction();
-                try{
-                    if($flag = $modelModul->save(false)){
+            if($valid) {
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    if($flag = $modelModul->save(false)) {
                         // Professor
                         
                         if(!empty($deletedProfessorID)){
@@ -318,32 +319,33 @@ class ModulController extends Controller
                         foreach ($modelsProfessor as $modelProfessor){
                             $modelProfessor->ModulID = $modelModul->ModulID;
                             if(!($flag = $modelProfessor->save(false))){
-                                $transcation->rollBack();
+                                $transaction->rollBack();
                                 break;
                             }
                         }
                         
                         // Uebungen und Übungsgruppen
-                        if(!empty($deletedUebungsgruppeID)){
-                            Uebungsgruppe::deleteAll(['UebungsgruppeID'=>$deletedUebungsgruppeID]);
+                        if(! empty($deletedUebungsgruppenIDs)){
+                            Uebungsgruppe::deleteAll(['UebungsgruppeID' => $deletedUebungsgruppenIDs]);
                         }
-                        if (!empty($deletedUebungID)){
-                            Uebung::deleteAll(['UebungsID'=>$deletedUebungID]);
+                        if(! empty($deletedUebungsIDs)) {
+                            Uebung::deleteAll(['UebungsID' => $deletedUebungsIDs]);
                         }
                         foreach ($modelsUebung as $indexUebung => $modelUebung){
-                            if($flag ===false){
-                                break;
-                            }
-                            $modelUebung->ModulID = $modelModul->ModulID;
-                            if(!($flag=$modelUebung->save(false))){
+                            if($flag===false) {
                                 break;
                             }
                             
-                            if (isset($modelsUebungsgruppe[$indexUebung]) && is_array($modelsUebungsgruppe[$indexUebung])) {
-                                foreach ($modelsUebungsgruppe[$indexUebung] as $indexUebungsgrupe=>$modelUebungsgruppe){
+                            $modelUebung->ModulID = $modelModul->ModulID;
+                            
+                            if(!($flag = $modelUebung->save(false))){
+                                break;
+                            }
+                            
+                            if(isset($modelsUebungsgruppe[$indexUebung]) && is_array($modelsUebungsgruppe[$indexUebung])){
+                                foreach ($modelsUebungsgruppe[$indexUebung] as $indexUebungsgruppe => $modelUebungsgruppe){
                                     $modelUebungsgruppe->UebungsID = $modelUebung->UebungsID;
                                     if(!($flag = $modelUebungsgruppe->save(false))){
-                                        $transaction->rollBack();
                                         break;
                                     }
                                 }
@@ -351,16 +353,18 @@ class ModulController extends Controller
                         }
                     
                     }
-                    if($flag){
-                        $transcation->commit();
+                    if($flag) {
+                        $transaction->commit();
                         return $this->redirect(['index']);
+                    }else{
+                        $transaction->rollBack();
                     }
-                }catch (\Exception $e) {
-                    $transcation->rollBack();
+                }catch (Exception $e) {
+                    $transaction->rollBack();
                 }
             }
         }
-        return $this->render('update',[
+        return $this->render('_dynamicForm',[
             'modelModul' => $modelModul,
             'modelsProfessor' => (empty($modelsProfessor)) ? [new ModulLeitetProfessor] : $modelsProfessor,
             'modelsUebung' => (empty($modelsUebung)) ? [new Uebung] : $modelsUebung,

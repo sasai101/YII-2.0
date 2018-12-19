@@ -37,7 +37,8 @@ class Modul extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Bezeichnung','Maximale_Person'], 'required'],
+            // sonst geht das beim Modulherstellung nicht mehr weiter
+            //[['Bezeichnung','Maximale_Person'], 'required'],
             [['Maximale_Person'], 'integer'],
             [['Bezeichnung'], 'string', 'max' => 255],
         ];

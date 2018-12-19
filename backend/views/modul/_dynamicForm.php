@@ -6,21 +6,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
 use common\models\Professor;
 use common\models\Mitarbeiter;
 
-$js = '
-jQuery(".dynamicform_wrapper").on("afterInsert", function(e, item) {
-    jQuery(".dynamicform_wrapper .panel-title-address").each(function(index) {
-        jQuery(this).html("Address: " + (index + 1))
-    });
-});
-    
-jQuery(".dynamicform_wrapper").on("afterDelete", function(e) {
-    jQuery(".dynamicform_wrapper .panel-title-address").each(function(index) {
-        jQuery(this).html("Address: " + (index + 1))
-    });
-});
-';
-
-$this->registerJs($js);
 ?>
 
 <div class="customer-form">
@@ -54,7 +39,7 @@ $this->registerJs($js);
     ]); ?>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <i class="fa fa-envelope"></i> Professor
+            <i class="fa fa-graduation-cap"></i> Professor
             <button type="button" class="pull-right add-prof btn btn-success btn-xs"><i class="fa fa-plus"></i> Add Professor</button>
             <div class="clearfix"></div>
         </div>
@@ -62,7 +47,7 @@ $this->registerJs($js);
             <?php foreach ($modelsProfessor as $index => $professor): ?>
                 <div class="prof-item panel panel-default"><!-- widgetBody -->
                     <div class="panel-heading">
-                        <span class="panel-title-address">Professor: <?= ($index + 1) ?></span>
+                        <span class="panel-title">Professor: </span>
                         <button type="button" class="pull-right remove-prof btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
                         <div class="clearfix"></div>
                     </div>
@@ -90,67 +75,81 @@ $this->registerJs($js);
     </div>
 
     <?php DynamicFormWidget::begin([
-        'widgetContainer' => 'dynamicform_wrapper',
-        'widgetBody' => '.container-ubung',
-        'widgetItem' => '.house-item',
-        'limit' => 10,
-        'min' => 1,
-        'insertButton' => '.add-uebung',
-        'deleteButton' => '.remove-uebung',
-        'model' => $modelsUebung[0],
-        'formId' => 'dynamic-form',
-        'formFields' => [
-            'Mitarbeiter_MarterikelNr',
-            'Bezeichnung',
-        ],
-    ]); ?>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Übungen</th>
-                <th style="width: 450px;">Übungsgruppen</th>
-                <th class="text-center" style="width: 90px;">
-                	
-                    <!-- <button type="button" class="add-uebung btn btn-success btn-xs"><span class="fa fa-plus"></span>add Übung</button> -->
-                </th>
-            </tr>
-        </thead>
-        <!-- Hier muss ein andern sein als oberen DynamicForm container, sonst wird nur ein von Übung gespeichert -->
-        <tbody class="container-ubung">
-        <?php foreach ($modelsUebung as $indexUebung => $modelUebung): ?>
-            <tr class="house-item">
-                <td class="vcenter">
-                    <?php
-                        // necessary for update action.
-                        if (! $modelUebung->isNewRecord) {
-                            echo Html::activeHiddenInput($modelUebung, "[{$indexUebung}]UebungsID");
-                        }
-                    ?>
-                    <p><b>Wissenschaftlicher Mitarbeiter</b></p>
-                    <?= $form->field($modelUebung, "[{$indexUebung}]Mitarbeiter_MarterikelNr")->dropDownList(Mitarbeiter::mitarbeiterName(),['prompt'=>'Bitte wählen Sie einen Mitarbeiter aus']) ?>
-                    <p><b>Übungsverzeichnis</b></p>
-                    <?= $form->field($modelUebung, "[{$indexUebung}]Bezeichnung")->label(false)->textInput(['maxlength' => true]) ?>
-                </td>
-                <td>
-                    <?= $this->render('_form-addUebungsgruppe', [
-                        'form' => $form,
-                        'indexUbung' => $indexUebung,
-                        'modelsUebungsgruppe' => $modelsUebungsgruppe[$indexUebung],
-                    ]) ?>
-                </td>
-                <td class="text-center vcenter" style="width: 90px; verti">
-                    <button type="button" class="remove-uebung btn btn-danger btn-xs"><span class="fa fa-minus"></span></button>
-                </td>
-            </tr>
-         <?php endforeach; ?>
-        </tbody>
-    </table>
+	    'widgetContainer' => 'dynamicform_wrapper',
+	    'widgetBody' => '.container-uebung',
+	    'widgetItem' => '.uebung-item',
+	    'limit' => 10,
+	    'min' => 1,
+	    'insertButton' => '.add-uebung',
+	    'deleteButton' => '.remove-uebung',
+	    'model' => $modelsUebung[0],
+	    'formId' => 'dynamic-form',
+	    'formFields' => [
+	        'Mitarbeiter_MarterikelNr',
+	        'Bezeichnung',
+	    ],
+	    	    
+	]); ?>
+	
+	<div class="panel panel-default">
+		<div class="panel-heading">
+            <i class="fa fa-group"></i> Übungen und Übungsgruppe
+            <button type="button" class="pull-right add-uebung btn btn-success btn-xs"><span class="fa fa-plus">Add Übungen</span></button>
+            <div class="clearfix"></div>
+        </div>
+        <div class="panel-body container-prof">
+        
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Übungen</th>
+                        <th style="width: 450px;">Übungsgruppe</th>
+                        <th class="text-center" style="width: 90px;">
+                            
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="container-uebung">
+                <?php foreach ($modelsUebung as $indexUebung => $modelUebung): ?>
+                
+                    <tr class="uebung-item">
+                        <td class="vcenter">
+                            <?php
+                                // necessary for update action.
+                                if (! $modelUebung->isNewRecord) {
+                                    echo Html::activeHiddenInput($modelUebung, "[{$indexUebung}]UebungsID");
+                                }
+                            ?>
+                            <!-- Anderung -->
+                            <p><b>Wissenschaftlicher Mitarbeiter</b></p>
+                            <?= $form->field($modelUebung, "[{$indexUebung}]Mitarbeiter_MarterikelNr")->dropDownList(Mitarbeiter::mitarbeiterName(),['prompt'=>'Bitte wählen Sie einen Mitarbeiter aus']) ?>
+                            <p><b>Übungsverzeichnis</b></p>
+                            <?= $form->field($modelUebung, "[{$indexUebung}]Bezeichnung")->label(false)->textInput(['maxlength' => true]) ?>
+                        </td>
+                        <td>
+                            <?= $this->render('_form-addUebungsgruppe', [
+                                'form' => $form,
+                                'indexUebung' => $indexUebung,
+                                'modelsUebungsgruppe' => $modelsUebungsgruppe[$indexUebung],
+                            ]) ?>
+                        </td>
+                        <td class="text-center vcenter" style="width: 90px; verti">
+                            <button type="button" class="remove-uebung btn btn-danger btn-xs"><span class="fa fa-minus"></span></button>
+                        </td>
+                    </tr>
+                 
+                 <?php endforeach; ?>
+                </tbody>
+            </table>
+            
+    	</div>
+    </div>
     <?php DynamicFormWidget::end(); ?>
     
     
 
     <div class="form-group">
-        <?= Html::submitButton($professor->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton($modelModul->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
