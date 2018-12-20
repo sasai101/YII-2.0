@@ -105,6 +105,19 @@ use backend\controllers\ModulController;
                             //['label' => 'Übungen', 'icon' => 'user', 'url'=>[]]
                         ],
                     ],
+                    
+                    // Anteil des Klausures
+                    [
+                        'label' => 'Klausur',
+                        'icon' => 'users',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Klausurerstellung', 'icon' => 'group', 'url'=>['/klausur/index']],
+                            ['label' => 'Note eintragen', 'icon' => 'user', 'url'=>['/klausur/index']],
+                        ],
+                    ],
+                    
+                    //Profe Aederung
                     [
                         'label' => 'Profie',
                         'icon' => 'users',
@@ -114,6 +127,7 @@ use backend\controllers\ModulController;
                             ['label' => 'Profieänderung', 'icon' => 'user', 'url'=>['/benutzer/profieandern']],
                         ],
                     ],
+                   
                 ],
             ]
         ) ?>

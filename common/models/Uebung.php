@@ -34,7 +34,7 @@ class Uebung extends \yii\db\ActiveRecord
     {
         return [
             // sonst geht das beim Modulherstellung nicht mehr weiter
-            //[['ModulID', 'Mitarbeiter_MarterikelNr', 'Bezeichnung'], 'required'],
+            [['ModulID', 'Mitarbeiter_MarterikelNr', 'Bezeichnung'], 'required'],
             [['Mitarbeiter_MarterikelNr', 'Bezeichnung'], 'required'],
             [['ModulID', 'Mitarbeiter_MarterikelNr'], 'integer'],
             [['Bezeichnung'], 'string', 'max' => 255],
