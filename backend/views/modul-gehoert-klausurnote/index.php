@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
  * @var common\models\ModulGehoertKlausurnoteSuchen $searchModel
  */
 
-$this->title = 'Modul Gehoert Klausurnotes';
+$this->title = $modelModul->Bezeichnung;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="modul-gehoert-klausurnote-index">

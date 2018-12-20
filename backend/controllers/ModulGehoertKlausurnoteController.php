@@ -8,6 +8,7 @@ use common\models\ModulGehoertKlausurnoteSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\Modul;
 
 /**
  * ModulGehoertKlausurnoteController implements the CRUD actions for ModulGehoertKlausurnote model.
@@ -30,14 +31,16 @@ class ModulGehoertKlausurnoteController extends Controller
      * Lists all ModulGehoertKlausurnote models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
         $searchModel = new ModulGehoertKlausurnoteSuchen;
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        $dataProvider = $searchModel->search($id);
+        $modelModul = Modul::findOne($id);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
+            'modelModul' => $modelModul,
         ]);
     }
 

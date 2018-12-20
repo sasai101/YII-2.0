@@ -12,7 +12,7 @@ use common\models\Modul;
  * @var common\models\ModulSuchen $searchModel
  */
 
-$this->title = 'Moduls';
+//$this->title = $model->Bezeichnung;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="modul-index">

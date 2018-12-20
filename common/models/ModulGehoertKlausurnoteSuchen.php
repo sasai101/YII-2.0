@@ -27,7 +27,7 @@ class ModulGehoertKlausurnoteSuchen extends ModulGehoertKlausurnote
 
     public function search($params)
     {
-        $query = ModulGehoertKlausurnote::find();
+        $query = ModulGehoertKlausurnote::find()->where(['Modul_ID'=>$params]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -140,5 +140,18 @@ class KlausurController extends Controller
         ]);
     }
     
+    /*
+     *  Klausurnote Listview Controller
+     */
+    public function actionKlausurnotelistview() {
+        
+        $searchModel = new ModulSuchen;
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        
+        return $this->render('klausurnotelistview', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
     
 }
