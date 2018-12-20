@@ -8,7 +8,8 @@ use common\models\KlausurSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use common\models\Modul;
+use common\models\ModulSuchen;
 /**
  * KlausurController implements the CRUD actions for Klausur model.
  */
@@ -122,4 +123,20 @@ class KlausurController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    /*
+     *  Klausur listview Controller
+     */
+    public function actionKlausurListview() {
+        
+        $searchModel = new ModulSuchen;
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
+    
+    
 }
