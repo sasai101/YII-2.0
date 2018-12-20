@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
+use common\models\Klausur;
 
 /**
  * @var yii\web\View $this
@@ -10,7 +11,7 @@ use yii\widgets\Pjax;
  * @var common\models\KlausurSuchen $searchModel
  */
 
-$this->title = 'Klausurs';
+$this->title = $modelModul->Bezeichnung;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="klausur-index">
@@ -29,13 +30,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'KlausurID',
+            //'KlausurID',
             'Mitarbeiter_MarterikelNr',
-            'ModulID',
+            
+            
+//            'ModulID',
             'Kreditpunkt',
-            'Pruefungsdatum',
-//            'Raum', 
-//            'Bezeichnung', 
+            //'Pruefungsdatum',
+            [
+                'attribute' => 'Pruefungsdatum',
+                'format'=>['date','php:d-m-Y H:i:s'],
+            ],
+            'Raum', 
+            'Bezeichnung', 
 //            'Max_Punkte', 
 //            'punkt1_0', 
 //            'punkt1_3', 
@@ -69,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
             'type' => 'info',
             'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
-            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
+            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index','id'=>$modelModul->ModulID], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],
     ]); Pjax::end(); ?>

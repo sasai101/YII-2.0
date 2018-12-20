@@ -31,14 +31,16 @@ class KlausurController extends Controller
      * Lists all Klausur models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
         $searchModel = new KlausurSuchen;
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        $dataProvider = $searchModel->search($id);
+        $modelModul = Modul::findOne($id);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
+            'modelModul' => $modelModul,
         ]);
     }
 
@@ -127,12 +129,12 @@ class KlausurController extends Controller
     /*
      *  Klausur listview Controller
      */
-    public function actionKlausurListview() {
+    public function actionKlausurlistview() {
         
         $searchModel = new ModulSuchen;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
         
-        return $this->render('index', [
+        return $this->render('klausurlistview', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
         ]);

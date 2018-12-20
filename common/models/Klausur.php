@@ -24,7 +24,6 @@ use Yii;
  * @property int $punkt3_3
  * @property int $punkt3_7
  * @property int $punkt4_0
- * @property int $punkt5_0
  *
  * @property BenutzerAnmeldenKlausur[] $benutzerAnmeldenKlausurs
  * @property Benutzer[] $benutzerMarterikelNrs
@@ -47,8 +46,8 @@ class Klausur extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Mitarbeiter_MarterikelNr', 'ModulID', 'Kreditpunkt', 'Pruefungsdatum', 'Raum', 'Bezeichnung', 'Max_Punkte', 'punkt1_0', 'punkt1_3', 'punkt1_7', 'punkt2_0', 'punkt2_3', 'punkt3_0', 'punkt3_3', 'punkt3_7', 'punkt4_0', 'punkt5_0'], 'required'],
-            [['Mitarbeiter_MarterikelNr', 'ModulID', 'Kreditpunkt', 'Max_Punkte', 'punkt1_0', 'punkt1_3', 'punkt1_7', 'punkt2_0', 'punkt2_3', 'punkt3_0', 'punkt3_3', 'punkt3_7', 'punkt4_0', 'punkt5_0'], 'integer'],
+            [['Mitarbeiter_MarterikelNr', 'ModulID', 'Kreditpunkt', 'Pruefungsdatum', 'Raum', 'Bezeichnung', 'Max_Punkte', 'punkt1_0', 'punkt1_3', 'punkt1_7', 'punkt2_0', 'punkt2_3', 'punkt3_0', 'punkt3_3', 'punkt3_7', 'punkt4_0'], 'required'],
+            [['Mitarbeiter_MarterikelNr', 'ModulID', 'Kreditpunkt', 'Max_Punkte', 'punkt1_0', 'punkt1_3', 'punkt1_7', 'punkt2_0', 'punkt2_3', 'punkt3_0', 'punkt3_3', 'punkt3_7', 'punkt4_0'], 'integer'],
             [['Pruefungsdatum', 'Raum', 'Bezeichnung'], 'string', 'max' => 255],
             [['Mitarbeiter_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Mitarbeiter::className(), 'targetAttribute' => ['Mitarbeiter_MarterikelNr' => 'marterikelnr']],
             [['ModulID'], 'exist', 'skipOnError' => true, 'targetClass' => Modul::className(), 'targetAttribute' => ['ModulID' => 'ModulID']],
@@ -62,10 +61,10 @@ class Klausur extends \yii\db\ActiveRecord
     {
         return [
             'KlausurID' => 'Klausur ID',
-            'Mitarbeiter_MarterikelNr' => 'Mitarbeiter  Marterikel Nr',
-            'ModulID' => 'Modul ID',
+            'Mitarbeiter_MarterikelNr' => 'Mitarbeiter',
+            'ModulID' => 'Modul',
             'Kreditpunkt' => 'Kreditpunkt',
-            'Pruefungsdatum' => 'Pruefungsdatum',
+            'Pruefungsdatum' => 'Prüfungsdatum',
             'Raum' => 'Raum',
             'Bezeichnung' => 'Bezeichnung',
             'Max_Punkte' => 'Max  Punkte',
@@ -78,7 +77,6 @@ class Klausur extends \yii\db\ActiveRecord
             'punkt3_3' => 'Punkt3 3',
             'punkt3_7' => 'Punkt3 7',
             'punkt4_0' => 'Punkt4 0',
-            'punkt5_0' => 'Punkt5 0',
         ];
     }
 
@@ -112,5 +110,14 @@ class Klausur extends \yii\db\ActiveRecord
     public function getModul()
     {
         return $this->hasOne(Modul::className(), ['ModulID' => 'ModulID']);
+    }
+    
+    /*
+     *  Gibt die Mitarbeitername für Klausurerstellung zurück
+     */
+    public function getMitarbeitername($param) {
+        $model = Benutzer::findOne($param);
+        $mitarbeitername = $model->Vorname.' '.$model->Nachname;
+        return $mitarbeitername;
     }
 }

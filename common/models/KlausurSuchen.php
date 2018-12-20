@@ -15,7 +15,7 @@ class KlausurSuchen extends Klausur
     public function rules()
     {
         return [
-            [['KlausurID', 'Mitarbeiter_MarterikelNr', 'ModulID', 'Kreditpunkt', 'Max_Punkte', 'punkt1_0', 'punkt1_3', 'punkt1_7', 'punkt2_0', 'punkt2_3', 'punkt3_0', 'punkt3_3', 'punkt3_7', 'punkt4_0', 'punkt5_0'], 'integer'],
+            [['KlausurID', 'Mitarbeiter_MarterikelNr', 'ModulID', 'Kreditpunkt', 'Max_Punkte', 'punkt1_0', 'punkt1_3', 'punkt1_7', 'punkt2_0', 'punkt2_3', 'punkt3_0', 'punkt3_3', 'punkt3_7', 'punkt4_0'], 'integer'],
             [['Pruefungsdatum', 'Raum', 'Bezeichnung'], 'safe'],
         ];
     }
@@ -28,7 +28,8 @@ class KlausurSuchen extends Klausur
 
     public function search($params)
     {
-        $query = Klausur::find();
+        //finde die entsprechende Klausur für jeweilige Modul
+        $query = Klausur::find()->where(['ModulID'=>$params]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -53,7 +54,6 @@ class KlausurSuchen extends Klausur
             'punkt3_3' => $this->punkt3_3,
             'punkt3_7' => $this->punkt3_7,
             'punkt4_0' => $this->punkt4_0,
-            'punkt5_0' => $this->punkt5_0,
         ]);
 
         $query->andFilterWhere(['like', 'Pruefungsdatum', $this->Pruefungsdatum])

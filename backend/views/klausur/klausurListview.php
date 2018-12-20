@@ -1,10 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use kartik\grid\GridView;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
-use common\models\Modul;
 
 /**
  * @var yii\web\View $this
@@ -12,7 +10,7 @@ use common\models\Modul;
  * @var common\models\ModulSuchen $searchModel
  */
 
-$this->title = 'Moduls';
+$this->title = 'Klausurerstellung';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="modul-index">
@@ -21,13 +19,10 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?php echo Html::a('Create Modul', ['create'], ['class' => 'btn btn-success'])  ?>
-    </p>
     <div class = "row">
         <?php Pjax::begin(); echo ListView::widget([
               'dataProvider' => $dataProvider,
-              'itemView' => '_modulListviewItem',
+              'itemView' => '_einzelModul',
               'layout' => '{items}<div class="col-lg-12 sum-pager">{summary}{pager}</div>',
               'itemOptions' => [
                 'tag' => 'div',
