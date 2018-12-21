@@ -1,65 +1,51 @@
 <?php
 
 use yii\helpers\Html;
-use kartik\widgets\ActiveForm;
-use kartik\builder\Form;
-use kartik\datecontrol\DateControl;
+use yii\widgets\ActiveForm;
 
-/**
- * @var yii\web\View $this
- * @var common\models\Klausur $model
- * @var yii\widgets\ActiveForm $form
- */
+/* @var $this yii\web\View */
+/* @var $model common\models\Klausur */
+/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="klausur-form">
 
-    <?php $form = ActiveForm::begin(['type' => ActiveForm::TYPE_HORIZONTAL]); echo Form::widget([
+    <?php $form = ActiveForm::begin(); ?>
 
-        'model' => $model,
-        'form' => $form,
-        'columns' => 1,
-        'attributes' => [
+    <?= $form->field($model, 'Kreditpunkt')->textInput() ?>
 
-            'Mitarbeiter_MarterikelNr' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Mitarbeiter  Marterikel Nr...']],
+    <?= $form->field($model, 'Pruefungsdatum')->textInput(['maxlength' => true]) ?>
 
-            'ModulID' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Modul ID...']],
+    <?= $form->field($model, 'Raum')->textInput(['maxlength' => true]) ?>
 
-            'Kreditpunkt' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Kreditpunkt...']],
+    <?= $form->field($model,'Bezeichnung')->dropDownList(['Hauptklausur'=>'Hauptklausur', '1.Nachklausur'=>'1. Nachklausur', '2.Nachklausur'=>'2.Nachklausur', '3.Nachklausur'=>'3.Nachklausur']) ?>
 
-            'Pruefungsdatum' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Pruefungsdatum...', 'maxlength' => 255]],
+    <?= $form->field($model, 'Max_Punkte')->textInput() ?>
 
-            'Raum' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Raum...', 'maxlength' => 255]],
+    <?= $form->field($model, 'punkt1_0')->textInput() ?>
 
-            'Bezeichnung' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Bezeichnung...', 'maxlength' => 255]],
+    <?= $form->field($model, 'punkt1_3')->textInput() ?>
 
-            'Max_Punkte' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Max  Punkte...']],
+    <?= $form->field($model, 'punkt1_7')->textInput() ?>
 
-            'punkt1_0' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt1 0...']],
+    <?= $form->field($model, 'punkt2_0')->textInput() ?>
 
-            'punkt1_3' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt1 3...']],
+    <?= $form->field($model, 'punkt2_3')->textInput() ?>
+    
+    <?= $form->field($model, 'punkt2_7')->textInput() ?>
 
-            'punkt1_7' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt1 7...']],
+    <?= $form->field($model, 'punkt3_0')->textInput() ?>
 
-            'punkt2_0' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt2 0...']],
+    <?= $form->field($model, 'punkt3_3')->textInput() ?>
 
-            'punkt2_3' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt2 3...']],
+    <?= $form->field($model, 'punkt3_7')->textInput() ?>
 
-            'punkt3_0' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt3 0...']],
+    <?= $form->field($model, 'punkt4_0')->textInput() ?>
 
-            'punkt3_3' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt3 3...']],
+    <div class="form-group">
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    </div>
 
-            'punkt3_7' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt3 7...']],
-
-            'punkt4_0' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt4 0...']],
-
-        ]
-
-    ]);
-
-    echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'),
-        ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']
-    );
-    ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 
 </div>

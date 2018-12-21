@@ -82,14 +82,6 @@ class Modul extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getModulGehoertKlausurnotes()
-    {
-        return $this->hasMany(ModulGehoertKlausurnote::className(), ['Modul_ID' => 'ModulID']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getKlausurnotes()
     {
         return $this->hasMany(Klausurnote::className(), ['KlausurnoteID' => 'Klausurnote_ID'])->viaTable('modul_gehoert_klausurnote', ['Modul_ID' => 'ModulID']);

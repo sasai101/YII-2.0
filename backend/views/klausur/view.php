@@ -13,45 +13,69 @@ $this->title = $model->KlausurID;
 $this->params['breadcrumbs'][] = ['label' => 'Klausurs', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="klausur-view">
-    <div class="page-header">
-        <h1><?= Html::encode($this->title) ?></h1>
-    </div>
 
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'condensed' => false,
-        'hover' => true,
-        'mode' => Yii::$app->request->get('edit') == 't' ? DetailView::MODE_EDIT : DetailView::MODE_VIEW,
-        'panel' => [
-            'heading' => $this->title,
-            'type' => DetailView::TYPE_INFO,
-        ],
-        'attributes' => [
-            'KlausurID',
-            'Mitarbeiter_MarterikelNr',
-            'ModulID',
-            'Kreditpunkt',
-            'Pruefungsdatum',
-            'Raum',
-            'Bezeichnung',
-            'Max_Punkte',
-            'punkt1_0',
-            'punkt1_3',
-            'punkt1_7',
-            'punkt2_0',
-            'punkt2_3',
-            'punkt3_0',
-            'punkt3_3',
-            'punkt3_7',
-            'punkt4_0',
-            'punkt5_0',
-        ],
-        'deleteOptions' => [
-            'url' => ['delete', 'id' => $model->KlausurID],
-        ],
-        'enableEditMode' => true,
-    ]) ?>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+	<!-- Titel -->
+	<div>
+		<h3>
+			<?= Html::encode($model->modul->Bezeichnung); ?>
+		</h3>
+	</div>
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>	
+	
+	
+	<div>
+		<div class="col-md-4">
+        	<!-- Professor -->
+        	<div>
+        		<p align="center"><h4>Professor</h4></p>
+        		</br>
+        		<div class="row">
+            		<?php foreach ($model->modul->modulLeitetProfessors as $professor):?>
+            			<div class="col-md-3">
+            			<?php $imge=$professor->professorMarterikelNr->marterikelNr->Profiefoto?>
+            			<div>
+            				<?= Html::img($imge,['class'=>'img-circle','alt'=>'user image', 'height'=>'100', 'width'=>'100'])?>
+            				<p>Prof. Dr. <?php echo $professor->professorMarterikelNr->marterikelNr->Vorname." ".$professor->professorMarterikelNr->marterikelNr->Nachname ?></p>
+            			</div>
+            			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            			</div>
+            		<?php endforeach; ?>
+        		</div>
+        	</div>
+        	
+        	<!-- Leere Zeile -->
+        	<div class="row"></br></div>
+        	<!-- Leere Zeile -->
+        	<div class="row"></br></div>	
+        	
+        	<!-- Mitarbeiter -->
+        	<div>
+        		<p align="center"><h4>Mitarbeiter</h4></p>
+        		</br>
+        		<?php $imge=$model->mitarbeiterMarterikelNr->marterikelNr->Profiefoto?>
+        		
+        		<?= Html::img($imge,['class'=>'img-circle','alt'=>'user image', 'height'=>'100', 'width'=>'100'])?>
+        		<p>&nbsp&nbsp&nbsp&nbsp<?php echo $model->mitarbeiterMarterikelNr->marterikelNr->Vorname." ".$model->mitarbeiterMarterikelNr->marterikelNr->Nachname ?></p>
+        	</div>
+    	
+    	</div>
+    	
+    	<!-- Echart -->
+    	<div class="col-md-6">
+    		<p>Echari</p>
+    	</div>
+	
+	</div>
 
 </div>
+
+

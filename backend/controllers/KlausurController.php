@@ -65,10 +65,13 @@ class KlausurController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         $model = new Klausur;
-
+        
+        $model->Mitarbeiter_MarterikelNr = Yii::$app->user->identity->MarterikelNr;
+        $model->ModulID = $id;
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->KlausurID]);
         } else {

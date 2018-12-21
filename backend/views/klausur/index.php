@@ -26,12 +26,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php Pjax::begin(); echo GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             //'KlausurID',
-            'Mitarbeiter_MarterikelNr',
+            //'Mitarbeiter_MarterikelNr',
+            [
+                'attribute'=>'Mitarbeiter_MarterikelNr',
+                'contentOptions'=>['width'=>'130px']
+            ],
+            [
+                'attribute' => 'mitarbeiterbenutzname',
+                'value' => 'Mitarbeiterbenutzname'
+            ],
             
             
 //            'ModulID',
@@ -43,23 +51,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'Raum', 
             'Bezeichnung', 
-//            'Max_Punkte', 
-//            'punkt1_0', 
-//            'punkt1_3', 
-//            'punkt1_7', 
-//            'punkt2_0', 
-//            'punkt2_3', 
-//            'punkt3_0', 
-//            'punkt3_3', 
-//            'punkt3_7', 
-//            'punkt4_0', 
+ 
 
             [
                 'class' => 'yii\grid\ActionColumn',
                 'buttons' => [
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
-                            Yii::$app->urlManager->createUrl(['klausur/view', 'id' => $model->KlausurID, 'edit' => 't']),
+                            Yii::$app->urlManager->createUrl(['klausur/update', 'id' => $model->KlausurID, 'edit' => 't']),
                             ['title' => Yii::t('yii', 'Edit'),]
                         );
                     }
@@ -74,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
             'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
+            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create','id'=>$modelModul->ModulID], ['class' => 'btn btn-success']),
             'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index','id'=>$modelModul->ModulID], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],

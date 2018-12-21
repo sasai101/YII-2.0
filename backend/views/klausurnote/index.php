@@ -34,6 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
             
             //'Benutzer_MarterikelNr',
             [
+                'attribute'=>'Bezeichnung',
+                'contentOptions'=>['width'=>'130px']
+            ],
+            [
                 'attribute' => 'Benutzer_MarterikelNr',
                 'label' => 'MarterikelNr',
                 'contentOptions'=>['width'=>'130px'],
@@ -63,7 +67,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions'=>['width'=>'100px'],
             ],
             //'KorregierteZeit',
-            'Bezeichnung',
             [
                 'attribute'=>'KorregierteZeit',
                 'format'=>['date','php:d-m-Y H:i:s'],

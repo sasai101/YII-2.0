@@ -25,8 +25,8 @@ class KlausurnoteSuchen extends Klausurnote
     {
         return [
             [['KlausurnoteID', 'Mitarbeiter_MarterikelNr', 'Benutzer_MarterikelNr'], 'integer'],
-            
-            [['benutzername','vorname','nachname'], 'safe'],
+            [['Bezeichnung'], 'safe'],
+            [['benutzername','vorname','nachname','punkt'], 'safe'],
         ];
     }
 
@@ -58,7 +58,7 @@ class KlausurnoteSuchen extends Klausurnote
                     'vorname',
                     'nachname',
                     'punkt',
-                    'note'
+                    'Bezeichnung'
                 ],
             ],
         ]);
@@ -76,6 +76,7 @@ class KlausurnoteSuchen extends Klausurnote
         ]);
 
         $query->andFilterWhere(['like','Benutzer.Benutzername',$this->benutzername])
+            ->andFilterWhere(['like','punkt',$this->Punkt])
             ->andFilterWhere(['like','Benutzer.Vorname',$this->vorname])
             ->andFilterWhere(['like','Benutzer.Benutzername',$this->nachname]);
 
