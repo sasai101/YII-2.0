@@ -27,11 +27,13 @@ use kartik\datecontrol\DateControl;
 
             'Bezeichnung' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Bezeichnung...', 'maxlength' => 255]],
 
-            'Punkt' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt...']],
+            'ModulID' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Modul ID...']],
 
             'Note' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Note...']],
 
             'KorregierteZeit' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Korregierte Zeit...']],
+
+            'Punkt' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt...']],
 
         ]
 

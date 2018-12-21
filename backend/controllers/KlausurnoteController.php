@@ -8,6 +8,7 @@ use common\models\KlausurnoteSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\Modul;
 
 /**
  * KlausurnoteController implements the CRUD actions for Klausurnote model.
@@ -30,14 +31,17 @@ class KlausurnoteController extends Controller
      * Lists all Klausurnote models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
+        $modelModul = Modul::findOne($id);
+        
         $searchModel = new KlausurnoteSuchen;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
+            'modelModul' => $modelModul,
         ]);
     }
 

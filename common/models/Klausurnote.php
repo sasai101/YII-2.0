@@ -10,15 +10,15 @@ use Yii;
  * @property int $KlausurnoteID
  * @property int $Mitarbeiter_MarterikelNr
  * @property int $Benutzer_MarterikelNr
- * @property int $Note
+ * @property double $Note
  * @property string $Bezeichnung
  * @property double $Punkt
  * @property int $KorregierteZeit
+ * @property int $ModulID
  *
  * @property Benutzer $benutzerMarterikelNr
  * @property Mitarbeiter $mitarbeiterMarterikelNr
- * @property ModulGehoertKlausurnote[] $modulGehoertKlausurnotes
- * @property Modul[] $moduls
+ * @property Modul $modul
  */
 class Klausurnote extends \yii\db\ActiveRecord
 {
@@ -36,12 +36,13 @@ class Klausurnote extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Mitarbeiter_MarterikelNr', 'Benutzer_MarterikelNr', 'Bezeichnung', 'Punkt'], 'required'],
-            [['Mitarbeiter_MarterikelNr', 'Benutzer_MarterikelNr', 'Note', 'KorregierteZeit'], 'integer'],
-            [['Punkt'], 'number'],
+            [['Mitarbeiter_MarterikelNr', 'Benutzer_MarterikelNr', 'Bezeichnung', 'ModulID'], 'required'],
+            [['Mitarbeiter_MarterikelNr', 'Benutzer_MarterikelNr', 'KorregierteZeit', 'ModulID'], 'integer'],
+            [['Note', 'Punkt'], 'number'],
             [['Bezeichnung'], 'string', 'max' => 255],
             [['Benutzer_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['Benutzer_MarterikelNr' => 'marterikelnr']],
             [['Mitarbeiter_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Mitarbeiter::className(), 'targetAttribute' => ['Mitarbeiter_MarterikelNr' => 'marterikelnr']],
+            [['ModulID'], 'exist', 'skipOnError' => true, 'targetClass' => Modul::className(), 'targetAttribute' => ['ModulID' => 'modulid']],
         ];
     }
 
@@ -52,12 +53,13 @@ class Klausurnote extends \yii\db\ActiveRecord
     {
         return [
             'KlausurnoteID' => 'Klausurnote ID',
-            'Mitarbeiter_MarterikelNr' => 'Mitarbeiter  Marterikel Nr',
-            'Benutzer_MarterikelNr' => 'Benutzer  Marterikel Nr',
+            'Mitarbeiter_MarterikelNr' => 'Mitarbeiter',
+            'Benutzer_MarterikelNr' => 'Benutzer_MarterikelNr',
             'Note' => 'Note',
             'Bezeichnung' => 'Bezeichnung',
-            'Punkt' => 'Punkt',
+            'Punkt' => 'Punkte',
             'KorregierteZeit' => 'Korregierte Zeit',
+            'ModulID' => 'Modul',
         ];
     }
 
@@ -80,16 +82,34 @@ class Klausurnote extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getModulGehoertKlausurnotes()
+    public function getModul()
     {
-        return $this->hasMany(ModulGehoertKlausurnote::className(), ['Klausurnote_ID' => 'KlausurnoteID']);
+        return $this->hasOne(Modul::className(), ['modulid' => 'ModulID']);
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
+    
+    /*
+     * weitere Attribute
      */
-    public function getModuls()
-    {
-        return $this->hasMany(Modul::className(), ['ModulID' => 'Modul_ID'])->viaTable('modul_gehoert_klausurnote', ['Klausurnote_ID' => 'KlausurnoteID']);
+    public function getVorname() 
+    {    
+        return $this->benutzerMarterikelNr->Vorname;
     }
+    
+    public function getNachname()
+    {
+        return $this->benutzerMarterikelNr->Nachname;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

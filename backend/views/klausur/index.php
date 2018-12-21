@@ -53,7 +53,6 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'punkt3_3', 
 //            'punkt3_7', 
 //            'punkt4_0', 
-//            'punkt5_0', 
 
             [
                 'class' => 'yii\grid\ActionColumn',

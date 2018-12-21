@@ -53,8 +53,6 @@ use kartik\datecontrol\DateControl;
 
             'punkt4_0' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt4 0...']],
 
-            'punkt5_0' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Punkt5 0...']],
-
         ]
 
     ]);

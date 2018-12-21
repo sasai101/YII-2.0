@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
  * @var common\models\KlausurnoteSuchen $searchModel
  */
 
-$this->title = 'Klausurnotes';
+$this->title = 'Modul '.$modelModul->Bezeichnung;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="klausurnote-index">
@@ -29,13 +29,47 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'KlausurnoteID',
-            'Mitarbeiter_MarterikelNr',
-            'Benutzer_MarterikelNr',
-            'Note',
+            //'KlausurnoteID',
+            //'Mitarbeiter_MarterikelNr',
+            
+            //'Benutzer_MarterikelNr',
+            [
+                'attribute' => 'Benutzer_MarterikelNr',
+                'label' => 'MarterikelNr',
+                'contentOptions'=>['width'=>'130px'],
+            ],
+            
+            //Benutzervorname
+            [
+                'attribute' => 'vorname',
+                'label' => 'Vorname',
+                'value' => 'vorname'
+            ],
+            //Benutzernachname
+            [
+                'attribute' => 'nachname',
+                'label' => 'Nachname',
+                'value' => 'nachname'
+            ],
+            
+            //'Punkt', 
+            [
+                'attribute' => 'Punkt',
+                'contentOptions' => ['width'=>'100px']
+            ],
+            //'Note',
+            [
+                'attribute' => 'Note',
+                'contentOptions'=>['width'=>'100px'],
+            ],
+            //'KorregierteZeit',
             'Bezeichnung',
-//            'Punkt', 
-//            'KorregierteZeit', 
+            [
+                'attribute'=>'KorregierteZeit',
+                'format'=>['date','php:d-m-Y H:i:s'],
+            ],
+            //'ModulID', 
+           
 
             [
                 'class' => 'yii\grid\ActionColumn',
@@ -58,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
             'type' => 'info',
             'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
-            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
+            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index', 'id'=>$modelModul->ModulID], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],
     ]); Pjax::end(); ?>

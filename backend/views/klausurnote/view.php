@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'Bezeichnung',
             'Punkt',
             'KorregierteZeit',
+            'ModulID',
         ],
         'deleteOptions' => [
             'url' => ['delete', 'id' => $model->KlausurnoteID],
