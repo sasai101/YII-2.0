@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\HtmlPurifier;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
 
@@ -10,13 +11,31 @@ use yii\widgets\Pjax;
  * @var common\models\UebungsblaetterSuchen $searchModel
  */
 
-//$this->title = $modelUebung->Bezeichnung;
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Alle Übungsblätter';
+$this->params['breadcrumbs'][] = ['label' => 'Übungsblätter hochladen', 'url' => ['alleuebungen']];
+$this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelUebung->modul->Bezeichnung, 0, 15).'......');
 ?>
 <div class="uebungsblaetter-index">
-    <div class="page-header">
-        <h1><?= Html::encode($this->title) ?></h1>
-    </div>
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+		
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>	
+	
+	
+	<!-- Titel -->
+	<div class="page-header">
+		<h1>
+			<?= Html::encode($modelUebung->modul->Bezeichnung) ?>
+		</h1>
+	</div>
+	
+    
+    
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -62,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
                             Yii::$app->urlManager->createUrl(['uebungsblaetter/update', 'id' => $model->UebungsblatterID, 'edit' => 't']),
-                            ['title' => Yii::t('yii', 'Edit'),]
+                            ['title' => Yii::t('yii', 'Edit')]
                         );
                     },
                     'delete' => function ($url, $model) {
@@ -72,7 +91,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'method' => 'post',
                             ],
                            ]);
-                    }
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>',
+                            Yii::$app->urlManager->createUrl(['uebungsblaetter/view', 'id' => $model->UebungsblatterID]),
+                            ['title' => Yii::t('yii', 'Edit'), 'class'=>'modalButton']
+                            );
+                    },
                     
                 ],
             ],
@@ -90,6 +115,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // Hier 'id' => $modelUebung->UebungsID erfullen ,sonst 404, Da kein ID gefunden
             'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index','id' => $modelUebung->UebungsID], ['class' => 'btn btn-info']),
             'showFooter' => false
+            
         ],
     ]); Pjax::end(); ?>
 

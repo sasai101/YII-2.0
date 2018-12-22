@@ -11,7 +11,7 @@ use Yii;
  * @property int $UebungsID
  * @property int $UebungsNr
  * @property int $Anzahl_der_Aufgabe
- * @property int $Deadline
+ * @property string $Deadline
  * @property int $Ausgabedatum
  * @property string $Datein
  * @property int $GesamtePunkte
@@ -38,8 +38,9 @@ class Uebungsblaetter extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['UebungsID', 'UebungsNr', 'Anzahl_der_Aufgabe', 'Datein', 'GesamtePunkte', 'Deadline', 'Ausgabedatum'], 'required'],
-            [['UebungsID', 'UebungsNr', 'Anzahl_der_Aufgabe', 'Deadline', 'Ausgabedatum', 'GesamtePunkte'], 'integer'],
+            [['UebungsID', 'UebungsNr', 'Anzahl_der_Aufgabe', 'Datein', 'GesamtePunkte', 'Ausgabedatum'], 'required'],
+            [['UebungsID', 'UebungsNr', 'Anzahl_der_Aufgabe', 'Ausgabedatum', 'GesamtePunkte'], 'integer'],
+            [['Deadline'], 'safe'],
             [['Datein'], 'string', 'max' => 225],
             [['UebungsID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebung::className(), 'targetAttribute' => ['UebungsID' => 'UebungsID']],
             

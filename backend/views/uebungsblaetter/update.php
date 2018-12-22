@@ -6,14 +6,28 @@ use yii\helpers\Html;
  * @var yii\web\View $this
  * @var common\models\Uebungsblaetter $model
  */
-$uebungsblatternr = "Übungsblatt".$model->UebungsNr;
 
-$this->title = 'Update Uebungsblaetter: ' . ' ' . $model->UebungsblatterID;
 $this->params['breadcrumbs'][] = ['label' => 'Uebungsblaetters', 'url' => ['index', 'id' => $model->UebungsID]];
-$this->params['breadcrumbs'][] = ['label' => $uebungsblatternr, 'url' => ['view', 'id' => $model->UebungsblatterID]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="uebungsblaetter-update">
+
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+	<!-- Titel -->
+	<div>
+		<h3>
+			Übungsblatt<?= Html::encode($model->UebungsNr); ?>
+		</h3>
+	</div>
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
 
     <h1><?= Html::encode($this->title) ?></h1>
 

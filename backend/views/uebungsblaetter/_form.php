@@ -2,8 +2,6 @@
 
 use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
-use kartik\builder\Form;
-use kartik\datecontrol\DateControl;
 
 /**
  * @var yii\web\View $this
@@ -13,35 +11,65 @@ use kartik\datecontrol\DateControl;
 ?>
 
 <div class="uebungsblaetter-form">
-
-    <?php $form = ActiveForm::begin(['type' => ActiveForm::TYPE_HORIZONTAL]); echo Form::widget([
-
-        'model' => $model,
-        'form' => $form,
-        'columns' => 1,
-        'attributes' => [
-
-            //'UebungsID' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Uebungs ID...']],
-
-            //'UebungsNr' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Bitte geben Sie den Übungsblätternur ein']],
-
-            'Anzahl_der_Aufgabe' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Bitte geben Sie die Anzahl der Aufgabe ein']],
-
-            'GesamtePunkte' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Geben Sie bitte die gesamte Punkte des Übungsbätters', 'maxlength' => 225]],
+    
+    <?php $form = ActiveForm::begin(); ?>
+    <div class="col-md-3">
+    
+    	<div align="center">
+    	
+    		<!-- Anzahl der Aufgabe -->
+            <div class="row">
+            	<div class="col-md-8">
+            		<?= $form->field($model, 'Anzahl_der_Aufgabe')->textInput() ?>
+            	</div>
+            </div>
+            <!-- Gesamtepunkte -->
+            <div class="row">
+            	<div class="col-md-8">
+            		<?= $form->field($model, 'GesamtePunkte')->textInput() ?>
+            	</div>
+            </div>
             
-            'file' => ['type' => Form::INPUT_FILE],
+            <!-- Datetimepicker -->
+            <div class="row">
+            	<div class="col-md-8">
+            		<?= $form->field($model, 'Deadline')->widget(
+                        'trntv\yii\datetime\DateTimeWidget',
+                        [
+                            'clientOptions' => [
+                                'minDate' => new \yii\web\JsExpression(time() + 60*60*60),
+                                'allowInputToggle' => true,
+                                'sideBySide' => true,
+                                'locale' => 'de',
+                                'widgetPositioning' => [
+                                    'horizontal' => 'auto',
+                                    'vertical' => 'auto'
+                                ]
+                            ]
+                        ]
+                    ) ?>
+            	</div>
+            </div>
 
-            'Deadline' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Deadline']],
+        </div>
+        
+        <!-- Leere Zeile -->
+    	<div class="row"></br></div>
+    	<!-- Leere Zeile -->
+    	<div class="row"></br></div>	
+            
+        <!-- Create Button -->
+        <div class="form-group">
+        <?= Html::submitButton('Create', ['class' => 'btn btn-success']) ?>
+    	</div>
+        
+    </div>
+    
+    <div class="col-md-8">
+   	    <?= $form->field($model, 'file')->fileInput() ?>
+    </div>
 
-            //'Ausgabedatum' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Ausgabedatum']],
-
-        ]
-
-    ]);
-
-    echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'),
-        ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']
-    );
-    ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
+    
 
 </div>

@@ -61,7 +61,7 @@ class UebungsblaetterController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->UebungsblatterID]);
         } else {
-            return $this->render('view', ['model' => $model]);
+            return $this->renderAjax('view', ['model' => $model]);
         }
     }
 
@@ -112,7 +112,7 @@ class UebungsblaetterController extends Controller
              */
             $model->save(false);
             
-            return $this->redirect(['view', 'id' => $model->UebungsblatterID]);
+            return $this->redirect(['index', 'id' => $modelUebung->UebungsID]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -148,7 +148,7 @@ class UebungsblaetterController extends Controller
             
             $model->save();
             
-            return $this->redirect(['view', 'id' => $model->UebungsblatterID]);
+            return $this->redirect(['index', 'id' => $modelUebung->UebungsID]);
         } else {
             return $this->render('update', [
                 'model' => $model,
