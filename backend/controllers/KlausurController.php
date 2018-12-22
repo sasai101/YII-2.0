@@ -108,9 +108,10 @@ class KlausurController extends Controller
      */
     public function actionDelete($id)
     {
+        $indexID = $this->findModel($id)->modul->ModulID;
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index','id'=>$indexID]);
     }
 
     /**

@@ -1,10 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use kartik\grid\GridView;
+use yii\helpers\HtmlPurifier;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
-use common\models\Modul;
 
 /**
  * @var yii\web\View $this
@@ -12,10 +11,23 @@ use common\models\Modul;
  * @var common\models\ModulSuchen $searchModel
  */
 
-//$this->title = $model->Bezeichnung;
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Alle Modul';
+$this->params['breadcrumbs'][] = 'Alle Modul';
+
 ?>
 <div class="modul-index">
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+	<!-- Titel -->
+	
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>	
+
     <div class="page-header">
         <h1><?= Html::encode($this->title) ?></h1>
     </div>
@@ -44,40 +56,5 @@ $this->params['breadcrumbs'][] = $this->title;
         
         ?>
     </div>
-
-    <?php /*Pjax::begin(); echo GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'ModulID',
-            'Bezeichnung',
-
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'buttons' => [
-                    'update' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
-                            Yii::$app->urlManager->createUrl(['modul/view', 'id' => $model->ModulID, 'edit' => 't']),
-                            ['title' => Yii::t('yii', 'Edit'),]
-                        );
-                    }
-                ],
-            ],
-        ],
-        'responsive' => true,
-        'hover' => true,
-        'condensed' => true,
-        'floatHeader' => true,
-
-        'panel' => [
-            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
-            'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
-            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
-            'showFooter' => false
-        ],
-    ]); Pjax::end(); */?>
 
 </div>

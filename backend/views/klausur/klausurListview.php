@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
  * @var common\models\ModulSuchen $searchModel
  */
 
-$this->title = 'Klausurerstellung';
+$this->title = 'Alle Modul';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="modul-index">

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
-use common\models\Klausur;
+use yii\helpers\HtmlPurifier;
 
 /**
  * @var yii\web\View $this
@@ -12,7 +12,8 @@ use common\models\Klausur;
  */
 
 $this->title = $modelModul->Bezeichnung;
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Alle Modul', 'url' => ['klausurlistview', 'id'=>$modelModul->ModulID]];
+$this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelModul->Bezeichnung, 0, 15).'......');
 ?>
 <div class="klausur-index">
     <div class="page-header">
@@ -31,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'KlausurID',
-            //'Mitarbeiter_MarterikelNr',
+            'Mitarbeiter_MarterikelNr',
             [
                 'attribute'=>'Mitarbeiter_MarterikelNr',
                 'contentOptions'=>['width'=>'130px']

@@ -8,14 +8,27 @@ use yii\helpers\Html;
  */
 
 
-$this->params['breadcrumbs'][] = ['label' => 'Moduls', 'url' => ['index']];
-//$this->params['breadcrumbs'][] = ['label' => $model->ModulID, 'url' => ['view', 'id' => $model->ModulID]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Moduleränderung';
+$this->params['breadcrumbs'][] = ['label' => 'Alle Modul', 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Moduleränderung';
 ?>
 <div class="modul-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+	<!-- Titel -->
+	
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>	
+	
+	<div class="page-header">
+    	<h1><?= Html::encode($this->title) ?></h1>
+	</div>
+	
     <?= $this->render('_dynamicForm', [
         'modelModul' => $modelModul,
         'modelsProfessor' => $modelsProfessor,

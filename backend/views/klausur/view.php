@@ -1,17 +1,17 @@
 <?php
 
 use yii\helpers\Html;
-use kartik\detail\DetailView;
-use kartik\datecontrol\DateControl;
+use yii\helpers\HtmlPurifier;
 
 /**
  * @var yii\web\View $this
  * @var common\models\Klausur $model
  */
 
-$this->title = $model->KlausurID;
-$this->params['breadcrumbs'][] = ['label' => 'Klausurs', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Klausureinsicht';
+$this->params['breadcrumbs'][] = ['label' => 'Alle Modul', 'url' => ['klausurlistview', 'id'=>$model->ModulID]];
+$this->params['breadcrumbs'][] = ['label' => HtmlPurifier::process(mb_substr($model->modul->Bezeichnung, 0, 15).'......'), 'url' => ['index', 'id'=>$model->ModulID]];
+$this->params['breadcrumbs'][] = 'Klausureinsicht';
 ?>
 
 <div class="klausur-view">

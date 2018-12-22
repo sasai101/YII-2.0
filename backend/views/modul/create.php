@@ -7,11 +7,23 @@ use yii\helpers\Html;
  * @var common\models\Modul $model
  */
 
-$this->title = 'Create Modul';
-$this->params['breadcrumbs'][] = ['label' => 'Moduls', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Modulerstellung';
+$this->params['breadcrumbs'][] = ['label' => 'Alle Modul', 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Modulerstellung';
 ?>
 <div class="modul-create">
+
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+	<!-- Titel -->
+	
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>	
+
     <div class="page-header">
         <h1><?= Html::encode($this->title) ?></h1>
     </div>

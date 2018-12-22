@@ -364,7 +364,7 @@ class ModulController extends Controller
                 }
             }
         }
-        return $this->render('_dynamicForm',[
+        return $this->render('update',[
             'modelModul' => $modelModul,
             'modelsProfessor' => (empty($modelsProfessor)) ? [new ModulLeitetProfessor] : $modelsProfessor,
             'modelsUebung' => (empty($modelsUebung)) ? [new Uebung] : $modelsUebung,
