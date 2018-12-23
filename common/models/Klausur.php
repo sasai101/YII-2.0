@@ -30,6 +30,7 @@ use Yii;
  * @property Benutzer[] $benutzerMarterikelNrs
  * @property Mitarbeiter $mitarbeiterMarterikelNr
  * @property Modul $modul
+ * @property Klausurnote[] $klausurnotes 
  */
 class Klausur extends \yii\db\ActiveRecord
 {
@@ -114,6 +115,14 @@ class Klausur extends \yii\db\ActiveRecord
         return $this->hasOne(Modul::className(), ['ModulID' => 'ModulID']);
     }
     
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getKlausurnotes()
+    {
+        return $this->hasMany(Klausurnote::className(), ['KlausurID' => 'klausurid']);
+    }
+    
     /*
      *  Gibt die Mitarbeitername für Klausurerstellung zurück
      */
@@ -124,11 +133,77 @@ class Klausur extends \yii\db\ActiveRecord
     }
     
     /*
-     * neue Attribute
+     *  beforsave Methode,um die Note automatisch zu tragen
      */
-    public function getMitarbeiterbenutzname() 
+    public function beforeSave($insert)
     {
-        return $this->mitarbeiterMarterikelNr->marterikelNr->Benutzername;
-    }
+        
+        // die orignale Funktion erstmal durchfueren,
+        if(parent::beforeSave($insert))
+        {
+            //um sich zu entscheiden ,ob es ein neue Kunde ist oder alte
+            if($insert)
+            {
+                
+            }
+            else
+            {
+                $model = Klausurnote::find()->where(['KlausurID'=>$this->KlausurID])->all();
+                foreach ($model as $klausurnote)
+                {
+                    if($klausurnote->Punkt >= $this->punkt1_0 && $klausurnote->Punkt <= $this->Max_Punkte){
+                        $klausurnote->Note = 1.0;
+                        $klausurnote->save();
+                    }else if($klausurnote->Punkt >= $this->punkt1_3 && $klausurnote->Punkt <= $this->punkt1_0){
+                        $klausurnote->Note = 1.3;
+                        $klausurnote->save();
+                    }else if($klausurnote->Punkt >= $this->punkt1_7 && $klausurnote->Punkt <= $this->punkt1_3){
+                        $klausurnote->Note = 1.7;
+                        $klausurnote->save();
+                    }else if($klausurnote->Punkt >= $this->punkt2_0 && $klausurnote->Punkt <= $this->punkt1_7){
+                        $klausurnote->Note = 2.0;
+                        $klausurnote->save();
+                    }else if($klausurnote->Punkt >= $this->punkt2_3 && $klausurnote->Punkt <= $this->punkt2_0){
+                        $klausurnote->Note = 2.3;
+                        $klausurnote->save();
+                    }else if($klausurnote->Punkt >= $this->punkt2_7 && $klausurnote->Punkt <= $this->punkt2_3){
+                        $klausurnote->Note = 2.7;
+                        $klausurnote->save();
+                    }else if($klausurnote->Punkt >= $this->punkt3_0 && $klausurnote->Punkt <= $this->punkt2_7){
+                        $klausurnote->Note = 3.0;
+                        $klausurnote->save();
+                    }else if($klausurnote->Punkt >= $this->punkt3_3 && $klausurnote->Punkt <= $this->punkt3_0){
+                        $klausurnote->Note = 3.3;
+                        $klausurnote->save();
+                    }else if($klausurnote->Punkt >= $this->punkt3_7 && $klausurnote->Punkt <= $this->punkt3_3){
+                        $klausurnote->Note = 3.7;
+                        $klausurnote->save();
+                    }else if($klausurnote->Punkt >= $this->punkt4_0 && $klausurnote->Punkt <= $this->punkt3_7){
+                        $klausurnote->Note = 4.0;
+                        $klausurnote->save();
+                    }else if($klausurnote->Punkt < $this->punkt4_0){
+                        $klausurnote->Note = 5.0;
+                        $klausurnote->save();
+                    }
+                }
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    } 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }

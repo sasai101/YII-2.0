@@ -14,8 +14,6 @@ use Yii;
  * @property Klausur[] $klausurs
  * @property ModulAnmeldenBenutzer[] $modulAnmeldenBenutzers
  * @property Benutzer[] $benutzerMarterikelNrs
- * @property ModulGehoertKlausurnote[] $modulGehoertKlausurnotes
- * @property Klausurnote[] $klausurnotes
  * @property ModulLeitetProfessor[] $modulLeitetProfessors
  * @property Professor[] $professorMarterikelNrs
  * @property Uebung[] $uebungs
@@ -82,22 +80,6 @@ class Modul extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getKlausurnotes()
-    {
-        return $this->hasMany(Klausurnote::className(), ['KlausurnoteID' => 'Klausurnote_ID'])->viaTable('modul_gehoert_klausurnote', ['Modul_ID' => 'ModulID']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getModulLeitetProfessors()
-    {
-        return $this->hasMany(ModulLeitetProfessor::className(), ['ModulID' => 'ModulID']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getProfessorMarterikelNrs()
     {
         return $this->hasMany(Professor::className(), ['marterikelnr' => 'Professor_MarterikelNr'])->viaTable('modul_leitet_professor', ['ModulID' => 'ModulID']);
@@ -109,6 +91,14 @@ class Modul extends \yii\db\ActiveRecord
     public function getUebungs()
     {
         return $this->hasMany(Uebung::className(), ['ModulID' => 'ModulID']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getModulLeitetProfessors()
+    {
+        return $this->hasMany(ModulLeitetProfessor::className(), ['ModulID' => 'ModulID']);
     }
     
     /*

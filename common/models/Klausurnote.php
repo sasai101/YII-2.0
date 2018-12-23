@@ -11,14 +11,13 @@ use Yii;
  * @property int $Mitarbeiter_MarterikelNr
  * @property int $Benutzer_MarterikelNr
  * @property double $Note
- * @property string $Bezeichnung
  * @property double $Punkt
  * @property int $KorregierteZeit
- * @property int $ModulID
+ * @property int $KlausurID
  *
  * @property Benutzer $benutzerMarterikelNr
  * @property Mitarbeiter $mitarbeiterMarterikelNr
- * @property Modul $modul
+ * @property Klausur $klausur
  */
 class Klausurnote extends \yii\db\ActiveRecord
 {
@@ -36,14 +35,33 @@ class Klausurnote extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Mitarbeiter_MarterikelNr', 'Benutzer_MarterikelNr', 'Bezeichnung', 'ModulID'], 'required'],
-            [['Mitarbeiter_MarterikelNr', 'Benutzer_MarterikelNr', 'KorregierteZeit', 'ModulID'], 'integer'],
-            [['Note', 'Punkt'], 'number'],
-            [['Bezeichnung'], 'string', 'max' => 255],
+            [['Mitarbeiter_MarterikelNr', 'Benutzer_MarterikelNr', 'KlausurID'], 'required'],
+            [['Mitarbeiter_MarterikelNr', 'Benutzer_MarterikelNr', 'KorregierteZeit', 'KlausurID'], 'integer'],
+            [['Note'], 'number'],
             [['Benutzer_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['Benutzer_MarterikelNr' => 'marterikelnr']],
             [['Mitarbeiter_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Mitarbeiter::className(), 'targetAttribute' => ['Mitarbeiter_MarterikelNr' => 'marterikelnr']],
-            [['ModulID'], 'exist', 'skipOnError' => true, 'targetClass' => Modul::className(), 'targetAttribute' => ['ModulID' => 'modulid']],
+            [['KlausurID'], 'exist', 'skipOnError' => true, 'targetClass' => Klausur::className(), 'targetAttribute' => ['KlausurID' => 'klausurid']],
+            
+            //
+            [['Punkt'], "NotenGrenzen"],
         ];
+    }
+    
+    /*
+     * 
+     */
+    public function NotenGrenzen($attribute, $params)
+    {
+        $modelKlausur = Klausur::findOne($this->KlausurID);
+        
+        if(!is_int($this->Punkt)){
+            
+            if($this->Punkt > $modelKlausur->Max_Punkte || $this->Note < 0){
+                $this->addError($attribute,"Punkt muss zwischen ".$modelKlausur->Max_Punkte." und 0 sein");
+            }
+        }else {
+            $this->addError($attribute,"1Punkt muss ein Zahl zwischen ".$modelKlausur->Max_Punkte." und 0 sein");
+        }
     }
 
     /**
@@ -56,10 +74,9 @@ class Klausurnote extends \yii\db\ActiveRecord
             'Mitarbeiter_MarterikelNr' => 'Korrektor',
             'Benutzer_MarterikelNr' => 'Benutzer_MarterikelNr',
             'Note' => 'Note',
-            'Bezeichnung' => 'Bezeichnung',
             'Punkt' => 'Punkte',
             'KorregierteZeit' => 'Korregierte Zeit',
-            'ModulID' => 'Modul',
+            'KlausurID' => 'Klausur',
         ];
     }
 
@@ -82,9 +99,9 @@ class Klausurnote extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getModul()
+    public function getKlausur()
     {
-        return $this->hasOne(Modul::className(), ['modulid' => 'ModulID']);
+        return $this->hasOne(Klausur::className(), ['klausurid' => 'KlausurID']);
     }
     
     /*
@@ -99,7 +116,7 @@ class Klausurnote extends \yii\db\ActiveRecord
     {
         return $this->benutzerMarterikelNr->Nachname;
     }
-  
+
     /*test
      * die befrsave Funktion umschreiben ,damit die Datum richtig und automatisch gespeichert zu werden
      */
@@ -109,15 +126,10 @@ class Klausurnote extends \yii\db\ActiveRecord
         // die orignale Funktion erstmal durchfueren,
         if(parent::beforeSave($insert))
         {
-            //um sich zu entscheiden ,ob es ein neue Kunde ist oder alte
-            if($insert)
-            {
-                $this->KorregierteZeit = time();
-            }
-            else
-            {
-                $this->KorregierteZeit = time();
-            }
+            
+            $this->KorregierteZeit = time();
+            $this->Mitarbeiter_MarterikelNr = Yii::$app->user->identity->MarterikelNr;
+
             return true;
         }
         else
@@ -125,4 +137,5 @@ class Klausurnote extends \yii\db\ActiveRecord
             return false;
         }
     } 
+    
 }

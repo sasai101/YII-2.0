@@ -13,7 +13,7 @@ use yii\widgets\Pjax;
 
 //$this->title = 'Modul '.$modelModul->Bezeichnung;
 $this->params['breadcrumbs'][] = ['label' => 'Alle Modul', 'url' => ['klausurnote/klausurnotelistview']];
-$this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelModul->Bezeichnung, 0, 15).'......');
+$this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelKlausur->Bezeichnung, 0, 15).'......');
 ?>
 <div class="klausurnote-index">
 
@@ -25,7 +25,8 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelModul->Be
 	<!-- Titel -->
 	<div>
 		<h3>
-			<?= Html::encode($modelModul->Bezeichnung); ?>
+			<?php echo $modelKlausur->Bezeichnung?> :</br></br>
+			<?= Html::encode($modelKlausur->modul->Bezeichnung); ?>
 		</h3>
 	</div>
 	
@@ -48,13 +49,7 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelModul->Be
 
             //'KlausurnoteID',
             //'Mitarbeiter_MarterikelNr',
-            
-            [
-                'attribute'=>'Bezeichnung',
-                'contentOptions'=>['width'=>'130px']
-            ],
-            
-            
+      
             //Benutzervorname
             [
                 'attribute' => 'vorname',
@@ -67,12 +62,13 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelModul->Be
                 'label' => 'Nachname',
                 'value' => 'nachname'
             ],
-            
+            'Benutzer_MarterikelNr',
             //'Punkt', 
             [
                 'attribute' => 'Punkt',
                 'contentOptions' => ['width'=>'100px']
             ],
+            
             //'Note',
             [
                 'attribute' => 'Note',
@@ -84,6 +80,13 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelModul->Be
                 'format'=>['date','php:d-m-Y H:i:s'],
             ],
             //'ModulID', 
+            'KlausurID',
+            [
+                'attribute'=>'KlausurID',
+                'label'=>'Klausur',
+                'value'=>'klausur.Bezeichnung',
+            ],
+
             //Korrektor
             [
                 'attribute'=>'Mitarbeiter_MarterikelNr',
@@ -99,8 +102,8 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelModul->Be
                 'buttons' => [
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
-                            Yii::$app->urlManager->createUrl(['klausurnote/update', 'id' => $model->KlausurnoteID,'Bezeichnung'=>$model->Bezeichnung, 'edit' => 't']),
-                            ['title' => Yii::t('yii', 'Edit'),]
+                            Yii::$app->urlManager->createUrl(['klausurnote/update', 'id' => $model->KlausurnoteID, 'edit' => 't']),
+                            ['title' => Yii::t('yii', 'Edit'),'class'=>'modalButton']
                         );
                     }
                 ],
@@ -114,10 +117,11 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelModul->Be
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
             'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success', 'id'=>$modelModul->ModulID]),
-            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index', 'id'=>$modelModul->ModulID, 'Bezeichnung'=>$Bezeichnung], ['class' => 'btn btn-info']),
+            //Modal
+            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create', 'id'=>$modelKlausur->KlausurID], ['class' => 'btn btn-success modalButton']),
+            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index','id'=>$modelKlausur->KlausurID], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],
-    ]); Pjax::end(); ?>
+    ]); Pjax::end();?>
 
 </div>

@@ -47,14 +47,17 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelModul->Be
             ['class' => 'yii\grid\SerialColumn'],
 
             //'KlausurID',
-            'Mitarbeiter_MarterikelNr',
+           // 'Mitarbeiter_MarterikelNr',
             [
                 'attribute'=>'Mitarbeiter_MarterikelNr',
                 'contentOptions'=>['width'=>'130px']
             ],
             [
-                'attribute' => 'mitarbeiterbenutzname',
-                'value' => 'Mitarbeiterbenutzname'
+                'attribute' => 'mitarbeiterMarterikelNr',
+                'label' => 'Mitarbeitername',
+                'value' => function ($model) {
+                    return $model->mitarbeiterMarterikelNr->vorname." ".$model->mitarbeiterMarterikelNr->nachname;
+                }
             ],
             
             
@@ -89,7 +92,7 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelModul->Be
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
             'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create','id'=>$modelModul->ModulID], ['class' => 'btn btn-success']),
+            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create','id'=>$modelModul->ModulID], ['class' => 'btn btn-success' ]),
             'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index','id'=>$modelModul->ModulID], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],

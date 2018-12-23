@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 
@@ -8,10 +9,6 @@ use yii\helpers\HtmlPurifier;
  * @var common\models\Klausurnote $model
  */
 
-$this->title = 'Klausurnote update';
-$this->params['breadcrumbs'][] = ['label' => 'Alle Modul', 'url' => ['klausurnotelistview', 'id'=>$model->ModulID]];
-$this->params['breadcrumbs'][] = ['label' => HtmlPurifier::process(mb_substr($model->modul->Bezeichnung, 0, 15).'......'), 'url' => ['index', 'id'=>$model->ModulID]];
-$this->params['breadcrumbs'][] = 'Klausurnote update';
 ?>
 <div class="klausurnote-update">
 
@@ -21,7 +18,7 @@ $this->params['breadcrumbs'][] = 'Klausurnote update';
 	<!-- Titel -->
 	<div>
 		<h3>
-			<?= Html::encode($model->modul->Bezeichnung); ?>
+			<?= Html::encode($model->klausur->Bezeichnung); ?>
 		</h3>
 	</div>
 	
@@ -29,9 +26,30 @@ $this->params['breadcrumbs'][] = 'Klausurnote update';
 	<div class="row"></br></div>
 	<!-- Leere Zeile -->
 	<div class="row"></br></div>
+	
+	<div class="row">
+		<div><b>&nbsp&nbsp&nbsp&nbspMarterikelNr: <?php echo $model->Benutzer_MarterikelNr?></b></div>
+		<div><b>&nbsp&nbsp&nbsp&nbspName: <?php echo $model->benutzerMarterikelNr->Vorname." ".$model->benutzerMarterikelNr->Nachname?></b></div>
+	</div>
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+    <div class="klausurnote-form">
+    
+        <?php $form = ActiveForm::begin(); ?>
+    
+        <?= $form->field($model, 'Punkt')->textInput() ?>
+    
+    
+        <div class="form-group">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        </div>
+    
+        <?php ActiveForm::end(); ?>
+
+	</div>
 
 </div>

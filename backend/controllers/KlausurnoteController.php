@@ -8,9 +8,10 @@ use common\models\KlausurnoteSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 use common\models\Modul;
 use common\models\KlausurSuchen;
-use common\models\ModulSuchen;
+use common\models\Klausur;
 
 /**
  * KlausurnoteController implements the CRUD actions for Klausurnote model.
@@ -33,17 +34,16 @@ class KlausurnoteController extends Controller
      * Lists all Klausurnote models.
      * @return mixed
      */
-    public function actionIndex($id, $Bezeichnung)
+    public function actionIndex($id)
     {
-        $modelModul = Modul::findOne($id);
+        $modelKlausur = Klausur::findOne($id);
         $searchModel = new KlausurnoteSuchen;
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams(),$id,$Bezeichnung);
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
-            'modelModul' => $modelModul,
-            'Bezeichnung' => $Bezeichnung,
+            'modelKlausur' => $modelKlausur,
         ]);
     }
 
@@ -74,16 +74,17 @@ class KlausurnoteController extends Controller
         
         //Korrektor
         $model->Mitarbeiter_MarterikelNr = Yii::$app->user->identity->MarterikelNr;
-        //ModulID
-        $model->ModulID = $id;
+        
+        //Klausur ID
+        $model->KlausurID = $id;
         
         //Klausurnote automatisch ausfüllen
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'id' => $id]);
         } else {
-            return $this->render('create', [
-                'model' => $model,
+            return $this->renderAjax('create', [
+                'model' => $model
             ]);
         }
     }
@@ -94,14 +95,14 @@ class KlausurnoteController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id,$Bezeichnung)
+    public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id' => $model->KlausurnoteID, 'Bezeichnung'=>$Bezeichnung]);
+            return $this->redirect(['index', 'id' => $model->KlausurID]);
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
         }
@@ -115,9 +116,11 @@ class KlausurnoteController extends Controller
      */
     public function actionDelete($id)
     {
+        $model = $this->findModel($id);
+        $klausurID = $model->KlausurID;
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index','id'=>$klausurID]);
     }
 
     /**

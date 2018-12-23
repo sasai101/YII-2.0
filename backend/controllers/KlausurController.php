@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\Modul;
 use common\models\ModulSuchen;
+use common\models\Klausurnote;
 /**
  * KlausurController implements the CRUD actions for Klausur model.
  */
@@ -111,6 +112,13 @@ class KlausurController extends Controller
     public function actionDelete($id)
     {
         $indexID = $this->findModel($id)->modul->ModulID;
+        
+        //finde alle Klausurnote unter diesen Klausur 
+        $model = Klausurnote::find()->where(['KlausurID'=>$id])->all();
+        foreach ($model as $klausurnote){
+            $klausurnote->delete();
+        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index','id'=>$indexID]);

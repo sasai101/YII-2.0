@@ -36,9 +36,9 @@ class KlausurnoteSuchen extends Klausurnote
         return Model::scenarios();
     }
 
-    public function search($params,$id, $bezeichnung)
+    public function search($params)
     {
-        $query = Klausurnote::find()->where(['ModulID'=>$id,'Bezeichnung'=>$bezeichnung]);
+        $query = Klausurnote::find()->where(['KlausurID'=>$params]);
         
         $query->join('INNER JOIN','Benutzer','Benutzer.MarterikelNr=Klausurnote.Benutzer_MarterikelNr');
         
@@ -46,12 +46,12 @@ class KlausurnoteSuchen extends Klausurnote
             'query' => $query,
             // wie viel Inhalt pro Seite einzustellen
             'pagination' => [
-                'pageSize'=>20
+                'pageSize'=>50
             ],
             // Sortieren nach folgende Attribute
             'sort' => [
                 'defaultOrder' => [
-                    'punkt' => SORT_DESC,
+                    'vorname' => SORT_ASC,
                 ],
                 'attributes' => [
                     'Benutzer_MarterikelNr',

@@ -1,17 +1,16 @@
 <?php
 
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
+use yii\widgets\Pjax;
 /**
  * @var yii\web\View $this
  * @var common\models\Klausurnote $model
  */
 
-$this->title = 'Klausurnote erstellen';
-$this->params['breadcrumbs'][] = ['label' => 'Alle Modul', 'url' => ['klausurnotelistview', 'id'=>$model->ModulID]];
-$this->params['breadcrumbs'][] = ['label' => HtmlPurifier::process(mb_substr($model->modul->Bezeichnung, 0, 15).'......'), 'url' => ['index', 'id'=>$model->ModulID]];
-$this->params['breadcrumbs'][] = 'Klausurnote update';
 ?>
+
 <div class="klausurnote-create">
     <!-- Leere Zeile -->
 	<div class="row"></br></div>
@@ -28,8 +27,21 @@ $this->params['breadcrumbs'][] = 'Klausurnote update';
 	<!-- Leere Zeile -->
 	<div class="row"></br></div>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+    <div class="klausurnote-form">
+    
+        <?php $form = ActiveForm::begin([]); ?>
+    
+        <?= $form->field($model, 'Benutzer_MarterikelNr')->textInput() ?>
+    
+        <?= $form->field($model, 'Punkt')->textInput() ?>
+    
+    
+        <div class="form-group">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        </div>
+    
+        <?php ActiveForm::end(); ?>
+
+	</div>
 
 </div>
