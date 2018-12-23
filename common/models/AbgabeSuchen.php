@@ -2,8 +2,10 @@
 
 namespace common\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\models\Abgabe;
 
 /**
  * AbgabeSuchen represents the model behind the search form about `common\models\Abgabe`.
@@ -13,7 +15,7 @@ class AbgabeSuchen extends Abgabe
     public function rules()
     {
         return [
-            [['AbgabeID', 'Benutzer_MarterikelNr', 'Korrektor_MarterikelNr', 'KorregierteZeit', 'AbgabeZeit', 'GesamtePunkt'], 'integer'],
+            [['AbgabeID', 'Benutzer_MarterikelNr', 'Korrektor_MarterikelNr', 'KorregierteZeit', 'AbgabeZeit', 'GesamtePunkt', 'UebungsblaetterID'], 'integer'],
         ];
     }
 
@@ -42,6 +44,7 @@ class AbgabeSuchen extends Abgabe
             'KorregierteZeit' => $this->KorregierteZeit,
             'AbgabeZeit' => $this->AbgabeZeit,
             'GesamtePunkt' => $this->GesamtePunkt,
+            'UebungsblaetterID' => $this->UebungsblaetterID,
         ]);
 
         return $dataProvider;

@@ -18,7 +18,6 @@ use Yii;
  * @property int $Max.Punkt
  *
  * @property Abgabe $abgabe
- * @property Uebungsblaetter $uebungsblaetter
  */
 class Einzelaufgabe extends \yii\db\ActiveRecord
 {
@@ -42,7 +41,6 @@ class Einzelaufgabe extends \yii\db\ActiveRecord
             [['Punkte'], 'number'],
             [['Bewertung'], 'string', 'max' => 255],
             [['AbgabeID'], 'exist', 'skipOnError' => true, 'targetClass' => Abgabe::className(), 'targetAttribute' => ['AbgabeID' => 'AbgabeID']],
-            [['UebungsblaetterID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebungsblaetter::className(), 'targetAttribute' => ['UebungsblaetterID' => 'UebungsblatterID']],
         ];
     }
 
@@ -70,13 +68,5 @@ class Einzelaufgabe extends \yii\db\ActiveRecord
     public function getAbgabe()
     {
         return $this->hasOne(Abgabe::className(), ['AbgabeID' => 'AbgabeID']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUebungsblaetter()
-    {
-        return $this->hasOne(Uebungsblaetter::className(), ['UebungsblatterID' => 'UebungsblaetterID']);
     }
 }

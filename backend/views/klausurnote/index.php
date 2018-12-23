@@ -11,8 +11,8 @@ use yii\widgets\Pjax;
  * @var common\models\KlausurnoteSuchen $searchModel
  */
 
-$this->title = 'Modul '.$modelModul->Bezeichnung;
-$this->params['breadcrumbs'][] = ['label' => 'Alle Modul', 'url' => ['klausur/klausurnotelistview']];
+//$this->title = 'Modul '.$modelModul->Bezeichnung;
+$this->params['breadcrumbs'][] = ['label' => 'Alle Modul', 'url' => ['klausurnote/klausurnotelistview']];
 $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelModul->Bezeichnung, 0, 15).'......');
 ?>
 <div class="klausurnote-index">
@@ -99,7 +99,7 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelModul->Be
                 'buttons' => [
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
-                            Yii::$app->urlManager->createUrl(['klausurnote/update', 'id' => $model->KlausurnoteID, 'edit' => 't']),
+                            Yii::$app->urlManager->createUrl(['klausurnote/update', 'id' => $model->KlausurnoteID,'Bezeichnung'=>$model->Bezeichnung, 'edit' => 't']),
                             ['title' => Yii::t('yii', 'Edit'),]
                         );
                     }
@@ -115,7 +115,7 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelModul->Be
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
             'type' => 'info',
             'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success', 'id'=>$modelModul->ModulID]),
-            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index', 'id'=>$modelModul->ModulID], ['class' => 'btn btn-info']),
+            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index', 'id'=>$modelModul->ModulID, 'Bezeichnung'=>$Bezeichnung], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],
     ]); Pjax::end(); ?>

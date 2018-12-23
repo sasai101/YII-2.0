@@ -25,11 +25,13 @@ use kartik\datecontrol\DateControl;
 
             'Korrektor_MarterikelNr' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Korrektor  Marterikel Nr...']],
 
+            'GesamtePunkt' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Gesamte Punkt...']],
+
+            'UebungsblaetterID' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Uebungsblaetter ID...']],
+
             'KorregierteZeit' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Korregierte Zeit...']],
 
             'AbgabeZeit' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Abgabe Zeit...']],
-
-            'GesamtePunkt' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Gesamte Punkt...']],
 
         ]
 

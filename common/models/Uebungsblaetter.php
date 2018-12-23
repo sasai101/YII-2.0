@@ -16,7 +16,7 @@ use Yii;
  * @property string $Datein
  * @property int $GesamtePunkte
  *
- * @property Einzelaufgabe[] $einzelaufgabes
+ * @property Abgabe[] $abgabes
  * @property Uebung $uebungs
  */
 class Uebungsblaetter extends \yii\db\ActiveRecord
@@ -69,9 +69,9 @@ class Uebungsblaetter extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEinzelaufgabes()
+    public function getAbgabes()
     {
-        return $this->hasMany(Einzelaufgabe::className(), ['UebungsblaetterID' => 'UebungsblatterID']);
+        return $this->hasMany(Abgabe::className(), ['UebungsblaetterID' => 'uebungsblatterid']);
     }
 
     /**

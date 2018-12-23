@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'KorregierteZeit',
             'AbgabeZeit',
             'GesamtePunkt',
+            'UebungsblaetterID',
         ],
         'deleteOptions' => [
             'url' => ['delete', 'id' => $model->AbgabeID],

@@ -13,9 +13,11 @@ use Yii;
  * @property int $KorregierteZeit
  * @property int $AbgabeZeit
  * @property int $GesamtePunkt
+ * @property int $UebungsblaetterID
  *
  * @property Benutzer $benutzerMarterikelNr
  * @property Korrektor $korrektorMarterikelNr
+ * @property Uebungsblaetter $uebungsblaetter
  * @property Einzelaufgabe[] $einzelaufgabes
  */
 class Abgabe extends \yii\db\ActiveRecord
@@ -34,10 +36,11 @@ class Abgabe extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Benutzer_MarterikelNr', 'Korrektor_MarterikelNr'], 'required'],
-            [['Benutzer_MarterikelNr', 'Korrektor_MarterikelNr', 'KorregierteZeit', 'AbgabeZeit', 'GesamtePunkt'], 'integer'],
+            [['Benutzer_MarterikelNr', 'Korrektor_MarterikelNr', 'GesamtePunkt', 'UebungsblaetterID'], 'required'],
+            [['Benutzer_MarterikelNr', 'Korrektor_MarterikelNr', 'KorregierteZeit', 'AbgabeZeit', 'GesamtePunkt', 'UebungsblaetterID'], 'integer'],
             [['Benutzer_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['Benutzer_MarterikelNr' => 'marterikelnr']],
             [['Korrektor_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Korrektor::className(), 'targetAttribute' => ['Korrektor_MarterikelNr' => 'marterikelnr']],
+            [['UebungsblaetterID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebungsblaetter::className(), 'targetAttribute' => ['UebungsblaetterID' => 'uebungsblatterid']],
         ];
     }
 
@@ -53,6 +56,7 @@ class Abgabe extends \yii\db\ActiveRecord
             'KorregierteZeit' => 'Korregierte Zeit',
             'AbgabeZeit' => 'Abgabe Zeit',
             'GesamtePunkt' => 'Gesamte Punkt',
+            'UebungsblaetterID' => 'Uebungsblaetter ID',
         ];
     }
 
@@ -70,6 +74,14 @@ class Abgabe extends \yii\db\ActiveRecord
     public function getKorrektorMarterikelNr()
     {
         return $this->hasOne(Korrektor::className(), ['marterikelnr' => 'Korrektor_MarterikelNr']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUebungsblaetter()
+    {
+        return $this->hasOne(Uebungsblaetter::className(), ['uebungsblatterid' => 'UebungsblaetterID']);
     }
 
     /**
