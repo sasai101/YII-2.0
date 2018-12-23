@@ -14,7 +14,21 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Kreditpunkt')->textInput() ?>
 
-    <?= $form->field($model, 'Pruefungsdatum')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'Pruefungsdatum')->widget(
+                        'trntv\yii\datetime\DateTimeWidget',
+                        [
+                            'clientOptions' => [
+                                'minDate' => new \yii\web\JsExpression(time()),
+                                'allowInputToggle' => true,
+                                'sideBySide' => true,
+                                'locale' => 'de',
+                                'widgetPositioning' => [
+                                    'horizontal' => 'auto',
+                                    'vertical' => 'auto'
+                                ]
+                            ]
+                        ]
+                    ) ?>
 
     <?= $form->field($model, 'Raum')->textInput(['maxlength' => true]) ?>
 

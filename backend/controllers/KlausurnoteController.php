@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\Modul;
+use common\models\KlausurSuchen;
+use common\models\ModulSuchen;
 
 /**
  * KlausurnoteController implements the CRUD actions for Klausurnote model.
@@ -31,12 +33,11 @@ class KlausurnoteController extends Controller
      * Lists all Klausurnote models.
      * @return mixed
      */
-    public function actionIndex($id)
+    public function actionIndex($id, $Bezeichnung)
     {
         $modelModul = Modul::findOne($id);
-        
         $searchModel = new KlausurnoteSuchen;
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams(),$id,$Bezeichnung);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -66,12 +67,19 @@ class KlausurnoteController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         $model = new Klausurnote;
+        
+        //Korrektor
+        $model->Mitarbeiter_MarterikelNr = Yii::$app->user->identity->MarterikelNr;
+        //ModulID
+        $model->ModulID = $id;
+        
+        //Klausurnote automatisch ausfüllen
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->KlausurnoteID]);
+            return $this->redirect(['index', 'id' => $id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -126,4 +134,19 @@ class KlausurnoteController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    /*
+     *  Klausurnote Listview Controller
+     */
+    public function actionKlausurnotelistview() {
+        
+        $searchModel = new KlausurSuchen;
+        $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
+        
+        return $this->render('klausurnotelistview', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
+    
 }

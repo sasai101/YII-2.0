@@ -3,11 +3,12 @@ use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
+use yii\widgets\Pjax;
 ?>
 
 <div class = "item" >
     <div align="center">
-    <?php //echo "$model->UebungsID"?>
+    <?php Pjax::begin()?>
     	<?= Html::a('<img src = "../../Uebung/U.png" class="img-circle" alt="user image" height = "150" width="150" />', ['uebungsblaetter/index', 'id' => $model->UebungsID]) ?>
     </div>
     <div>&nbsp</div>
@@ -16,3 +17,5 @@ use yii\bootstrap\Modal;
 <div>&nbsp</div>
 <div>&nbsp</div>
 <div>&nbsp</div>
+
+<?php Pjax::end()?>

@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\HtmlPurifier;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
 
@@ -11,12 +12,28 @@ use yii\widgets\Pjax;
  */
 
 $this->title = 'Modul '.$modelModul->Bezeichnung;
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Alle Modul', 'url' => ['klausur/klausurnotelistview']];
+$this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelModul->Bezeichnung, 0, 15).'......');
 ?>
 <div class="klausurnote-index">
-    <div class="page-header">
-        <h1><?= Html::encode($this->title) ?></h1>
-    </div>
+
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+	<!-- Titel -->
+	<div>
+		<h3>
+			<?= Html::encode($modelModul->Bezeichnung); ?>
+		</h3>
+	</div>
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>	
+	
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -32,16 +49,11 @@ $this->params['breadcrumbs'][] = $this->title;
             //'KlausurnoteID',
             //'Mitarbeiter_MarterikelNr',
             
-            //'Benutzer_MarterikelNr',
             [
                 'attribute'=>'Bezeichnung',
                 'contentOptions'=>['width'=>'130px']
             ],
-            [
-                'attribute' => 'Benutzer_MarterikelNr',
-                'label' => 'MarterikelNr',
-                'contentOptions'=>['width'=>'130px'],
-            ],
+            
             
             //Benutzervorname
             [
@@ -72,14 +84,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'=>['date','php:d-m-Y H:i:s'],
             ],
             //'ModulID', 
+            //Korrektor
+            [
+                'attribute'=>'Mitarbeiter_MarterikelNr',
+                'value'=>function ($model){
+                    return $model->mitarbeiterMarterikelNr->Vorname." ".$model->mitarbeiterMarterikelNr->Nachname;
+                }
+            ],
            
 
             [
                 'class' => 'yii\grid\ActionColumn',
+                'template'=>'{update}{delete}',
                 'buttons' => [
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
-                            Yii::$app->urlManager->createUrl(['klausurnote/view', 'id' => $model->KlausurnoteID, 'edit' => 't']),
+                            Yii::$app->urlManager->createUrl(['klausurnote/update', 'id' => $model->KlausurnoteID, 'edit' => 't']),
                             ['title' => Yii::t('yii', 'Edit'),]
                         );
                     }
@@ -94,7 +114,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
             'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
+            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success', 'id'=>$modelModul->ModulID]),
             'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index', 'id'=>$modelModul->ModulID], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],

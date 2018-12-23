@@ -53,7 +53,7 @@ class Klausurnote extends \yii\db\ActiveRecord
     {
         return [
             'KlausurnoteID' => 'Klausurnote ID',
-            'Mitarbeiter_MarterikelNr' => 'Mitarbeiter',
+            'Mitarbeiter_MarterikelNr' => 'Korrektor',
             'Benutzer_MarterikelNr' => 'Benutzer_MarterikelNr',
             'Note' => 'Note',
             'Bezeichnung' => 'Bezeichnung',
@@ -99,17 +99,30 @@ class Klausurnote extends \yii\db\ActiveRecord
     {
         return $this->benutzerMarterikelNr->Nachname;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+  
+    /*test
+     * die befrsave Funktion umschreiben ,damit die Datum richtig und automatisch gespeichert zu werden
+     */
+    public function beforeSave($insert)
+    {
+        
+        // die orignale Funktion erstmal durchfueren,
+        if(parent::beforeSave($insert))
+        {
+            //um sich zu entscheiden ,ob es ein neue Kunde ist oder alte
+            if($insert)
+            {
+                $this->KorregierteZeit = time();
+            }
+            else
+            {
+                $this->KorregierteZeit = time();
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    } 
 }

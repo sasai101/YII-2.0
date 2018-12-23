@@ -24,7 +24,7 @@ class KlausurnoteSuchen extends Klausurnote
     public function rules()
     {
         return [
-            [['KlausurnoteID', 'Mitarbeiter_MarterikelNr', 'Benutzer_MarterikelNr'], 'integer'],
+            [['KlausurnoteID', 'Benutzer_MarterikelNr'], 'integer'],
             [['Bezeichnung'], 'safe'],
             [['benutzername','vorname','nachname','punkt'], 'safe'],
         ];
@@ -36,9 +36,9 @@ class KlausurnoteSuchen extends Klausurnote
         return Model::scenarios();
     }
 
-    public function search($params)
+    public function search($params,$id, $bezeichnung)
     {
-        $query = Klausurnote::find()->where(['ModulID'=>$params]);
+        $query = Klausurnote::find()->where(['ModulID'=>$id,'Bezeichnung'=>$bezeichnung]);
         
         $query->join('INNER JOIN','Benutzer','Benutzer.MarterikelNr=Klausurnote.Benutzer_MarterikelNr');
         

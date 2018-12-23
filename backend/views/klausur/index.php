@@ -16,9 +16,24 @@ $this->params['breadcrumbs'][] = ['label' => 'Alle Modul', 'url' => ['klausurlis
 $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelModul->Bezeichnung, 0, 15).'......');
 ?>
 <div class="klausur-index">
-    <div class="page-header">
-        <h1><?= Html::encode($this->title) ?></h1>
-    </div>
+
+    <!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+	<!-- Titel -->
+	<div>
+		<h3>
+			<?= Html::encode($modelModul->Bezeichnung); ?>
+		</h3>
+	</div>
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>	
+	
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>

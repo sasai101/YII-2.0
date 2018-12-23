@@ -9,14 +9,26 @@ use yii\widgets\Pjax;
  * @var yii\data\ActiveDataProvider $dataProvider
  * @var common\models\ModulSuchen $searchModel
  */
-
-$this->title = 'Klausurnote';
+$this->title = 'Alle Modul';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="modul-index">
-    <div class="page-header">
-        <h1><?= Html::encode($this->title) ?></h1>
-    </div>
+
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+	<!-- Titel -->
+	<div>
+		<h2>
+			Klausurnote
+		</h2>
+	</div>
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>	
+	
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <div class = "row">

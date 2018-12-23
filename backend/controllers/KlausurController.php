@@ -69,7 +69,9 @@ class KlausurController extends Controller
     {
         $model = new Klausur;
         
+        //Einlogger
         $model->Mitarbeiter_MarterikelNr = Yii::$app->user->identity->MarterikelNr;
+        //ModulID
         $model->ModulID = $id;
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -143,19 +145,4 @@ class KlausurController extends Controller
             'searchModel' => $searchModel,
         ]);
     }
-    
-    /*
-     *  Klausurnote Listview Controller
-     */
-    public function actionKlausurnotelistview() {
-        
-        $searchModel = new ModulSuchen;
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-        
-        return $this->render('klausurnotelistview', [
-            'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
-        ]);
-    }
-    
 }
