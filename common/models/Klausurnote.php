@@ -129,6 +129,33 @@ class Klausurnote extends \yii\db\ActiveRecord
             
             $this->KorregierteZeit = time();
             $this->Mitarbeiter_MarterikelNr = Yii::$app->user->identity->MarterikelNr;
+            
+            $model = Klausur::findOne($this->KlausurID);
+            
+            if($this->Punkt >= $model->punkt1_0 && $this->Punkt <= $model->Max_Punkte){
+                
+                $this->Note = 1.0;
+            }else if($this->Punkt >= $model->punkt1_3 && $this->Punkt <= $model->punkt1_0){
+                $this->Note = 1.3;
+            }else if($this->Punkt >= $model->punkt1_7 && $this->Punkt <= $$model->punkt1_3){
+                $this->Note = 1.7;
+            }else if($this->Punkt >= $model->punkt2_0 && $this->Punkt <= $model->punkt1_7){
+                $this->Note = 2.0;
+            }else if($this->Punkt >= $model->punkt2_3 && $this->Punkt <= $model->punkt2_0){
+                $this->Note = 2.3;
+            }else if($this->Punkt >= $model->punkt2_7 && $this->Punkt <= $model->punkt2_3){
+                $this->Note = 2.7;
+            }else if($this->Punkt >= $model->punkt3_0 && $this->Punkt <= $model->punkt2_7){
+                $this->Note = 3.0;
+            }else if($this->Punkt >= $model->punkt3_3 && $this->Punkt <= $model->punkt3_0){
+                $this->Note = 3.3;
+            }else if($this->Punkt >= $model->punkt3_7 && $this->Punkt <= $model->punkt3_3){
+                $this->Note = 3.7;
+            }else if($this->Punkt >= $model->punkt4_0 && $this->Punkt <= $model->punkt3_7){
+                $this->Note = 4.0;
+            }else if($this->Punkt < $model->punkt4_0){
+                $this->Note = 5.0;
+            }
 
             return true;
         }
@@ -137,5 +164,4 @@ class Klausurnote extends \yii\db\ActiveRecord
             return false;
         }
     } 
-    
 }
