@@ -14,10 +14,12 @@ use Yii;
  * @property int $AbgabeZeit
  * @property int $GesamtePunkt
  * @property int $UebungsblaetterID
+ * @property int $UebungsgruppenID 
  *
  * @property Benutzer $benutzerMarterikelNr
  * @property Korrektor $korrektorMarterikelNr
- * @property Uebungsblaetter $uebungsblaetter
+ * @property Uebungsblaetter $uebungsblaetter 
+ * @property Uebungsgruppe $uebungsgruppen 
  * @property Einzelaufgabe[] $einzelaufgabes
  */
 class Abgabe extends \yii\db\ActiveRecord
@@ -36,11 +38,12 @@ class Abgabe extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Benutzer_MarterikelNr', 'Korrektor_MarterikelNr', 'GesamtePunkt', 'UebungsblaetterID'], 'required'],
-            [['Benutzer_MarterikelNr', 'Korrektor_MarterikelNr', 'KorregierteZeit', 'AbgabeZeit', 'GesamtePunkt', 'UebungsblaetterID'], 'integer'],
+            [['Benutzer_MarterikelNr', 'UebungsblaetterID', 'UebungsgruppenID'], 'required'],
+            [['Benutzer_MarterikelNr', 'Korrektor_MarterikelNr', 'KorregierteZeit', 'AbgabeZeit', 'GesamtePunkt', 'UebungsblaetterID', 'UebungsgruppenID'], 'integer'],
             [['Benutzer_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['Benutzer_MarterikelNr' => 'marterikelnr']],
             [['Korrektor_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Korrektor::className(), 'targetAttribute' => ['Korrektor_MarterikelNr' => 'marterikelnr']],
             [['UebungsblaetterID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebungsblaetter::className(), 'targetAttribute' => ['UebungsblaetterID' => 'uebungsblatterid']],
+            [['UebungsgruppenID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebungsgruppe::className(), 'targetAttribute' => ['UebungsgruppenID' => 'uebungsgruppeid']],
         ];
     }
 
@@ -51,12 +54,12 @@ class Abgabe extends \yii\db\ActiveRecord
     {
         return [
             'AbgabeID' => 'Abgabe ID',
-            'Benutzer_MarterikelNr' => 'Benutzer  Marterikel Nr',
-            'Korrektor_MarterikelNr' => 'Korrektor  Marterikel Nr',
+            'Benutzer_MarterikelNr' => 'Marterikel Nr',
+            'Korrektor_MarterikelNr' => 'Korrektor',
             'KorregierteZeit' => 'Korregierte Zeit',
             'AbgabeZeit' => 'Abgabe Zeit',
             'GesamtePunkt' => 'Gesamte Punkt',
-            'UebungsblaetterID' => 'Uebungsblaetter ID',
+            'UebungsblaetterID' => 'Übungsblätter',
         ];
     }
 
@@ -84,6 +87,18 @@ class Abgabe extends \yii\db\ActiveRecord
         return $this->hasOne(Uebungsblaetter::className(), ['uebungsblatterid' => 'UebungsblaetterID']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUebungsgruppen()
+    {
+        return $this->hasOne(Uebungsgruppe::className(), ['uebungsgruppeid' => 'UebungsgruppenID']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */ 
+    
     /**
      * @return \yii\db\ActiveQuery
      */

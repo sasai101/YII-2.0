@@ -11,12 +11,39 @@ use yii\widgets\Pjax;
  */
 
 $this->title = 'Abgabes';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Alle Übungen', 'url' => ['uebungsgruppe/alleuebungen']];
+$this->params['breadcrumbs'][] = ['label' => 'Alle Übungsgruppen', 'url' => ['uebungsgruppe/alleuebungsgruppe','id'=>$modelUbungsgruppe->UebungsID]];
+$this->params['breadcrumbs'][] = ['label' => 'Übungsgruppe'.$modelUbungsgruppe->GruppenNr, 'url'=>['uebungsgruppe/gruppendetails', 'id'=>$modelUbungsgruppe->UebungsgruppeID]];
+$this->params['breadcrumbs'][] = 'Übungsblatt '.$modelUebungsblaetter->UebungsNr;
 ?>
+
+<?php Pjax::begin();?>
 <div class="abgabe-index">
-    <div class="page-header">
-        <h1><?= Html::encode($this->title) ?></h1>
-    </div>
+    <!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+	<div>
+		<h2>
+			Modul: <?php echo $modelUbungsgruppe->uebungs->modul->Bezeichnung ?>
+		</h2>
+	</div>
+	
+	<div>
+		<h2>
+			Übungsgruppe: <?php echo $modelUbungsgruppe->GruppenNr ?>
+		</h2>
+	</div>
+	<!-- Titel -->
+	<div>
+		<h2>
+			Übungsblatt <?php echo $modelUebungsblaetter->UebungsNr ?>
+		</h2>
+	</div>
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>	
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -29,20 +56,56 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'AbgabeID',
-            'Benutzer_MarterikelNr',
-            'Korrektor_MarterikelNr',
-            'KorregierteZeit',
-            'AbgabeZeit',
-//            'GesamtePunkt', 
+            //'AbgabeID',
+            //'Benutzer_MarterikelNr',
+            [
+                'attribute'=> 'Benutzer_MarterikelNr',
+                'contentOptions' => ['width'=>'100px']
+            ],
+            
+            [
+                'attribute'=>'benutzerMarterikelNr',
+                'label'=>'Benutzername',
+                'value'=>function ($model) {
+                    return $model->benutzerMarterikelNr->Vorname." ".$model->benutzerMarterikelNr->Nachname;
+                }
+            ],
+            //'Korrektor_MarterikelNr',
+           
+            [
+                'attribute'=>'AbgabeZeit',
+                'format'=>['date','php:d-m-Y H:i:s'],
+            ],
+            //'AbgabeZeit',
+            
+            'GesamtePunkt',  
+            ///'KorregierteZeit',
+            [
+                'attribute'=>'KorregierteZeit',
+                'format'=>['date','php:d-m-Y H:i:s'],
+            ],
+            
+            [
+                'attribute'=>'Korrektor_MarterikelNr',
+                'value'=>function ($model) {
+                return $model->korrektorMarterikelNr->marterikelNr->Vorname." ".$model->korrektorMarterikelNr->marterikelNr->Vorname;
+                }
+            ],
 //            'UebungsblaetterID', 
+            [
+                'attribute'=>'uebungsblaetterID',
+                'value'=>function ($model) {
+                return "Übungsblatt ".$model->uebungsblaetter->UebungsNr;
+                }
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',
+                'template'=>'{update}',
                 'buttons' => [
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
-                            Yii::$app->urlManager->createUrl(['abgabe/view', 'id' => $model->AbgabeID, 'edit' => 't']),
+                            Yii::$app->urlManager->createUrl(['abgabe/update', 'id' => $model->AbgabeID, 'edit' => 't']),
                             ['title' => Yii::t('yii', 'Edit'),]
                         );
                     }
@@ -57,10 +120,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
             'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
-            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
+            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index', 'UebungsgruppeID'=>$modelUbungsgruppe->UebungsgruppeID, 'UebungsblaetterID'=>$modelUebungsblaetter->UebungsblatterID], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],
     ]); Pjax::end(); ?>
 
 </div>
+<?php Pjax::end()?>

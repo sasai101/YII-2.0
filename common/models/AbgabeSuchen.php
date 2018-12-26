@@ -15,7 +15,7 @@ class AbgabeSuchen extends Abgabe
     public function rules()
     {
         return [
-            [['AbgabeID', 'Benutzer_MarterikelNr', 'Korrektor_MarterikelNr', 'KorregierteZeit', 'AbgabeZeit', 'GesamtePunkt', 'UebungsblaetterID'], 'integer'],
+            [['AbgabeID', 'Benutzer_MarterikelNr'], 'integer'],
         ];
     }
 
@@ -25,12 +25,15 @@ class AbgabeSuchen extends Abgabe
         return Model::scenarios();
     }
 
-    public function search($params)
+    public function searchAlsGruppe($params, $UebungsgruppeID, $UebungsblaetterID)
     {
-        $query = Abgabe::find();
+        $query = Abgabe::find()->where(['UebungsgruppenID'=>$UebungsgruppeID, 'UebungsblaetterID'=>$UebungsblaetterID]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination'=>[
+                'pageSize'=>40,
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {

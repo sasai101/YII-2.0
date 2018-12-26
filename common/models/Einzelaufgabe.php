@@ -9,13 +9,11 @@ use Yii;
  *
  * @property int $EinzelaufgabeID
  * @property int $AbgabeID
- * @property int $UebungsblaetterID
  * @property int $AufgabeNr
  * @property string $Text
  * @property string $Datein
  * @property double $Punkte
  * @property string $Bewertung
- * @property int $Max.Punkt
  *
  * @property Abgabe $abgabe
  */
@@ -35,8 +33,8 @@ class Einzelaufgabe extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['AbgabeID', 'UebungsblaetterID', 'AufgabeNr', 'Max.Punkt'], 'required'],
-            [['AbgabeID', 'UebungsblaetterID', 'AufgabeNr', 'Max.Punkt'], 'integer'],
+            [['AbgabeID', 'AufgabeNr'], 'required'],
+            [['AbgabeID', 'AufgabeNr'], 'integer'],
             [['Text', 'Datein'], 'string'],
             [['Punkte'], 'number'],
             [['Bewertung'], 'string', 'max' => 255],
@@ -52,13 +50,11 @@ class Einzelaufgabe extends \yii\db\ActiveRecord
         return [
             'EinzelaufgabeID' => 'Einzelaufgabe ID',
             'AbgabeID' => 'Abgabe ID',
-            'UebungsblaetterID' => 'Uebungsblaetter ID',
             'AufgabeNr' => 'Aufgabe Nr',
             'Text' => 'Text',
             'Datein' => 'Datein',
             'Punkte' => 'Punkte',
             'Bewertung' => 'Bewertung',
-            'Max.Punkt' => 'Max  Punkt',
         ];
     }
 

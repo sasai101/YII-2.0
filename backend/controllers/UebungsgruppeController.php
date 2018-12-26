@@ -33,21 +33,6 @@ class UebungsgruppeController extends Controller
     }
 
     /**
-     * Lists all Uebungsgruppe models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new UebungsgruppeSuchen;
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
-        ]);
-    }
-
-    /**
      * Finds the Uebungsgruppe model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
@@ -113,8 +98,8 @@ class UebungsgruppeController extends Controller
         $searchModel1 = new UebungsgruppeSuchen();
         $dataProvider1 = $searchModel1->searchUbungsblaetter($id);
         
-        
-        $model = $this->findModel($id);
+        // UeubungsgruppeID zu Übungsblätter weiterleiten   
+        $modelUebungsgruppe = $this->findModel($id);
         
         return $this->render('gruppendetails',[
             //für alle Teilenahmer
@@ -123,8 +108,8 @@ class UebungsgruppeController extends Controller
             //für Übungsblätter
             'dataProvider1' => $dataProvider1,
             'searchModel1' => $searchModel1,
-            
-            'model' => $model,
+            // Übungsgruppe
+            'modelUebungsgruppe' => $modelUebungsgruppe,
         ]);
     }
     

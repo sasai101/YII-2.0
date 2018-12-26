@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 23, 2018 at 11:28 PM
+-- Generation Time: Dec 26, 2018 at 05:20 PM
 -- Server version: 8.0.12
 -- PHP Version: 7.2.9
 
@@ -31,12 +31,22 @@ SET time_zone = "+00:00";
 CREATE TABLE `abgabe` (
   `AbgabeID` int(32) NOT NULL,
   `Benutzer_MarterikelNr` int(32) NOT NULL,
-  `Korrektor_MarterikelNr` int(32) NOT NULL,
+  `Korrektor_MarterikelNr` int(32) DEFAULT NULL,
   `KorregierteZeit` int(11) DEFAULT NULL,
   `AbgabeZeit` int(11) DEFAULT NULL,
-  `GesamtePunkt` int(32) NOT NULL,
-  `UebungsblaetterID` int(11) NOT NULL
+  `GesamtePunkt` int(32) DEFAULT NULL,
+  `UebungsblaetterID` int(11) NOT NULL,
+  `UebungsgruppenID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `abgabe`
+--
+
+INSERT INTO `abgabe` (`AbgabeID`, `Benutzer_MarterikelNr`, `Korrektor_MarterikelNr`, `KorregierteZeit`, `AbgabeZeit`, `GesamtePunkt`, `UebungsblaetterID`, `UebungsgruppenID`) VALUES
+(1, 2000111, 2000004, 123123123, 123123123, 12, 69, 8),
+(2, 2000043, 2000004, 123123123, 12312321, 13, 70, 8),
+(3, 2000059, 2000111, 123123123, 12312313, 13, 71, 9);
 
 -- --------------------------------------------------------
 
@@ -538,13 +548,11 @@ INSERT INTO `benutzer_teilnimmt_uebungsgruppe` (`Benuter_MarterikelNr`, `Uebungs
 CREATE TABLE `einzelaufgabe` (
   `EinzelaufgabeID` int(32) NOT NULL,
   `AbgabeID` int(32) NOT NULL,
-  `UebungsblaetterID` int(32) NOT NULL,
   `AufgabeNr` int(11) NOT NULL,
   `Text` text,
   `Datein` text,
   `Punkte` double(32,0) DEFAULT NULL,
-  `Bewertung` varchar(255) DEFAULT NULL,
-  `Max.Punkt` int(32) NOT NULL
+  `Bewertung` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -796,7 +804,7 @@ INSERT INTO `klausurnote` (`KlausurnoteID`, `Mitarbeiter_MarterikelNr`, `Benutze
 (187, 2000001, 2000270, 4.0, 54.0, 1545607386, 1),
 (188, 2000001, 2000084, 4.0, 53.0, 1545607386, 1),
 (189, 2000001, 2000085, 4.0, 58.0, 1545607386, 1),
-(190, 2000001, 2000086, 4.0, 60.0, 1545607386, 1),
+(190, 2000001, 2000086, 1.0, 100.0, 1545826699, 1),
 (191, 2000001, 2000087, 4.0, 50.0, 1545607386, 1),
 (192, 2000001, 2000088, 4.0, 53.0, 1545607386, 1),
 (193, 2000001, 2000089, 4.0, 54.0, 1545607386, 1),
@@ -1760,8 +1768,8 @@ CREATE TABLE `uebungsblaetter` (
 --
 
 INSERT INTO `uebungsblaetter` (`UebungsblatterID`, `UebungsID`, `UebungsNr`, `Anzahl_der_Aufgabe`, `Deadline`, `Ausgabedatum`, `Datein`, `GesamtePunkte`) VALUES
-(69, 2, 2, 5, '22.12.2018, 22:16', 1544994600, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt2.pdf', 25),
-(70, 2, 3, 5, '30.12.2018, 14:22', 1544994616, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt3.pdf', 25),
+(69, 2, 1, 5, '22.12.2018, 22:16', 1544994600, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt2.pdf', 25),
+(70, 2, 2, 5, '30.12.2018, 14:22', 1544994616, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt3.pdf', 25),
 (71, 3, 1, 4, '11.12.2018, 23:53', 1544994686, '../../Uebung/Uebungsblaetter/Modul2/UebungsID3/Übungsblatt1.pdf', 25),
 (72, 3, 2, 5, '13.12.2018, 23:53', 1544994697, '../../Uebung/Uebungsblaetter/Modul2/UebungsID3/Übungsblatt2.pdf', 25),
 (73, 3, 3, 4, '28.12.2018, 23:53', 1544994711, '../../Uebung/Uebungsblaetter/Modul2/UebungsID3/Übungsblatt3.pdf', 25),
@@ -1775,9 +1783,9 @@ INSERT INTO `uebungsblaetter` (`UebungsblatterID`, `UebungsID`, `UebungsNr`, `An
 (83, 8, 2, 5, NULL, 1544994953, '../../Uebung/Uebungsblaetter/Modul6/UebungsID8/Übungsblatt2.pdf', 25),
 (84, 8, 3, 5, NULL, 1544994973, '../../Uebung/Uebungsblaetter/Modul6/UebungsID8/Übungsblatt3.pdf', 25),
 (86, 3, 4, 5, '27.12.2018, 23:53', 1545042416, '../../Uebung/Uebungsblaetter/Modul2/UebungsID3/Übungsblatt4.pdf', 25),
-(87, 2, 4, 4, '', 1545140274, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt4.pdf', 25),
-(88, 2, 5, 4, '29.12.2018, 22:24', 1545151313, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt5.pdf', 25),
-(89, 2, 6, 4, '01.01.2019, 00:00', 1545169667, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt6.pdf', 25),
+(87, 2, 3, 4, '', 1545140274, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt4.pdf', 25),
+(88, 2, 4, 4, '29.12.2018, 22:24', 1545151313, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt5.pdf', 25),
+(89, 2, 5, 4, '01.01.2019, 00:00', 1545169667, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt6.pdf', 25),
 (98, 2, 6, 4, '20.12.2018, 23:35', 1545518166, '../../Uebung/Uebungsblaetter/Modul1/UebungsID2/Übungsblatt6.pdf', 25);
 
 -- --------------------------------------------------------
@@ -1834,7 +1842,8 @@ ALTER TABLE `abgabe`
   ADD PRIMARY KEY (`AbgabeID`),
   ADD KEY `Benutzer-MarterikelNr` (`Benutzer_MarterikelNr`),
   ADD KEY `Korrektor-MarterikelNr` (`Korrektor_MarterikelNr`),
-  ADD KEY `UebungsblaetterID` (`UebungsblaetterID`);
+  ADD KEY `UebungsblaetterID` (`UebungsblaetterID`),
+  ADD KEY `Uebungsgruppe` (`UebungsgruppenID`);
 
 --
 -- Indexes for table `anzahl_des_benutzers`
@@ -1878,8 +1887,7 @@ ALTER TABLE `benutzer_teilnimmt_uebungsgruppe`
 --
 ALTER TABLE `einzelaufgabe`
   ADD PRIMARY KEY (`EinzelaufgabeID`),
-  ADD KEY `Abgabe-ID` (`AbgabeID`),
-  ADD KEY `Übungsblätter-ID` (`UebungsblaetterID`);
+  ADD KEY `Abgabe-ID` (`AbgabeID`);
 
 --
 -- Indexes for table `klausur`
@@ -1986,7 +1994,7 @@ ALTER TABLE `uebungsgruppe`
 -- AUTO_INCREMENT for table `abgabe`
 --
 ALTER TABLE `abgabe`
-  MODIFY `AbgabeID` int(32) NOT NULL AUTO_INCREMENT;
+  MODIFY `AbgabeID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `anzahl_des_benutzers`
@@ -2046,7 +2054,8 @@ ALTER TABLE `uebungsgruppe`
 ALTER TABLE `abgabe`
   ADD CONSTRAINT `abgabe_ibfk_1` FOREIGN KEY (`Benutzer_MarterikelNr`) REFERENCES `benutzer` (`marterikelnr`),
   ADD CONSTRAINT `abgabe_ibfk_2` FOREIGN KEY (`Korrektor_MarterikelNr`) REFERENCES `korrektor` (`marterikelnr`),
-  ADD CONSTRAINT `abgabe_ibfk_3` FOREIGN KEY (`UebungsblaetterID`) REFERENCES `uebungsblaetter` (`uebungsblatterid`);
+  ADD CONSTRAINT `abgabe_ibfk_3` FOREIGN KEY (`UebungsblaetterID`) REFERENCES `uebungsblaetter` (`uebungsblatterid`),
+  ADD CONSTRAINT `abgabe_ibfk_4` FOREIGN KEY (`UebungsgruppenID`) REFERENCES `uebungsgruppe` (`uebungsgruppeid`);
 
 --
 -- Constraints for table `benutzer_anmelden_klausur`

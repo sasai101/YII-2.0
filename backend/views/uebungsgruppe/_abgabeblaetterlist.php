@@ -11,7 +11,7 @@ use yii\widgets\Pjax;
 <div class = "item" >
     <div align="center">
     <?php //echo "$model->UebungsID"?>
-    	<?= Html::a('<img src = "../../Uebung/Abgabe.png" class="img-circle" alt="user image" height = "100" width="100" />', ['abgabe/index']) ?>
+    	<?= Html::a('<img src = "../../Uebung/Abgabe.png" class="img-circle" alt="user image" height = "100" width="100" />', ['abgabe/index', 'UebungsgruppeID'=>$modelUebungsgruppe->UebungsgruppeID, 'UebungsblaetterID'=>$model->UebungsblatterID]) ?>
     </div>
     
     <div align = "center"><b>Übungsblatt <?= $model->UebungsNr?></b></div>

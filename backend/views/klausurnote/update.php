@@ -3,6 +3,8 @@
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
+use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 /**
  * @var yii\web\View $this
@@ -39,7 +41,10 @@ use yii\helpers\HtmlPurifier;
 
     <div class="klausurnote-form">
     
-        <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin([
+            'id' => 'form-id',
+            'enableAjaxValidation' => true,
+        ]); ?>
     
         <?= $form->field($model, 'Punkt')->textInput() ?>
     

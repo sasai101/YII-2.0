@@ -10,14 +10,27 @@ use yii\widgets\Pjax;
  * @var common\models\UebungSuchen $searchModel
  */
 
-$this->title = 'Übungsgruppe';
+$this->title = 'Alle Übungen';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php Pjax::begin();?>
-<div class="uebung-index">
-    <div class="page-header">
-        <h1><?= Html::encode($this->title) ?></h1>
-    </div>
+<div class="modul-index">
+
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+	<!-- Titel -->
+	<div>
+		<h2>
+			Übungsgruppe
+		</h2>
+	</div>
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>	
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>

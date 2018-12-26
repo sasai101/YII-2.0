@@ -10,14 +10,26 @@ use yii\widgets\Pjax;
  * @var yii\data\ActiveDataProvider $dataProvider
  * @var common\models\UebungSuchen $searchModel
  */
-
 $this->title = 'Übungsblätter hochladen';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="uebung-index">
-    <div class="page-header">
-        <h1><?= Html::encode($this->title) ?></h1>
-    </div>
+<div class="modul-index">
+
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+	<!-- Titel -->
+	<div>
+		<h2>
+			Übungsblätter hochladen
+		</h2>
+	</div>
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>	
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -25,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
     
     <div class = "row">
+    <div>
         <?php Pjax::begin(); echo ListView::widget([
               'dataProvider' => $dataProvider,
               'itemView' => '_uebungsblaetterlistview',
@@ -44,5 +57,5 @@ $this->params['breadcrumbs'][] = $this->title;
         
         ?>
     </div>
-
+	</div>
 </div>

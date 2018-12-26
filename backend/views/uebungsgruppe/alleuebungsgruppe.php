@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Html;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
@@ -10,14 +9,26 @@ use yii\widgets\Pjax;
  * @var common\models\UebungSuchen $searchModel
  */
 
-$this->title = 'Übungsgruppe';
+$this->title = 'Alle Übungsgruppe';
+$this->params['breadcrumbs'][] = ['label' => 'Alle Übungen', 'url' => ['uebungsgruppe/alleuebungen']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
+<?php Pjax::begin()?>
 <div class="uebung-index">
-    <div class="page-header">
-        <h1><?= Html::encode($this->title) ?></h1>
-    </div>
+    <!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+	<!-- Titel -->
+	<div>
+		<h2>
+			Alle Übungsgruppe
+		</h2>
+	</div>
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>	
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -25,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
     
     <div class = "row">
-        <?php Pjax::begin(); echo ListView::widget([
+        <?php echo ListView::widget([
               'dataProvider' => $dataProvider,
               'itemView' => '_einzelgruppe',
               'layout' => '{items}<div class="col-lg-12 sum-pager">{summary}{pager}</div>',
@@ -40,9 +51,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'prevPageLabel' => 'Vorne',
                 'nextPageLabel' => 'Nächste',
               ]
-        ]);Pjax::end(); 
+        ]);
         
         ?>
     </div>
 
 </div>
+<?php Pjax::end()?>

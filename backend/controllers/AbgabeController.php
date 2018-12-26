@@ -8,6 +8,8 @@ use common\models\AbgabeSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\Uebungsgruppe;
+use common\models\Uebungsblaetter;
 
 /**
  * AbgabeController implements the CRUD actions for Abgabe model.
@@ -30,14 +32,18 @@ class AbgabeController extends Controller
      * Lists all Abgabe models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($UebungsgruppeID, $UebungsblaetterID)
     {
         $searchModel = new AbgabeSuchen;
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        $dataProvider = $searchModel->searchAlsGruppe(Yii::$app->request->getQueryParams(),$UebungsgruppeID, $UebungsblaetterID);
+        $modelUbungsgruppe = Uebungsgruppe::findOne($UebungsgruppeID);
+        $modelUebungsblaetter = Uebungsblaetter::findOne($UebungsblaetterID);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
+            'modelUbungsgruppe' => $modelUbungsgruppe,
+            'modelUebungsblaetter' => $modelUebungsblaetter,
         ]);
     }
 
@@ -54,24 +60,6 @@ class AbgabeController extends Controller
             return $this->redirect(['view', 'id' => $model->AbgabeID]);
         } else {
             return $this->render('view', ['model' => $model]);
-        }
-    }
-
-    /**
-     * Creates a new Abgabe model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Abgabe;
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->AbgabeID]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
         }
     }
 
@@ -95,19 +83,6 @@ class AbgabeController extends Controller
     }
 
     /**
-     * Deletes an existing Abgabe model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
      * Finds the Abgabe model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
@@ -122,4 +97,5 @@ class AbgabeController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
 }
