@@ -91,11 +91,14 @@ $this->params['breadcrumbs'][] = 'Übungsblatt '.$modelUebungsblaetter->UebungsN
                 return $model->korrektorMarterikelNr->marterikelNr->Vorname." ".$model->korrektorMarterikelNr->marterikelNr->Vorname;
                 }
             ],
-//            'UebungsblaetterID', 
+            //Übungsblätter runterladen
             [
                 'attribute'=>'uebungsblaetterID',
+                'format'=>'raw',
                 'value'=>function ($model) {
-                return "Übungsblatt ".$model->uebungsblaetter->UebungsNr;
+                //return "Übungsblatt ".$model->uebungsblaetter->UebungsNr;
+                //Download problem
+                return Html::a("Übungsblatt ".$model->uebungsblaetter->UebungsNr,['download', 'id'=>$model->uebungsblaetter->UebungsblatterID]);
                 }
             ],
 

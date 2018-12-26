@@ -35,7 +35,7 @@ class Einzelaufgabe extends \yii\db\ActiveRecord
         return [
             [['AbgabeID', 'AufgabeNr'], 'required'],
             [['AbgabeID', 'AufgabeNr'], 'integer'],
-            [['Text', 'Datein'], 'string'],
+            [['Text', 'Datein', 'Bewertung'], 'string'],
             [['Punkte'], 'number'],
             [['Bewertung'], 'string', 'max' => 255],
             [['AbgabeID'], 'exist', 'skipOnError' => true, 'targetClass' => Abgabe::className(), 'targetAttribute' => ['AbgabeID' => 'AbgabeID']],

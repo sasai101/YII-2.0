@@ -48,22 +48,6 @@ class AbgabeController extends Controller
     }
 
     /**
-     * Displays a single Abgabe model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->AbgabeID]);
-        } else {
-            return $this->render('view', ['model' => $model]);
-        }
-    }
-
-    /**
      * Updates an existing Abgabe model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -95,6 +79,13 @@ class AbgabeController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    
+    public function actionDownload($id){
+        $model = Uebungsblaetter::findOne($id);
+        if(file_exists($model->Datein)){
+            Yii::$app->response->sendFile($model->Datein);
         }
     }
     
