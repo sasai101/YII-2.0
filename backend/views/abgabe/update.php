@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = 'Übungsblatt '.$model->uebungsblaetter->Uebung
 
     <?php $form = ActiveForm::begin(); ?>
     	
-    	<?php foreach ($model->einzelaufgabes as $aufgabe):?>
+    	<?php foreach ($model->einzelaufgabes as $index=>$aufgabe):?>
     		<!-- Aufgabennummer -->
     		<div class="row">
     			<div class="col-md-1">		
@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = 'Übungsblatt '.$model->uebungsblaetter->Uebung
     			<div class="col-md-1">		
     			</div>
     			<div class="col-md-1">
-    				<?= $form->field($aufgabe, 'Punkte')->textInput()?>
+    				<?= $form->field($aufgabe, "[$index]Punkte")->textInput()?>
     			</div>
     		</div>
     		
@@ -93,7 +93,7 @@ $this->params['breadcrumbs'][] = 'Übungsblatt '.$model->uebungsblaetter->Uebung
     			<div class="col-md-1">		
     			</div>
     			<div class="col-md-4">
-    				<?= $form->field($aufgabe, 'Bewertung')->textarea(['rows' => 6])?>
+    				<?= $form->field($aufgabe, "[$index]Bewertung")->textarea(['rows' => 6])?>
     			</div>
     		</div>
     		
@@ -106,7 +106,7 @@ $this->params['breadcrumbs'][] = 'Übungsblatt '.$model->uebungsblaetter->Uebung
     
     
         <div class="form-group">
-            <?= Html::submitButton('einzelaufgabe/Save', ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
         </div>
        
 

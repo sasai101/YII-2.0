@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use common\widgets\Alert;
 
 /**
  * This is the model class for table "abgabe".
@@ -106,4 +107,6 @@ class Abgabe extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Einzelaufgabe::className(), ['AbgabeID' => 'AbgabeID']);
     }
+    
+    
 }

@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\Uebungsgruppe;
 use common\models\Uebungsblaetter;
+use yii\base\Model;
 
 /**
  * AbgabeController implements the CRUD actions for Abgabe model.
@@ -56,14 +57,21 @@ class AbgabeController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->AbgabeID]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        $modelEinzelaufgabe =$model->einzelaufgabes;
+        
+        if(Model::loadMultiple($modelEinzelaufgabe, Yii::$app->request->post()))
+        {
+            foreach ($modelEinzelaufgabe as $aufgabe)
+            {
+                $aufgabe->save(false);
+            }
+            return $this->redirect(['index','UebungsgruppeID'=>$model->UebungsgruppenID, 'UebungsblaetterID'=>$model->UebungsblaetterID]);
         }
+            
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+        
     }
 
     /**

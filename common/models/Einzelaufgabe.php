@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use phpDocumentor\Reflection\Types\Null_;
 
 /**
  * This is the model class for table "einzelaufgabe".
@@ -65,4 +66,53 @@ class Einzelaufgabe extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Abgabe::className(), ['AbgabeID' => 'AbgabeID']);
     }
+    
+    /*test
+     * die befrsave Funktion umschreiben ,damit die Datum richtig und automatisch gespeichert zu werden
+     */
+    public function beforeSave($insert)
+    {
+        
+        // die orignale Funktion erstmal durchfueren,
+        if(parent::beforeSave($insert))
+        {
+            $model= Abgabe::findOne($this->AbgabeID);
+            $note = 0;
+            foreach ($model->einzelaufgabes as $aufgabe){
+                echo "ok";
+                if($aufgabe->Punkte==null){
+                    $model->GesamtePunkt==null;
+                    $model->Korrektor_MarterikelNr = Yii::$app->user->identity->MarterikelNr;
+                    $note = 0;
+                    break;
+                }else{
+                    $note += $aufgabe->Punkte;
+                }
+            }
+            if( $note != 0){
+                if($model->GesamtePunkt > $model->uebungsblaetter->GesamtePunkte){
+                    alert("Der gesamte Punkt muss kleiner als ".$this->uebungsblaetter->GesamtePunkte."sein");
+                    return false;
+                }elseif ($model->GesamtePunkt < 0){
+                    alert("Der gesamte Punkt muss größer gleiche als 0 sein");
+                    return false;
+                }else{
+                    $model->GesamtePunkt = $note;
+                    $model->KorregierteZeit = time();
+                    $model->Korrektor_MarterikelNr = Yii::$app->user->identity->MarterikelNr;
+                }
+            }
+            $model->save(false);
+            echo "<pre>";
+            print_r($model);
+            echo "</pre>";
+            exit(0);
+            return true;
+            
+        }
+        else
+        {
+            return false;
+        }
+    } 
 }
