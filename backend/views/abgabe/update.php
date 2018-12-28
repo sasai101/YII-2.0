@@ -53,16 +53,15 @@ $this->params['breadcrumbs'][] = 'Übungsblatt '.$model->uebungsblaetter->Uebung
     <?php $form = ActiveForm::begin(); ?>
     	
     	<?php foreach ($model->einzelaufgabes as $index=>$aufgabe):?>
+    	<div class="panel panel-primary">
+        	<div class="panel-heading">
+        		<p>
+        			<b><h4>Aufabe <?php echo $aufgabe->AufgabeNr?></b>
+        		</p>
+        	</div>
+        	<div class="panel-body">
     		<!-- Aufgabennummer -->
-    		<div class="row">
-    			<div class="col-md-1">		
-    			</div>
-    			<div class="col-md-1">		
-    			</div>
-    			<div>
-    				<p>Aufabe <?php echo $aufgabe->AufgabeNr?></p>
-    			</div>
-    		</div>
+    		
     		
     		<!-- Die Antwortung -->
     		<div class="row">
@@ -101,7 +100,8 @@ $this->params['breadcrumbs'][] = 'Übungsblatt '.$model->uebungsblaetter->Uebung
     		<div class="row">
     			</br>
     		</div>
-    	
+    		</div>
+    	</div>
     	<?php endforeach;?>
     
     

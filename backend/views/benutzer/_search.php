@@ -19,16 +19,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'MarterikelNr') ?>
 
-    <?= $form->field($model, 'email') ?>
-
-    <?= $form->field($model, 'password_hash') ?>
-
-    <?= $form->field($model, 'password_reset_token') ?>
-
-    <?= $form->field($model, 'auth_key') ?>
-
-    <?php $form->field($model, 'Vorname') ?>
-
     <?php // echo $form->field($model, 'Nachname') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
@@ -39,7 +29,6 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

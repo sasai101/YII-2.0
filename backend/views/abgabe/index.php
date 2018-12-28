@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
+use phpDocumentor\Reflection\Types\Null_;
 
 /**
  * @var yii\web\View $this
@@ -88,7 +89,11 @@ $this->params['breadcrumbs'][] = 'Übungsblatt '.$modelUebungsblaetter->UebungsN
             [
                 'attribute'=>'Korrektor_MarterikelNr',
                 'value'=>function ($model) {
-                return $model->korrektorMarterikelNr->marterikelNr->Vorname." ".$model->korrektorMarterikelNr->marterikelNr->Vorname;
+                    if ($model->Korrektor_MarterikelNr != null) {
+                        return $model->korrektorMarterikelNr->marterikelNr->Vorname." ".$model->korrektorMarterikelNr->marterikelNr->Vorname;;
+                    }else{
+                        return null;
+                    }
                 }
             ],
             //Übungsblätter runterladen

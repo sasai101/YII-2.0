@@ -108,5 +108,64 @@ class Abgabe extends \yii\db\ActiveRecord
         return $this->hasMany(Einzelaufgabe::className(), ['AbgabeID' => 'AbgabeID']);
     }
     
+    public function setMarterikelNr($value) {
+        $this->Korrektor_MarterikelNr = $value;
+    }
+    
+    
+    /*test
+     * die befrsave Funktion umschreiben ,damit die Datum richtig und automatisch gespeichert zu werden
+     */
+    public function beforeSave($insert)
+    {
+        
+        // die orignale Funktion erstmal durchfueren,
+        if(parent::beforeSave($insert))
+        {
+            $model = $this->einzelaufgabes;
+            $note = 0;
+            foreach ($model as $aufgabe){
+                if($aufgabe->Punkte==null){
+                    $this->GesamtePunkt==null;
+                    $this->Korrektor_MarterikelNr = Yii::$app->user->identity->MarterikelNr;
+                    break;
+                }else{
+                    $note += $aufgabe->Punkte;
+                }
+            }
+            if( $note != 0){
+                if($note > $this->uebungsblaetter->GesamtePunkte){
+                    //alert("Der gesamte Punkt muss kleiner als ".$this->uebungsblaetter->GesamtePunkte."sein");
+                    
+                    Alert::begin([
+                        'options'=>[
+                            'class'=>'alert-warning',
+                        ],
+                    ]);
+                    echo "Der gesamte Punkt muss kleiner als ".$this->uebungsblaetter->GesamtePunkte."sein";
+                    return false;
+                }elseif ($note < 0){
+                    //echo alert("Der gesamte Punkt muss größer gleiche als 0 sein");
+                    Alert::begin([
+                        'options'=>[
+                            'class'=>'alert-warning',
+                        ],
+                    ]);
+                    echo "Der gesamte Punkt muss größer gleiche als 0 sein";
+                    return false;
+                }else{
+                    $this->KorregierteZeit = time();
+                    $this->GesamtePunkt = $note;
+                    $this->setMarterikelNr(Yii::$app->user->identity->MarterikelNr);
+                }
+            }
+            return true;
+            
+        }
+        else
+        {
+            return false;
+        }
+    } 
     
 }

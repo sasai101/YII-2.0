@@ -65,6 +65,7 @@ class AbgabeController extends Controller
             {
                 $aufgabe->save(false);
             }
+            $model->save();
             return $this->redirect(['index','UebungsgruppeID'=>$model->UebungsgruppenID, 'UebungsblaetterID'=>$model->UebungsblaetterID]);
         }
             

@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use phpDocumentor\Reflection\Types\Null_;
+use yii\bootstrap\Alert;
 
 /**
  * This is the model class for table "einzelaufgabe".
@@ -37,12 +38,28 @@ class Einzelaufgabe extends \yii\db\ActiveRecord
             [['AbgabeID', 'AufgabeNr'], 'required'],
             [['AbgabeID', 'AufgabeNr'], 'integer'],
             [['Text', 'Datein', 'Bewertung'], 'string'],
-            [['Punkte'], 'number'],
+            //Validierung
+            [['Punkte'], 'punktgrenze'],
+            
             [['Bewertung'], 'string', 'max' => 255],
             [['AbgabeID'], 'exist', 'skipOnError' => true, 'targetClass' => Abgabe::className(), 'targetAttribute' => ['AbgabeID' => 'AbgabeID']],
+            
         ];
     }
-
+    // validierung fur Punkte
+    public function punktgrenze($attribute, $params)
+    {
+        $modelUebungsblaetter = Uebungsblaetter::findOne($this->abgabe->UebungsblaetterID);
+        
+        if(!is_double($this->Punkte)){
+            
+            if($this->Punkte > $modelUebungsblaetter->GesamtePunkte || $this->Punkte < 0){
+                $this->addError($attribute,"Punkt muss zwischen ".$modelUebungsblaetter->GesamtePunkte." und 0 sein");
+            }
+        }else {
+            $this->addError($attribute,"1Punkt muss ein Zahl zwischen ".$modelUebungsblaetter->GesamtePunkte." und 0 sein");
+        }
+    }
     /**
      * {@inheritdoc}
      */
@@ -70,14 +87,13 @@ class Einzelaufgabe extends \yii\db\ActiveRecord
     /*test
      * die befrsave Funktion umschreiben ,damit die Datum richtig und automatisch gespeichert zu werden
      */
-    public function beforeSave($insert)
+    /*public function beforeSave($insert)
     {
         
         // die orignale Funktion erstmal durchfueren,
         if(parent::beforeSave($insert))
         {
             $model= Abgabe::findOne($this->AbgabeID);
-            $note = 0;
             foreach ($model->einzelaufgabes as $aufgabe){
                 echo "ok";
                 if($aufgabe->Punkte==null){
@@ -86,15 +102,25 @@ class Einzelaufgabe extends \yii\db\ActiveRecord
                     $note = 0;
                     break;
                 }else{
-                    $note += $aufgabe->Punkte;
+                    $model->GesamtePunkt += $aufgabe->Punkte;
                 }
             }
-            if( $note != 0){
+            if( $model->GesamtePunkt != 0){
                 if($model->GesamtePunkt > $model->uebungsblaetter->GesamtePunkte){
-                    alert("Der gesamte Punkt muss kleiner als ".$this->uebungsblaetter->GesamtePunkte."sein");
+                    Alert::begin([
+                        'options'=>[
+                            'class'=>'alert-warning',
+                        ],
+                    ]);
+                    echo "Der gesamte Punkt muss kleiner als ".$model->uebungsblaetter->GesamtePunkte."sein";
                     return false;
                 }elseif ($model->GesamtePunkt < 0){
-                    alert("Der gesamte Punkt muss größer gleiche als 0 sein");
+                    Alert::begin([
+                        'options'=>[
+                            'class'=>'alert-warning',
+                        ],
+                    ]);
+                    echo "Der gesamte Punkt muss größer gleiche als 0 sein";
                     return false;
                 }else{
                     $model->GesamtePunkt = $note;
@@ -102,11 +128,7 @@ class Einzelaufgabe extends \yii\db\ActiveRecord
                     $model->Korrektor_MarterikelNr = Yii::$app->user->identity->MarterikelNr;
                 }
             }
-            $model->save(false);
-            echo "<pre>";
-            print_r($model);
-            echo "</pre>";
-            exit(0);
+            $model->save();
             return true;
             
         }
@@ -114,5 +136,5 @@ class Einzelaufgabe extends \yii\db\ActiveRecord
         {
             return false;
         }
-    } 
+    } */
 }

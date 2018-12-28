@@ -48,7 +48,7 @@ class Klausurnote extends \yii\db\ActiveRecord
     }
     
     /*
-     * 
+     *  Validieren, um PUnktzahl zu uberprufen
      */
     public function NotenGrenzen($attribute, $params)
     {
@@ -56,7 +56,7 @@ class Klausurnote extends \yii\db\ActiveRecord
         
         if(!is_int($this->Punkt)){
             
-            if($this->Punkt > $modelKlausur->Max_Punkte || $this->Note < 0){
+            if($this->Punkt > $modelKlausur->Max_Punkte || $this->Punkt < 0){
                 $this->addError($attribute,"Punkt muss zwischen ".$modelKlausur->Max_Punkte." und 0 sein");
             }
         }else {
@@ -137,7 +137,7 @@ class Klausurnote extends \yii\db\ActiveRecord
                 $this->Note = 1.0;
             }else if($this->Punkt >= $model->punkt1_3 && $this->Punkt <= $model->punkt1_0){
                 $this->Note = 1.3;
-            }else if($this->Punkt >= $model->punkt1_7 && $this->Punkt <= $$model->punkt1_3){
+            }else if($this->Punkt >= $model->punkt1_7 && $this->Punkt <= $model->punkt1_3){
                 $this->Note = 1.7;
             }else if($this->Punkt >= $model->punkt2_0 && $this->Punkt <= $model->punkt1_7){
                 $this->Note = 2.0;

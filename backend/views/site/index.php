@@ -41,6 +41,7 @@ $dataProviderProfessor = $searchModelProfessor->searchListview(Yii::$app->reques
             'label'=>'<span class="glyphicon glyphicon-user"></span> Benutzer',
             'content' => $this->render('..\benutzer\listview',[
                 'dataProvider' => $dataProviderBenutzer,
+                'searchModel' => $searchModelBenutzer
             ]),
         ],
         [

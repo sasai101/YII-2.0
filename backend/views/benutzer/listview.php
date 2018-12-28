@@ -8,7 +8,12 @@ use yii\widgets\Pjax;
 
 
 <div class= "benutzer-index">
-	
+<!-- 
+	<div class="row">
+    	<div class="col-md-3">
+    	<?php //echo $this->render('_search', ['model' => $searchModel]);?>
+    	</div>
+	</div> -->
 	<div class = "row">
 		
 			<?php Pjax::begin(); echo ListView::widget([
