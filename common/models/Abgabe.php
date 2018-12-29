@@ -126,8 +126,7 @@ class Abgabe extends \yii\db\ActiveRecord
             $note = 0;
             foreach ($model as $aufgabe){
                 if($aufgabe->Punkte==null){
-                    $this->GesamtePunkt==null;
-                    $this->Korrektor_MarterikelNr = Yii::$app->user->identity->MarterikelNr;
+                    $note = 0;
                     break;
                 }else{
                     $note += $aufgabe->Punkte;
@@ -154,13 +153,17 @@ class Abgabe extends \yii\db\ActiveRecord
                     echo "Der gesamte Punkt muss größer gleiche als 0 sein";
                     return false;
                 }else{
-                    $this->KorregierteZeit = time();
-                    $this->GesamtePunkt = $note;
-                    $this->setMarterikelNr(Yii::$app->user->identity->MarterikelNr);
+                    if(Korrektor::findOne(\Yii::$app->user->identity->MarterikelNr)==null){
+                        $this->KorregierteZeit = time();
+                        $this->GesamtePunkt = $note;
+                    }else{
+                        $this->KorregierteZeit = time();
+                        $this->GesamtePunkt = $note;
+                        $this->setMarterikelNr(Yii::$app->user->identity->MarterikelNr);
+                    }
+                    return true;
                 }
-            }
-            return true;
-            
+            }  
         }
         else
         {

@@ -52,7 +52,7 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
         return [
             'UebungsgruppeID' => 'Uebungsgruppe ID',
             'UebungsID' => 'Uebungs ID',
-            'Tutor_MarterikelNr' => 'Tutor  Marterikel Nr',
+            'Tutor_MarterikelNr' => 'Tutor',
             'Anzahl_der_Personen' => 'Anzahl Der  Personen',
             'GruppenNr' => 'Gruppen Nr',
             'Max_Person' => 'Max  Person',

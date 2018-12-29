@@ -15,8 +15,7 @@ class BenutzerAnmeldenKlausurSuchen extends BenutzerAnmeldenKlausur
     public function rules()
     {
         return [
-            [['Benutzer_MarterikelNr', 'KlausurID', 'Anmeldungszeit'], 'integer'],
-            [['Anmeldungsstatus'], 'safe'],
+            [['Benutzer_MarterikelNr'], 'integer'],
         ];
     }
 
@@ -28,10 +27,18 @@ class BenutzerAnmeldenKlausurSuchen extends BenutzerAnmeldenKlausur
 
     public function search($params)
     {
-        $query = BenutzerAnmeldenKlausur::find();
+        $query = BenutzerAnmeldenKlausur::find()->where(['klausurID'=>$params]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize'=>100
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'Benutzer_MarterikelNr' => SORT_ASC,
+                ],
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {

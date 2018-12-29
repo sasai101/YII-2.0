@@ -31,9 +31,8 @@ class BenutzerAnmeldenKlausur extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Benutzer_MarterikelNr', 'KlausurID', 'Anmeldungsstatus'], 'required'],
+            [['Benutzer_MarterikelNr', 'KlausurID'], 'required'],
             [['Benutzer_MarterikelNr', 'KlausurID', 'Anmeldungszeit'], 'integer'],
-            [['Anmeldungsstatus'], 'string', 'max' => 255],
             [['Benutzer_MarterikelNr', 'KlausurID'], 'unique', 'targetAttribute' => ['Benutzer_MarterikelNr', 'KlausurID']],
             [['Benutzer_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['Benutzer_MarterikelNr' => 'marterikelnr']],
             [['KlausurID'], 'exist', 'skipOnError' => true, 'targetClass' => Klausur::className(), 'targetAttribute' => ['KlausurID' => 'KlausurID']],
@@ -46,10 +45,10 @@ class BenutzerAnmeldenKlausur extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'Benutzer_MarterikelNr' => 'Benutzer  Marterikel Nr',
-            'KlausurID' => 'Klausur ID',
+            'Benutzer_MarterikelNr' => 'Benutzer',
+            'KlausurID' => 'Klausur',
             'Anmeldungszeit' => 'Anmeldungszeit',
-            'Anmeldungsstatus' => 'Anmeldungsstatus',
+            //'Anmeldungsstatus' => 'Anmeldungsstatus',
         ];
     }
 
@@ -68,4 +67,70 @@ class BenutzerAnmeldenKlausur extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Klausur::className(), ['KlausurID' => 'KlausurID']);
     }
+    
+    /*
+     * Klausuranmeldung, werden die Benutuer,die jenigen die schon Klausurzulassung hat, automotisch eintragen 
+     */
+    public static function Klausuranmeldung($id){
+        
+        $modelKlausur = Klausur::findOne($id);
+        //alle Übungen
+        foreach ($modelKlausur->modul->uebungs as $uebung){
+            
+            //alle entsprechenden Übungsgruppe der jeweiligen Übung
+            $modelUebungsgruppe = Uebungsgruppe::find()->where(['UebungsID'=>$uebung->UebungsID])->all();
+            //Zulassungsgrenze
+            $zulassung = $uebung->Zulassungsgrenze/100;
+            $vollePunkt = 0;
+            
+            foreach ($uebung->uebungsblaetters as $punkte){
+                $vollePunkt += $punkte->GesamtePunkte;
+            }
+            
+            
+            foreach ($modelUebungsgruppe as $gruppe){
+                
+                //Uebungsgruppe ID
+                $uebungsgruppeID = $gruppe->UebungsgruppeID;
+                
+                foreach ($gruppe->benuterMarterikelNrs as $benutzer){
+                    
+                    // alle abgabe von einzel Benutzer von bestimmten Uebungsgruppe
+                    $modelAbgabe = Abgabe::find()->where(['Benutzer_MarterikelNr'=>$benutzer, 'UebungsgruppenID'=>$uebungsgruppeID])->all();
+                    $gesamtePunkte = 0;
+                    foreach ($modelAbgabe as $einzelabgabe){
+                        
+                        $gesamtePunkte += $einzelabgabe->GesamtePunkt;
+                        
+//                         echo "<pre>";
+//                         print_r($einzelabgabe->Benutzer_MarterikelNr);
+//                         echo "ok";
+//                         print_r($einzelabgabe->GesamtePunkt);
+//                         echo "</pre>";
+                        
+                    }
+                    //print_r($gesamtePunkte);
+                    //print_r($zulassung);
+                    //print_r($vollePunkt);
+                    //if($gesamtePunkte*)
+                    if($gesamtePunkte >= $zulassung*$vollePunkt){
+                        
+                        $model = new BenutzerAnmeldenKlausur;
+                        $model->Benutzer_MarterikelNr = $benutzer->MarterikelNr;
+                        $model->KlausurID = $id;
+                        $model->Anmeldungszeit = time();
+                        $model->save();
+                    }else{
+                        $model = BenutzerAnmeldenKlausur::findOne($benutzer->MarterikelNr,$id);
+                        if ($model != null) {
+                            $model->delete();
+                        }else{
+                            return; 
+                        }
+                    }
+                }
+            }      
+        }
+    }  
+    
 }

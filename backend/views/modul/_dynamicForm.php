@@ -13,12 +13,18 @@ use common\models\Mitarbeiter;
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
     <div class="row">
         <div class="col-sm-6">
-            <?= $form->field($modelModul, 'Bezeichnung')->textInput(['maxlength' => true]) ?>
-        </div>
-        <div class="col-sm-6">
-            <?= $form->field($modelModul, 'Maximale_Person')->textInput(['maxlength' => true]) ?>
-        </div>
-    </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-graduation-cap"></i> Modul
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-body container-prof">
+                     <?= $form->field($modelModul, 'Bezeichnung')->textInput(['maxlength' => true]) ?>
+                </div>
+             </div>
+         </div>
+     </div>
+        
 
     <div class="padding-v-md">
         <div class="line line-dashed"></div>
@@ -94,7 +100,7 @@ use common\models\Mitarbeiter;
 	<div class="panel panel-default">
 		<div class="panel-heading">
             <i class="fa fa-group"></i> Übungen und Übungsgruppe
-            <button type="button" class="pull-right add-uebung btn btn-success btn-xs"><span class="fa fa-plus">Add Übungen</span></button>
+            <!--  <button type="button" class="pull-right add-uebung btn btn-success btn-xs"><span class="fa fa-plus">Add Übungen</span></button> -->
             <div class="clearfix"></div>
         </div>
         <div class="panel-body container-prof">
@@ -125,6 +131,8 @@ use common\models\Mitarbeiter;
                             <?= $form->field($modelUebung, "[{$indexUebung}]Mitarbeiter_MarterikelNr")->dropDownList(Mitarbeiter::mitarbeiterName(),['prompt'=>'Bitte wählen Sie einen Mitarbeiter aus']) ?>
                             <p><b>Übungsverzeichnis</b></p>
                             <?= $form->field($modelUebung, "[{$indexUebung}]Bezeichnung")->label(false)->textInput(['maxlength' => true]) ?>
+                            <p><b>Übungsverzeichnis</b></p>
+                            <?= $form->field($modelUebung, "[{$indexUebung}]Zulassungsgrenze")->label(false)->textInput(['maxlength' => true]) ?>
                         </td>
                         <td>
                             <?= $this->render('_form-addUebungsgruppe', [

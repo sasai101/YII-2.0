@@ -46,7 +46,7 @@ class ModulLeitetProfessor extends \yii\db\ActiveRecord
     {
         return [
             'ModulID' => 'Modul ID',
-            'Professor_MarterikelNr' => 'Professor  Marterikel Nr',
+            'Professor_MarterikelNr' => 'Professor',
         ];
     }
 

@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\base\Model;
 
 /**
  * This is the model class for table "uebung".
@@ -11,6 +12,7 @@ use Yii;
  * @property int $ModulID
  * @property int $Mitarbeiter_MarterikelNr
  * @property string $Bezeichnung
+ * @property int $Zulassungsgrenze 
  *
  * @property Mitarbeiter $mitarbeiterMarterikelNr
  * @property Modul $modul
@@ -40,7 +42,21 @@ class Uebung extends \yii\db\ActiveRecord
             [['Bezeichnung'], 'string', 'max' => 255],
             [['Mitarbeiter_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Mitarbeiter::className(), 'targetAttribute' => ['Mitarbeiter_MarterikelNr' => 'marterikelnr']],
             [['ModulID'], 'exist', 'skipOnError' => true, 'targetClass' => Modul::className(), 'targetAttribute' => ['ModulID' => 'ModulID']],
+            [['Zulassungsgrenze'],'ZulassungsgrenzePruefen','skipOnEmpty' => false],
         ];
+    }
+    // validierung fur Punkte
+    public function ZulassungsgrenzePruefen($attribute, $params, $validator)
+    {
+        if (is_numeric($attribute)) {
+            if($attribute >= 101 || $attribute <= -1){
+                $this->addError($attribute,"Zulassungsgrenze muss zwischen 100 und 0 sein.");
+            }else{
+                return true;
+            }
+        }else{
+            $this->addError($attribute,"1Zulassungsgrenze muss zwischen 100 und 0 sein.");
+        }
     }
 
     /**
@@ -51,8 +67,9 @@ class Uebung extends \yii\db\ActiveRecord
         return [
             'UebungsID' => 'Uebungs ID',
             'ModulID' => 'Modul ID',
-            'Mitarbeiter_MarterikelNr' => 'Mitarbeiter  Marterikel Nr',
+            'Mitarbeiter_MarterikelNr' => 'Mitarbeiter',
             'Bezeichnung' => 'Bezeichnung',
+            'Zulassungsgrenze' => 'Zulassungsgrenze', 
         ];
     }
 

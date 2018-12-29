@@ -9,7 +9,6 @@ use Yii;
  *
  * @property int $ModulID
  * @property string $Bezeichnung
- * @property int $Maximale_Person 
  *
  * @property Klausur[] $klausurs
  * @property ModulAnmeldenBenutzer[] $modulAnmeldenBenutzers
@@ -36,8 +35,7 @@ class Modul extends \yii\db\ActiveRecord
     {
         return [
             // sonst geht das beim Modulherstellung nicht mehr weiter
-            [['Bezeichnung','Maximale_Person'], 'required'],
-            [['Maximale_Person'], 'integer'],
+            [['Bezeichnung'], 'required'],
             [['Bezeichnung'], 'string', 'max' => 255],
         ];
     }

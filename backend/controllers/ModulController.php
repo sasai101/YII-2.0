@@ -215,10 +215,10 @@ class ModulController extends Controller
             ModelUebung::loadMultiple($modelsUebung, Yii::$app->request->post());
             $deletedUebungsIDs = array_diff($alteUebungsIDs, array_filter(ArrayHelper::map($modelsUebung, 'UebungsID', 'UebungsID')));
             
-            echo "<pre>";
-            echo "deleOK1";
-            print_r($deletedUebungsIDs);
-            echo "</pre>";
+//             echo "<pre>";
+//             echo "deleOK1";
+//             print_r($deletedUebungsIDs);
+//             echo "</pre>";
             
             
             $valid = $modelModul->validate();
@@ -226,10 +226,11 @@ class ModulController extends Controller
             
             $UebungsgruppenIDs = [];
             
-            echo "<pre>";
-            echo "OK1";
-            print_r($UebungsgruppenIDs);
-            echo "</pre>";
+//             echo "<pre>";
+//             echo "OK1";
+//             var_dump(ModelUebung::validateMultiple($modelsUebung));
+//             echo "</pre>";
+//             exit(0);
             
             //Übungsgruppe
             if(isset($_POST['Uebungsgruppe'][0][0])){

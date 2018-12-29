@@ -5,9 +5,11 @@ namespace backend\controllers;
 use Yii;
 use common\models\BenutzerAnmeldenKlausur;
 use common\models\BenutzerAnmeldenKlausurSuchen;
+use common\models\Klausur;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\KlausurSuchen;
 
 /**
  * BenutzerAnmeldenKlausurController implements the CRUD actions for BenutzerAnmeldenKlausur model.
@@ -30,14 +32,18 @@ class BenutzerAnmeldenKlausurController extends Controller
      * Lists all BenutzerAnmeldenKlausur models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
+        BenutzerAnmeldenKlausur::Klausuranmeldung($id);
+        
+        $modelKlausur = Klausur::findOne($id);
         $searchModel = new BenutzerAnmeldenKlausurSuchen;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
+            'modelKlausur' => $modelKlausur,
         ]);
     }
 
@@ -125,5 +131,19 @@ class BenutzerAnmeldenKlausurController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    /*
+     *  KlausurAnmeldung Listview Controller
+     */
+    public function actionKlausuranmeldunglistview() {
+        
+        $searchModel = new KlausurSuchen;
+        $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
+        
+        return $this->render('klausuranmeldunglistview', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
     }
 }

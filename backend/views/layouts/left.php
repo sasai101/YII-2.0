@@ -114,6 +114,7 @@ use backend\controllers\ModulController;
                         'items' => [
                             ['label' => 'Klausurerstellung', 'icon' => 'group', 'url'=>['/klausur/klausurlistview']],
                             ['label' => 'Note eintragen', 'icon' => 'user', 'url'=>['/klausurnote/klausurnotelistview']],
+                            ['label' => 'Klausuranmeldung', 'icon' => 'user', 'url'=>['/benutzer-anmelden-klausur/klausuranmeldunglistview']],
                         ],
                     ],
                     

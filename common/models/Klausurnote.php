@@ -43,7 +43,7 @@ class Klausurnote extends \yii\db\ActiveRecord
             [['KlausurID'], 'exist', 'skipOnError' => true, 'targetClass' => Klausur::className(), 'targetAttribute' => ['KlausurID' => 'klausurid']],
             
             //
-            [['Punkt'], "NotenGrenzen"],
+            [['Punkt'], 'NotenGrenzen'],
         ];
     }
     

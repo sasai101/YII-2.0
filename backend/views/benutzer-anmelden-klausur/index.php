@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\HtmlPurifier;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
 
@@ -10,13 +11,29 @@ use yii\widgets\Pjax;
  * @var common\models\BenutzerAnmeldenKlausurSuchen $searchModel
  */
 
-$this->title = 'Benutzer Anmelden Klausurs';
-$this->params['breadcrumbs'][] = $this->title;
+//$this->title = 'Modul '.$modelModul->Bezeichnung;
+$this->params['breadcrumbs'][] = ['label' => 'Alle Klausur', 'url' => ['benutzer-anmelden-klausur/klausuranmeldunglistview']];
+$this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelKlausur->Bezeichnung, 0, 15).'......');
 ?>
-<div class="benutzer-anmelden-klausur-index">
-    <div class="page-header">
-        <h1><?= Html::encode($this->title) ?></h1>
-    </div>
+<div class="klausurnote-index">
+
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+	<!-- Titel -->
+	<div>
+		<h3>
+			<?php echo $modelKlausur->Bezeichnung?> :</br></br>
+			<?= Html::encode($modelKlausur->modul->Bezeichnung); ?>
+		</h3>
+	</div>
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>	
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -29,10 +46,38 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'Benutzer_MarterikelNr',
-            'KlausurID',
-            'Anmeldungszeit',
-            'Anmeldungsstatus',
+            //'Benutzer_MarterikelNr',
+            [
+                'attribute'=>'Benutzer_MarterikelNr',
+                'contentOptions' => ['width'=>'100px']
+            ],
+            [
+                'attribute'=>'benutzerMarterikelNr',
+                'label'=>'Prüfername',
+                'value'=> function ($model) {
+                return $model->benutzerMarterikelNr->Vorname." ".$model->benutzerMarterikelNr->Nachname;
+                }
+            ],
+            //'KlausurID',
+            [
+                'attribute'=>'KlausurID',
+                'value'=>function ($model) {
+                    return $model->klausur->Bezeichnung;
+                }
+            ],
+            //'Anmeldungszeit',
+            [
+                'attribute'=>'Anmeldungszeit',
+                'format'=>['date','php:d-m-Y H:i:s'],
+            ],
+            //'Anmeldungsstatus',
+            [
+                'attribute'=>'klausur',
+                'label'=>'Modul',
+                'value'=>function ($model) {
+                    return $model->klausur->modul->Bezeichnung;
+                }
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',
@@ -54,8 +99,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
             'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
-            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
+            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create', 'id'=>$modelKlausur->KlausurID], ['class' => 'btn btn-success modalButton']),
+            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index', 'id'=>$modelKlausur->KlausurID], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],
     ]); Pjax::end(); ?>

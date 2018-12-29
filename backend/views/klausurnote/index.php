@@ -119,7 +119,7 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelKlausur->
             'type' => 'info',
             //Modal
             'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create', 'id'=>$modelKlausur->KlausurID], ['class' => 'btn btn-success modalButton']),
-            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index','id'=>$modelKlausur->KlausurID], ['class' => 'btn btn-info']),
+            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index', 'id'=>$modelKlausur->KlausurID], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],
     ]); Pjax::end();?>
