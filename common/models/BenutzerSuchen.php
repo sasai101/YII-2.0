@@ -58,38 +58,4 @@ class BenutzerSuchen extends Benutzer
 
         return $dataProvider;
     }
-    
-    public function searchListview($params)
-    {
-        $query = Benutzer::find();
-        
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize'=>60
-            ],
-        ]);
-        
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
-        
-        $query->andFilterWhere([
-            //'MarterikelNr' => $this->MarterikelNr,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ]);
-        
-        $query->andFilterWhere(['like','MarterikelNr',$this->MarterikelNr])
-        ->andFilterWhere(['like', 'email', $this->email])
-        //->andFilterWhere(['like', 'password_hash', $this->password_hash])
-        //->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
-        //->andFilterWhere(['like', 'auth_key', $this->auth_key])
-        ->andFilterWhere(['like', 'Vorname', $this->Vorname])
-        ->andFilterWhere(['like', 'Nachname', $this->Nachname])
-        ->andFilterWhere(['like', 'Benutzername', $this->Benutzername]);
-        
-        return $dataProvider;
-    }
-    
 }

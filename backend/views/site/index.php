@@ -1,75 +1,79 @@
 <?php
-
-/* @var $this yii\web\View */
-
-use kartik\tabs\TabsX;
-use yii\widgets\Pjax;
-use common\models\BenutzerSuchen;
-use common\models\MitarbeiterSuchen;
-use common\models\KorrektorSuchen;
-use common\models\ProfessorSuchen;
-use common\models\TutorSuchen;
-
-$searchModelBenutzer = new BenutzerSuchen;
-$dataProviderBenutzer = $searchModelBenutzer->searchListview(Yii::$app->request->getQueryParams());
-
-$searchModelMitarbeiter = new MitarbeiterSuchen();
-$dataProviderMitarbeiter = $searchModelMitarbeiter->searchListview(Yii::$app->request->getQueryParams());
-
-$searchModelKorrektor = new KorrektorSuchen();
-$dataProviderKorrektor = $searchModelKorrektor->searchListview(Yii::$app->request->getQueryParams());
-
-$searchModelTutor = new TutorSuchen();
-$dataProviderTutur = $searchModelTutor->searchListview(Yii::$app->request->getQueryParams());
-
-$searchModelProfessor = new ProfessorSuchen();
-$dataProviderProfessor = $searchModelProfessor->searchListview(Yii::$app->request->getQueryParams());
+use yii\helpers\Json;
 ?>
-<div style="background-color:white">
-<?php Pjax::begin(); echo TabsX::widget([
-    'position'=>TabsX::POS_ABOVE,
-    'encodeLabels'=>false,
-    'bordered'=>true,
-    //'encodeLabels'=>false,
-    'items' => [
-        [
-            'label'=>'<span class="glyphicon glyphicon-home"></span> Home',
-            'content' => $this->render('..\benutzer\hauptseite'),
-            'active'=>true
-        ],
-        [
-            'label'=>'<span class="glyphicon glyphicon-user"></span> Benutzer',
-            'content' => $this->render('..\benutzer\listview',[
-                'dataProvider' => $dataProviderBenutzer,
-                'searchModel' => $searchModelBenutzer
-            ]),
-        ],
-        [
-            'label'=>'<span class="glyphicon glyphicon-user"></span> Mitarbeiter',
-            'content' => $this->render('..\Mitarbeiter\listview',[
-                'dataProvider' => $dataProviderMitarbeiter,
-            ]),
-            
-        ],
-        [
-            'label'=>'<span class="glyphicon glyphicon-user"></span> Korrektor',
-            'content' => $this->render('..\korrektor\listview',[
-                'dataProvider' => $dataProviderKorrektor,
-            ]),
-        ],
-        [
-            'label'=>'<span class="glyphicon glyphicon-user"></span> Tutor',
-            'content' => $this->render('..\tutor\listview',[
-                'dataProvider' => $dataProviderTutur,
-            ]),
-        ],
-        [
-            'label'=>'<span class="glyphicon glyphicon-user"></span> Professor',
-            'content' => $this->render('..\professor\listview',[
-                'dataProvider' => $dataProviderProfessor,
-            ]),
-        ],
-    ],
-]);Pjax::end(); ?>
 
-</div>
+<script src="../../vendor/bower-asset/echarts/dist/echarts-en.min.js"></script>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+        	    title : {
+        	        text: 'Benutzer Anzahl',
+        	    },
+        	    tooltip : {
+        	    },
+        	    legend: {
+        	        data:['最高气温','最低气温']
+        	    },
+        	    toolbox: {
+        	        show : true,
+        	        feature : {
+        	            mark : {show: true},
+        	            dataView : {show: true, readOnly: false},
+        	            magicType : {show: true, type: ['line', 'bar']},
+        	            restore : {show: true},
+        	            saveAsImage : {show: true}
+        	        }
+        	    },
+        	    calculable : true,
+        	    xAxis : [
+        	        {
+        	            type : 'category',
+        	            boundaryGap : false,
+        	            data : ['周一','周二','周三','周四','周五','周六','周日']
+        	        }
+        	    ],
+        	    yAxis : [
+        	        {
+        	            type : 'value',
+        	            axisLabel : {
+        	                formatter: '{value} °C'
+        	            }
+        	        }
+        	    ],
+        	    series : [
+        	        {
+        	            name:'最高气温',
+        	            type:'line',
+        	            data:[11, 11, 15, 13, 12, 13, 10],
+        	            markPoint : {
+        	                data : [
+        	                    {type : 'max', name: '最大值'},
+        	                    {type : 'min', name: '最小值'}
+        	                ]
+        	            },
+        	            markLine : {
+        	                data : [
+        	                    {type : 'average', name: '平均值'}
+        	                ]
+        	            }
+        	        },
+        	    ]
+        	};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+<?php 
+$row = (new \yii\db\Query())
+->select(['id','Datum','Anzahlen'])
+->from('anzahl_des_benutzers')
+->all();
+
+$ret = array_values($row);
+echo JSON::encode($ret);
+?>

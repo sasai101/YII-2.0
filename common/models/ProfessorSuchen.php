@@ -83,36 +83,4 @@ class ProfessorSuchen extends Professor
 
         return $dataProvider;
     }
-    
-    public function searchListview($params)
-    {
-        $query = Professor::find();
-        
-        // join Funktion,um die Professortabelle und Benutzertabelle zu verbinden, dann suchen und sortieren
-        $query->join('INNER JOIN','Benutzer','Benutzer.MarterikelNr=Professor.MarterikelNr');
-        
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            // wie viel Inhalt pro Seite einzustellen
-            'pagination' => [
-                'pageSize'=>50
-            ],
-            
-        ]);
-        
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
-        
-        $query->andFilterWhere([
-            'Professor.MarterikelNr' => $this->MarterikelNr,
-        ]);
-        
-        //$query->andFilterWhere(['like', 'Buero', $this->Buero]);
-        
-        //Such nach gegebene Wort in joinene Tabelle
-        $query->andFilterWhere(['like','Benutzer.Benutzername',$this->benutzername]);
-        
-        return $dataProvider;
-    }
 }

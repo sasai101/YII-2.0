@@ -25,7 +25,8 @@
         "bower-asset/echarts": "*",
         "hisune/echarts-php": "^1.0",
         "wbraganca/yii2-dynamicform": "*",
-        "trntv/yii2-datetime-widget": "^1.1"
+        "trntv/yii2-datetime-widget": "^1.1",
+        "kartik-v/yii2-grid": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

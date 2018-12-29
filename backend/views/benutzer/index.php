@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
+use common\models\Benutzer;
 
 /**
  * @var yii\web\View $this
@@ -33,6 +34,21 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'MarterikelNr',
                 'label'=>'Marterikel Nr.'
+            ],
+            [
+                'class' => 'kartik\grid\ExpandRowColumn',
+                'value' => function ($model,$key,$index,$column)
+                    {
+                        return GridView::ROW_COLLAPSED;
+                    },
+                    
+                'detail' => function ($model,$key,$index,$column){
+                    $modelBenutzer = Benutzer::findOne($model->MarterikelNr);
+                    
+                    return Yii::$app->controller->renderPartial('_benutzerdetail',[
+                        'modelBenutzer' => $modelBenutzer,
+                    ]);
+                },
             ],
             'Benutzername', 
             //'password_hash',

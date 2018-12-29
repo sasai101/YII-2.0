@@ -232,5 +232,17 @@ class BenutzerController extends Controller
             ]);
         }
     }
-    
+    /*
+     * Controlle für Leistung
+     */
+    public function actionLeisung($id) {
+        
+        $searchModel = new BenutzerSuchen;
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        
+        return $this->renderAjax('benutzer/leistung', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
 }

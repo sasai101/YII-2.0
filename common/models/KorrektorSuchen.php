@@ -78,31 +78,4 @@ class KorrektorSuchen extends Korrektor
 
         return $dataProvider;
     }
-    
-    public function searchListview($params)
-    {
-        $query = Korrektor::find();
-        
-        //join die Korrektortabelle mit Benutzertabelle,
-        $query->join('INNER JOIN','Benutzer','Benutzer.MarterikelNr=Korrektor.MarterikelNr');
-        
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            // Seitenverteilung
-            'pagination' => [
-                'pageSize'=>20
-            ],
-            // sortieren nach Vorname Nachname, Benutzername und Marterikelnr
-        ]);
-        
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
-        
-       
-        $query->andFilterWhere(['like','Benutzer.Benutzername',$this->benutzername]);
-        
-        
-        return $dataProvider;
-    }
 }
