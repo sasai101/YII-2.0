@@ -14,6 +14,13 @@ use yii\imagine\Image;
 use Imagine\Gd;
 use Imagine\Image\Box;
 use Imagine\Image\BoxInterface;
+use common\models\BenutzerTeilnimmtUebungsgruppe;
+use common\models\Abgabe;
+use common\models\Einzelaufgabe;
+use common\models\Klausurnote;
+use common\models\ModulAnmeldenBenutzer;
+use common\models\BenutzerAnmeldenKlausur;
+use common\models\Mitarbeiter;
 
 /**
  * BenutzerController implements the CRUD actions for Benutzer model.
@@ -106,8 +113,27 @@ class BenutzerController extends Controller
      */
     public function actionDelete($id)
     {
+        //benutzer_teilnimmt_uebungsgruppe
+        BenutzerTeilnimmtUebungsgruppe::find()->where(['Benuter_MarterikelNr'=>$id])->all()->deleteAll();
+        
+        //Abgabe und Einzelaufgbae
+        $abgaben = Abgabe::find()->where(['Benutzer_MarterikelNr'=>$id])->all();
+        foreach ($abgaben as $abgabe){
+            Einzelaufgabe::find()->where(['AbgabeID'=>$abgabe->AbgabeID])->all()->deleteAll();
+            $abgabe->delete();
+        }
+        
+        //Klausurnote
+        Klausurnote::find()->where(['Benutzer_MarterikelNr'=>$id])->all()->deleteAll();
+        
+        //benutzer_anmeldung_modul
+        ModulAnmeldenBenutzer::find()->where(['Benutzer_MarterikelNr'=>$id])->all()->deleteAll();
+        
+        //Beneutzer anmelden Klausur
+        BenutzerAnmeldenKlausur::find()->where(['Benutzer_MarterikelNr'=>$id])->all()->deleteAll();
+      
+        //Benutzer Tabelle
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 

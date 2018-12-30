@@ -28,13 +28,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            //['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn'],
 
             //'MarterikelNr',
             [
                 'attribute'=>'MarterikelNr',
-                'label'=>'Marterikel Nr.'
+                'label'=>'Marterikel Nr.',
+                'contentOptions' => ['width'=>'130px']
             ],
+            //Exm
             [
                 'class' => 'kartik\grid\ExpandRowColumn',
                 'value' => function ($model,$key,$index,$column)

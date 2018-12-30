@@ -95,7 +95,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     <h3 class="panel-title">Allefächer und übungen</h3>
                 </div>
                 <div class="panel-body">
-                	<?php Mitarbeiter::findOne($model->MarterikelNr)?>
                     <!-- Übungsgruppen und Übungen -->	
                 	<div class="col-md-5">
                 	<div><h5>Übungen und Übungsgruppe</h5></div>	

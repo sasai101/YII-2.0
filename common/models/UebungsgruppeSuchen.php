@@ -109,4 +109,32 @@ class UebungsgruppeSuchen extends Uebungsgruppe
         return $dataProvider;
     }
     
+    /*
+     * Übungsgruppe mit ensprechendem Tutor suchen
+     */
+    
+    public function searchalleGruppe($params,$id)
+    {
+        $query = Uebungsgruppe::find()->where(['UebungsID'=>$id]);
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+        
+        $query->andFilterWhere([
+            'UebungsgruppeID' => $this->UebungsgruppeID,
+            'UebungsID' => $this->UebungsID,
+            'Tutor_MarterikelNr' => $this->Tutor_MarterikelNr,
+            'Anzahl_der_Personen' => $this->Anzahl_der_Personen,
+            'GruppenNr' => $this->GruppenNr,
+            'Max_Person' => $this->Max_Person,
+        ]);
+        
+        return $dataProvider;
+    }
+    
 }
