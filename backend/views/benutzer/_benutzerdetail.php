@@ -2,7 +2,6 @@
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use function GuzzleHttp\Psr7\uri_for;
-use common\models\Uebungsgruppe;
 use common\models\BenutzerTeilnimmtUebungsgruppe;
 use common\models\ModulAnmeldenBenutzer;
 

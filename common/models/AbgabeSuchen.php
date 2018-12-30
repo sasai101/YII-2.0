@@ -52,4 +52,32 @@ class AbgabeSuchen extends Abgabe
 
         return $dataProvider;
     }
+    
+    public function searchAlsAbgabe($params, $UebungsgruppeID, $Benutzer_MarterikelNr)
+    {
+        $query = Abgabe::find()->where(['UebungsgruppenID'=>$UebungsgruppeID, 'Benutzer_MarterikelNr'=>$Benutzer_MarterikelNr]);
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination'=>[
+                'pageSize'=>40,
+            ],
+        ]);
+        
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+        
+        $query->andFilterWhere([
+            'AbgabeID' => $this->AbgabeID,
+            'Benutzer_MarterikelNr' => $this->Benutzer_MarterikelNr,
+            'Korrektor_MarterikelNr' => $this->Korrektor_MarterikelNr,
+            'KorregierteZeit' => $this->KorregierteZeit,
+            'AbgabeZeit' => $this->AbgabeZeit,
+            'GesamtePunkt' => $this->GesamtePunkt,
+            'UebungsblaetterID' => $this->UebungsblaetterID,
+        ]);
+        
+        return $dataProvider;
+    }
 }
