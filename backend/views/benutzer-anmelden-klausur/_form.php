@@ -25,8 +25,6 @@ use kartik\datecontrol\DateControl;
 
             'KlausurID' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Klausur ID...']],
 
-            'Anmeldungsstatus' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Anmeldungsstatus...', 'maxlength' => 255]],
-
             'Anmeldungszeit' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Anmeldungszeit...']],
 
         ]

@@ -32,7 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'Benutzer_MarterikelNr',
             'KlausurID',
             'Anmeldungszeit',
-            'Anmeldungsstatus',
         ],
         'deleteOptions' => [
             'url' => ['delete', 'id' => $model->Benutzer_MarterikelNr],
