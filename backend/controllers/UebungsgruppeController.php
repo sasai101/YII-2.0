@@ -12,7 +12,6 @@ use common\models\UebungSuchen;
 use common\models\BenutzerTeilnimmtUebungsgruppe;
 use common\models\BenutzerTeilnimmtUebungsgruppeSuchen;
 use common\models\Uebungsblaetter;
-use common\models\EinzelaufgabeSuchen;
 use common\models\UebungsblaetterSuchen;
 
 /**
