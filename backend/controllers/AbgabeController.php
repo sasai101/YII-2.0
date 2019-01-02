@@ -11,6 +11,9 @@ use yii\filters\VerbFilter;
 use common\models\Uebungsgruppe;
 use common\models\Uebungsblaetter;
 use yii\base\Model;
+use common\models\Benutzer;
+use common\models\Uebung;
+use common\models\Klausurnote;
 
 /**
  * AbgabeController implements the CRUD actions for Abgabe model.
@@ -98,4 +101,19 @@ class AbgabeController extends Controller
         }
     }
     
+    /*
+     * Einzeln Abgabeecharts für benutzer/notelistview
+     */
+    public function actionEchartsabgabe($uebungsID, $marterikelNr) {
+        
+        $model = Abgabe::alleAbgabe($uebungsID, $marterikelNr);
+        $modelBenutzer = Benutzer::findOne($marterikelNr);
+        $modelUebung = Uebung::findOne($uebungsID);
+        
+        return $this->render('echartsabgabe',[
+            'model'=>$model,
+            'modelBenutzer'=>$modelBenutzer,
+            'modelUebung' => $modelUebung
+        ]);
+    }
 }

@@ -1,8 +1,11 @@
 <?php
-use yii\helpers\Json;
+use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\widgets\Pjax;
+
 ?>
 
-
+<?php Pjax::begin()?>
 <div class="uebungsnote">
 	<div class="row">
 		<div class="col-md-12">
@@ -46,3 +49,4 @@ use yii\helpers\Json;
 		</div>
 	</div>
 </div>
+<?php Pjax::end()?>

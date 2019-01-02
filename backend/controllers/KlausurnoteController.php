@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use common\models\Benutzer;
 use common\models\Modul;
 use common\models\KlausurSuchen;
 use common\models\Klausur;
@@ -150,6 +151,20 @@ class KlausurnoteController extends Controller
         return $this->render('klausurnotelistview', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
+        ]);
+    }
+    
+    /*
+     * Klausurnote PieCharts für klausurnote/echartspieKlausurnote, von Benutzer/view/_klausurlistview
+     */
+    public function actionEchartspieklausurnote($klausurnoteID, $marterikelNr) {
+        
+        $modelKlausurnote = Klausurnote::findOne($klausurnoteID);
+        $modelBenutzer = Benutzer::findOne($marterikelNr);
+        
+        return $this->render('echartspieklausurnote',[
+            'modelKlausurnote'=>$modelKlausurnote,
+            'modelBenutzer'=>$modelBenutzer,
         ]);
     }
     

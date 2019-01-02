@@ -82,4 +82,19 @@ class KlausurnoteSuchen extends Klausurnote
 
         return $dataProvider;
     }
+    
+    public function searchAlleKlausurVonBenutzer($params,$id)
+    {
+        $query = Klausurnote::find()->where(['Benutzer_MarterikelNr'=>$id]);
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        
+        
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+        return $dataProvider;
+    }
 }

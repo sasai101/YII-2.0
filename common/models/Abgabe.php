@@ -4,6 +4,8 @@ namespace common\models;
 
 use Yii;
 use common\widgets\Alert;
+use yii\data\ActiveDataProvider;
+use yii\db\Query;
 
 /**
  * This is the model class for table "abgabe".
@@ -171,4 +173,21 @@ class Abgabe extends \yii\db\ActiveRecord
         }
     } 
     
+    /*
+     *  Finde alle Aufgabe von einen Bestimmten Benutzer, (Contraolle AbgabeControlle/actionEchartsabgabe, Seite abgabe/echartsabgabe)
+     */ 
+    public static function alleAbgabe($uebungsID,$marterikelNr) {
+        
+        $query = Abgabe::find();
+        $query->join('INNER JOIN','Uebungsblaetter','Uebungsblaetter.UebungsblatterID=Abgabe.UebungsblaetterID')
+        ->select(['Uebungsblaetter.UebungsNr','Abgabe.GesamtePunkt'])
+        ->where(['Uebungsblaetter.UebungsID'=>$uebungsID,'Abgabe.Benutzer_MarterikelNr'=>$marterikelNr])
+        ->all();
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+    
+        return $dataProvider->models;
+    }   
 }

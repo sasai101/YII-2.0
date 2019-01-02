@@ -9,7 +9,7 @@ class EchartsAsset extends AssetBundle
     public $sourcePath = '@vendor/bower-asset/echarts/dist';
     public $baseUrl = '@vendor/bower-asset/echarts/dist';
     public $js = [
-        'echarts.js',
-        'echarts.min.js',
+        'echarts-en.js',
+        'echarts-en.min.js',
     ];
 }

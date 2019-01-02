@@ -1,30 +1,26 @@
 <?php
-
 use yii\helpers\Html;
-use backend\assets\EchartsAsset;
 use common\models\BenutzerTeilnimmtUebungsgruppe;
 use yii\helpers\HtmlPurifier;
 use yii\widgets\ListView;
 use common\models\ModulAnmeldenBenutzer;
 use kartik\detail\DetailView;
 use yii\widgets\Pjax;
-use kartik\datecontrol\DateControl;
-use common\models\Mitarbeiter;
-use common\models\Benutzer;
 use common\models\Abgabe;
 use common\models\AbgabeSuchen;
-use Hisune\EchartsPHP\ECharts;
-
+use common\models\Klausurnote;
+use common\models\KlausurSuchen;
+use common\models\KlausurnoteSuchen;
 /**
  * @var yii\web\View $this
  * @var common\models\Benutzer $model
  */
-
 // Den ganzen Name von Benutzer in der Titelzeil zeigen
 $this->title = $model->Vorname." ".$model->Nachname;
 $this->params['breadcrumbs'][] = ['label' => 'Benutzers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="benutzer-view">
     <div class="page-header">
         <h1><?= Html::encode($this->title) ?></h1>
@@ -178,7 +174,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 		  <!-- Übungsbezeichnung -->
                 		  <div class="row">
                 		  		<div class="col-md-12">
-                		  			<h2><?php echo $ubung->uebungsgruppe->uebungs->Bezeichnung?></h2>
+                		  			<h2><?php echo $ubung->uebungsgruppe->uebungs->Bezeichnung?>
+	                		  		<!-- Echarts Weiterleitung -->
+                		  			&nbsp&nbsp&nbsp&nbsp&nbsp<?php echo Html::a('<i class="fa fa-bar-chart"></i>',['abgabe/echartsabgabe', 'uebungsID'=>$ubung->uebungsgruppe->UebungsID,'marterikelNr'=>$model->MarterikelNr])?></h2>
                 		  		</div>
                 		  </div>
                 		  
@@ -186,7 +184,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 		  <div class="row">
                 		  		<div class="col-md-12">
                 		  			<h5>Übungsleiter:  <b><?php echo $ubung->uebungsgruppe->uebungs->mitarbeiterMarterikelNr->marterikelNr->Vorname." ".$ubung->uebungsgruppe->uebungs->mitarbeiterMarterikelNr->marterikelNr->Nachname?></b></h5>
-                		  			<h5>Übungsgruppe <b><?php echo $ubung->uebungsgruppe->GruppenNr?></b></h5>
+                		  			<h5>Übungsgruppe: <b><?php echo $ubung->uebungsgruppe->GruppenNr?></b></h5>
                 		  			<h5>Tutor:  <b><?php echo $ubung->uebungsgruppe->tutorMarterikelNr->marterikelNr->Vorname." ".$ubung->uebungsgruppe->tutorMarterikelNr->marterikelNr->Nachname?></b></h5>
                 		  			<?php $alleUebungsblaetter = Abgabe::find()->where(['UebungsgruppenID'=>$ubung->uebungsgruppe->UebungsgruppeID, 'Benutzer_MarterikelNr'=>$model->MarterikelNr])->all()?>
                 		  			<?php $gesamtePunkte=0;
@@ -199,41 +197,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 		  			      }
                 		  			?>
                 		  			<h5>Gesamte Punkte: <b><?php echo "( ". $gesamtePunkte."/". $ursprunglichPunk." )"?></b></h5>
-                		  			<h5>Zulassungsgrenze: <b><?php echo $ursprunglichPunk*$zulassung?></b></h5>
+                		  			<h5>Zulassungsgrenze: <b><?php echo $ursprunglichPunk*$zulassung?> Punkte von allen</b></h5>
                 		  			<h5><b><?php if($gesamtePunkte >= $ursprunglichPunk*$zulassung){
                 		  			             echo "Zugelassen";
                 		  			}else{
                 		  			     echo "Nicht zugelassen";
                 		  			}?></b></h5>
                 		  		</div>
-                		  		<div class="col-md-12">
-                		  				<div>
-		<?php
-
-$asset=EchartsAsset::register($this);
-$chart = new ECharts($asset->baseUrl);
-$chart->tooltip->show = true;
-$chart->legend->data = array('销量');
-$chart->xAxis = array(
-    array(
-        'type' => 'category',
-        'data' => array("衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子")
-    )
-);
-$chart->yAxis = array(
-    array('type' => 'value')
-);
-$chart->series = array(
-    array(
-        'name' => '销量',
-        'type' => 'bar',
-        'data' => array(5, 20, 40, 10, 10, 20)
-    )
-);
-echo $chart->render('simple-custom-id');?>
-	</div>
-	
-                		  		</div>
+                		  		
                 		  </div>
                 		  <!-- Leere Zeile -->
                 		  <div><br></div>
@@ -276,10 +247,30 @@ echo $chart->render('simple-custom-id');?>
 		<div class="col-md-12">
     		<div class="panel panel-success">
                 <div class="panel-heading">
-                    <h3 class="panel-title">面板标题</h3>
+                    <h3 class="panel-title">Klausur</h3>
                 </div>
                 <div class="panel-body">
-                   		 这是一个基本的面板
+                
+                <!-- Klausurliew  -->
+                   	<?php $searchModelKlausurnote = new KlausurnoteSuchen;
+                   	      $dateProviderKlausurnote = $searchModelKlausurnote->searchAlleKlausurVonBenutzer(Yii::$app->request->getQueryParams(), $model->MarterikelNr);
+		  			?>
+		  			<?php Pjax::begin(); echo ListView::widget([
+        			    'id' => 'benutzerlist',
+		  			    'dataProvider' => $dateProviderKlausurnote,
+        			    'itemView' => '_klausurnotelistview',
+        			    'layout' => '{items}<div class="col-lg-12 sum-pager">{summary}{pager}</div>',
+        			    'itemOptions' => [
+        			        'tag' => 'div',
+        			        'class' => 'col-md-2'
+        			    ],
+        			    //'layout' => '{items} {pager}',
+        			    'pager' => [
+        			        'maxButtonCount' => 20,
+        			        'nextPageLabel' => Yii::t('app', 'nächste'),
+        			        'prevPageLabel' => Yii::t('app', 'vorne'),
+        			    ],
+        			]); Pjax::end()?>
                 </div>
             </div>
         </div>
