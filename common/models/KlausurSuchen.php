@@ -99,4 +99,23 @@ class KlausurSuchen extends Klausur
         
         return $dataProvider;
     }
+    
+    /*
+     * SearchModel mitarbeiter/view
+     */
+    public function searchMitMitarbeiter($params, $marterikelNr)
+    {
+        //Alle Klausur
+        $query = Klausur::find()->where(['Mitarbeiter_MarterikelNr'=>$marterikelNr]);
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+        
+        return $dataProvider;
+    }
 }

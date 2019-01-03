@@ -50,7 +50,7 @@ use common\models\Klausurnote;
                             				}?></b>
         			</div>
         			<div>
-        				&nbsp Gesamte Teilname: <b><?php echo Klausurnote::gesatmteLeute($model->klausur->KlausurID)?></b>
+        				&nbsp Gesamte Teilname: <b><?php echo Klausurnote::gesatmtePerson($model->klausur->KlausurID)?></b>
         			</div>
         			<div>
         				&nbsp Durchschnitt: <b><?php echo number_format(Klausurnote::Klausurdurchschnitt($model->klausur->KlausurID),2)?></b>

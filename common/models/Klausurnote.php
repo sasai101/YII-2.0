@@ -170,47 +170,47 @@ class Klausurnote extends \yii\db\ActiveRecord
      */
     public static function KlausurnotePerson1_0($KlausurID) {
         $modelKlausur = Klausur::findOne($KlausurID);
-        return $count = Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt1_0,$modelKlausur->Max_Punkte])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
+        return  Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt1_0,$modelKlausur->Max_Punkte])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
     }
     public static function KlausurnotePerson1_3($KlausurID) {
         $modelKlausur = Klausur::findOne($KlausurID);
-        return $count = Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt1_3,$modelKlausur->punkt1_0])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
+        return  Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt1_3,$modelKlausur->punkt1_0])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
     }
     public static function KlausurnotePerson1_7($KlausurID) {
         $modelKlausur = Klausur::findOne($KlausurID);
-        return $count = Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt1_7,$modelKlausur->punkt1_3])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
+        return  Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt1_7,$modelKlausur->punkt1_3])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
     }
     public static function KlausurnotePerson2_0($KlausurID) {
         $modelKlausur = Klausur::findOne($KlausurID);
-        return $count = Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt2_0,$modelKlausur->punkt1_7])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
+        return  Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt2_0,$modelKlausur->punkt1_7])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
     }
     public static function KlausurnotePerson2_3($KlausurID) {
         $modelKlausur = Klausur::findOne($KlausurID);
-        return $count = Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt2_3,$modelKlausur->punkt2_0])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
+        return  Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt2_3,$modelKlausur->punkt2_0])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
     }
     public static function KlausurnotePerson2_7($KlausurID) {
         $modelKlausur = Klausur::findOne($KlausurID);
-        return $count = Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt2_7,$modelKlausur->punkt2_3])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
+        return  Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt2_7,$modelKlausur->punkt2_3])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
     }
     public static function KlausurnotePerson3_0($KlausurID) {
         $modelKlausur = Klausur::findOne($KlausurID);
-        return $count = Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt3_0,$modelKlausur->punkt2_7])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
+        return  Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt3_0,$modelKlausur->punkt2_7])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
     }
     public static function KlausurnotePerson3_3($KlausurID) {
         $modelKlausur = Klausur::findOne($KlausurID);
-        return $count = Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt3_3,$modelKlausur->punkt3_0])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
+        return  Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt3_3,$modelKlausur->punkt3_0])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
     }
     public static function KlausurnotePerson3_7($KlausurID) {
         $modelKlausur = Klausur::findOne($KlausurID);
-        return $count = Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt3_7,$modelKlausur->punkt3_3])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
+        return  Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt3_7,$modelKlausur->punkt3_3])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
     }
     public static function KlausurnotePerson4_0($KlausurID) {
         $modelKlausur = Klausur::findOne($KlausurID);
-        return $count = Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt4_0,$modelKlausur->punkt3_7])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
+        return  Klausurnote::find()->where(['between','Punkt',$modelKlausur->punkt4_0,$modelKlausur->punkt3_7])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
     }
     public static function KlausurnotePerson5_0($KlausurID) {
         $modelKlausur = Klausur::findOne($KlausurID);
-        return $count = Klausurnote::find()->where(['<','Punkt',$modelKlausur->punkt4_0])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
+        return  Klausurnote::find()->where(['<','Punkt',$modelKlausur->punkt4_0])->andWhere(['KlausurID'=>$modelKlausur->KlausurID])->count();
     }
     
     /*
@@ -230,7 +230,21 @@ class Klausurnote extends \yii\db\ActiveRecord
     /*
      * GEstamte Teilnahmer von Klausur (benutzer/view---klausurnotelisrview)
      */
-    public static function gesatmteLeute($klausurID){
+    public static function gesatmtePerson($klausurID){
         return Klausurnote::find()->where(['KlausurID'=>$klausurID])->count();
+    }
+    
+    /*
+     * Anzahl wer bestanden ist,  (mitarbeiter/view ->_klausurlistview)
+     */
+    public static function AnzahlderBestander($klausurID) {
+        return Klausurnote::gesatmtePerson($klausurID)-Klausurnote::KlausurnotePerson5_0($klausurID);
+    }
+    
+    /*
+     * Anzahl wer nicht bestanden ist, (mitarbeiter/view ->_klausurlistview)
+     */
+    public static function AnzahlderNichtBestander($klausurID) {
+        return Klausurnote::gesatmtePerson($klausurID)-Klausurnote::AnzahlderBestander($klausurID);
     }
 }

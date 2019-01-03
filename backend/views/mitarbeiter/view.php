@@ -15,6 +15,7 @@ use common\models\Klausurnote;
 use common\models\Uebung;
 use common\models\Uebungsgruppe;
 use common\models\UebungsgruppeSuchen;
+use common\models\KlausurSuchen;
 
 /**
  * @var yii\web\View $this
@@ -23,7 +24,7 @@ use common\models\UebungsgruppeSuchen;
 
 // Den ganzen Name von Benutzer in der Titelzeil zeigen
 $this->title = $model->Vorname." ".$model->Nachname;
-$this->params['breadcrumbs'][] = ['label' => 'Benutzers', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Mitarbeiter', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="benutzer-view">
@@ -204,7 +205,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 		  <div class="row">
                 		  		<div class="col-md-12">
                 		  			<h2><?php echo $ubung->Bezeichnung?>
-									&nbsp&nbsp&nbsp&nbsp&nbsp<?php echo Html::a('<i class="fa fa-bar-chart"></i>',['abgabe/echartsabgabe'])?></h2>
+									&nbsp&nbsp&nbsp&nbsp&nbsp<?php echo Html::a('<i class="fa fa-bar-chart"></i>',['uebung/uebungsecharts','uebungsID'=>$ubung->UebungsID])?></h2>
                 		  		</div>
                 		  </div>
                 		  
@@ -260,10 +261,29 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="col-md-12">
     		<div class="panel panel-success">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Klausurnote</h3>
+                    <h3 class="panel-title">Klausur</h3>
                 </div>
                 <div class="panel-body">
-                   		 这是一个基本的面板
+                   	<!-- Klausurliew  -->
+                   	<?php $searchModelKlausur = new KlausurSuchen;
+                   	      $dateProviderKlausur = $searchModelKlausur->searchMitMitarbeiter(Yii::$app->request->getQueryParams(), $model->MarterikelNr);
+		  			?>
+		  			<?php Pjax::begin(); echo ListView::widget([
+        			    'id' => 'benutzerlist',
+		  			    'dataProvider' => $dateProviderKlausur,
+        			    'itemView' => '_klausurlistview',
+        			    'layout' => '{items}<div class="col-lg-12 sum-pager">{summary}{pager}</div>',
+        			    'itemOptions' => [
+        			        'tag' => 'div',
+        			        'class' => 'col-md-2'
+        			    ],
+        			    //'layout' => '{items} {pager}',
+        			    'pager' => [
+        			        'maxButtonCount' => 20,
+        			        'nextPageLabel' => Yii::t('app', 'nächste'),
+        			        'prevPageLabel' => Yii::t('app', 'vorne'),
+        			    ],
+        			]); Pjax::end()?>
                 </div>
             </div>
         </div>

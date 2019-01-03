@@ -124,4 +124,16 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
     {
         return Uebungsblaetter::find()->where(['UebungsID'=>$UebungsID])->count();
     }
+    
+    /*
+     * Übungsgruppe in Array zurück (uebung/uebungsecharts)
+     */
+    public static function AlleUebungsgruppeArray($uebungsID) {
+        $modelUebung = Uebung::findOne($uebungsID);
+        $gruppen = array();
+        foreach ($modelUebung->uebungsgruppes as $gruppe){
+            array_push($gruppen, 'Gruppe'.$gruppe->GruppenNr);
+        }
+        return $gruppen;
+    }
 }

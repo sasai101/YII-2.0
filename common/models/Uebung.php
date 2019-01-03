@@ -129,6 +129,30 @@ class Uebung extends \yii\db\ActiveRecord
     }
     
     /*
+     * Anzahl der zugelassenen Person array(uebung/uebungsecharts)
+     */
+    public static function AnzahlderzugelassenenPersonArray($uebungsID) {
+        $modelUebung = Uebung::findOne($uebungsID);
+        $anzahl = array();
+        foreach ($modelUebung->uebungsgruppes as $uebungsgruppe){
+            array_push($anzahl, Uebung::AnzahlderzugelassenPersonderGruppe($uebungsgruppe->UebungsgruppeID));
+        }
+        return $anzahl;
+    }
+    
+    /*
+     * Anzahl der nicht zugelassenen Person Array(uebung/uebungsecharts)
+     */
+    public static function AnzahldernichtzugelassenenPersonArray($uebungsID) {
+        $modelUebung = Uebung::findOne($uebungsID);
+        $anzahl = array();
+        foreach ($modelUebung->uebungsgruppes as $uebungsgruppe){
+            array_push($anzahl, Uebung::AnzahlAllePersonGruppe($uebungsgruppe->UebungsgruppeID)-Uebung::AnzahlderzugelassenPersonderGruppe($uebungsgruppe->UebungsgruppeID));
+        }
+        return $anzahl;
+    }
+    
+    /*
      * Anzahl der nicht zugelassenen Person(mitarbeiter/view ->_gurppenlistview)
      */
     public static function AnzahldernichtzugelassenenPerson($uebungsID) {
