@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
+use common\models\Klausurnote;
 
 ?>
 
@@ -48,6 +49,12 @@ use yii\widgets\Pjax;
                             				}else{
                             				    echo $model->mitarbeiterMarterikelNr->marterikelNr->Vorname." ".$model->mitarbeiterMarterikelNr->marterikelNr->Nachname;
                             				}?></b>
+        			</div>
+        			<div>
+        				&nbsp Gesamte Teilname: <b><?php echo Klausurnote::gesatmteLeute($model->klausur->KlausurID)?></b>
+        			</div>
+        			<div>
+        				&nbsp Durchschnitt: <b><?php echo number_format(Klausurnote::Klausurdurchschnitt($model->klausur->KlausurID),2)?></b>
         			</div>
                 </div>
             </div>

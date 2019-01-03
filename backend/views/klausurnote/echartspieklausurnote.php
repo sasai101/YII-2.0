@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
               <div class="panel-body">
               <div class="row">
               	<div class="col-md-12">
-              		<?php Pjax::begin();
+              	<?php Pjax::begin();
               		
                         $asset = EchartsAsset::register($this);
                         $chart = new ECharts($asset->baseUrl);
@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         );
                         
                         $chart->tooltip = array(
-                            'trigger' => 'axis',
+                            'trigger' => 'item',
                             'formatter' => "{a} <br/>{b} : {c} ({d}%)"
                         );
                         
@@ -70,7 +70,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'type' => 'pie',
                                 'radius' => '55%',
                                 'data' => array(
-                                    array('value'=>Klausurnote::find()->where(['<','Punkt',$modelKlausurnote->klausur->punkt4_0])->count(), 'name'=>'5.0')
+                                    array('value'=>Klausurnote::KlausurnotePerson1_0($modelKlausurnote->KlausurID), 'name'=>'1.0'),
+                                    array('value'=>Klausurnote::KlausurnotePerson1_3($modelKlausurnote->KlausurID), 'name'=>'1.3'),
+                                    array('value'=>Klausurnote::KlausurnotePerson1_7($modelKlausurnote->KlausurID), 'name'=>'1.7'),
+                                    array('value'=>Klausurnote::KlausurnotePerson2_0($modelKlausurnote->KlausurID), 'name'=>'2.0'),
+                                    array('value'=>Klausurnote::KlausurnotePerson2_3($modelKlausurnote->KlausurID), 'name'=>'2.3'),
+                                    array('value'=>Klausurnote::KlausurnotePerson2_7($modelKlausurnote->KlausurID), 'name'=>'2.7'),
+                                    array('value'=>Klausurnote::KlausurnotePerson3_0($modelKlausurnote->KlausurID), 'name'=>'3.0'),
+                                    array('value'=>Klausurnote::KlausurnotePerson3_3($modelKlausurnote->KlausurID), 'name'=>'3.3'),
+                                    array('value'=>Klausurnote::KlausurnotePerson3_7($modelKlausurnote->KlausurID), 'name'=>'3.7'),
+                                    array('value'=>Klausurnote::KlausurnotePerson4_0($modelKlausurnote->KlausurID), 'name'=>'4.0'),
+                                    array('value'=>Klausurnote::KlausurnotePerson5_0($modelKlausurnote->KlausurID), 'name'=>'5.0'),
                                 ),
                                 'itemStyle' => array(
                                     'emphasis' => array(
