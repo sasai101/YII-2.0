@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Json;
+use common\models\Uebung;
 ?>
 
 
@@ -10,6 +11,7 @@ use yii\helpers\Json;
                 <div class="panel-heading">
                     <h3 class="panel-title">
                     	Übungsgruppe<?php echo $model->GruppenNr?>
+                    	
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -17,11 +19,13 @@ use yii\helpers\Json;
         				<tr>
         					<th>Max. Person</th>
         					<th>Anzahl der Person</th>
+        					<th>Anzahl der Zugelassener</th>
         				</tr>
         				
         				<tr>
         					<td><?php echo $model->Max_Person?></td>
         					<td><?php echo $model->Anzahl_der_Personen?></td>
+        					<th><?php echo Uebung::AnzahlderzugelassenPersonderGruppe($model->UebungsgruppeID)?>
         				</tr>
         			</table>
         			

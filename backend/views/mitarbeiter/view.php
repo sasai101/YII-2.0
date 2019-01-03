@@ -119,12 +119,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 					<th><?php echo $i?></th>
                 					<td><?php echo HtmlPurifier::process(mb_substr($uebung->Bezeichnung, 0, 20).'......')?></td>
                 					<td><?php echo HtmlPurifier::process(mb_substr($uebung->modul->Bezeichnung, 0, 20).'......')?></td>
-                					<td><?php $gesamteLeute = 0;
-                    					foreach ($uebung->uebungsgruppes as $gruppe){
-                    					    $gesamteLeute += $gruppe->Anzahl_der_Personen;
-                    					}
-                    					echo $gesamteLeute;
-                					?></td>
+                					<td><?php echo Uebung::AnzahlAllePersonUebung($uebung->UebungsID)?></td>
                 					<?php $i++?>
                 				</tr>
                 				<?php endforeach;?>
@@ -208,7 +203,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 		  <!-- Übungsbezeichnung -->
                 		  <div class="row">
                 		  		<div class="col-md-12">
-                		  			<h2><?php echo $ubung->Bezeichnung?></h2>
+                		  			<h2><?php echo $ubung->Bezeichnung?>
+									&nbsp&nbsp&nbsp&nbsp&nbsp<?php echo Html::a('<i class="fa fa-bar-chart"></i>',['abgabe/echartsabgabe'])?></h2>
                 		  		</div>
                 		  </div>
                 		  
@@ -217,14 +213,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 		  		<div class="col-md-12">
                 		  			<h5>Gruppenanzahl  <b><?php echo Uebungsgruppe::find()->where(['UebungsID'=>$ubung->UebungsID])->count();?></b></h5>
                 		  			<h5>Zulassungsgrenze : <b><?php echo $ubung->Zulassungsgrenze?>%</b></h5>
-                		  			<h5>Teilnahmeranzahl <b><?php $teilnahmer = 0;
-                		  			foreach ($ubung->uebungsgruppes as $gruppe){
-                		  			    $teilnahmer += $gruppe->Anzahl_der_Personen;
-                		  			}
-                		  			echo $teilnahmer;
-                		  			?></b></h5>
-                		  			<h5>Anzahl der zugelassene Person: <b><?php echo BenutzerAnmeldenKlausur::find()->where(['KlausurID'=>$Klausur->KlausurID])->count()?></b></h5>
-                		  			<h5>Nicht zugelassen: <b><?php echo $teilnahmer - BenutzerAnmeldenKlausur::find()->where(['KlausurID'=>$Klausur->KlausurID])->count()?></b></h5>
+                		  			<h5>Teilnahmeranzahl <b><?php echo Uebung::AnzahlAllePersonUebung($ubung->UebungsID)?></b></h5>
+                		  			<h5>Anzahl der zugelassene Person: <b><?php echo Uebung::AnzahlderzugelassenenPerson($ubung->UebungsID)?></b></h5>
+                		  			<h5>Nicht zugelassen: <b><?php echo Uebung::AnzahldernichtzugelassenenPerson($ubung->UebungsID)?></b></h5>
                 		  			
                 		  		</div>
                 		  </div>

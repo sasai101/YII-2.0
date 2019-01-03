@@ -58,6 +58,14 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
             'Max_Person' => 'Max  Person',
         ];
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAbgabes()
+    {
+        return $this->hasMany(Abgabe::className(), ['UebungsgruppenID' => 'uebungsgruppeid']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery

@@ -11,6 +11,7 @@ use common\models\AbgabeSuchen;
 use common\models\Klausurnote;
 use common\models\KlausurSuchen;
 use common\models\KlausurnoteSuchen;
+use common\models\Uebung;
 /**
  * @var yii\web\View $this
  * @var common\models\Benutzer $model
@@ -186,23 +187,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 		  			<h5>Übungsleiter:  <b><?php echo $ubung->uebungsgruppe->uebungs->mitarbeiterMarterikelNr->marterikelNr->Vorname." ".$ubung->uebungsgruppe->uebungs->mitarbeiterMarterikelNr->marterikelNr->Nachname?></b></h5>
                 		  			<h5>Übungsgruppe: <b><?php echo $ubung->uebungsgruppe->GruppenNr?></b></h5>
                 		  			<h5>Tutor:  <b><?php echo $ubung->uebungsgruppe->tutorMarterikelNr->marterikelNr->Vorname." ".$ubung->uebungsgruppe->tutorMarterikelNr->marterikelNr->Nachname?></b></h5>
-                		  			<?php $alleUebungsblaetter = Abgabe::find()->where(['UebungsgruppenID'=>$ubung->uebungsgruppe->UebungsgruppeID, 'Benutzer_MarterikelNr'=>$model->MarterikelNr])->all()?>
-                		  			<?php $gesamtePunkte=0;
-                		  			      $ursprunglichPunk=0;
-                		  			      $zulassung = 0;
-                		  			      foreach ($alleUebungsblaetter as $abgabe) {
-                		  			          $gesamtePunkte += $abgabe->GesamtePunkt;
-                		  			          $ursprunglichPunk += $abgabe->uebungsblaetter->GesamtePunkte;
-                		  			          $zulassung = $abgabe->uebungsblaetter->uebungs->Zulassungsgrenze / 100;
-                		  			      }
-                		  			?>
-                		  			<h5>Gesamte Punkte: <b><?php echo "( ". $gesamtePunkte."/". $ursprunglichPunk." )"?></b></h5>
-                		  			<h5>Zulassungsgrenze: <b><?php echo $ursprunglichPunk*$zulassung?> Punkte von allen</b></h5>
-                		  			<h5><b><?php if($gesamtePunkte >= $ursprunglichPunk*$zulassung){
+                		  			
+                		  			<h5>Gesamte Punkte: <b><?php echo "( ". Uebung::GesamtePunktederPerson($ubung->uebungsgruppe->UebungsgruppeID, $model->MarterikelNr)."/". Uebung::vollePunktderUebung($ubung->uebungsgruppe->UebungsID)." )"?></b></h5>
+                		  			<h5>Zulassungsgrenze: <b><?php echo Uebung::zulassungsGrenze($ubung->uebungsgruppe->UebungsID)?> Punkte von allen</b></h5>
+                		  			<h5><b><?php if(Uebung::GesamtePunktederPerson($ubung->uebungsgruppe->UebungsgruppeID, $model->MarterikelNr) >= Uebung::zulassungsGrenze($ubung->uebungsgruppe->UebungsID)){
                 		  			             echo "Zugelassen";
-                		  			}else{
-                		  			     echo "Nicht zugelassen";
-                		  			}?></b></h5>
+                        		  			}else{
+                        		  			     echo "Nicht zugelassen";
+                        		  			}?></b></h5>
                 		  		</div>
                 		  		
                 		  </div>

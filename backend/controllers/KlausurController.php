@@ -14,7 +14,7 @@ use common\models\Klausurnote;
 /**
  * KlausurController implements the CRUD actions for Klausur model.
  */
-class KlausurController extends Controller
+class KlausurController extends Controller 
 {
     public function behaviors()
     {

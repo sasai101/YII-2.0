@@ -29,7 +29,7 @@ class BenutzerAnmeldenKlausurController extends Controller
     }
 
     /**
-     * Lists all BenutzerAnmeldenKlausur models.
+     * Lists all BenutzerAnmeldenKlausur models. 
      * @return mixed
      */
     public function actionIndex($id)
@@ -76,7 +76,7 @@ class BenutzerAnmeldenKlausurController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'Benutzer_MarterikelNr' => $model->Benutzer_MarterikelNr, 'KlausurID' => $model->KlausurID]);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }

@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\VarDumper;
 
 /**
  * This is the model class for table "benutzer_anmelden_klausur".
@@ -77,60 +78,23 @@ class BenutzerAnmeldenKlausur extends \yii\db\ActiveRecord
         //alle Übungen
         foreach ($modelKlausur->modul->uebungs as $uebung){
             
-            //alle entsprechenden Übungsgruppe der jeweiligen Übung
-            $modelUebungsgruppe = Uebungsgruppe::find()->where(['UebungsID'=>$uebung->UebungsID])->all();
-            //Zulassungsgrenze
-            $zulassung = $uebung->Zulassungsgrenze/100;
-            $vollePunkt = 0;
+            $allePersonUebung = Uebung::AllerPersonUebung($uebung->UebungsID);
             
-            foreach ($uebung->uebungsblaetters as $punkte){
-                $vollePunkt += $punkte->GesamtePunkte;
-            }
-            
-            
-            foreach ($modelUebungsgruppe as $gruppe){
-                
-                //Uebungsgruppe ID
-                $uebungsgruppeID = $gruppe->UebungsgruppeID;
-                
-                foreach ($gruppe->benuterMarterikelNrs as $benutzer){
-                    
-                    // alle abgabe von einzel Benutzer von bestimmten Uebungsgruppe
-                    $modelAbgabe = Abgabe::find()->where(['Benutzer_MarterikelNr'=>$benutzer, 'UebungsgruppenID'=>$uebungsgruppeID])->all();
-                    $gesamtePunkte = 0;
-                    foreach ($modelAbgabe as $einzelabgabe){
-                        
-                        $gesamtePunkte += $einzelabgabe->GesamtePunkt;
-                        
-//                         echo "<pre>";
-//                         print_r($einzelabgabe->Benutzer_MarterikelNr);
-//                         echo "ok";
-//                         print_r($einzelabgabe->GesamtePunkt);
-//                         echo "</pre>";
-                        
+            foreach ($allePersonUebung as $person){
+                $alleZugelassenePerson = Uebung::ZugelassenenPersonUebung($uebung->UebungsID);
+                if (in_array($person, $alleZugelassenePerson)) {
+                    $model = new BenutzerAnmeldenKlausur;
+                    $model->Benutzer_MarterikelNr=$person;
+                    $model->KlausurID = $id;
+                    $model->Anmeldungszeit = time();
+                    $model->save();
+                }else{
+                    $model = BenutzerAnmeldenKlausur::findOne($person,$id);
+                    if ($model != null) {
+                        $model->delete();
                     }
-                    //print_r($gesamtePunkte);
-                    //print_r($zulassung);
-                    //print_r($vollePunkt);
-                    //if($gesamtePunkte*)
-                    if($gesamtePunkte >= $zulassung*$vollePunkt){
-                        
-                        $model = new BenutzerAnmeldenKlausur;
-                        $model->Benutzer_MarterikelNr = $benutzer->MarterikelNr;
-                        $model->KlausurID = $id;
-                        $model->Anmeldungszeit = time();
-                        $model->save();
-                    }else{
-                        $model = BenutzerAnmeldenKlausur::findOne($benutzer->MarterikelNr,$id);
-                        if ($model != null) {
-                            $model->delete();
-                        }else{
-                            return; 
-                        }
-                    }
-                }
-            }      
+                } 
+            }    
         }
-    }  
-    
+    }    
 }
