@@ -56,9 +56,28 @@ $this->params['breadcrumbs'][] = $this->title;
                             'formatter' => "{a} <br/>{b} : {c} ({d}%)"
                         );
                         
+                        $chart->toolbox = array(
+                            'show'=>true,
+                            'feature'=> array(
+                                'mark' => array(
+                                    'show'=>true,
+                                ),
+                                'dataView'=>array(
+                                    'show'=>true,
+                                    'readOnly'=>false,
+                                ),
+                                'restore'=>array(
+                                    'show'=>true,
+                                ),
+                                'saveAslmage'=>array(
+                                    'show'=>true,
+                                ),
+                            ),
+                        );
+                        
                         $chart->legend = array(
                             'orient' => 'vertical',
-                            'right' => 'right',
+                            'left' => 'left',
                             'data' => array(
                             '1.0','1.3','1.7','2.0','2.3','2.7','3.0','3.3','3.7','4.0','5.0'
                             ) 
@@ -68,7 +87,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             array(
                                 'name' => 'Punkte',
                                 'type' => 'pie',
-                                'radius' => '55%',
+                                'radius' => '80%',
+                                
+                                'center' => array('50%', '55%'),
                                 'data' => array(
                                     array('value'=>Klausurnote::KlausurnotePerson1_0($modelKlausurnote->KlausurID), 'name'=>'1.0'),
                                     array('value'=>Klausurnote::KlausurnotePerson1_3($modelKlausurnote->KlausurID), 'name'=>'1.3'),
