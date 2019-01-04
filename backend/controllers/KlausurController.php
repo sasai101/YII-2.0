@@ -153,4 +153,14 @@ class KlausurController extends Controller
             'searchModel' => $searchModel,
         ]);
     }
+    
+    /*
+     * echarts Klausur, mitarbeiter/view->_klausurlistview
+     */
+    public function actionEchartsbarklausur($id) {
+        $model = $this->findModel($id);
+        return $this->render('echartsbarklausur',[
+            'model' => $model
+        ]);
+    }
 }

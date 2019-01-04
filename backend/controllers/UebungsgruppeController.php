@@ -112,16 +112,17 @@ class UebungsgruppeController extends Controller
         ]);
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    /*
+     *  Echart Action von Gruppe (mitarbeiter/view ->gruppenlistview)
+     */
+    public function actionUebungsgruppebarecharts($uebungsgruppeID) {
+        
+         $model = Uebungsgruppe::findOne($uebungsgruppeID);
+         
+         return $this->render('uebungsgruppebarecharts',[
+             'model'=>$model,
+         ]);
+    }
     
     
 }

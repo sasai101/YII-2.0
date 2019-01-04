@@ -141,7 +141,7 @@ class Uebung extends \yii\db\ActiveRecord
     }
     
     /*
-     * Anzahl der nicht zugelassenen Person Array(uebung/uebungsecharts)
+     * zugelassenen Person Array(uebung/uebungsecharts)
      */
     public static function AnzahldernichtzugelassenenPersonArray($uebungsID) {
         $modelUebung = Uebung::findOne($uebungsID);
@@ -160,7 +160,7 @@ class Uebung extends \yii\db\ActiveRecord
     }
     
     /*
-     * Anzahl der zugelassenen Person der jeweiligen Gruppe (mitarbeiter/view ->_gurppenlistview)
+     * zugelassenen Person der jeweiligen Gruppe (mitarbeiter/view ->_gurppenlistview)
      */
     public static function AnzahlderzugelassenPersonderGruppe($uebungsgruppeID) {
         $anzahl = 0;
@@ -241,7 +241,7 @@ class Uebung extends \yii\db\ActiveRecord
     }
     
     /*
-     *  Alle zugelassenen Person in array bei bestimmten Gruppe
+     *  Alle zugelassenen Person in Array bei bestimmten Gruppe
      */
     public static function ZugelassenePersonGruppe($uebungsgruppeID) {
         $allePerson=array();
@@ -297,5 +297,16 @@ class Uebung extends \yii\db\ActiveRecord
         
     }
     
+    /*
+     * gesamte Punkte von jeweiligem Student von bestimmten Gruppe IN Array (ueubngsgruppe/uebungsgrupppebarecharts)
+     */
+    public static function GesamtePunkteDerPersonInArray($uebungsgruppeID) {
+        $PunkteArray = array();
+        foreach (Uebung::AllerPersonGruppe($uebungsgruppeID) as $person){
+            $Punkte = Uebung::GesamtePunktederPerson($uebungsgruppeID, $person);
+            array_push($PunkteArray, $Punkte);
+        }
+        return $PunkteArray;
+    }
 }
 

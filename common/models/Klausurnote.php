@@ -247,4 +247,18 @@ class Klausurnote extends \yii\db\ActiveRecord
     public static function AnzahlderNichtBestander($klausurID) {
         return Klausurnote::gesatmtePerson($klausurID)-Klausurnote::AnzahlderBestander($klausurID);
     }
+    
+    /*
+     *  Alle Note als Array zuruck, Klausur/echarsbarklausur
+     */
+    public static function NoteInArray() {
+        return array('1.0', '1.3', '1.7', '2.0', '2.3', '2.7', '3.0', '3.3', '3.7', '4.0', '5.0');
+    }
+    
+    /*
+     *  Anzahl der Person für jeweiligen Note, Klausur/echarsbarklausur
+     */
+    public static function AnzahlDerPersonMitNotInArray($KlausurID) {
+        return array(Klausurnote::KlausurnotePerson1_0($KlausurID), Klausurnote::KlausurnotePerson1_3($KlausurID),Klausurnote::KlausurnotePerson1_7($KlausurID), Klausurnote::KlausurnotePerson2_0($KlausurID),Klausurnote::KlausurnotePerson2_3($KlausurID), Klausurnote::KlausurnotePerson2_7($KlausurID),Klausurnote::KlausurnotePerson3_0($KlausurID),Klausurnote::KlausurnotePerson3_3($KlausurID),Klausurnote::KlausurnotePerson3_7($KlausurID),Klausurnote::KlausurnotePerson4_0($KlausurID),Klausurnote::KlausurnotePerson5_0($KlausurID));
+    }
 }

@@ -12,11 +12,11 @@ use common\models\Klausurnote;
 			<div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                    	<?php echo $model->Bezeichnung?>
+                    	<?php echo $model->Bezeichnung?>:</br> 
                     	<?php echo $model->modul->Bezeichnung?>
                     </h3>
                     <h3>
-                    	<?php echo Html::a('<i class="fa fa-pie-chart"></i>',['klausurnote/echartspieklausurnote'])?>
+                    	<?php echo Html::a('<i class="fa fa-bar-chart"></i>',['klausur/echartsbarklausur','id'=>$model->KlausurID])?>
                     </h3>
                 </div>
                 <div class="panel-body">
