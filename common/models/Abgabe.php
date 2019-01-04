@@ -190,4 +190,66 @@ class Abgabe extends \yii\db\ActiveRecord
     
         return $dataProvider->models;
     }   
+    
+    /*
+     *  Einzelaufgabenpunkte als Array zuruck für eine Abgabe(benutzer/view -> _notelistview)
+     */
+    public static function einzelAufgabenoteInArray($abgabeID) {
+        $modelAbgabe = Abgabe::findOne($abgabeID);
+        $note = array();
+        foreach ($modelAbgabe->einzelaufgabes as $einzeln){
+            array_push($note, $einzeln->Punkte);
+        }
+        return $note;
+    }
+    
+    /*
+     *  EinzelaufgabeNr als Array zurück für eine Abgabe(benutzer/view -> _notelistview)
+     */
+    public static function einzelAufgabeNrInArray($abgabeID) {
+        $modelAbgabe = Abgabe::findOne($abgabeID);
+        $aufgabe = array();
+        foreach ($modelAbgabe->einzelaufgabes as $einzeln){
+            array_push($aufgabe, "Aufgabe ".$einzeln->AufgabeNr);
+        }
+        return $aufgabe;
+    }
+    
+    /*
+     * Nichte bekommte Punkte (runter)
+     */
+    public static function nichtbekommtPunkt($abgabeID) {
+        $model = Abgabe::findOne($abgabeID);
+        $vollpunkte = $model->uebungsblaetter->GesamtePunkte;
+        $gesamtepunkte = 0;
+        foreach (Abgabe::einzelAufgabenoteInArray($abgabeID) as $note){
+            $gesamtepunkte += $note;
+        }
+        return array("value"=>$vollpunkte-$gesamtepunkte, "name"=>"Falsche ");
+    }
+    
+    /*
+     *  als Echartspie Form zuruck (benutzer/view -> _notelistview)
+     */  
+    public static function ArrayEchertsPieForm($abgabeID) {
+        
+        $note = Abgabe::einzelAufgabenoteInArray($abgabeID);
+        $aufgabe = Abgabe::einzelAufgabeNrInArray($abgabeID);
+        
+        $arrayEchart = array();
+        
+        foreach ($note as $key1=>$einzel1){
+            foreach ($aufgabe as $key2=>$einzel2){
+                if($key1==$key2){
+                    $array=array("value"=>$einzel1, "name"=>$einzel2);
+                    array_push($arrayEchart, $array);
+                }
+            }
+        }
+        //nichte bekommte Punkte
+        array_push($arrayEchart, Abgabe::nichtbekommtPunkt($abgabeID));
+        
+        return $arrayEchart;
+    }
+    
 }

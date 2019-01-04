@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
-use yii\helpers\Json;
+use backend\assets\EchartsAsset;
+use Hisune\EchartsPHP\ECharts;
 use common\models\Uebung;
 use yii\widgets\Pjax;
 ?>
@@ -18,19 +19,74 @@ use yii\widgets\Pjax;
                     </h3>
                 </div>
                 <div class="panel-body">
-					<table class="table table-condensed" >
-        				<tr>
-        					<th>Max. Person</th>
-        					<th>Anzahl der Person</th>
-        					<th>Anzahl der Zugelassener</th>
-        				</tr>
-        				
-        				<tr>
-        					<td><?php echo $model->Max_Person?></td>
-        					<td><?php echo $model->Anzahl_der_Personen?></td>
-        					<th><?php echo Uebung::AnzahlderzugelassenPersonderGruppe($model->UebungsgruppeID)?>
-        				</tr>
-        			</table>
+                	<div class="row">
+                      	<div class="col-md-12">
+                      	<?php Pjax::begin();
+                      		
+                                $asset = EchartsAsset::register($this);
+                                $chart = new ECharts($asset->baseUrl);
+                                
+                                $chart->title = array(
+                                    'text' => 'Gruppestatus',
+                                    'subtext' => 'Proportionalität',
+                                    'x' => 'left'
+                                );
+                                
+                                $chart->tooltip = array(
+                                    'trigger' => 'item',
+                                    'formatter' => "{a} <br/>{b} : {c} ({d}%)"
+                                );
+                                
+                                $chart->toolbox = array(
+                                    'show'=>true,
+                                    'feature'=> array(
+                                        'mark' => array(
+                                            'show'=>true,
+                                        ),
+                                        'dataView'=>array(
+                                            'show'=>true,
+                                            'readOnly'=>false,
+                                        ),
+                                        'restore'=>array(
+                                            'show'=>true,
+                                        ),
+                                        'saveAslmage'=>array(
+                                            'show'=>true,
+                                        ),
+                                    ),
+                                );
+                                
+                                $chart->series = array(
+                                    array(
+                                        'name' => 'Anzahl',
+                                        'type' => 'pie',
+                                        'radius' => '50%',
+                                        
+                                        'center' => array('50%', '55%'),
+                                        //alle note mit AufgabeNr
+                                        'data' => array(
+                                            array('value'=>$model->Anzahl_der_Personen,'name'=>'Besitzt'),
+                                            array('value'=>$model->Max_Person-$model->Anzahl_der_Personen,'name'=>'Frei'),
+                                        ),
+                                        
+                                        'itemStyle' => array(
+                                            'emphasis' => array(
+                                                'shadowBlur'=>'50', 
+                                            )
+                                        ),
+                                            
+                                    )
+                                );
+                                $echartsID = "simple-custom-".$model->UebungsgruppeID;
+                                echo $chart->render($echartsID);
+                                Pjax::end()?>
+                      	</div>
+              		</div>
+                
+                    <!-- Anzahl der Zugelassener -->
+        			<div>
+        			    &nbsp Zugelassen: ( <b><?php echo Uebung::AnzahlderzugelassenPersonderGruppe($model->UebungsgruppeID)."/".$model->Anzahl_der_Personen?> )</b>
+        			</div>
         			
         			<!-- Korrektor -->
         			<div>

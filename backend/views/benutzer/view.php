@@ -172,6 +172,7 @@ $this->params['breadcrumbs'][] = $this->title;
                   	  <div class="uebung">
                 		  <?php $modelubung = BenutzerTeilnimmtUebungsgruppe::find()->where(['Benuter_MarterikelNr'=>$model->MarterikelNr])->all();?>
                 		  <?php foreach ($modelubung as $ubung):?>
+                		  
                 		  <!-- Übungsbezeichnung -->
                 		  <div class="row">
                 		  		<div class="col-md-12">
@@ -215,7 +216,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             			    'layout' => '{items}<div class="col-lg-12 sum-pager">{summary}{pager}</div>',
                             			    'itemOptions' => [
                             			        'tag' => 'div',
-                            			        'class' => 'col-md-2'
+                            			        'class' => 'col-md-3',
                             			    ],
                             			    //'layout' => '{items} {pager}',
                             			    'pager' => [

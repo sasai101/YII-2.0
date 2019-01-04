@@ -2,10 +2,6 @@
 use backend\assets\EchartsAsset;
 use Hisune\EchartsPHP\ECharts;
 use yii\widgets\Pjax;
-use FailDependenciesPrimitiveParam\AnotherClass;
-use common\models\Uebungsgruppe;
-use common\models\Uebung;
-use common\models\Klausur;
 use common\models\Klausurnote;
 
 
