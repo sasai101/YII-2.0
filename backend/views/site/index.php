@@ -1,79 +1,165 @@
 <?php
-use yii\helpers\Json;
+use backend\assets\EchartsAsset;
+use Hisune\EchartsPHP\ECharts;
+use yii\widgets\Pjax;
+use common\models\AnzahlDesBenutzers;
+use common\models\Mitarbeiter;
+use common\models\Professor;
+use common\models\Tutor;
+use common\models\Korrektor;
+use common\models\Benutzer;
+
 ?>
-
-<script src="../../vendor/bower-asset/echarts/dist/echarts-en.min.js"></script>
-<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<div id="main" style="width: 600px;height:400px;"></div>
-<script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main'));
-
-        // 指定图表的配置项和数据
-        var option = {
-        	    title : {
-        	        text: 'Benutzer Anzahl',
-        	    },
-        	    tooltip : {
-        	    },
-        	    legend: {
-        	        data:['最高气温','最低气温']
-        	    },
-        	    toolbox: {
-        	        show : true,
-        	        feature : {
-        	            mark : {show: true},
-        	            dataView : {show: true, readOnly: false},
-        	            magicType : {show: true, type: ['line', 'bar']},
-        	            restore : {show: true},
-        	            saveAsImage : {show: true}
-        	        }
-        	    },
-        	    calculable : true,
-        	    xAxis : [
-        	        {
-        	            type : 'category',
-        	            boundaryGap : false,
-        	            data : ['周一','周二','周三','周四','周五','周六','周日']
-        	        }
-        	    ],
-        	    yAxis : [
-        	        {
-        	            type : 'value',
-        	            axisLabel : {
-        	                formatter: '{value} °C'
-        	            }
-        	        }
-        	    ],
-        	    series : [
-        	        {
-        	            name:'最高气温',
-        	            type:'line',
-        	            data:[11, 11, 15, 13, 12, 13, 10],
-        	            markPoint : {
-        	                data : [
-        	                    {type : 'max', name: '最大值'},
-        	                    {type : 'min', name: '最小值'}
-        	                ]
-        	            },
-        	            markLine : {
-        	                data : [
-        	                    {type : 'average', name: '平均值'}
-        	                ]
-        	            }
-        	        },
-        	    ]
-        	};
-
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-</script>
-<?php 
-$row = (new \yii\db\Query())
-->select(['id','Datum','Anzahlen'])
-->from('anzahl_des_benutzers')
-->all();
-
-$ret = array_values($row);
-echo JSON::encode($ret);
-?>
+<div>
+	<div></br></br></br></br></div>
+    <div class="row">
+    	<div class="col-md-12">
+			<div class="col-md-6">
+				<div class="panel panel-success">
+                  <div class="panel-heading">Alle Benutzer</div>
+                  <div class="panel-body">
+                  	<div class="row">
+                      	<div class="col-md-12">
+                      		<?php Pjax::begin();
+                      		
+                                $asset = EchartsAsset::register($this);
+                                $chart = new ECharts($asset->baseUrl);
+                                
+                                $chart->title = array(
+                                    'text' => 'Übungsnote',
+                                    'subtext' => 'für jeden Blatt',
+                                );
+                                
+                                $chart->tooltip = array(
+                                    'trigger' => 'axis',
+                                );
+                                
+                                $chart->legend->data = array(
+                                    'Anzahl'
+                                );
+                                
+                                $chart->xAxis = array(
+                                    array(
+                                        'type' => 'category',
+                                        'boundaryGap' => false,
+                                        'data' => AnzahlDesBenutzers::ZeitInArray(),
+                                    )
+                                );
+                                $chart->yAxis = array(
+                                    array(
+                                        'type' => 'value'
+                                    )
+                                );
+                                $chart->series = array(
+                                    array(
+                                        'name' => 'Anzahl des Benutzers',
+                                        'type' => 'line',
+                                        'stack' => 'Gsamte',
+                                        'areaStyle' => array(),
+                                        'data' => AnzahlDesBenutzers::AnzahlInArray(),   
+                                    )
+                                );
+                                echo $chart->render('simple-custom-1');
+                                Pjax::end()?>
+                      	 </div>
+                      </div>
+				  </div>
+                </div>
+			</div>
+			
+			<div class="col-md-6">
+				<div class="panel panel-info">
+                  <div class="panel-heading">Anteil der Benutzer</div>
+                  <div class="panel-body">
+                  	<div class="row">
+                      	<div class="col-md-12">
+                      	<?php Pjax::begin();
+                      		
+                                $asset = EchartsAsset::register($this);
+                                $chart = new ECharts($asset->baseUrl);
+                                
+                                $chart->title = array(
+                                    'text' => 'Klausurnote',
+                                    'subtext' => 'Proportionalität',
+                                    'x' => 'center'
+                                );
+                                
+                                $chart->tooltip = array(
+                                    'trigger' => 'item',
+                                    'formatter' => "{a} <br/>{b} : {c} ({d}%)"
+                                );
+                                
+                                $chart->toolbox = array(
+                                    'show'=>true,
+                                    'feature'=> array(
+                                        'mark' => array(
+                                            'show'=>true,
+                                        ),
+                                        'dataView'=>array(
+                                            'show'=>true,
+                                            'readOnly'=>false,
+                                        ),
+                                        'restore'=>array(
+                                            'show'=>true,
+                                        ),
+                                        'saveAslmage'=>array(
+                                            'show'=>true,
+                                        ),
+                                    ),
+                                );
+                                
+                                $chart->legend = array(
+                                    'orient' => 'vertical',
+                                    'left' => 'left',
+                                    'data' => array(
+                                    'Mitarbeiter','Professor','Tutor','Korrektur','Normale Benutzer'
+                                    ) 
+                                );
+                                
+                                $chart->series = array(
+                                    array(
+                                        'name' => 'Punkte',
+                                        'type' => 'pie',
+                                        'radius' => '80%',
+                                        
+                                        'center' => array('50%', '57%'),
+                                        'data' => array(
+                                            array('value'=>Mitarbeiter::find()->count(), 'name'=>'Mitarbeiter'),
+                                            array('value'=>Professor::find()->count(), 'name'=>'Professor'),
+                                            array('value'=>Tutor::find()->count(), 'name'=>'Tutor'),
+                                            array('value'=>Korrektor::find()->count(), 'name'=>'Korrektur'),
+                                            array('value'=>Benutzer::AnzahlderNormalBenuter(),'name'=>'Normale Benutzer'),
+                                         ),
+                                        'itemStyle' => array(
+                                            'emphasis' => array(
+                                                'shadowBlur'=>'50', 
+                                            )
+                                        ),
+                                            
+                                    )
+                                );
+                                echo $chart->render('simple-custom-2');
+                                Pjax::end()?>
+                      	</div>
+                      </div>
+                  </div>
+                </div>
+			</div>
+		</div>
+    	<div class="col-md-12">
+			<div class="col-md-6">
+				<div class="panel panel-warning">
+                  <div class="panel-heading">Panel with panel-warning class</div>
+                  <div class="panel-body">Panel Content</div>
+                </div>
+			</div>
+			
+			<div class="col-md-6">
+				<div class="panel panel-danger">
+                  <div class="panel-heading">Panel with panel-danger class</div>
+                  <div class="panel-body">Panel Content</div>
+                </div>
+			</div>
+		</div>
+    </div>
+</div>

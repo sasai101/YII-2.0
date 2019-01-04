@@ -337,4 +337,62 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
             return false;
         }
     } 
+    
+    /*
+     * Anzahl der normale Benutzer
+     */
+    public static function AnzahlderNormalBenuter(){
+        $model = Benutzer::find()->all();
+        $anzahl = 0;
+        $flag = true;
+        
+        foreach ($model as $benutzer){
+            
+            $modelMirarbeiter = Mitarbeiter::find()->all();
+            if ($flag==true) {
+                foreach ($modelMirarbeiter as $mitarbeiter){
+                    if($benutzer->MarterikelNr==$mitarbeiter->MarterikelNr){
+                        $flag = false;
+                        break;
+                    }
+                }
+            }
+            
+            if ($flag==true) {
+                $modelProfessor = Professor::find()->all();
+                foreach ($modelProfessor as $professor){
+                    if($benutzer->MarterikelNr==$professor->MarterikelNr){
+                        $flag = false;
+                        break;
+                    }
+                }
+            }
+            
+            if ($flag==true) {
+                $modelTutor = Tutor::find()->all();
+                foreach ($modelTutor as $tutor){
+                    if($benutzer->MarterikelNr==$tutor->MarterikelNr){
+                        $flag = false;
+                        break;
+                    }
+                }
+            }
+            
+            if ($flag==true) {
+                $modelKorrektor = Korrektor::find()->all();
+                foreach ($modelKorrektor as $korrektor){
+                    if($benutzer->MarterikelNr==$korrektor->MarterikelNr){
+                        $flag = false;
+                        break;
+                    }
+                }
+            }
+            if ($flag==true) {
+                $anzahl += 1;
+            }
+            $flag=true;
+        }
+        return $anzahl;
+    }
+    
 }

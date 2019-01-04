@@ -8,8 +8,8 @@ use Yii;
  * This is the model class for table "anzahl_des_benutzers".
  *
  * @property int $id
- * @property string $Datum
- * @property string $Anzahlen
+ * @property int $Datum
+ * @property int $Anzahlen
  */
 class AnzahlDesBenutzers extends \yii\db\ActiveRecord
 {
@@ -27,8 +27,7 @@ class AnzahlDesBenutzers extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Datum', 'Anzahlen'], 'required'],
-            [['Datum', 'Anzahlen'], 'string', 'max' => 255],
+            [['Datum', 'Anzahlen','Anzahlen'], 'required'],
         ];
     }
 
@@ -42,5 +41,29 @@ class AnzahlDesBenutzers extends \yii\db\ActiveRecord
             'Datum' => 'Datum',
             'Anzahlen' => 'Anzahlen',
         ];
+    }
+    
+    /*
+     * Echart für Hauptseite index Datum
+     */
+    public static function ZeitInArray() {
+        $model = AnzahlDesBenutzers::find()->all();
+        $arrayDatum = array();
+        foreach ($model as $datum){
+            array_push($arrayDatum, date("d.m.y",$datum->Datum));
+        }
+        return $arrayDatum;
+    }
+    
+    /*
+     * Echart für Hauptseite index
+     */
+    public static function AnzahlInArray() {
+        $model = AnzahlDesBenutzers::find()->all();
+        $arrayAnzahl = array();
+        foreach ($model as $anzahl){
+            array_push($arrayAnzahl, $anzahl->Anzahlen);
+        }
+        return $arrayAnzahl;
     }
 }
