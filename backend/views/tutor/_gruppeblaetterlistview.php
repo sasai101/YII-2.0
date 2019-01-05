@@ -27,7 +27,7 @@ use common\models\Abgabe;
                                 $chart = new ECharts($asset->baseUrl);
                                 
                                 $chart->title = array(
-                                    'text' => 'Gruppestatus',
+                                    'text' => 'Abgabestatus',
                                     'subtext' => 'Proportionalität',
                                     'x' => 'left'
                                 );
@@ -65,8 +65,8 @@ use common\models\Abgabe;
                                         'center' => array('50%', '55%'),
                                         //alle note mit AufgabeNr
                                         'data' => array(
-                                            array('value'=>Abgabe::AnzahlWerNichtAbgeben($model->UebungsblatterID, $ubungsgruppe->UebungsgruppeID), 'name'=>'Anzahl der Nicht Abgabe'),
-                                            array('value'=>Abgabe::AnzahlWerAbgeben($model->UebungsblatterID, $ubungsgruppe->UebungsgruppeID), 'name'=>'Anzahl der Abgabe'),
+                                            array('value'=>Abgabe::AnzahlWerNichtAbgeben($model->UebungsblatterID, $ubungsgruppe->UebungsgruppeID), 'name'=>'Nicht abgegaben'),
+                                            array('value'=>Abgabe::AnzahlWerAbgeben($model->UebungsblatterID, $ubungsgruppe->UebungsgruppeID), 'name'=>'abgegaben'),
                                         ),
                                         
                                         'itemStyle' => array(
