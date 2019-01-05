@@ -252,4 +252,33 @@ class Abgabe extends \yii\db\ActiveRecord
         return $arrayEchart;
     }
     
+    /*
+     * Anzahl, wer die Abgabe nicht abgegeben haben, Tutor/view ->_gruppeblaetterlistview
+     */
+    public static function AnzahlWerNichtAbgeben($uebungsblaetterID, $uebungsgruppeID) {
+        $modelUebungsblatt = Uebungsblaetter::findOne($uebungsblaetterID);
+        $modelAbgabe = Abgabe::find()->where(['UebungsblaetterID'=>$uebungsblaetterID, 'UebungsgruppenID'=>$uebungsgruppeID])->all();
+        $anzahl = 0;
+        $leeraufgabe = 0;
+        foreach ($modelAbgabe as $abgabe){
+            foreach ($abgabe->einzelaufgabes as $einzel){
+                if($einzel->Text==NULL && $einzel->Datein==NULL){
+                    $leeraufgabe += 1;
+                }
+            }
+            if($leeraufgabe != $modelUebungsblatt->Anzahl_der_Aufgabe){
+                $anzahl += 1;
+            }
+            $leeraufgabe = 0;
+        }
+        return $anzahl;
+    }
+    
+    /*
+     *  Anzahl, wer die Abgabe abgegeben haben, Tutor/view ->_gruppeblaetterlistview
+     */
+    public static function AnzahlWerAbgeben($uebungsblaetterID, $uebungsgruppeID) {
+        $AlleAbgabe = Abgabe::find()->where(['UebungsblaetterID'=>$uebungsblaetterID, 'UebungsgruppenID'=>$uebungsgruppeID])->count();
+        return $AlleAbgabe-Abgabe::AnzahlWerNichtAbgeben($uebungsblaetterID, $uebungsgruppeID);
+    }
 }

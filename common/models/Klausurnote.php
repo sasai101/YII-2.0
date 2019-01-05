@@ -224,7 +224,11 @@ class Klausurnote extends \yii\db\ActiveRecord
             $gesamte += $note->Note;
             $i++;
         }
-        return $gesamte/$i;
+        if($i==0){
+            return 0;
+        }else{
+            return $gesamte/$i;
+        }
     }
     
     /*

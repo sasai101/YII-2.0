@@ -109,4 +109,22 @@ class UebungsblaetterSuchen extends Uebungsblaetter
         return $dataProvider;
     }
     
+    /*
+     * Such die Übungsblätter für passende Übungen mit ÜbungsID  (Tutor/view) für Listview
+     */
+    public function searchalleBlaertter($params, $uebungsID)
+    {
+        $query = Uebungsblaetter::find()->where(['UebungsID'=>$uebungsID]);
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+
+        return $dataProvider;
+    }
+    
 }
