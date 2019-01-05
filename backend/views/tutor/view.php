@@ -5,14 +5,8 @@ use yii\helpers\HtmlPurifier;
 use yii\widgets\ListView;
 use kartik\detail\DetailView;
 use yii\widgets\Pjax;
-use common\models\BenutzerAnmeldenKlausur;
-use common\models\Klausur;
-use common\models\Klausurnote;
 use common\models\Uebung;
 use common\models\Uebungsgruppe;
-use common\models\UebungsgruppeSuchen;
-use common\models\KlausurSuchen;
-use common\models\BenutzerTeilnimmtUebungsgruppe;
 use common\models\UebungsblaetterSuchen;
 
 /**
@@ -25,7 +19,7 @@ $this->title = $model->Vorname." ".$model->Nachname;
 $this->params['breadcrumbs'][] = ['label' => 'Tutor', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="Tutor-view">
+<div class="tutor-view">
     <div class="page-header">
         <h1><?= Html::encode($this->title) ?></h1>
     </div>
@@ -146,7 +140,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 		  <div class="row">
                 		  		<div class="col-md-12">
                 		  			<h2><?php echo $ubungsgruppe->uebungs->Bezeichnung?>
-									&nbsp&nbsp&nbsp&nbsp&nbsp<?php echo Html::a('<i class="fa fa-bar-chart"></i>')//,['uebung/uebungsecharts','uebungsID'=>$ubung->UebungsID])?></h2>
+									&nbsp&nbsp&nbsp&nbsp&nbsp<?php echo Html::a('<i class="fa fa-bar-chart"></i>',['uebungsgruppe/uebungsgruppebarecharts','uebungsgruppeID'=>$ubungsgruppe->UebungsgruppeID])?></h2>
                 		  		</div>
                 		  </div>
                 		  

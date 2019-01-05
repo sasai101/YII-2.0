@@ -9,10 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\UebungSuchen;
-use common\models\BenutzerTeilnimmtUebungsgruppe;
 use common\models\BenutzerTeilnimmtUebungsgruppeSuchen;
 use common\models\Uebungsblaetter;
-use common\models\UebungsblaetterSuchen;
 
 /**
  * UebungsgruppeController implements the CRUD actions for Uebungsgruppe model.
@@ -122,6 +120,21 @@ class UebungsgruppeController extends Controller
          return $this->render('uebungsgruppebarecharts',[
              'model'=>$model,
          ]);
+    }
+    
+    /*
+     *  Echart Acction von Gruppe per Übungsblätter (Totur/view ->gruppenblaetterlistview)
+     */
+    
+    public function actionUebungsgruppepiebarecharts($uebungsblaetterID,$uebungsgruppeID) {
+        
+        $model = Uebungsgruppe::findOne($uebungsgruppeID);
+        $modelBlaetter = Uebungsblaetter::findOne($uebungsblaetterID);
+        
+        return $this->render('uebungsgruppepiebarecharts',[
+            'model' => $model,
+            'modelBlaetter' => $modelBlaetter
+        ]);
     }
     
     

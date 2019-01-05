@@ -129,6 +129,7 @@ class Abgabe extends \yii\db\ActiveRecord
             foreach ($model as $aufgabe){
                 if($aufgabe->Punkte==null){
                     $note = 0;
+                    return false;
                     break;
                 }else{
                     $note += $aufgabe->Punkte;
@@ -138,21 +139,21 @@ class Abgabe extends \yii\db\ActiveRecord
                 if($note > $this->uebungsblaetter->GesamtePunkte){
                     //alert("Der gesamte Punkt muss kleiner als ".$this->uebungsblaetter->GesamtePunkte."sein");
                     
-                    Alert::begin([
+                    /*Alert::begin([
                         'options'=>[
                             'class'=>'alert-warning',
                         ],
                     ]);
-                    echo "Der gesamte Punkt muss kleiner als ".$this->uebungsblaetter->GesamtePunkte."sein";
+                    echo "Der gesamte Punkt muss kleiner als ".$this->uebungsblaetter->GesamtePunkte."sein";*/
                     return false;
                 }elseif ($note < 0){
                     //echo alert("Der gesamte Punkt muss größer gleiche als 0 sein");
-                    Alert::begin([
+                    /*Alert::begin([
                         'options'=>[
                             'class'=>'alert-warning',
                         ],
                     ]);
-                    echo "Der gesamte Punkt muss größer gleiche als 0 sein";
+                    echo "Der gesamte Punkt muss größer gleiche als 0 sein";*/
                     return false;
                 }else{
                     if(Korrektor::findOne(\Yii::$app->user->identity->MarterikelNr)==null){
@@ -266,7 +267,7 @@ class Abgabe extends \yii\db\ActiveRecord
                     $leeraufgabe += 1;
                 }
             }
-            if($leeraufgabe != $modelUebungsblatt->Anzahl_der_Aufgabe){
+            if($leeraufgabe == $modelUebungsblatt->Anzahl_der_Aufgabe){
                 $anzahl += 1;
             }
             $leeraufgabe = 0;

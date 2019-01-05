@@ -114,7 +114,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 					<th><?php echo $i?></th>
                 					<td><?php echo HtmlPurifier::process(mb_substr($uebung->uebungsgruppe->uebungs->Bezeichnung, 0, 20).'......')?></td>
                 					<td><?php echo $uebung->uebungsgruppe->uebungs->mitarbeiterMarterikelNr->marterikelNr->Vorname." ".$uebung->uebungsgruppe->uebungs->mitarbeiterMarterikelNr->marterikelNr->Nachname?></td>
-                					<td><?php echo $uebung->uebungsgruppe->GruppenNr?></th>
+                					<td><?php echo $uebung->uebungsgruppe->GruppenNr?></td>
                 					<td><?php echo $uebung->uebungsgruppe->tutorMarterikelNr->marterikelNr->Vorname." ".$uebung->uebungsgruppe->tutorMarterikelNr->marterikelNr->Vorname?></td>
                 					<?php $i++?>
                 				</tr>
@@ -220,7 +220,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             			    ],
                             			    //'layout' => '{items} {pager}',
                             			    'pager' => [
-                            			        'maxButtonCount' => 20,
+                            			        'maxButtonCount' => 40,
                             			        'nextPageLabel' => Yii::t('app', 'nächste'),
                             			        'prevPageLabel' => Yii::t('app', 'vorne'),
                             			    ],

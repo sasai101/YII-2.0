@@ -1,33 +1,31 @@
 <?php
-use yii\helpers\Html;
-use backend\assets\EchartsAsset;
-use Hisune\EchartsPHP\ECharts;
-use common\models\Uebung;
 use yii\widgets\Pjax;
 use common\models\Abgabe;
+use backend\assets\EchartsAsset;
+use Hisune\EchartsPHP\ECharts;
 ?>
-<?php Pjax::begin()?>
+
 <div class="uebungsnote">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                    	<h4>Übungsblatt: <?php echo $model->UebungsNr?>
-						&nbsp&nbsp&nbsp&nbsp&nbsp<?php echo Html::a('<i class="fa fa-bar-chart"></i>',['uebungsgruppe/uebungsgruppepiebarecharts','uebungsblaetterID'=>$model->UebungsblatterID,'uebungsgruppeID'=>$ubungsgruppe->UebungsgruppeID])?></h4>
-                    	
+                    	Name: <?php echo $model->benutzerMarterikelNr->Vorname." ".$model->benutzerMarterikelNr->Vorname?>
                     </h3>
                 </div>
-                <div class="panel-body">
-                	<div class="row">
+                <div class="panel-body" >
+					
+        			
+        			<div class="row">
                       	<div class="col-md-12">
-                      	<?php Pjax::begin();
+                      	<?php 
                       		
                                 $asset = EchartsAsset::register($this);
                                 $chart = new ECharts($asset->baseUrl);
                                 
                                 $chart->title = array(
-                                    'text' => 'Gruppestatus',
+                                    'text' => 'Aufgabenote',
                                     'subtext' => 'Proportionalität',
                                     'x' => 'left'
                                 );
@@ -58,16 +56,13 @@ use common\models\Abgabe;
                                 
                                 $chart->series = array(
                                     array(
-                                        'name' => ' ',
+                                        'name' => 'Punkte',
                                         'type' => 'pie',
                                         'radius' => '50%',
                                         
                                         'center' => array('50%', '55%'),
                                         //alle note mit AufgabeNr
-                                        'data' => array(
-                                            array('value'=>Abgabe::AnzahlWerNichtAbgeben($model->UebungsblatterID, $ubungsgruppe->UebungsgruppeID), 'name'=>'Anzahl der Nicht Abgabe'),
-                                            array('value'=>Abgabe::AnzahlWerAbgeben($model->UebungsblatterID, $ubungsgruppe->UebungsgruppeID), 'name'=>'Anzahl der Abgabe'),
-                                        ),
+                                        'data' => Abgabe::ArrayEchertsPieForm($model->AbgabeID),
                                         
                                         'itemStyle' => array(
                                             'emphasis' => array(
@@ -77,16 +72,31 @@ use common\models\Abgabe;
                                             
                                     )
                                 );
-                                $echartsID = "simple-custom-".$model->UebungsblatterID;
+                                $echartsID = "simple-custom-".$model->AbgabeID;
                                 echo $chart->render($echartsID);
-                                Pjax::end()?>
+                                ?>
                       	</div>
               		</div>
-
+        			
+        			
+        			<!-- Gesamte Punkte -->
+        			<div>
+        				&nbsp Gesamte Punkte: <b><?php echo $model->GesamtePunkt?></b>
+        			</div>
+        			
+        			<!-- Korrektor -->
+        			<div>
+        				&nbsp Korrektor: <b><?php if($model->korrektorMarterikelNr==NUll){
+                            				    echo "";
+                            				}else{
+                            				    echo $model->korrektorMarterikelNr->vorname." ".$model->korrektorMarterikelNr->nachname;
+                            				}?></b>
+                            				
+        			</div>
+        			<!--<pre><?php //print_r(Abgabe::ArrayEchertsPieForm($model->AbgabeID)) ?></pre>  -->
                 </div>
             </div>
 			
 		</div>
 	</div>
 </div>
-<?php Pjax::end()?>

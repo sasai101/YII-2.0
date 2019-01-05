@@ -136,4 +136,25 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
         }
         return $gruppen;
     }
+    
+    
+    /*
+     *  GesamtePunkte ffür jeden Blatt  (uebungsgruppe/uebungsgruppepiebarecharts)
+     */
+    public static function GesamtePunktVonJedenBlattArray($uebungsgruppeID, $uebungsblaetterID){
+        $allePerson = Uebung::AllerPersonGruppe($uebungsgruppeID);
+        $modelAbgabe = Abgabe::find()->where(['UebungsblaetterID'=>$uebungsblaetterID,'UebungsgruppenID'=>$uebungsgruppeID])->all();
+        $arrayNote = array();
+        foreach ($modelAbgabe as $abgabe){
+            foreach ($allePerson as $person){
+                if($abgabe->Benutzer_MarterikelNr==$person){
+                    array_push($arrayNote, $abgabe->GesamtePunkt);
+                }
+            }
+        }
+        
+        return $arrayNote;
+    }
+    
+    
 }
