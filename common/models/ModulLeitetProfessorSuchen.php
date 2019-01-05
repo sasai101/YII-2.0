@@ -44,4 +44,23 @@ class ModulLeitetProfessorSuchen extends ModulLeitetProfessor
 
         return $dataProvider;
     }
+    
+    /*
+     * Modul mit bestimmten ModulID suchen. professor/view
+     */
+    
+    public function searchAlleModul($params)
+    {
+        $query = ModulLeitetProfessor::find()->where(['Professor_MarterikelNr'=>$params]);
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+        
+        return $dataProvider;
+    }
 }
