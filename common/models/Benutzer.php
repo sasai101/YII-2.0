@@ -66,7 +66,7 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
             [['Profiefoto'], 'string', 'max' => 100],
             [['MarterikelNr'], 'unique'],
             
-            [['file'],'file', 'extensions' => 'jpg','checkExtensionByMimeType'=>false],
+            [['file'],'file', 'extensions' => 'jpg','checkExtensionByMimeType'=>false, 'maxSize' => 1024 * 1024 * 2],
         ];
     }
 

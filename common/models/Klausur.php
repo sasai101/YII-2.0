@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use phpDocumentor\Reflection\Types\Null_;
 
 /**
  * This is the model class for table "klausur".
@@ -53,8 +54,147 @@ class Klausur extends \yii\db\ActiveRecord
             [['Pruefungsdatum', 'Raum', 'Bezeichnung'], 'string', 'max' => 255],
             [['Mitarbeiter_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Mitarbeiter::className(), 'targetAttribute' => ['Mitarbeiter_MarterikelNr' => 'marterikelnr']],
             [['ModulID'], 'exist', 'skipOnError' => true, 'targetClass' => Modul::className(), 'targetAttribute' => ['ModulID' => 'ModulID']],
+            ['Pruefungsdatum', 'checkDatum'],
+            ['Max_Punkte', 'checkMax'],
+            ['punkt1_0', 'checkPunkt1_0'],
+            ['punkt1_3', 'checkPunkt1_3'],
+            ['punkt1_7', 'checkPunkt1_7'],
+            ['punkt2_0', 'checkPunkt2_0'],
+            ['punkt2_3', 'checkPunkt2_3'],
+            ['punkt2_7', 'checkPunkt2_7'],
+            ['punkt3_0', 'checkPunkt3_0'],
+            ['punkt3_3', 'checkPunkt3_3'],
+            ['punkt3_7', 'checkPunkt3_7'],
+            ['punkt4.0', 'checkPunkt4_0'],
         ];
     }
+    
+    
+    public function checkDatum($attribute, $params) {
+        $heute = date('d-m-Y H:i:s');
+        $prufdatum = date($this->Pruefungsdatum);
+        if( $prufdatum < $heute){
+            $this->addError($attribute,'Das Prüfungsdatum muss grösser als heute sein.');
+        }
+    }
+    public function checkMax($attribute, $params) {
+        if( $this->Max_Punkte < 0){
+            $this->addError($attribute,'Max Punkt muss immer ein positive Zahl sein.');
+        }else if($this->Max_Punkte>5000){
+            $this->addError($attribute,'Max Punkt muss immer kleiner als 5000 sein.');
+        }
+    }
+    public function checkPunkt1_0($attribute, $params) {
+        if( $this->Max_Punkte == null){
+            $this->addError($attribute,'Bitte füllen Sie erst die Maximale Punkt aus.');
+        }else {
+            if( $this->punkt1_0 < 0){
+                $this->addError($attribute,'Punkt 1.0 muss immer ein positive Zahl sein.');
+            }else if($this->punkt1_0 < $this->punkt1_3){
+                $this->addError($attribute,'Punkt 1.0 muss immer größer als Punkt 1.3 sein.');
+            }
+        }
+    }
+    public function checkPunkt1_3($attribute, $params) {
+        if( $this->punkt1_0 == null){
+            $this->addError($attribute,'Bitte füllen Sie erst die Punkt 1.0 aus.');
+        }else {
+            if( $this->punkt1_3 < 0){
+                $this->addError($attribute,'Punkt 1.3 muss immer ein positive Zahl sein.');
+            }else if($this->punkt1_3 < $this->punkt1_7){
+                $this->addError($attribute,'Punkt 1.3 muss immer größer als Punkt 1.7 sein.');
+            }
+        }
+    }
+    public function checkPunkt1_7($attribute, $params) {
+        if( $this->punkt1_3 == null){
+            $this->addError($attribute,'Bitte füllen Sie erst die Punkt 1.3 aus.');
+        }else {
+            if( $this->punkt1_7 < 0){
+                $this->addError($attribute,'Punkt 1.7 muss immer ein positive Zahl sein.');
+            }else if($this->punkt1_7 < $this->punkt2_0){
+                $this->addError($attribute,'Punkt 1.7 muss immer größer als Punkt 2.0 sein.');
+            }
+        }
+    }
+    public function checkPunkt2_0($attribute, $params) {
+        if( $this->punkt1_7 == null){
+            $this->addError($attribute,'Bitte füllen Sie erst die Punkt 1.7 aus.');
+        }else {
+            if( $this->punkt2_0 < 0){
+                $this->addError($attribute,'Punkt 2.0 muss immer ein positive Zahl sein.');
+            }else if($this->punkt2_0 < $this->punkt2_3){
+                $this->addError($attribute,'Punkt 2.0 muss immer größer als Punkt 2.3 sein.');
+            }
+        }
+    }
+    public function checkPunkt2_3($attribute, $params) {
+        if( $this->punkt2_0 == null){
+            $this->addError($attribute,'Bitte füllen Sie erst die Punkt 2.0 aus.');
+        }else {
+            if( $this->punkt2_3 < 0){
+                $this->addError($attribute,'Punkt 2.3 muss immer ein positive Zahl sein.');
+            }else if($this->punkt2_3 < $this->punkt2_7){
+                $this->addError($attribute,'Punkt 2.3 muss immer größer als Punkt 2.7 sein.');
+            }
+        }
+    }
+    public function checkPunkt2_7($attribute, $params) {
+        if( $this->punkt2_3 == null){
+            $this->addError($attribute,'Bitte füllen Sie erst die Punkt 2.3 aus.');
+        }else {
+            if( $this->punkt2_7 < 0){
+                $this->addError($attribute,'Punkt 2.7 muss immer ein positive Zahl sein.');
+            }else if($this->punkt2_7 < $this->punkt3_0){
+                $this->addError($attribute,'Punkt 2.7 muss immer größer als Punkt 3.0 sein.');
+            }
+        }
+    }
+    public function checkPunkt3_0($attribute, $params) {
+        if( $this->punkt2_7 == null){
+            $this->addError($attribute,'Bitte füllen Sie erst die Punkt 2.7 aus.');
+        }else {
+            if( $this->punkt3_0 < 0){
+                $this->addError($attribute,'Punkt 3.0 muss immer ein positive Zahl sein.');
+            }else if($this->punkt3_0 < $this->punkt3_3){
+                $this->addError($attribute,'Punkt 3.0 muss immer größer als Punkt 3.3 sein.');
+            }
+        }
+    }
+    public function checkPunkt3_3($attribute, $params) {
+        if( $this->punkt3_0 == null){
+            $this->addError($attribute,'Bitte füllen Sie erst die Punkt 3.0 aus.');
+        }else {
+            if( $this->punkt3_3 < 0){
+                $this->addError($attribute,'Punkt 3.3 muss immer ein positive Zahl sein.');
+            }else if($this->punkt3_3 < $this->punkt3_7){
+                $this->addError($attribute,'Punkt 3.3 muss immer größer als Punkt 3.7 sein.');
+            }
+        }
+    }
+    public function checkPunkt3_7($attribute, $params) {
+        if( $this->punkt3_3 == null){
+            $this->addError($attribute,'Bitte füllen Sie erst die Punkt 3.3 aus.');
+        }else {
+            if( $this->punkt3_7 < 0){
+                $this->addError($attribute,'Punkt 3.7 muss immer ein positive Zahl sein.');
+            }else if($this->punkt3_7 < $this->punkt4_0){
+                $this->addError($attribute,'Punkt 3.7 muss immer größer als Punkt 4.0 sein.');
+            }
+        }
+    }
+    public function checkPunkt4_0($attribute, $params) {
+        if( $this->punkt3_7 == null){
+            $this->addError($attribute,'Bitte füllen Sie erst die Punkt 3.3 aus.');
+        }else {
+            if( $this->punkt4_0 < 0){
+                $this->addError($attribute,'Punkt 4.0 muss immer ein positive Zahl sein.');
+            }else if($this->punkt3_7 < $this->punkt4_0){
+                $this->addError($attribute,'Punkt 4.0 muss immer größer als Punkt 4.0 sein.');
+            }
+        }
+    }
+    
     
     /**
      * {@inheritdoc}

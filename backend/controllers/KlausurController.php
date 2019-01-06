@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use common\models\Modul;
 use common\models\ModulSuchen;
 use common\models\Klausurnote;
+use yii\widgets\ActiveForm;
 /**
  * KlausurController implements the CRUD actions for Klausur model.
  */
@@ -74,6 +75,11 @@ class KlausurController extends Controller
         $model->Mitarbeiter_MarterikelNr = Yii::$app->user->identity->MarterikelNr;
         //ModulID
         $model->ModulID = $id;
+        
+        if(Yii::$app->request->isAjax && $model->load($_POST)){
+            \Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->KlausurID]);
