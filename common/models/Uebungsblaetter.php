@@ -45,8 +45,34 @@ class Uebungsblaetter extends \yii\db\ActiveRecord
             [['UebungsID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebung::className(), 'targetAttribute' => ['UebungsID' => 'UebungsID']],
             
             [['file'],'file', 'extensions' => 'pdf' ,'checkExtensionByMimeType'=>false],
+            
+            ['Deadline', 'DeadlineCheck'],
+            ['Anzahl_der_Aufgabe', 'AnzahlAufgabeCheck'],
+            ['GesamtePunkte', 'GesamtePunkteCheck']
         ];
     }
+    
+    public function DeadlineCheck($attribute, $params) {
+        $heute = date('d.M.y, H:m');
+        if( $this->Deadline < $heute){
+            $this->addError($attribute,'Das Prüfungsdatum muss grösser als heute sein.');
+        }
+    }
+    public function AnzahlAufgabeCheck($attribute,$param) {
+        if($this->Anzahl_der_Aufgabe<0){
+            $this->addError($attribute,'Das Anzahl der Aufgaben darf nicht neagativ sein');
+        }else if ($this->Anzahl_der_Aufgabe > 2000){
+            $this->addError($attribute, 'Das Anzahl der Aufgaben darf nicht größer als 2000 sein');
+        }
+    }
+    public function GesamtePunkteCheck($attribute,$param) {
+        if($this->GesamtePunkte<0){
+            $this->addError($attribute,'Die gesamte Punkte der Aufgaben darf nicht neagativ sein');
+        }else if ($this->GesamtePunkte > 2000){
+            $this->addError($attribute, 'Das gesamte Punkte darf nicht größer als 2000 sein');
+        }
+    }
+    
 
     /**
      * {@inheritdoc}

@@ -8,6 +8,7 @@ use common\models\UebungsblaetterSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
+use yii\widgets\ActiveForm;
 use yii\filters\VerbFilter;
 use yii\helpers\VarDumper;
 use common\models\Uebung;
@@ -71,9 +72,14 @@ class UebungsblaetterController extends Controller
      * @return mixed
      */
     public function actionCreate($id)
-    {
+    {        
         $model = new Uebungsblaetter;
         $modelUebung = Uebung::findOne($id);
+        
+        if(Yii::$app->request->isAjax && $model->load($_POST)){
+            \Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
               
         if ($model->load(Yii::$app->request->post())) {
             
@@ -135,6 +141,11 @@ class UebungsblaetterController extends Controller
         
         // Path wo die Datein speichern
         $modelPath = "../../Uebung/Uebungsblaetter/Modul".$modelUebung->ModulID."/UebungsID".$modelUebung->UebungsID;
+        
+        if(Yii::$app->request->isAjax && $model->load($_POST)){
+            \Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             

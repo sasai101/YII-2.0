@@ -99,6 +99,11 @@ class KlausurController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        
+        if(Yii::$app->request->isAjax && $model->load($_POST)){
+            \Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->KlausurID]);

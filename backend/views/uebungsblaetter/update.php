@@ -14,34 +14,47 @@ $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="uebungsblaetter-update">
 
+    
+    <!-- Leere Zeile -->
+	<div class="row"></br></div>
 	<!-- Leere Zeile -->
 	<div class="row"></br></div>
 	
-	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
 	<!-- Leere Zeile -->
 	<div class="row"></br></div>
 	
-	<div>
-		<h3>
-			Modul: <?php echo $model->uebungs->modul->Bezeichnung ?>
-		</h3>
-	</div>
-	
-	
-	<!-- Titel -->
-	<div>
-		<h3>
-			Übungsblatt<?= Html::encode($model->UebungsNr); ?>
-		</h3>
-	</div>
-	
 	<!-- Leere Zeile -->
 	<div class="row"></br></div>
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+	<div class="row">
+    	<div class="col-md-12">
+        	<div class="row">
+            	<div class="col-md-4"></div>
+            	<div class="col-md-4">
+            		<h3>
+            			Modul: <?php echo $model->uebungs->modul->Bezeichnung ?>
+            		</h3>
+                	<div class="panel panel-info">
+                      <div class="panel-heading"><h1>Übungsblatt<?= Html::encode($model->UebungsNr); ?></h1></div>
+                      <div class="panel-body">
+                      	<div class="col-md-12">
+                      		
+                            <?= $this->render('_form', [
+                                'model' => $model,
+                            ]) ?>
+                            
+                      	</div>
+                      </div>
+                    </div>
+                    
+                </div>
+            	<div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
 
 </div>
