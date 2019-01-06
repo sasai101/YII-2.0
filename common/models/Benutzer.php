@@ -310,7 +310,7 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->hasOne(Tutor::className(), ['MarterikelNr' => 'marterikelnr']);
     }
-
+    
     /*test
     * die befrsave Funktion umschreiben ,damit die Datum richtig und automatisch gespeichert zu werden
     */
@@ -339,7 +339,7 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
     } 
     
     /*
-     * Anzahl der normale Benutzer
+     * Anzahl der normale Benutzer (Hautpseite site/index)
      */
     public static function AnzahlderNormalBenuter(){
         $model = Benutzer::find()->all();

@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
+use yii\widgets\Pjax;
 ?>
 
 <div class = "item" style="height: 400px">
@@ -23,8 +24,8 @@ use yii\bootstrap\Modal;
             <p>
             	<b>Leitet von :<br></b>
             	<?php foreach ($model->professorMarterikelNrs as $name){
-            	    echo "Prof. Dr. ";
-            	    echo $model->getBenutzerNname($name->MarterikelNr);
+            	    // url to professor/view
+            	    echo Html::a("Prof. Dr. ".$model->getBenutzerNname($name->MarterikelNr), ['professor/view', 'id' => $name->MarterikelNr], ['class' => 'profile-link']);
             	    echo "<br>";
             	}?>
             </p>
@@ -37,7 +38,8 @@ use yii\bootstrap\Modal;
             	    print_r($name);
             	    echo "</pre>";
             	    exit(0);*/
-            	    echo $model->getBenutzerNname($name->Mitarbeiter_MarterikelNr);
+            	    echo Html::a($model->getBenutzerNname($name->Mitarbeiter_MarterikelNr), ['mitarbeiter/view', 'id' => $name->Mitarbeiter_MarterikelNr], ['class' => 'profile-link']);
+            	    
             	    echo "<br>";
             	}?>
             </p>
@@ -45,7 +47,8 @@ use yii\bootstrap\Modal;
             <p>        
             	<?php foreach ($model->uebungs as $name){
             	    echo "<b>Übung :</b>";
-            	    echo $name->Bezeichnung;
+            	    echo Html::a($name->Bezeichnung, ['uebungsgruppe/alleuebungsgruppe', 'id' => $name->UebungsID], ['class' => 'profile-link']);
+            	    
             	    echo "<br>";
             	}?>
             </p>

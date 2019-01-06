@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = 'Alle Modul';
         <?php echo Html::a('Create Modul', ['create'], ['class' => 'btn btn-success'])  ?>
     </p>
     <div class = "row">
-        <?php Pjax::begin(); echo ListView::widget([
+        <?php  echo ListView::widget([
               'dataProvider' => $dataProvider,
               'itemView' => '_modulListviewItem',
               'layout' => '{items}<div class="col-lg-12 sum-pager">{summary}{pager}</div>',
@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = 'Alle Modul';
                 'prevPageLabel' => 'Vorne',
                 'nextPageLabel' => 'Nächste',
               ]
-        ]);Pjax::end(); 
+        ]) 
         
         ?>
     </div>
