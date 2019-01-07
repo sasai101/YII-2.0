@@ -115,5 +115,47 @@ class Modul extends \yii\db\ActiveRecord
         $Name = $model->Vorname." ".$model->Nachname;
         return  $Name;
     }
+    
+    /*
+     * Alles Löschen, was mit Modul ein Beziehung hat, (ModulController actionDelete)
+     */
+    public static function DeleteAll($Modulid) {
+        $this->DeleteKlausur($Modulid);
+        $this->DeleteModulAnmeldung($Modulid);
+        $this->DeleteModulLeitetProf($Modulid);
+    }
+    
+    //Klausurteil löschen
+    protected function DeleteKlausur($Modulid) {
+        $modelKlausur = Klausur::find()->where(['ModulID'=>$Modulid])->all();
+        foreach ($modelKlausur as $klausur){
+            foreach ($klausur->klausurnotes as $note){
+                $note->delete();
+            }
+            foreach ($klausur->benutzerAnmeldenKlausurs as $anmeldung){
+                $anmeldung->delete();
+            }
+        }
+    }
+    
+    // Modul_anmeldung_Benutzer loschen
+    protected function DeleteModulAnmeldung($Modulid) {
+        $modelModulAnmeldung = ModulAnmeldenBenutzer::find()->where(['ModulID'=>$Modulid])->all();
+        foreach ($modelModulAnmeldung as $anmeldung){
+            $anmeldung->delete();
+        }
+    }
+    
+    //modul_leitet_professro loschen
+    protected function DeleteModulLeitetProf($Modulid) {
+        $modelModulProf = ModulLeitetProfessor::find()->where(['ModulID'=>$Modulid])->all();
+        foreach ($modelModulProf as $modulProf){
+            $modulProf->delete();
+        }
+   }
    
+   // Übungen löshen
+   protected function DeleteUebung($Modulid) {
+       $modelUebung = Uebung::find()->where(['ModulID'=>$Modulid]);
+   }
 }

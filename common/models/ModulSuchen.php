@@ -15,7 +15,7 @@ class ModulSuchen extends Modul
     public function rules()
     {
         return [
-            [['ModulID','Maximale_Person'], 'integer'],
+            [['ModulID'], 'integer'],
             [['Bezeichnung'], 'safe'],
             
         ];

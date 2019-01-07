@@ -10,7 +10,10 @@ use common\models\Mitarbeiter;
 
 <div class="customer-form">
 
-    <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
+    <?php $form = ActiveForm::begin([
+        'id' => 'dynamic-form',
+        'enableAjaxValidation'=>true,
+    ]); ?>
     <div class="row">
         <div class="col-sm-6">
             <div class="panel panel-default">
@@ -131,7 +134,7 @@ use common\models\Mitarbeiter;
                             <?= $form->field($modelUebung, "[{$indexUebung}]Mitarbeiter_MarterikelNr")->dropDownList(Mitarbeiter::mitarbeiterName(),['prompt'=>'Bitte wählen Sie einen Mitarbeiter aus']) ?>
                             <p><b>Übungsverzeichnis</b></p>
                             <?= $form->field($modelUebung, "[{$indexUebung}]Bezeichnung")->label(false)->textInput(['maxlength' => true]) ?>
-                            <p><b>Übungsverzeichnis</b></p>
+                            <p><b>Zulassungsgrenze(1~100)%</b></p>
                             <?= $form->field($modelUebung, "[{$indexUebung}]Zulassungsgrenze")->label(false)->textInput(['maxlength' => true]) ?>
                         </td>
                         <td>

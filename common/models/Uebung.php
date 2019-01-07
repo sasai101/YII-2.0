@@ -36,26 +36,22 @@ class Uebung extends \yii\db\ActiveRecord
     {
         return [
             // sonst geht das beim Modulherstellung nicht mehr weiter
-            [['ModulID', 'Mitarbeiter_MarterikelNr', 'Bezeichnung'], 'required'],
-            [['Mitarbeiter_MarterikelNr', 'Bezeichnung'], 'required'],
-            [['ModulID', 'Mitarbeiter_MarterikelNr'], 'integer'],
+            [['ModulID', 'Mitarbeiter_MarterikelNr', 'Bezeichnung', 'Zulassungsgrenze'], 'required'],
+            [['Mitarbeiter_MarterikelNr'], 'required'],
+            [['ModulID', 'Mitarbeiter_MarterikelNr', 'Zulassungsgrenze'], 'integer'],
             [['Bezeichnung'], 'string', 'max' => 255],
             [['Mitarbeiter_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Mitarbeiter::className(), 'targetAttribute' => ['Mitarbeiter_MarterikelNr' => 'marterikelnr']],
             [['ModulID'], 'exist', 'skipOnError' => true, 'targetClass' => Modul::className(), 'targetAttribute' => ['ModulID' => 'ModulID']],
-            [['Zulassungsgrenze'],'ZulassungsgrenzePruefen','skipOnEmpty' => false],
+            ['Zulassungsgrenze','ZulassungsgrenzePruefen'],
         ];
     }
     // validierung fur Punkte
-    public function ZulassungsgrenzePruefen($attribute, $params, $validator)
+    public function ZulassungsgrenzePruefen($attribute, $params)
     {
-        if (is_numeric($attribute)) {
-            if($attribute >= 101 || $attribute <= -1){
-                $this->addError($attribute,"Zulassungsgrenze muss zwischen 100 und 0 sein.");
-            }else{
-                return true;
-            }
-        }else{
-            $this->addError($attribute,"1Zulassungsgrenze muss zwischen 100 und 0 sein.");
+        if ($this->Zulassungsgrenze<0) {
+            $this->addError($attribute,'Anzahl der GruppenNr muss immer positive sein.');
+        }else if($this->Zulassungsgrenze>100){
+            $this->addError($attribute,'Erro');
         }
     }
 

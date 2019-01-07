@@ -41,7 +41,24 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
             [['UebungsID', 'Tutor_MarterikelNr', 'Anzahl_der_Personen', 'GruppenNr', 'Max_Person'], 'integer'],
             [['UebungsID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebung::className(), 'targetAttribute' => ['UebungsID' => 'UebungsID']],
             [['Tutor_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Tutor::className(), 'targetAttribute' => ['Tutor_MarterikelNr' => 'marterikelnr']],
+            ['Max_Person', 'Max_PersonCheck'],
+            ['GruppenNr', 'GruppenNrCheck']
         ];
+    }
+    
+    public function Max_PersonCheck($attribute, $params){
+        if($this->Max_Person < 0){
+            $this->addError($attribute,'Anzahl der maximale Person muss immer positive sein.');
+        }else if( $this->Max_Person > 1000){
+            $this->addError($attribute,'Anzahl der maximale Person muss immer kleiner als 1000 sein.');
+        }
+    }
+    public function GruppenNrCheck($attribute, $params){
+        if($this->GruppenNr < 0){
+            $this->addError($attribute,'Anzahl der GruppenNr muss immer positive sein.');
+        }else if( $this->GruppenNr > 1000){
+            $this->addError($attribute,'Anzahl der GruppenNr muss immer kleiner als 1000 sein.');
+        }
     }
 
     /**

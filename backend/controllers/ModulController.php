@@ -7,6 +7,7 @@ use common\models\Modul;
 use common\models\ModulSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\widgets\ActiveForm;
 use yii\filters\VerbFilter;
 use yii\db\Query;
 use common\models\ModulLeitetProfessor;
@@ -77,6 +78,11 @@ class ModulController extends Controller
         $modelsProfessor = [new ModulLeitetProfessor];
         $modelsUebung = [new Uebung];
         $modelsUebungsgruppe = [[new Uebungsgruppe]];
+        
+        if(Yii::$app->request->isAjax && $modelModul->load($_POST)){
+            \Yii::$app->response->format = 'json';
+            return ActiveForm::validate($modelModul);
+        }
         
         if($modelModul->load(Yii::$app->request->post())){
             //return $this->redirect(['view','id'=>$modelModul->ModulID]);
@@ -185,6 +191,10 @@ class ModulController extends Controller
 //         print_r($modelsUebung);
 //         echo "</pre>";
         
+        if(Yii::$app->request->isAjax && $modelModul->load($_POST)){
+            \Yii::$app->response->format = 'json';
+            return ActiveForm::validate($modelModul);
+        }
         
         if(!empty($modelsUebung)){
             foreach ($modelsUebung as $indexUebung => $modelUebung){

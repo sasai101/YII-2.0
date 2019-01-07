@@ -23,10 +23,6 @@ class ModelProfe extends \yii\base\Model
         
         if (! empty($multipleModels)) {
             $keys = array_keys(ArrayHelper::map($multipleModels, 'Professor_MarterikelNr', 'Professor_MarterikelNr'));
-            echo "<pre>";
-            echo "<p>OKOKOKOK</p>";
-            print_r($keys);
-            echo "<pre>";
             $multipleModels = array_combine($keys, $multipleModels);
         }
         
