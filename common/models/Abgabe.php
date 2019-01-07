@@ -282,4 +282,16 @@ class Abgabe extends \yii\db\ActiveRecord
         $AlleAbgabe = Abgabe::find()->where(['UebungsblaetterID'=>$uebungsblaetterID, 'UebungsgruppenID'=>$uebungsgruppeID])->count();
         return $AlleAbgabe-Abgabe::AnzahlWerNichtAbgeben($uebungsblaetterID, $uebungsgruppeID);
     }
+    
+    
+    //Abgabe löschen mit UebungsblaetterID
+    public static function DeleteAbgabe($uebungsblaetterID) {
+        $modelAbgabe = Abgabe::find()->where(['UebungsblaetterID'=>$uebungsblaetterID])->all();
+        foreach ($modelAbgabe as $abgabe){
+            foreach ($abgabe->einzelaufgabes as $einzel){
+                $einzel->delete();
+            }
+            $abgabe->delete();
+        }
+    }
 }

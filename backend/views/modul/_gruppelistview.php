@@ -6,7 +6,6 @@ use common\models\Uebung;
 use yii\widgets\Pjax;
 ?>
 
-<?php Pjax::begin()?>
 <div class="uebungsnote">
 	<div class="row">
 		<div class="col-md-12">
@@ -99,4 +98,3 @@ use yii\widgets\Pjax;
 		</div>
 	</div>
 </div>
-<?php Pjax::end()?>

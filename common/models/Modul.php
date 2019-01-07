@@ -119,10 +119,13 @@ class Modul extends \yii\db\ActiveRecord
     /*
      * Alles Löschen, was mit Modul ein Beziehung hat, (ModulController actionDelete)
      */
-    public static function DeleteAll($Modulid) {
-        $this->DeleteKlausur($Modulid);
-        $this->DeleteModulAnmeldung($Modulid);
-        $this->DeleteModulLeitetProf($Modulid);
+    public static function DeleteAllRelation($Modulid) {
+        
+        $model = Modul::findOne($Modulid);
+        $model->DeleteKlausur($Modulid);
+        $model->DeleteModulAnmeldung($Modulid);
+        $model->DeleteModulLeitetProf($Modulid);
+        $model->DeleteUebung($Modulid);
     }
     
     //Klausurteil löschen
@@ -135,6 +138,7 @@ class Modul extends \yii\db\ActiveRecord
             foreach ($klausur->benutzerAnmeldenKlausurs as $anmeldung){
                 $anmeldung->delete();
             }
+            $klausur->delete();
         }
     }
     
@@ -156,6 +160,13 @@ class Modul extends \yii\db\ActiveRecord
    
    // Übungen löshen
    protected function DeleteUebung($Modulid) {
-       $modelUebung = Uebung::find()->where(['ModulID'=>$Modulid]);
+       $modelUebung = Uebung::find()->where(['ModulID'=>$Modulid])->all();
+       foreach ($modelUebung as $Uebung){
+           //Uebungsblätter löschen
+           Uebungsblaetter::DeleteUebungsblatt($Uebung->UebungsID);   
+           //Uebungsgruppe und Teilnahmentabelle löschen
+           Uebungsgruppe::DeleteUebungsgruppe($Uebung->UebungsID);      
+           $Uebung->delete();
+       }
    }
 }

@@ -63,4 +63,12 @@ class BenutzerTeilnimmtUebungsgruppe extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Uebungsgruppe::className(), ['UebungsgruppeID' => 'UebungsgruppeID']);
     }
+    
+    //Benutzer_teilnimmt_uebungsgruppe mit UebungsgruppeID löschen
+    public static function DeleteBenutzerTeiUebungsgruppe($uebungsgruppeID) {
+        $modelTeilnahmGruppe = BenutzerTeilnimmtUebungsgruppe::find()->where(['UebungsgruppeID'=>$uebungsgruppeID])->all();
+        foreach ($modelTeilnahmGruppe as $teilnahmer){
+            $teilnahmer->delete();
+        }
+    }
 }

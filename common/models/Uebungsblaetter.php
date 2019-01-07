@@ -137,4 +137,15 @@ class Uebungsblaetter extends \yii\db\ActiveRecord
             return false;
         }
     }
+    
+    // Übungsblätter löschen mit UebungsID
+    public static function DeleteUebungsblatt($uebungsID) {
+        $modelBlaetter = Uebungsblaetter::find()->where(['UebungsID'=>$uebungsID])->all();
+        foreach ($modelBlaetter as $blatt){
+            //Abgabe löschen
+            Abgabe::DeleteAbgabe($blatt->UebungsblatterID);
+            //Blatt löschen
+            $blatt->delete();
+        }
+    }
 }

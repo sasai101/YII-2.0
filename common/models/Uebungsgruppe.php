@@ -174,4 +174,13 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
     }
     
     
+    // Uebungsgruppen löschen mit UebungsID
+    public static function DeleteUebungsgruppe($uebungsID) {
+        $modelUeubngsgruppe = Uebungsgruppe::find()->where(['UebungsID'=>$uebungsID])->all();
+        foreach ($modelUeubngsgruppe as $uebungsgruppe){
+            BenutzerTeilnimmtUebungsgruppe::DeleteBenutzerTeiUebungsgruppe($uebungsgruppe->UebungsgruppeID);
+            $uebungsgruppe->delete();
+        }
+    }
+    
 }

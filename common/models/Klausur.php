@@ -277,7 +277,7 @@ class Klausur extends \yii\db\ActiveRecord
      */
     public function getKlausurnotes()
     {
-        return $this->hasMany(Klausurnote::className(), ['KlausurID' => 'klausurid']);
+        return $this->hasMany(Klausurnote::className(), ['KlausurID' => 'KlausurID']);
     }
     
     /*

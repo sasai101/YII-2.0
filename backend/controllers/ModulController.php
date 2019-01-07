@@ -63,7 +63,7 @@ class ModulController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->ModulID]);
         } else {
-            return $this->renderAjax('view', ['model' => $model]);
+            return $this->render('view', ['model' => $model]);
         }
     }
 
@@ -393,7 +393,7 @@ class ModulController extends Controller
     public function actionDelete($id)
     {
         // die Übung und zugehörigen Übungsgruppen löschen
-        $model = (new Query())->select(['UebungsID'])->from('uebung')->where(['ModulID'=>$id])->all();
+        /*$model = (new Query())->select(['UebungsID'])->from('uebung')->where(['ModulID'=>$id])->all();
         foreach ($model as $index){
             $model1 = (new Query())->select(['UebungsgruppeID'])->from('uebungsgruppe')->where(['UebungsID'=>$index])->all();
             foreach ($model1 as $index1){
@@ -403,7 +403,7 @@ class ModulController extends Controller
                 Uebungsgruppe::findOne($index1)->delete();
             }
             Uebung::findOne($index)->delete();
-        }
+        }*/
         
         // Löschen die Daten in der Tabelle ModullLeitetProfessor
         /*
@@ -412,10 +412,12 @@ class ModulController extends Controller
         echo "<pre>";
         exit(0);*/
 
-        $model3 = ModulLeitetProfessor::findAll($id);
+        /*$model3 = ModulLeitetProfessor::findAll($id);
         foreach ($model3 as $index){
             ModulLeitetProfessor::findOne($index->ModulID, $index->professorMarterikelNr)->delete();
-        }
+        }*/
+        
+        Modul::DeleteAllRelation($id);
         
         
         

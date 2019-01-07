@@ -6,10 +6,10 @@ use common\models\Uebungsgruppe;
 use common\models\Uebung;
 
 
-$this->title = $model->uebungs->mitarbeiterMarterikelNr->marterikelNr->Vorname." ".$model->uebungs->mitarbeiterMarterikelNr->marterikelNr->Nachname;
-$this->params['breadcrumbs'][] = ['label' => 'Mitarbeiter', 'url' => ['mitarbeiter/index']];
-$this->params['breadcrumbs'][] = ['label' => 'view', 'url' => ['mitarbeiter/view', 'id'=>$model->uebungs->Mitarbeiter_MarterikelNr]];
-$this->params['breadcrumbs'][] = $this->title;
+//$this->title = $model->uebungs->mitarbeiterMarterikelNr->marterikelNr->Vorname." ".$model->uebungs->mitarbeiterMarterikelNr->marterikelNr->Nachname;
+//$this->params['breadcrumbs'][] = ['label' => 'Mitarbeiter', 'url' => ['mitarbeiter/index']];
+//$this->params['breadcrumbs'][] = ['label' => 'view', 'url' => ['mitarbeiter/view', 'id'=>$model->uebungs->Mitarbeiter_MarterikelNr]];
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="row">

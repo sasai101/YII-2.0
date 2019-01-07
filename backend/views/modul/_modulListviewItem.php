@@ -57,7 +57,7 @@ use yii\widgets\Pjax;
             <div style="text-align:right">
             
                 <!-- Modal Button Modal js unter Verzeichnung @app\backend\web\js\viewModal.js -->
-                <a class="modalButton" href="<?=Url::to(['view', 'id'=>$model->ModulID]); ?>"><span class="glyphicon glyphicon-eye-open"></span></a>
+                <a href="<?=Url::to(['view', 'id'=>$model->ModulID]); ?>"><span class="glyphicon glyphicon-eye-open"></span></a>
                 
                 <a href="<?=Url::to(['update', 'id'=>$model->ModulID]); ?>"><span class="glyphicon glyphicon-pencil"></span></a>
                 <?= Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->ModulID], [
