@@ -352,15 +352,14 @@ class Klausur extends \yii\db\ActiveRecord
         }
     } 
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    //Klausurnote löschen , mit Mitarbeiter_MarterikelNr
+    public static function DeleteKlausurMitMitarbeitMar($marterikelNr){
+        $modelKlausur = Klausur::find()->where(['Mitarbeiter_MarterikelNr'=>$marterikelNr])->all();
+        foreach ($modelKlausur as $klausur){
+            //alle Anmeldung des Klausures löschen
+            BenutzerAnmeldenKlausur::DeleteAnmeldKlausurKlausurID($klausur->KlausurID);
+            Klausurnote::DeleteKlausurnotMitKlausurID($klausur->KlausurID);
+            $klausur->delete();
+        }
+    }
 }

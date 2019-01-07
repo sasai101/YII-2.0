@@ -265,4 +265,28 @@ class Klausurnote extends \yii\db\ActiveRecord
     public static function AnzahlDerPersonMitNotInArray($KlausurID) {
         return array(Klausurnote::KlausurnotePerson1_0($KlausurID), Klausurnote::KlausurnotePerson1_3($KlausurID),Klausurnote::KlausurnotePerson1_7($KlausurID), Klausurnote::KlausurnotePerson2_0($KlausurID),Klausurnote::KlausurnotePerson2_3($KlausurID), Klausurnote::KlausurnotePerson2_7($KlausurID),Klausurnote::KlausurnotePerson3_0($KlausurID),Klausurnote::KlausurnotePerson3_3($KlausurID),Klausurnote::KlausurnotePerson3_7($KlausurID),Klausurnote::KlausurnotePerson4_0($KlausurID),Klausurnote::KlausurnotePerson5_0($KlausurID));
     }
+    
+    //Klausurnote löschen , mit MarterikelNr
+    public static function DeleteKlausurnotMitMar($marterikelNr){
+        $modelKlausurnote = Klausurnote::find()->where(['Benutzer_MarterikelNr'=>$marterikelNr])->all();
+        foreach ($modelKlausurnote as $note){
+            $note->delete();
+        }
+    }
+    
+    //Klausurnote löschen , mit Mitarbeiter_MarterikelNr
+    public static function DeleteKlausurnotMitMitarbeitMar($marterikelNr){
+        $modelKlausurnote = Klausurnote::find()->where(['Mitarbeiter_MarterikelNr'=>$marterikelNr])->all();
+        foreach ($modelKlausurnote as $note){
+            $note->delete();
+        }
+    }
+    
+    //Klausurnote löschen , mit KlausurID
+    public static function DeleteKlausurnotMitKlausurID($klausurID){
+        $modelKlausurnote = Klausurnote::find()->where(['KlausurID'=>$klausurID])->all();
+        foreach ($modelKlausurnote as $note){
+            $note->delete();
+        }
+    }
 }

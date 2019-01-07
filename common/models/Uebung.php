@@ -304,5 +304,15 @@ class Uebung extends \yii\db\ActiveRecord
         }
         return $PunkteArray;
     }
+    
+    // Übungen durch Mitarbeiter MarterikelNr löschen
+    public static function DeleteUebungMitMitarbeitMar($marterikelNr) {
+        $modelUebung = Uebung::find()->where(['Mitarbeiter_MarterikelNr'=>$marterikelNr])->all();
+        foreach ($modelUebung as $uebung){
+            Uebungsblaetter::DeleteUebungsblatt($uebung->UebungsID);
+            Uebungsgruppe::DeleteUebungsgruppe($uebung->UebungsID);
+            $uebung->delete();
+        }
+    }
 }
 

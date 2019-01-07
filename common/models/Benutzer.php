@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\web\IdentityInterface;
 use yii\base\NotSupportedException;
+use phpDocumentor\Reflection\Types\Null_;
 
 /**
  * This is the model class for table "benutzer".
@@ -395,4 +396,35 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
         return $anzahl;
     }
     
+    /*
+     *  BenutzersDaten löschen
+     */
+    public static function DeleteBenutzersDaten($marterikelNr) {
+        
+        //normale Benutzer
+        BenutzerTeilnimmtUebungsgruppe::DeleteBenutzanGruppe($marterikelNr);
+        Abgabe::DeleteAbgabeMitMarterikelNr($marterikelNr);
+        Klausurnote::DeleteKlausurnotMitMar($marterikelNr);
+        BenutzerAnmeldenKlausur::DeleteAnmeldKlausur($marterikelNr);
+        ModulAnmeldenBenutzer::DeleteAnmeldModul($marterikelNr);
+        
+        if(Mitarbeiter::findOne($marterikelNr)!=null){
+            
+            Mitarbeiter::DeleteMitarbeiter($marterikelNr);
+            Mitarbeiter::findOne($marterikelNr)->delete();
+            
+        }else if(Professor::findOne($marterikelNr)!=null){
+            
+            Professor::DeleteModulLeitePro($marterikelNr);
+            Professor::findOne($marterikelNr)->delete();
+            
+        }else if(Tutor::findOne($marterikelNr)!=null){
+            
+            Tutor::DeleteTutor($marterikelNr);
+            Tutor::findOne($marterikelNr)->delete();
+        }else if (Korrektor::findOne($marterikelNr)!=null) {
+            Korrektor::DeleteKorrektor($marterikelNr);
+            Korrektor::findOne($marterikelNr)->delete();
+        }
+    }
 }

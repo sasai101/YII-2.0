@@ -121,4 +121,12 @@ class Professor extends \yii\db\ActiveRecord
                      ->indexBy('MarterikelNr')
                      ->column();
     }
+    
+    // Alle Item in der Tabelle Modul_leitet_Professor beim bestimmten Prof löschen
+    public static function DeleteModulLeitePro($marterikelNr) {
+        $modelProf = ModulLeitetProfessor::find()->where(['Professor_MarterikelNr'=>$marterikelNr])->all();
+        foreach ($modelProf as $prof){
+            $prof->delete();
+        }
+    }
 }

@@ -230,7 +230,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     		  			<?php $searchModelUebungsgruppe = new UebungsgruppeSuchen;
                     		  			      $dateProviderUebungsgruppe = $searchModelUebungsgruppe->searchalleGruppe(Yii::$app->request->getQueryParams(),$ubung->UebungsID);
                     		  			?>
-                    		  			<?php Pjax::begin(); echo ListView::widget([
+                    		  			<?php echo ListView::widget([
                             			    'id' => 'benutzerlist',
                     		  			    'dataProvider' => $dateProviderUebungsgruppe,
                             			    'itemView' => '_gruppelistview',
@@ -245,7 +245,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             			        'nextPageLabel' => Yii::t('app', 'nächste'),
                             			        'prevPageLabel' => Yii::t('app', 'vorne'),
                             			    ],
-                            			]); Pjax::end()?>
+                            			]);?>
                 		  			</div>
                 		  		</div>
                 		  </div>

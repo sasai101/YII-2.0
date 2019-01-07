@@ -65,6 +65,9 @@ class TutorController extends Controller
      */
     public function actionDelete($id)
     {
+        // alles übuer Tutor löschen
+        Tutor::DeleteTutor($id);
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

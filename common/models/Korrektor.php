@@ -156,4 +156,8 @@ class Korrektor extends \yii\db\ActiveRecord
         }
         return $pieArray;
     }
+    
+    public static function DeleteKorrektor($marterikelNr){
+        Abgabe::DeleteAbgabeMitKorretorMar($marterikelNr);
+    }
 }

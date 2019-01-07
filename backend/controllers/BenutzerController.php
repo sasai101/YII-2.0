@@ -113,25 +113,9 @@ class BenutzerController extends Controller
      */
     public function actionDelete($id)
     {
-        //benutzer_teilnimmt_uebungsgruppe
-        BenutzerTeilnimmtUebungsgruppe::find()->where(['Benuter_MarterikelNr'=>$id])->all()->deleteAll();
+        // Löschen alle Item in der Tabelle, welche mit dem Tabelle Benutzer eine Realtion hat
+        Benutzer::DeleteBenutzersDaten($id);
         
-        //Abgabe und Einzelaufgbae
-        $abgaben = Abgabe::find()->where(['Benutzer_MarterikelNr'=>$id])->all();
-        foreach ($abgaben as $abgabe){
-            Einzelaufgabe::find()->where(['AbgabeID'=>$abgabe->AbgabeID])->all()->deleteAll();
-            $abgabe->delete();
-        }
-        
-        //Klausurnote
-        Klausurnote::find()->where(['Benutzer_MarterikelNr'=>$id])->all()->deleteAll();
-        
-        //benutzer_anmeldung_modul
-        ModulAnmeldenBenutzer::find()->where(['Benutzer_MarterikelNr'=>$id])->all()->deleteAll();
-        
-        //Beneutzer anmelden Klausur
-        BenutzerAnmeldenKlausur::find()->where(['Benutzer_MarterikelNr'=>$id])->all()->deleteAll();
-      
         //Benutzer Tabelle
         $this->findModel($id)->delete();
         return $this->redirect(['index']);

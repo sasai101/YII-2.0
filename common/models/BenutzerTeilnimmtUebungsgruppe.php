@@ -71,4 +71,14 @@ class BenutzerTeilnimmtUebungsgruppe extends \yii\db\ActiveRecord
             $teilnahmer->delete();
         }
     }
+    
+    /*
+     *  Benutzer teilname löschen mit MarterikelNr
+     */
+    public static function DeleteBenutzanGruppe($marterikelNr){
+        $modulBenutzerGruppe = BenutzerTeilnimmtUebungsgruppe::find()->where(['Benuter_MarterikelNr'=>$marterikelNr])->all();
+        foreach ($modulBenutzerGruppe as $item){
+            $item->delete();
+        }
+    }
 }

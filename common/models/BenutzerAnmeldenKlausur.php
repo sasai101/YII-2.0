@@ -96,5 +96,21 @@ class BenutzerAnmeldenKlausur extends \yii\db\ActiveRecord
                 } 
             }    
         }
-    }    
+    }  
+    
+    // Benutzer anmelden klausur löschen ,mit MarterikelNr
+    public static function DeleteAnmeldKlausur($marterikelNr){
+        $modelAnmeldKlausur = BenutzerAnmeldenKlausur::find()->where(['Benutzer_MarterikelNr'=>$marterikelNr])->all();
+        foreach ($modelAnmeldKlausur as $anmelden){
+            $anmelden->delete();
+        }
+    }
+    
+    // alle Klausuranmeldung löschen , die von gelöschte Mitarbeiter erstellt
+    public static function DeleteAnmeldKlausurKlausurID($klausurID){
+        $modelAnmeldKlausur = BenutzerAnmeldenKlausur::find()->where(['KlausurID'=>$klausurID])->all();
+        foreach ($modelAnmeldKlausur as $anmelden){
+            $anmelden->delete();
+        }
+    }
 }

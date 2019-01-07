@@ -110,9 +110,10 @@ class Tutor extends \yii\db\ActiveRecord
         ->indexBy('MarterikelNr')
         ->column();
     }
-    
-    
-    
+    // Alles über Tutor löschen
+    public static function DeleteTutor($marterikelNr) {
+        Uebungsgruppe::DeleteUebungsgruppeMitMarter($marterikelNr);
+    }
     
     
 }

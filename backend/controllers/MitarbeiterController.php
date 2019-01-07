@@ -65,6 +65,9 @@ class MitarbeiterController extends Controller
      */
     public function actionDelete($id)
     {
+        // alles Dinges über Mitarbeiter löschen
+        Mitarbeiter::DeleteMitarbeiter($id);
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

@@ -66,6 +66,8 @@ class KorrektorController extends Controller
      */
     public function actionDelete($id)
     {
+        Korrektor::DeleteKorrektor($id);
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

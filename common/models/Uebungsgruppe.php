@@ -183,4 +183,14 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
         }
     }
     
+    // Uebungsgruppen löschen mit Tutor MarterikelNr
+    public static function DeleteUebungsgruppeMitMarter($marterikelNr) {
+        $modelUeubngsgruppe = Uebungsgruppe::find()->where(['Tutor_MarterikelNr'=>$marterikelNr])->all();
+        foreach ($modelUeubngsgruppe as $uebungsgruppe){
+            BenutzerTeilnimmtUebungsgruppe::DeleteBenutzerTeiUebungsgruppe($uebungsgruppe->UebungsgruppeID);
+            Abgabe::DeleteAbgabeMitGruppeID($uebungsgruppe->UebungsgruppeID);
+            $uebungsgruppe->delete();
+        }
+    }
+    
 }

@@ -6,14 +6,13 @@ use common\models\Uebung;
 use yii\widgets\Pjax;
 use common\models\Abgabe;
 ?>
-<?php Pjax::begin()?>
 <div class="uebungsnote">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                    	<h4>Übungsblatt: <?php echo $model->UebungsNr?>
+                    	<h4><?= Html::a("Übungsblatt: ".$model->UebungsNr, ['abgabe/index', 'UebungsgruppeID'=>$ubungsgruppe->UebungsgruppeID,'UebungsblaetterID'=>$model->UebungsblatterID]) ?>
 						&nbsp&nbsp&nbsp&nbsp&nbsp<?php echo Html::a('<i class="fa fa-bar-chart"></i>',['uebungsgruppe/uebungsgruppepiebarecharts','uebungsblaetterID'=>$model->UebungsblatterID,'uebungsgruppeID'=>$ubungsgruppe->UebungsgruppeID])?></h4>
                     	
                     </h3>
@@ -89,4 +88,3 @@ use common\models\Abgabe;
 		</div>
 	</div>
 </div>
-<?php Pjax::end()?>

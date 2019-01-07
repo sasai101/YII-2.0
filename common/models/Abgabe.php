@@ -294,4 +294,37 @@ class Abgabe extends \yii\db\ActiveRecord
             $abgabe->delete();
         }
     }
+    
+    //Abgabe löschen mit BenutzerMarterikelNr
+    public static function DeleteAbgabeMitMarterikelNr($marterikelNr) {
+        $modelAbgabe = Abgabe::find()->where(['Benutzer_MarterikelNr'=>$marterikelNr])->all();
+        foreach ($modelAbgabe as $abgabe){
+            foreach ($abgabe->einzelaufgabes as $einzel){
+                $einzel->delete();
+            }
+            $abgabe->delete();
+        }
+    }
+    
+    //Abgabe löschen mit GruppeID
+    public static function DeleteAbgabeMitGruppeID($uebungsgruppeID) {
+        $modelAbgabe = Abgabe::find()->where(['UebungsgruppenID'=>$uebungsgruppeID])->all();
+        foreach ($modelAbgabe as $abgabe){
+            foreach ($abgabe->einzelaufgabes as $einzel){
+                $einzel->delete();
+            }
+            $abgabe->delete();
+        }
+    }
+    
+    //Abgabe löschen mit Korrektor MarterikelNr
+    public static function DeleteAbgabeMitKorretorMar($marterikelNr) {
+        $modelAbgabe = Abgabe::find()->where(['Korrektor_MarterikelNr'=>$marterikelNr])->all();
+        foreach ($modelAbgabe as $abgabe){
+            foreach ($abgabe->einzelaufgabes as $einzel){
+                $einzel->delete();
+            }
+            $abgabe->delete();
+        }
+    }
 }

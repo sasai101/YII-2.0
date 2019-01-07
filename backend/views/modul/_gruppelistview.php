@@ -12,7 +12,7 @@ use yii\widgets\Pjax;
 			<div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                    	<h4><?= Html::a("Übungsgruppe".$model->GruppenNr, ['uebungsgruppe/gruppendetails', 'id'=>$model->UebungsgruppeID]) ?>
+                    	<h4><?= Html::a("Übungsgruppe: ".$model->GruppenNr, ['uebungsgruppe/gruppendetails', 'id'=>$model->UebungsgruppeID]) ?>
 						&nbsp&nbsp&nbsp&nbsp&nbsp<?php echo Html::a('<i class="fa fa-bar-chart"></i>',['uebungsgruppe/uebungsgruppebarecharts','uebungsgruppeID'=>$model->UebungsgruppeID])?></h4>
                     	
                     </h3>

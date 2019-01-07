@@ -65,6 +65,9 @@ class ProfessorController extends Controller
      */
     public function actionDelete($id)
     {
+        //alles über Prof löschen
+        Professor::DeleteModulLeitePro($id);
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

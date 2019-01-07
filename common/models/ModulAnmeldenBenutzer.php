@@ -63,4 +63,12 @@ class ModulAnmeldenBenutzer extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Benutzer::className(), ['marterikelnr' => 'Benutzer_MarterikelNr']);
     }
+    
+    // Anmeldung der Modul von Benutzer durch die MarterikelNr löschen
+    public static function DeleteAnmeldModul($marterikelNr) {
+        $modelAnmeldModul = ModulAnmeldenBenutzer::find()->where(['Benutzer_MarterikelNr'=>$marterikelNr])->all();
+        foreach ($modelAnmeldModul as $anmelden){
+            $anmelden->delete();
+        }
+    }
 }

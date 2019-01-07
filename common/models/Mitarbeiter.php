@@ -134,4 +134,11 @@ class Mitarbeiter extends \yii\db\ActiveRecord
         ->column();
     }
     
+    // Löschen die alle Item, welche mit Mitarbeiter eine Bindung hat
+    public static function DeleteMitarbeiter($marterikelNr) {
+        Klausurnote::DeleteKlausurnotMitMitarbeitMar($marterikelNr);
+        Klausur::DeleteKlausurMitMitarbeitMar($marterikelNr);
+        Uebung::DeleteUebungMitMitarbeitMar($marterikelNr);
+    }
+    
 }
