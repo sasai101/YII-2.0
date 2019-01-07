@@ -289,4 +289,40 @@ class Klausurnote extends \yii\db\ActiveRecord
             $note->delete();
         }
     }
+    
+    /*
+     * alle Klausur punkte in array_value_count (klausur/echartsbarkalsur)mit Klausur ID
+     */
+    public static function KlausurnoteINArray($klausurID) {
+        $modelPunkte = Klausurnote::find()->where(['KlausurID'=>$klausurID])->all();
+        $arrayPunkte = array();
+        foreach ($modelPunkte as $klausurnote){
+            array_push($arrayPunkte, (int)$klausurnote->Punkt*100);
+        }
+        return array_count_values($arrayPunkte);
+    }
+    
+    /*
+     * Anzahl der Pseron mit bestimmten Punkte in array Zuruck.(klausur/echartsbarkalsur)mit Klausur ID
+     */
+    public static function KlausurnoteAnzahlInarray($klausurID) {
+        $arrayAnzahl = array();
+        $array = Klausurnote::KlausurnoteINArray($klausurID);
+        foreach ($array as $item){
+            array_push($arrayAnzahl, $item);
+        }
+        return $arrayAnzahl;
+    }
+    
+    /*
+     * Alle Punktezahl in array Zuruck.(klausur/echartsbarkalsur)mit Klausur ID
+     */
+    public static function KlausurnotePunktzahlInarray($klausurID) {
+        $arrayAnzahl = array();
+        $array = Klausurnote::KlausurnoteINArray($klausurID);
+        foreach ($array as $key=>$item){
+            array_push($arrayAnzahl, (double)$key/100);
+        }
+        return $arrayAnzahl;
+    }
 }
