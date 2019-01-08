@@ -81,7 +81,7 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
      */
     public function getAbgabes()
     {
-        return $this->hasMany(Abgabe::className(), ['UebungsgruppenID' => 'uebungsgruppeid']);
+        return $this->hasMany(Abgabe::className(), ['UebungsgruppenID' => 'UebungsgruppeID']);
     }
 
     /**
@@ -193,4 +193,31 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
         }
     }
     
+    /*
+     * Anzahl der unkorregierte Abgabe in Gruppe
+     */
+    public static function AnzahlUnkorreigiteGruppe($uebungsgruppeID) {
+        $modelGruppe = Uebungsgruppe::findOne($uebungsgruppeID);
+        $anzahl = 0;
+        foreach ($modelGruppe->abgabes as $abgabe){
+            if($abgabe->GesamtePunkt ==null){
+                $anzahl++;
+            }
+        }
+        return $anzahl;
+    }
+    
+    /*
+     * Anzahl der unkorregierte Abgabe in Gruppe und Uebungsblatt
+     */
+    public static function AnzahlUnkorreigiteUebungsblatt($uebungsgruppeID, $uebungsblaetterID) {
+        $modelAbgabe = Abgabe::find()->where(['UebungsblaetterID'=>$uebungsblaetterID, 'UebungsgruppenID'=>$uebungsgruppeID])->all();
+        $anzahl = 0;
+        foreach ($modelAbgabe as $abgabe){
+            if($abgabe->GesamtePunkt ==null){
+                $anzahl++;
+            }
+        }
+        return $anzahl;
+    }
 }

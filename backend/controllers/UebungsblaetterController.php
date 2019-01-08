@@ -178,6 +178,9 @@ class UebungsblaetterController extends Controller
         // Die UebungsID herausfinden und in der redirect weiter geben, um die richtig Gridview zu zeigen
         $model = $this->findModel($id);
         $uebungsID = $model->UebungsID;
+        
+        Uebungsblaetter::AllesLoeschen($id);
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index', 'id' => $uebungsID]);

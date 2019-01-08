@@ -1,8 +1,6 @@
 <?php
+use common\models\Uebungsgruppe;
 use yii\helpers\Html;
-use yii\helpers\HtmlPurifier;
-use yii\helpers\Url;
-use yii\bootstrap\Modal;
 use yii\widgets\Pjax;
 ?>
 
@@ -11,7 +9,8 @@ use yii\widgets\Pjax;
 <div class = "item" >
     <div align="center">
     <?php //echo "$model->UebungsID"?>
-    	<?= Html::a('<img src = "../../Uebung/Abgabe.png" class="img-circle" alt="user image" height = "90" width="90" />', ['abgabe/index', 'UebungsgruppeID'=>$modelUebungsgruppe->UebungsgruppeID, 'UebungsblaetterID'=>$model->UebungsblatterID]) ?>
+    	<?= Html::a('<img src = "../../Uebung/Abgabe.png" class="img-circle" alt="user image" height = "90" width="90" />', ['abgabe/index', 'UebungsgruppeID'=>$modelUebungsgruppe->UebungsgruppeID, 'UebungsblaetterID'=>$model->UebungsblatterID]) ?></br>
+    	<span class="badge badge-pill badge-info"><?php echo Uebungsgruppe::AnzahlUnkorreigiteUebungsblatt($modelUebungsgruppe->UebungsgruppeID, $model->UebungsblatterID)?></span>
     </div>
     
     <div align = "center"><b>Übungsblatt <?= $model->UebungsNr?></b></div>

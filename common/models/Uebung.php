@@ -314,5 +314,17 @@ class Uebung extends \yii\db\ActiveRecord
             $uebung->delete();
         }
     }
+    
+    /*
+     * Anzahl der unkorregierte Abgabe
+     */
+    public static function UnkorrieteAbgaebInUebung($uebungsID) {
+        $modelUebung = Uebung::findOne($uebungsID);
+        $anzahl = 0;
+        foreach ($modelUebung->uebungsgruppes as $gruppe){
+            $anzahl += Uebungsgruppe::AnzahlUnkorreigiteGruppe($gruppe->UebungsgruppeID);
+        }
+        return $anzahl;
+    }
 }
 

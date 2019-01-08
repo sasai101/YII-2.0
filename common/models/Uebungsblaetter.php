@@ -149,4 +149,11 @@ class Uebungsblaetter extends \yii\db\ActiveRecord
             $blatt->delete();
         }
     }
+    
+    /*
+     * Uebungsblaetter löschen 
+     */
+    public static function AllesLoeschen($uebungsblaetterID) {
+        Abgabe::DeleteAbgabe($uebungsblaetterID);
+    }
 }

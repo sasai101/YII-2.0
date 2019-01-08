@@ -110,6 +110,10 @@ class AbgabeController extends Controller
         }
     }
     
+    
+    /*
+     * Runterladen
+     */
     public function actionDownload($id){
         $model = Uebungsblaetter::findOne($id);
         if(file_exists($model->Datein)){

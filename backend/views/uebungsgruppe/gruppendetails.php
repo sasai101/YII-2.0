@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = 'Übungsgruppe '.$modelUebungsgruppe->GruppenNr
                                         'layout' => '{items}<div class="col-lg-12 sum-pager">{summary}{pager}</div>',
                                         'itemOptions' => [
                                             'tag' => 'div',
-                                            'class' => 'col-md-2'
+                                            'class' => 'col-md-3'
                                         ],
                                         // 'layout' => '{items} {pager}',
                                         'pager' => [
