@@ -113,7 +113,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'panel' => [ 
                                     'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>', 
                                     'type' => 'info', 
-                                    'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']), 
                                     'showFooter' => false 
                                 ], 
                             ]);  ?> 

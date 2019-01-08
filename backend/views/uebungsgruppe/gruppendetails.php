@@ -10,23 +10,16 @@ $this->params['breadcrumbs'][] = 'Übungsgruppe '.$modelUebungsgruppe->GruppenNr
 ?>
 
 <?php Pjax::begin();?>
+
+
 <div class="uebungsgruppe">
 
-    <!-- Leere Zeile -->
+	
+	<!-- Leere Zeile -->
 	<div class="row"></br></div>
 	
-	<div>
-		<h2>
-			Modul: <?php echo $modelUebungsgruppe->uebungs->modul->Bezeichnung ?>
-		</h2>
-	</div>
-	
 	<!-- Titel -->
-	<div>
-		<h2>
-			Übungsgruppe <?php echo $modelUebungsgruppe->GruppenNr ?>
-		</h2>
-	</div>
+	
 	
 	<!-- Leere Zeile -->
 	<div class="row"></br></div>
@@ -34,79 +27,100 @@ $this->params['breadcrumbs'][] = 'Übungsgruppe '.$modelUebungsgruppe->GruppenNr
 	<div class="row"></br></div>	
 
 
-	<div class="panel panel-primary">
-	<div class="panel-heading">
-		<p>
-			<b><h4>Alle Teilnahmer:</b>
-		</p>
-	</div>
-	<div class="panel-body">
-        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-        
-        <p>
-            <?php /* echo Html::a('Create Uebungsgruppe', ['create'], ['class' => 'btn btn-success'])*/  ?>
-        </p>
-          	<?php
-        
-        Pjax::begin();
-        echo ListView::widget([
-            'id' => 'benutzerlist',
-            'dataProvider' => $dataProvider,
-            'itemView' => '_teilnahmerlist',
-            'layout' => '{items}<div class="col-lg-12 sum-pager">{summary}{pager}</div>',
-            'itemOptions' => [
-                'tag' => 'div',
-                'class' => 'col-md-1'
-            ],
-            // 'layout' => '{items} {pager}',
-            'pager' => [
-                'maxButtonCount' => 30,
-                'nextPageLabel' => Yii::t('app', 'nächste'),
-                'prevPageLabel' => Yii::t('app', 'vorne')
-            ]
-        ]);
-        Pjax::end()?>
+	<div class="row">
+		<div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-body">
+			  <div>
+			  	<div class="row">
+			  		<div class="col-md-12">
+			  		<div>
+            		<h4>
+            			Modul: <b><?php echo $modelUebungsgruppe->uebungs->modul->Bezeichnung ?></b>
+            		</h4>
+                	</div>
+                	
+                	<div>
+                		<h4>
+                			Übungsgruppe <b><?php echo $modelUebungsgruppe->GruppenNr ?></b>
+                		</h4>
+                	</div>
+			  		</div>
+			  	</div>
+			  	
+			  	<!-- leere Zeichen -->
+			  	<div></br></div>
+			  	<!-- leere Zeichen -->
+			  	<div></br></div>
+			  	
+			  	<div class="row">
+			  		<div class="col-md-12">
+			  			<div class="col-md-6">
+			  				<div class="panel panel-info">
+                              <div class="panel-heading">Alle Teilnahmer</div>
+                              <div class="panel-body">
+                              	<div class="col-md-12">
+                              	<!-- leere Zeichen -->
+			  					<div></br></div>
+                              		<?php
+                                    echo ListView::widget([
+                                        'id' => 'benutzerlist',
+                                        'dataProvider' => $dataProvider,
+                                        'itemView' => '_teilnahmerlist',
+                                        'viewParams' => ['modelUebungsgruppe' => $modelUebungsgruppe],
+                                        'layout' => '{items}<div class="col-lg-12 sum-pager">{summary}{pager}</div>',
+                                        'itemOptions' => [
+                                            'tag' => 'div',
+                                            'class' => 'col-md-2'
+                                        ],
+                                        // 'layout' => '{items} {pager}',
+                                        'pager' => [
+                                            'maxButtonCount' => 5,
+                                            'nextPageLabel' => Yii::t('app', 'nächste'),
+                                            'prevPageLabel' => Yii::t('app', 'vorne')
+                                        ]
+                                    ]);?>
+                              	</div>
+                              </div>
+                            </div>
+			  			</div>
+			  			<div class="col-md-6">
+			  				<div class="panel panel-warning">
+                              <div class="panel-heading">Alle Abgabe</div>
+                              <div class="panel-body">
+								<div class="row">
+									<div class="col-md-12">
+									<!-- leere Zeichen -->
+			  						<div></br></div>
+										<?php
+                                        echo ListView::widget([
+                                            'id' => 'benutzerlist',
+                                            'dataProvider' => $dataProvider1,
+                                            'itemView' => '_abgabeblaetterlist',
+                                            'layout' => '{items}<div class="col-lg-12 sum-pager">{summary}{pager}</div>',            
+                                            //weitere Parameter
+                                            'viewParams' => ['modelUebungsgruppe' => $modelUebungsgruppe],
+                                            'itemOptions' => [
+                                                'tag' => 'div',
+                                                'class' => 'col-md-3'
+                                            ],
+                                            // 'layout' => '{items} {pager}',
+                                            'pager' => [
+                                                'maxButtonCount' => 5,
+                                                'nextPageLabel' => Yii::t('app', 'nächste'),
+                                                'prevPageLabel' => Yii::t('app', 'vorne')
+                                            ]
+                                        ]);?>
+									</div>
+								</div>
+							  </div>
+                            </div>
+			  			</div>
+			  		</div>
+			  	</div>
+			  </div>
+			</div>
+          </div>          
+		</div>
 	</div>
 </div>
-
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<p>
-			<b><h4>Alle Abgabe:</b>
-		</p>
-	</div>
-	<div class="panel-body">
-        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-        
-        <p>
-            <?php /* echo Html::a('Create Uebungsgruppe', ['create'], ['class' => 'btn btn-success'])*/  ?>
-        </p>
-          	<?php
-        
-        Pjax::begin();
-        echo ListView::widget([
-            'id' => 'benutzerlist',
-            'dataProvider' => $dataProvider1,
-            'itemView' => '_abgabeblaetterlist',
-            'layout' => '{items}<div class="col-lg-12 sum-pager">{summary}{pager}</div>',            
-            //weitere Parameter
-            'viewParams' => ['modelUebungsgruppe' => $modelUebungsgruppe],
-            'itemOptions' => [
-                'tag' => 'div',
-                'class' => 'col-md-1'
-            ],
-            // 'layout' => '{items} {pager}',
-            'pager' => [
-                'maxButtonCount' => 30,
-                'nextPageLabel' => Yii::t('app', 'nächste'),
-                'prevPageLabel' => Yii::t('app', 'vorne')
-            ]
-        ]);
-        Pjax::end()?>
-	</div>
-</div>
-</div>
-<?php Pjax::end();?>
-
-
-

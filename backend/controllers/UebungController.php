@@ -113,4 +113,19 @@ class UebungController extends Controller
             'searchModel' => $searchModel,
         ]);
     }
+    
+    /*
+     * Aller Übungen als Image anzeigen unter Verzeichnis Übung->Übungsgruppe
+     */
+    public function actionAlleuebungsgruppe()
+    {
+        //tabelle uebung
+        $searchModel = new UebungSuchen();
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        
+        return $this->render('alleuebungsgruppe', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
 }

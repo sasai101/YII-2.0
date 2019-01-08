@@ -13,7 +13,7 @@ use yii\widgets\Pjax;
 $this->title = 'Übungsblätter hochladen';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="modul-index">
+<div class="uebung-index">
 
 	
 	<!-- Leere Zeile -->

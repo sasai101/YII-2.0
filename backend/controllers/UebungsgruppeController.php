@@ -11,6 +11,9 @@ use yii\filters\VerbFilter;
 use common\models\UebungSuchen;
 use common\models\BenutzerTeilnimmtUebungsgruppeSuchen;
 use common\models\Uebungsblaetter;
+use common\models\Uebung;
+use common\models\Abgabe;
+use common\models\Benutzer;
 
 /**
  * UebungsgruppeController implements the CRUD actions for Uebungsgruppe model.
@@ -45,20 +48,6 @@ class UebungsgruppeController extends Controller
         }
     }
     
-    /*
-     * Aller Übungen als Image anzeigen unter Verzeichnis Übung->Übungsgruppe
-     */
-    public function actionAlleuebungen()
-    {
-        //tabelle uebung
-        $searchModel = new UebungSuchen();
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-        
-        return $this->render('alleuebungen', [
-            'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
-        ]);
-    }
     
     /*
      * Zeigen die entsprechende Übungsguppe mit Tutorprofiefoto
@@ -66,12 +55,14 @@ class UebungsgruppeController extends Controller
     public function actionAlleuebungsgruppe($id) 
     {
         //tablle uebungsgruppe
+        $model = Uebung::findOne($id);
         $searchModel = new UebungsgruppeSuchen();
         $dateProvider = $searchModel->searchGruppe($id);
         
         return $this->render('alleuebungsgruppe',[
             'dataProvider' => $dateProvider,
             'searchModel' => $searchModel,
+            'model' => $model,
         ]);
     }
     
@@ -137,5 +128,19 @@ class UebungsgruppeController extends Controller
         ]);
     }
     
+    /*
+     * Person Echarts , da kann man alle Abgabedetails von bestimmtem Person in bestimmtem Gruppe einsehen
+     */
+    public function actionPersonecharts($marterikelNr, $uebungsgruppeID) {
+        $model = Abgabe::find()->where(['Benutzer_MarterikelNr'=>$marterikelNr,'UebungsgruppenID'=>$uebungsgruppeID])->all();
+        $modelBenutzer = Benutzer::findOne($marterikelNr);
+        $modelUebungsgruppe = Uebungsgruppe::findOne($uebungsgruppeID);
+        
+        return $this->render('personecharts',[
+            'model' => $model,
+            'modelBenutzer'=>$modelBenutzer,
+            'modelUebungsgruppe' => $modelUebungsgruppe,
+        ]);
+    }
     
 }
