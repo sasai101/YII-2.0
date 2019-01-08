@@ -17,13 +17,15 @@ $this->params['breadcrumbs'][] = ['label' => 'Alle Übungsgruppen', 'url' => ['u
 $this->params['breadcrumbs'][] = ['label' => 'Übungsgruppe'.$modelUbungsgruppe->GruppenNr, 'url'=>['uebungsgruppe/gruppendetails', 'id'=>$modelUbungsgruppe->UebungsgruppeID]];
 $this->params['breadcrumbs'][] = 'Übungsblatt '.$modelUebungsblaetter->UebungsNr;
 ?>
-
-<?php Pjax::begin();?>
 <div class="abgabe-index">
+
     <!-- Leere Zeile -->
 	<div class="row"></br></div>
 	
-	<div>
+	
+	<div class="panel panel-default">
+    <div class="panel-body">
+		<div>
 		<h2>
 			Modul: <?php echo $modelUbungsgruppe->uebungs->modul->Bezeichnung ?>
 		</h2>
@@ -37,7 +39,7 @@ $this->params['breadcrumbs'][] = 'Übungsblatt '.$modelUebungsblaetter->UebungsN
 	<!-- Titel -->
 	<div>
 		<h2>
-			Übungsblatt <?php echo $modelUebungsblaetter->UebungsNr ?>
+			Übungsblatt <?php echo $modelUebungsblaetter->UebungsNr ?> &nbsp&nbsp&nbsp&nbsp&nbsp<?php echo Html::a('<i class="fa fa-bar-chart"></i>',['uebungsgruppe/uebungsgruppepiebarecharts','uebungsblaetterID'=>$modelUebungsblaetter->UebungsblatterID,'uebungsgruppeID'=>$modelUbungsgruppe->UebungsgruppeID])?>
 		</h2>
 	</div>
 	
@@ -109,12 +111,18 @@ $this->params['breadcrumbs'][] = 'Übungsblatt '.$modelUebungsblaetter->UebungsN
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template'=>'{update}',
+                'template'=>'{view},{update}',
                 'buttons' => [
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
                             Yii::$app->urlManager->createUrl(['abgabe/update', 'id' => $model->AbgabeID, 'edit' => 't']),
                             ['title' => Yii::t('yii', 'Edit'),]
+                        );
+                    },
+                    'view' => function ($url, $model) {
+                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>',
+                        Yii::$app->urlManager->createUrl(['abgabe/view', 'id' => $model->AbgabeID, 'edit' => 't']),
+                        ['title' => Yii::t('yii', 'Edit'),]
                         );
                     }
                 ],
@@ -132,6 +140,5 @@ $this->params['breadcrumbs'][] = 'Übungsblatt '.$modelUebungsblaetter->UebungsN
             'showFooter' => false
         ],
     ]); Pjax::end(); ?>
-
+		
 </div>
-<?php Pjax::end()?>

@@ -7,6 +7,7 @@ use common\models\Abgabe;
 use common\models\AbgabeSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\widgets\ActiveForm;
 use yii\filters\VerbFilter;
 use common\models\Uebungsgruppe;
 use common\models\Uebungsblaetter;
@@ -62,6 +63,8 @@ class AbgabeController extends Controller
         $model = $this->findModel($id);
         $modelEinzelaufgabe =$model->einzelaufgabes;
         
+        
+        
         if(Model::loadMultiple($modelEinzelaufgabe, Yii::$app->request->post()))
         {
             foreach ($modelEinzelaufgabe as $aufgabe)
@@ -77,7 +80,20 @@ class AbgabeController extends Controller
         ]);
         
     }
-
+    
+    /*
+     * View action
+     */
+    public function actionView($id) {
+        
+        $model = $this->findModel($id);
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->MarterikelNr]);
+        } else {
+            return $this->render('view', ['model' => $model]);
+        }
+    }
     /**
      * Finds the Abgabe model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

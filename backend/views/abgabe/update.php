@@ -15,101 +15,110 @@ $this->params['breadcrumbs'][] = ['label' => 'Übungsgruppe'.$model->uebungsgrup
 $this->params['breadcrumbs'][] = ['label' => 'Alle Abgabe von Gruppe '.$model->uebungsgruppen->GruppenNr, 'url'=>['abgabe/index', 'UebungsgruppeID'=>$model->UebungsgruppenID, 'UebungsblaetterID'=>$model->UebungsblaetterID]];
 $this->params['breadcrumbs'][] = 'Übungsblatt '.$model->uebungsblaetter->UebungsNr;
 ?>
-<div class="abgabe-update">
-	<div class="abgabe-index">
-    <!-- Leere Zeile -->
-	<div class="row"></br></div>
-	
-	<div>
-		<h2>
-			Modul: <?php echo $model->uebungsblaetter->uebungs->modul->Bezeichnung ?>
-		</h2>
-	</div>
-	
-	<div>
-		<h2>
-			Übungsgruppe: <?php echo $model->uebungsgruppen->GruppenNr ?>
-		</h2>
-	</div>
-	<!-- Titel -->
-	<div>
-		<h2>
-			Übungsblatt <?php echo $model->uebungsblaetter->UebungsNr ?>
-		</h2>
-	</div>
-	
-	<!-- Abgabe gehört zu  -->
-	<div>
-		<h2>
-			Abgabe von <?php echo $model->benutzerMarterikelNr->Vorname." ".$model->benutzerMarterikelNr->Nachname ?>
-		<h2>
-	</div>
-	
-	<!-- Leere Zeile -->
-	<div class="row"></br></div>
-	<!-- Leere Zeile -->
-	<div class="row"></br></div>	
 
-    <?php $form = ActiveForm::begin(); ?>
-    	
-    	<?php foreach ($model->einzelaufgabes as $index=>$aufgabe):?>
-    	<div class="panel panel-primary">
-        	<div class="panel-heading">
-        		<p>
-        			<b><h4>Aufabe <?php echo $aufgabe->AufgabeNr?></b>
-        		</p>
+
+<!-- Leere Zeile -->
+<div class="row"></br></div>
+<div class="panel panel-default">
+    <div class="panel-body">
+    	<div class="abgabe-update">
+        	<div class="abgabe-index">
+            <!-- Leere Zeile -->
+        	<div class="row"></br></div>
+        	
+        	<?php $form = ActiveForm::begin([
+        	    'enableAjaxValidation'=>true,
+        	]); ?>
+        	
+        	<div>
+        		<h2>
+        			Modul: <?php echo $model->uebungsblaetter->uebungs->modul->Bezeichnung ?>
+        		</h2>
         	</div>
-        	<div class="panel-body">
-    		<!-- Aufgabennummer -->
-    		
-    		
-    		<!-- Die Antwortung -->
-    		<div class="row">
-    			<div class="col-md-1">		
-    			</div>
-    			<div class="col-md-1">		
-    			</div>
-    			<div class="col-md-8">
-    				<pre> <?php echo  $aufgabe->Text?></pre>
-    			</div>
-    		</div>
-    		
-    		<!-- Punkte -->
-    		<div class="row">
-    			<div class="col-md-1">	
-    			</div>
-    			<div class="col-md-1">		
-    			</div>
-    			<div class="col-md-1">
-    				<?= $form->field($aufgabe, "[$index]Punkte")->textInput()?>
-    			</div>
-    		</div>
-    		
-    		<!-- Bewertung -->
-    		<div class="row">
-    			<div class="col-md-1">		
-    			</div>
-    			<div class="col-md-1">		
-    			</div>
-    			<div class="col-md-4">
-    				<?= $form->field($aufgabe, "[$index]Bewertung")->textarea(['rows' => 6])?>
-    			</div>
-    		</div>
-    		
-    		<!-- Leerzeichen -->
-    		<div class="row">
-    			</br>
-    		</div>
-    		</div>
-    	</div>
-    	<?php endforeach;?>
-    
-    
-        <div class="form-group">
-            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        	
+        	<div>
+        		<h2>
+        			Übungsgruppe: <?php echo $model->uebungsgruppen->GruppenNr ?>
+        		</h2>
+        	</div>
+        	<!-- Titel -->
+        	<div>
+        		<h2>
+        			Übungsblatt <?php echo $model->uebungsblaetter->UebungsNr ?>
+        		</h2>
+        	</div>
+        	
+        	<!-- Abgabe gehört zu  -->
+        	<div>
+        		<h2>
+        			Abgabe von <?php echo $model->benutzerMarterikelNr->Vorname." ".$model->benutzerMarterikelNr->Nachname ?>
+        		<h2>
+        	</div>
+        	
+        	<!-- Leere Zeile -->
+        	<div class="row"></br></div>
+        	<!-- Leere Zeile -->
+        	<div class="row"></br></div>	
+            	
+            	<?php foreach ($model->einzelaufgabes as $index=>$aufgabe):?>
+            	<div class="panel panel-primary">
+                	<div class="panel-heading">
+                		<p>
+                			<b><h4>Aufabe <?php echo $aufgabe->AufgabeNr?></b>
+                		</p>
+                	</div>
+                	<div class="panel-body">
+            		<!-- Aufgabennummer -->
+            		
+            		
+            		<!-- Die Antwortung -->
+            		<div class="row">
+            			<div class="col-md-1">		
+            			</div>
+            			<div class="col-md-1">		
+            			</div>
+            			<div class="col-md-8">
+            				<pre> <?php echo  $aufgabe->Text?></pre>
+            			</div>
+            		</div>
+            		
+            		<!-- Punkte -->
+            		<div class="row">
+            			<div class="col-md-1">	
+            			</div>
+            			<div class="col-md-1">		
+            			</div>
+            			<div class="col-md-1">
+            				<?= $form->field($aufgabe, "[$index]Punkte")->textInput()?>
+            			</div>
+            		</div>
+            		
+            		<!-- Bewertung -->
+            		<div class="row">
+            			<div class="col-md-1">		
+            			</div>
+            			<div class="col-md-1">		
+            			</div>
+            			<div class="col-md-4">
+            				<?= $form->field($aufgabe, "[$index]Bewertung")->textarea(['rows' => 6])?>
+            			</div>
+            		</div>
+            		
+            		<!-- Leerzeichen -->
+            		<div class="row">
+            			</br>
+            		</div>
+            		</div>
+            	</div>
+            	<?php endforeach;?>
+        		
+        		<div class="form-group">
+                    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+                </div>
+               
+        
+            <?php ActiveForm::end(); ?>
+        		
         </div>
-       
-
-    <?php ActiveForm::end(); ?>
-
+    </div>
 </div>

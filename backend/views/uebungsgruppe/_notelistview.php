@@ -1,19 +1,18 @@
 <?php
-use yii\helpers\Html;
 use yii\widgets\Pjax;
 use common\models\Abgabe;
 use backend\assets\EchartsAsset;
 use Hisune\EchartsPHP\ECharts;
 ?>
 
+<?php Pjax::begin()?>
 <div class="uebungsnote">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                    	Name: <?= Html::a($model->benutzerMarterikelNr->Vorname." ".$model->benutzerMarterikelNr->Vorname, ['abgabe/view', 'id'=>$model->AbgabeID]) ?>
-                    	&nbsp <?php echo $model->Benutzer_MarterikelNr?>
+                    	Übungsblatt<?php echo $model->uebungsblaetter->UebungsNr?>
                     </h3>
                 </div>
                 <div class="panel-body" >
@@ -21,7 +20,7 @@ use Hisune\EchartsPHP\ECharts;
         			
         			<div class="row">
                       	<div class="col-md-12">
-                      	<?php 
+                      	<?php Pjax::begin();
                       		
                                 $asset = EchartsAsset::register($this);
                                 $chart = new ECharts($asset->baseUrl);
@@ -76,7 +75,7 @@ use Hisune\EchartsPHP\ECharts;
                                 );
                                 $echartsID = "simple-custom-".$model->AbgabeID;
                                 echo $chart->render($echartsID);
-                                ?>
+                                Pjax::end()?>
                       	</div>
               		</div>
         			
@@ -102,3 +101,4 @@ use Hisune\EchartsPHP\ECharts;
 		</div>
 	</div>
 </div>
+<?php Pjax::end()?>

@@ -11,6 +11,7 @@ use yii\widgets\Pjax;
     
     <?php //echo "$model->UebungsID"?>
     	<?= Html::a('<img src = "../../Uebung/Uebungsgruppe.png" class="img-circle" alt="user image" height = "90" width="90" />', ['uebungsgruppe/alleuebungsgruppe', 'id' => $model->UebungsID]) ?>
+    	<span class="badge badge-pill badge-info">Info</span>
     </div>
     <div>&nbsp</div>
     <div align = "center"><b><?= $model->Bezeichnung?></b></div>

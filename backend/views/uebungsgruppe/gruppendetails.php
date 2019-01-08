@@ -34,17 +34,24 @@ $this->params['breadcrumbs'][] = 'Übungsgruppe '.$modelUebungsgruppe->GruppenNr
 			  <div>
 			  	<div class="row">
 			  		<div class="col-md-12">
-			  		<div>
-            		<h4>
-            			Modul: <b><?php echo $modelUebungsgruppe->uebungs->modul->Bezeichnung ?></b>
-            		</h4>
-                	</div>
+    			  		<div>
+                    		<h4>
+                    			Modul: <b><?php echo $modelUebungsgruppe->uebungs->modul->Bezeichnung ?></b>
+                    		</h4>
+                    	</div>
+                    	
+                    	<div>
+                    		<h4>
+                    			Übungsgruppe <b><?php echo $modelUebungsgruppe->GruppenNr ?></b>
+                    		</h4>
+                    	</div>
+                    	
+                    	<div>
+                    		<h3>
+                    			<b><?php echo Html::a('<i class="fa fa-bar-chart"></i>',['uebungsgruppe/uebungsgruppebarecharts','uebungsgruppeID'=>$modelUebungsgruppe->UebungsgruppeID])?></b>
+                    		</h3>
+                    	</div>
                 	
-                	<div>
-                		<h4>
-                			Übungsgruppe <b><?php echo $modelUebungsgruppe->GruppenNr ?></b>
-                		</h4>
-                	</div>
 			  		</div>
 			  	</div>
 			  	

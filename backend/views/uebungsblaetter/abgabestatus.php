@@ -54,8 +54,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                 <div class="panel-heading">Notenstatus</div>
                                 <div class="panel-body">
 									<div class="col-md-12">
-										<?php Pjax::begin();
-                  		
+										<?php                   		
               		
                                         $asset = EchartsAsset::register($this);
                                         $chart = new ECharts($asset->baseUrl);
@@ -124,8 +123,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                                 'data' => Abgabe::AnzahlderPrersonMitPunkt($model->UebungsblatterID),   
                                             )
                                         );
-                                        echo $chart->render('simple-custom-1');
-                                        Pjax::end()?>
+                                        echo $chart->render('simple-custom-1');?>
 									</div>
 								</div>
                               </div>
@@ -138,7 +136,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                 <div class="panel-heading">Abgabestatus</div>
                                 <div class="panel-body">
 									<div class="col-md-12">
-										<?php Pjax::begin();
+										<?php
                       		
                                             $asset = EchartsAsset::register($this);
                                             $chart = new ECharts($asset->baseUrl);
@@ -199,8 +197,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                                         
                                                 )
                                             );
-                                            echo $chart->render('simple-custom-2');
-                                        Pjax::end()?>
+                                            echo $chart->render('simple-custom-2');?>
 									</div>
 								</div>
                               </div>

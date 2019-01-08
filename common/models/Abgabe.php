@@ -47,9 +47,19 @@ class Abgabe extends \yii\db\ActiveRecord
             [['Korrektor_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Korrektor::className(), 'targetAttribute' => ['Korrektor_MarterikelNr' => 'marterikelnr']],
             [['UebungsblaetterID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebungsblaetter::className(), 'targetAttribute' => ['UebungsblaetterID' => 'uebungsblatterid']],
             [['UebungsgruppenID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebungsgruppe::className(), 'targetAttribute' => ['UebungsgruppenID' => 'uebungsgruppeid']],
+            //['GesamtePunkt','GesamtePunktCheck'],
         ];
     }
 
+    public function GesamtePunktCheck($attribute, $params)
+    {
+        if( $this->Punkte < 0){
+            $this->addError($attribute,'Punkt muss immer ein positive Zahl sein.');
+        }else if($this->Punkte>$this->uebungsblaetter->GesamtePunkte){
+            $this->addError($attribute,'Punkt muss immer kleiner als '.$model->uebungsblaetter->GesamtePunkte .' sein.');
+        }
+    }
+    
     /**
      * {@inheritdoc}
      */
@@ -126,6 +136,7 @@ class Abgabe extends \yii\db\ActiveRecord
         {
             $model = $this->einzelaufgabes;
             $note = 0;
+            $flag = true;
             foreach ($model as $aufgabe){
                 if($aufgabe->Punkte==null){
                     $note = 0;
@@ -135,8 +146,11 @@ class Abgabe extends \yii\db\ActiveRecord
                     $note += $aufgabe->Punkte;
                 }
             }
-            if( $note != 0){
+            if( $flag==true){
                 if($note > $this->uebungsblaetter->GesamtePunkte){
+                    
+                    echo "<script>alert('Der gesamte Punkt muss kleiner als '.$this->uebungsblaetter->GesamtePunkte.' sein')</script>";
+                    
                     //alert("Der gesamte Punkt muss kleiner als ".$this->uebungsblaetter->GesamtePunkte."sein");
                     
                     /*Alert::begin([
@@ -147,6 +161,9 @@ class Abgabe extends \yii\db\ActiveRecord
                     echo "Der gesamte Punkt muss kleiner als ".$this->uebungsblaetter->GesamtePunkte."sein";*/
                     return false;
                 }elseif ($note < 0){
+                    
+                    echo "<script>alert('Der gesamte Punkt muss größer gleiche als 0 sein')</script>";
+                    
                     //echo alert("Der gesamte Punkt muss größer gleiche als 0 sein");
                     /*Alert::begin([
                         'options'=>[

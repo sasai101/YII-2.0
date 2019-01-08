@@ -39,26 +39,13 @@ class Einzelaufgabe extends \yii\db\ActiveRecord
             [['AbgabeID', 'AufgabeNr'], 'integer'],
             [['Text', 'Datein', 'Bewertung'], 'string'],
             //Validierung
-            [['Punkte'], 'punktgrenze'],
+            
+            [['Punkte'], 'double'],
             
             [['Bewertung'], 'string', 'max' => 255],
             [['AbgabeID'], 'exist', 'skipOnError' => true, 'targetClass' => Abgabe::className(), 'targetAttribute' => ['AbgabeID' => 'AbgabeID']],
             
         ];
-    }
-    // validierung fur Punkte
-    public function punktgrenze($attribute, $params)
-    {
-        $modelUebungsblaetter = Uebungsblaetter::findOne($this->abgabe->UebungsblaetterID);
-        
-        if(!is_double($this->Punkte)){
-            
-            if($this->Punkte > $modelUebungsblaetter->GesamtePunkte || $this->Punkte < 0){
-                $this->addError($attribute,"Punkt muss zwischen ".$modelUebungsblaetter->GesamtePunkte." und 0 sein");
-            }
-        }else {
-            $this->addError($attribute,"1Punkt muss ein Zahl zwischen ".$modelUebungsblaetter->GesamtePunkte." und 0 sein");
-        }
     }
     /**
      * {@inheritdoc}
