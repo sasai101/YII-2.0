@@ -326,5 +326,27 @@ class Uebung extends \yii\db\ActiveRecord
         }
         return $anzahl;
     }
+
+    /*
+     *  Alle Leute in der Übung zuruckgeben, in Form MarterikelNr=>GruppeID
+     */
+    public static function MarterikelNrMitGruppeID($uebungsID) {
+        $model = Uebung::AllerPersonUebung($uebungsID);
+        $modelAlleGruppen = Uebungsgruppe::find()->where(['UebungsID'=>$uebungsID])->all();
+        $arrayGruPer = array();
+        foreach ($modelAlleGruppen as $gruppe){
+            $GruppId = $gruppe->UebungsgruppeID;
+            foreach ($model as $person){
+                
+                if((BenutzerTeilnimmtUebungsgruppe::findOne(['Benuter_MarterikelNr' => $person, 'UebungsgruppeID' => $GruppId]))!=null){
+                    //echo $person."OK";
+                    $array = array($person=>$GruppId);
+                    $arrayGruPer = $arrayGruPer+$array;
+                }
+                
+            }
+        }
+        return $arrayGruPer;
+    }
 }
 

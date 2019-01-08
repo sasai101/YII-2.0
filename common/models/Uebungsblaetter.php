@@ -156,4 +156,24 @@ class Uebungsblaetter extends \yii\db\ActiveRecord
     public static function AllesLoeschen($uebungsblaetterID) {
         Abgabe::DeleteAbgabe($uebungsblaetterID);
     }
+    
+    
+    /*
+     * Aftersave, alle Abgabe automatisch erstellen
+     */
+    public function afterSave($insert, $changedAttributes) {
+        parent::afterSave($insert, $changedAttributes);
+        if ($insert) {
+            $model = Uebung::MarterikelNrMitGruppeID($this->UebungsID);
+            // für jeden Person in diesen Uebung eine Abgabe erstellen
+            foreach ($model as $key=>$einzel){
+                $modelAgabe = new Abgabe;
+                $modelAgabe->Benutzer_MarterikelNr = $key;
+                $modelAgabe->UebungsgruppenID = $einzel;
+                $modelAgabe->UebungsblaetterID =$this->UebungsblatterID;
+                $modelAgabe->save();
+            }
+        }
+    }
+    
 }

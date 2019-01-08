@@ -16,13 +16,13 @@ use kartik\widgets\ActiveForm;
         'enableAjaxValidation'=>true,
     ]); ?>
     
+		<?= $form->field($model, 'file')->fileInput() ?>
+		
 		<?= $form->field($model, 'Anzahl_der_Aufgabe')->textInput() ?>
 
 		<?= $form->field($model, 'GesamtePunkte')->textInput() ?>
 
 		<?=$form->field($model, 'Deadline')->widget('trntv\yii\datetime\DateTimeWidget', ['clientOptions' => ['minDate' => new \yii\web\JsExpression(time() + 60 * 60 * 60),'allowInputToggle' => true,'sideBySide' => true,'locale' => 'de','widgetPositioning' => ['horizontal' => 'auto','vertical' => 'auto']]])?>
-	
-		<?= $form->field($model, 'file')->fileInput() ?>
 		
         <?= Html::submitButton('Create', ['class' => 'btn btn-success']) ?>
 

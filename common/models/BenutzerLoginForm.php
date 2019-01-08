@@ -7,16 +7,16 @@ use yii\base\Model;
 /**
  * Login form
  */
-class VerwalterLoginForm extends Model
+class BenutzerLoginForm extends Model
 {
     public $Benutzername;
     public $password;
     public $rememberMe = true;
-
+    
     private $_user;
     private $_num;
-
-
+    
+    
     /**
      * {@inheritdoc}
      */
@@ -31,7 +31,7 @@ class VerwalterLoginForm extends Model
             ['password', 'validatePassword'],
         ];
     }
-
+    
     /**
      * Validates the password.
      * This method serves as the inline validation for password.
@@ -48,7 +48,7 @@ class VerwalterLoginForm extends Model
             }
         }
     }
-
+    
     /**
      * Logs in a user using the provided username and password.
      *
@@ -62,7 +62,7 @@ class VerwalterLoginForm extends Model
         
         return false;
     }
-
+    
     /**
      * Finds user by [[Benutzername]]
      *
@@ -74,13 +74,13 @@ class VerwalterLoginForm extends Model
             $this->_user = Benutzer::findByUsername($this->Benutzername);
             // Wenn der gegebener Benutzer wahr ist,
             if(!empty($this->_user)){
-                if(!$this->findVerwlater($this->Benutzername)){
+                if(!$this->findBenutzer($this->Benutzername)){
                     $this->_user = null;
                 }
             }
             
         }
-
+        
         return $this->_user;
     }
     
@@ -90,25 +90,12 @@ class VerwalterLoginForm extends Model
      * @return boolean
      */
     
-    public function findVerwlater($Benutzer)
+    public function findBenutzer($Benutzer)
     {
-        $benutzer = false;
+        $benutzer = true;
         
         $model = Benutzer::find()->where(['Benutzername'=>$this->_user])->one();
-        if($this->_num===null){
-            $this->_num = $model->MarterikelNr;
-            if(Tutor::find()->where(['MarterikelNr'=>$this->_num])->one()!=null ){
-                $benutzer = true;
-            }else if(Mitarbeiter::find()->where(['MarterikelNr'=>$this->_num])->one()!=null){
-                $benutzer = true;
-            }else if(Professor::find()->where(['MarterikelNr'=>$this->_num])->one()!=null){
-                $benutzer = true;
-            }else if(Korrektor::find()->where(['MarterikelNr'=>$this->_num])->one()!=null){
-                $benutzer = true;
-            }else{
-                $benutzer = false;
-            }            
-        }
+        
         return $benutzer;
     }
 }

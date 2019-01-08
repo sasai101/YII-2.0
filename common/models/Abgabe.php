@@ -173,15 +173,19 @@ class Abgabe extends \yii\db\ActiveRecord
                     echo "Der gesamte Punkt muss größer gleiche als 0 sein";*/
                     return false;
                 }else{
-                    if(Korrektor::findOne(\Yii::$app->user->identity->MarterikelNr)==null){
-                        $this->KorregierteZeit = time();
-                        $this->GesamtePunkt = $note;
+                    if($insert){
+                        return true;
                     }else{
-                        $this->KorregierteZeit = time();
-                        $this->GesamtePunkt = $note;
-                        $this->setMarterikelNr(Yii::$app->user->identity->MarterikelNr);
+                        if(Korrektor::findOne(\Yii::$app->user->identity->MarterikelNr)==null){
+                            $this->KorregierteZeit = time();
+                            $this->GesamtePunkt = $note;
+                        }else{
+                            $this->KorregierteZeit = time();
+                            $this->GesamtePunkt = $note;
+                            $this->setMarterikelNr(Yii::$app->user->identity->MarterikelNr);
+                        }
+                        return true;
                     }
-                    return true;
                 }
             }  
         }
@@ -409,5 +413,20 @@ class Abgabe extends \yii\db\ActiveRecord
     public static function AlleAnzahlAbgeben($uebungsblaetterID) {
         $AlleAbgabe = Abgabe::find()->where(['UebungsblaetterID'=>$uebungsblaetterID])->count();
         return $AlleAbgabe-Abgabe::AlleAnzahlNichtAbgeben($uebungsblaetterID);
+    }
+    
+    /*
+     * Aftersave, alle Abgabe automatisch erstellen
+     */
+    public function afterSave($insert, $changedAttributes) {
+        parent::afterSave($insert, $changedAttributes);
+        if ($insert) {
+            for ($i = 1; $i <= $this->uebungsblaetter->Anzahl_der_Aufgabe; $i++) {
+                $model = new Einzelaufgabe;
+                $model->AbgabeID = $this->AbgabeID;
+                $model->AufgabeNr = $i;
+                $model->save();
+            }
+        }
     }
 }

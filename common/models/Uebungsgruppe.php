@@ -220,4 +220,16 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
         }
         return $anzahl;
     }
+    
+    /*
+     * alle teilgenommene GruppenID in Array von Benutzer
+     */
+    public static function AlleTeilnahmGruppe($marterikelNr) {
+        $model = BenutzerTeilnimmtUebungsgruppe::find()->where(['Benuter_MarterikelNr'=>$marterikelNr])->all();
+        $arrayGruppeID = array();
+        foreach ($model as $gruppe){
+            array_push($arrayGruppeID, $gruppe->UebungsgruppeID);
+        }
+        return array_reverse($arrayGruppeID);
+    }
 }
