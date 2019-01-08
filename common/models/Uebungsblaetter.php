@@ -53,9 +53,10 @@ class Uebungsblaetter extends \yii\db\ActiveRecord
     }
     
     public function DeadlineCheck($attribute, $params) {
-        $heute = date('d.M.y, H:m');
-        if( $this->Deadline < $heute){
-            $this->addError($attribute,'Das Prüfungsdatum muss grösser als heute sein.');
+        $heute = date('d-m-Y H:i:s');
+        $dethdatum = date($this->Deadline);
+        if( $dethdatum < $heute){
+            $this->addError($attribute,'Das Deadline muss grösser als heute sein.');
         }
     }
     public function AnzahlAufgabeCheck($attribute,$param) {

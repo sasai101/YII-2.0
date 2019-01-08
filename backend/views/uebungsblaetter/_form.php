@@ -12,7 +12,9 @@ use kartik\widgets\ActiveForm;
 
 <div class="uebungsblaetter-form">
     
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'enableAjaxValidation'=>true,
+    ]); ?>
     
 		<?= $form->field($model, 'Anzahl_der_Aufgabe')->textInput() ?>
 

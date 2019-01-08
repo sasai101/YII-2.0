@@ -200,16 +200,13 @@ class UebungsblaetterController extends Controller
     }
     
     /*
-     * Aller Übungen als Image anzeigen unter Verzeichnis Übung->Übungsblätter
+     * Abgabe Status
      */
-    public function actionAlleuebungen()
-    {
-        $searchModel = new UebungSuchen();
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+    public function actionAbgabestatus($id) {
+        $model = $this->findModel($id);
         
-        return $this->render('alleuebungen', [
-            'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
+        return $this->render('abgabestatus',[
+            'model' => $model,
         ]);
     }
 }

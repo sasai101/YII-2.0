@@ -327,4 +327,70 @@ class Abgabe extends \yii\db\ActiveRecord
             $abgabe->delete();
         }
     }
+    
+    /*
+     * Abgabe alle note in Array_value_count (uebungsblaetter/abgabestatus)
+     */
+    public static function AlleNoteInArray($uebungsblaetterID) {
+        $modelAbgabe = Abgabe::find()->where(['UebungsblaetterID'=>$uebungsblaetterID])->all();
+        $allenoteArray = array();
+        foreach ($modelAbgabe as $abgabe){
+            array_push($allenoteArray, $abgabe->GesamtePunkt);
+        }
+        return array_count_values($allenoteArray);
+    }
+    
+    /*
+     * Anzahl der Person mitbestimmen Punkte (uebungsblaetter/abgabestatus)
+     */
+    public static function AnzahlderPrersonMitPunkt($uebungsblaetterID){
+        $array = Abgabe::AlleNoteInArray($uebungsblaetterID);
+        $arrayAnzahl = array();
+        foreach ($array as $item){
+            array_push($arrayAnzahl, $item);
+        }
+        return $arrayAnzahl;
+    }
+    
+    /*
+     * Anzahl punkte Zahl (uebungsblaetter/abgabestatus)
+     */
+    public static function AllePunkteZahl($uebungsblaetterID){
+        $array = Abgabe::AlleNoteInArray($uebungsblaetterID);
+        $arrayAnzahl = array();
+        foreach ($array as $key=>$item){
+            array_push($arrayAnzahl, $key);
+        }
+        return $arrayAnzahl;
+    }
+    
+    /*
+     * Anzahl, wer die Abgabe nicht abgegeben haben, (uebungsblaetter/abgabestatus)
+     */
+    public static function AlleAnzahlNichtAbgeben($uebungsblaetterID) {
+        $modelUebungsblatt = Uebungsblaetter::findOne($uebungsblaetterID);
+        $modelAbgabe = Abgabe::find()->where(['UebungsblaetterID'=>$uebungsblaetterID])->all();
+        $anzahl = 0;
+        $leeraufgabe = 0;
+        foreach ($modelAbgabe as $abgabe){
+            foreach ($abgabe->einzelaufgabes as $einzel){
+                if($einzel->Text==NULL && $einzel->Datein==NULL){
+                    $leeraufgabe += 1;
+                }
+            }
+            if($leeraufgabe == $modelUebungsblatt->Anzahl_der_Aufgabe){
+                $anzahl += 1;
+            }
+            $leeraufgabe = 0;
+        }
+        return $anzahl;
+    }
+    
+    /*
+     *  Anzahl, wer die Abgabe abgegeben haben, (uebungsblaetter/abgabestatus)
+     */
+    public static function AlleAnzahlAbgeben($uebungsblaetterID) {
+        $AlleAbgabe = Abgabe::find()->where(['UebungsblaetterID'=>$uebungsblaetterID])->count();
+        return $AlleAbgabe-Abgabe::AlleAnzahlNichtAbgeben($uebungsblaetterID);
+    }
 }

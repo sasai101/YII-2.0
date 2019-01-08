@@ -13,15 +13,9 @@ use yii\widgets\ActiveForm;
 <div class="uebung-search">
 
     <?php $form = ActiveForm::begin([
-        'action' => ['index'],
+        'action' => ['alleuebungen'],
         'method' => 'get',
     ]); ?>
-
-    <?= $form->field($model, 'UebungsID') ?>
-
-    <?= $form->field($model, 'ModulID') ?>
-
-    <?= $form->field($model, 'Mitarbeiter_MarterikelNr') ?>
 
     <?= $form->field($model, 'Bezeichnung') ?>
 

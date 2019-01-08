@@ -3,7 +3,6 @@ use backend\assets\EchartsAsset;
 use Hisune\EchartsPHP\ECharts;
 use yii\widgets\Pjax;
 use common\models\Klausurnote;
-use common\models\Klausur;
 
 
 $this->title = $model->mitarbeiterMarterikelNr->marterikelNr->Vorname." ".$model->mitarbeiterMarterikelNr->marterikelNr->Nachname;

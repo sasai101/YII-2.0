@@ -99,4 +99,18 @@ class UebungController extends Controller
             'model'=> $model
         ]);
     }
+    
+    /*
+     * Aller Übungen als Image anzeigen unter Verzeichnis Übung->Übungsblätter
+     */
+    public function actionAlleuebungen()
+    {
+        $searchModel = new UebungSuchen();
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        
+        return $this->render('alleuebungen', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
 }

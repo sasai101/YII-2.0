@@ -7,7 +7,7 @@ use yii\helpers\Html;
  * @var common\models\Uebungsblaetter $model
  */
 
-$this->params['breadcrumbs'][] = ['label' => 'Übungsblätter hochladen', 'url' => ['alleuebungen']];
+$this->params['breadcrumbs'][] = ['label' => 'Übungsblätter hochladen', 'url' => ['uebung/alleuebungen']];
 $this->params['breadcrumbs'][] = ['label' => 'Uebungsblaetters', 'url' => ['index', 'id' => $model->UebungsID]];
 $this->params['breadcrumbs'][] = 'Update';
 

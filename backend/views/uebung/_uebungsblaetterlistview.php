@@ -9,7 +9,7 @@ use yii\widgets\Pjax;
 <div class = "item" >
     <div align="center">
     <?php Pjax::begin()?>
-    	<?= Html::a('<img src = "../../Uebung/U.png" class="img-circle" alt="user image" height = "150" width="150" />', ['uebungsblaetter/index', 'id' => $model->UebungsID]) ?>
+    	<?= Html::a('<img src = "../../Uebung/U.png" class="img-circle" alt="user image" height = "90" width="90" />', ['uebungsblaetter/index', 'id' => $model->UebungsID]) ?>
     </div>
     <div>&nbsp</div>
     <div align = "center"><b><?= $model->Bezeichnung?></b></div>
