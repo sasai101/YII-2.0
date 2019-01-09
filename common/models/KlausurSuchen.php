@@ -12,11 +12,16 @@ use common\models\Klausur;
  */
 class KlausurSuchen extends Klausur
 {
+    public function attributes(){
+        return array_merge(parent::attributes(),['modulBezeichnung']);
+    }
+    
     public function rules()
     {
         return [
             [['KlausurID', 'Mitarbeiter_MarterikelNr', 'ModulID', 'Kreditpunkt', 'Max_Punkte', 'punkt1_0', 'punkt1_3', 'punkt1_7', 'punkt2_0', 'punkt2_3', 'punkt3_0', 'punkt3_3', 'punkt3_7', 'punkt4_0'], 'integer'],
-            [['Pruefungsdatum', 'Raum', 'Bezeichnung'], 'safe'],
+            [['Raum', 'Bezeichnung'], 'safe'],
+            [['modulBezeichnung'],'safe']
         ];
     }
 
@@ -68,6 +73,8 @@ class KlausurSuchen extends Klausur
         //Alle Klausur
         $query = Klausur::find();
         
+        $query->join('INNER JOIN','Modul','Klausur.ModulID=Modul.ModulID');
+        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -82,20 +89,11 @@ class KlausurSuchen extends Klausur
             'ModulID' => $this->ModulID,
             'Kreditpunkt' => $this->Kreditpunkt,
             'Max_Punkte' => $this->Max_Punkte,
-            'punkt1_0' => $this->punkt1_0,
-            'punkt1_3' => $this->punkt1_3,
-            'punkt1_7' => $this->punkt1_7,
-            'punkt2_0' => $this->punkt2_0,
-            'punkt2_3' => $this->punkt2_3,
-            'punkt3_0' => $this->punkt3_0,
-            'punkt3_3' => $this->punkt3_3,
-            'punkt3_7' => $this->punkt3_7,
-            'punkt4_0' => $this->punkt4_0,
         ]);
         
-        $query->andFilterWhere(['like', 'Pruefungsdatum', $this->Pruefungsdatum])
-        ->andFilterWhere(['like', 'Raum', $this->Raum])
-        ->andFilterWhere(['like', 'Bezeichnung', $this->Bezeichnung]);
+        $query->andFilterWhere(['like', 'Raum', $this->Raum])
+        ->andFilterWhere(['like', 'Klausur.Bezeichnung', $this->Bezeichnung])
+        ->andFilterWhere(['like', 'Modul.Bezeichnung', $this->modulBezeichnung]);
         
         return $dataProvider;
     }

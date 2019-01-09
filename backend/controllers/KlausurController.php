@@ -174,4 +174,17 @@ class KlausurController extends Controller
             'model' => $model
         ]);
     }
+    
+    /*
+     * 
+     */
+    public function actionIndexklausur() {
+        $searchModel = new KlausurSuchen;
+        $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
+        
+        return $this->render('indexklausur', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
 }

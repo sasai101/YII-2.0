@@ -18,8 +18,11 @@ $this->params['breadcrumbs'][] = 'Klausureinsicht';
 
 	<!-- Leere Zeile -->
 	<div class="row"></br></div>
-	
-	<!-- Titel -->
+		
+	<div class="panel panel-default">
+    <div class="panel-body">
+		
+		<!-- Titel -->
 	<div>
 		<h3>
 			<?= Html::encode($model->modul->Bezeichnung); ?>
@@ -75,6 +78,12 @@ $this->params['breadcrumbs'][] = 'Klausureinsicht';
     	</div>
 	
 	</div>
+		
+	</div>
+  	</div>
+	
+	
+	
 
 </div>
 

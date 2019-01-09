@@ -18,7 +18,10 @@ $this->params['breadcrumbs'][] = 'Klausuränderung';
 	<!-- Leere Zeile -->
 	<div class="row"></br></div>
 	
-	<!-- Titel -->
+	<div class="panel panel-default">
+    <div class="panel-body">
+		
+		<!-- Titel -->
 	<div>
 		<h3>
 			<?= Html::encode($model->modul->Bezeichnung); ?>
@@ -34,5 +37,10 @@ $this->params['breadcrumbs'][] = 'Klausuränderung';
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
+		
+	</div>
+  	</div>
+	
+	
 
 </div>

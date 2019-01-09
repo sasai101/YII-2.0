@@ -20,7 +20,10 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelModul->Be
     <!-- Leere Zeile -->
 	<div class="row"></br></div>
 	<!-- Leere Zeile -->
-	<div class="row"></br></div>
+	
+	<div class="panel panel-default">
+    <div class="panel-body">
+		<div class="row"></br></div>
 	
 	<!-- Titel -->
 	<div>
@@ -92,10 +95,11 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelModul->Be
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
             'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create','id'=>$modelModul->ModulID], ['class' => 'btn btn-success' ]),
+            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Neue Klausurerstellen', ['create','id'=>$modelModul->ModulID], ['class' => 'btn btn-success' ]),
             'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index','id'=>$modelModul->ModulID], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],
     ]); Pjax::end(); ?>
-
+	</div>
+  	</div>
 </div>
