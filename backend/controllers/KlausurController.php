@@ -54,6 +54,11 @@ class KlausurController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
+        
+        /*if(Yii::$app->request->isAjax && $model->load($_POST)){
+            \Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }*/
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->KlausurID]);
@@ -170,9 +175,19 @@ class KlausurController extends Controller
      */
     public function actionEchartsbarklausur($id) {
         $model = $this->findModel($id);
-        return $this->render('echartsbarklausur',[
-            'model' => $model
-        ]);
+        
+        /*if(Yii::$app->request->isAjax && $model->load($_POST)){
+            \Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }*/
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['echartsbarklausur', 'id' => $model->KlausurID]);
+        } else {
+            return $this->render('echartsbarklausur',[
+                'model' => $model
+            ]);
+        }
     }
     
     /*
