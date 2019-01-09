@@ -36,7 +36,7 @@ class Klausurnote extends \yii\db\ActiveRecord
     {
         return [
             [['Mitarbeiter_MarterikelNr', 'Benutzer_MarterikelNr', 'KlausurID'], 'required'],
-            [['Mitarbeiter_MarterikelNr', 'Benutzer_MarterikelNr', 'KorregierteZeit', 'KlausurID'], 'integer'],
+            [['Mitarbeiter_MarterikelNr', 'Benutzer_MarterikelNr', 'KorregierteZeit', 'KlausurID','Punkt'], 'integer'],
             [['Note'], 'number'],
             [['Benutzer_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['Benutzer_MarterikelNr' => 'marterikelnr']],
             [['Mitarbeiter_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Mitarbeiter::className(), 'targetAttribute' => ['Mitarbeiter_MarterikelNr' => 'marterikelnr']],
@@ -54,13 +54,10 @@ class Klausurnote extends \yii\db\ActiveRecord
     {
         $modelKlausur = Klausur::findOne($this->KlausurID);
         
-        if(!is_int($this->Punkt)){
-            
-            if($this->Punkt > $modelKlausur->Max_Punkte || $this->Punkt < 0){
-                $this->addError($attribute,"Punkt muss zwischen ".$modelKlausur->Max_Punkte." und 0 sein");
-            }
-        }else {
-            $this->addError($attribute,"1Punkt muss ein Zahl zwischen ".$modelKlausur->Max_Punkte." und 0 sein");
+        if( $this->Punkt > 100){
+            $this->addError($attribute,'Der eingegebene Punkt muss kleiner als maxmale Punkte sein');
+        }else if( $this->Punkt < 0){
+            $this->addError($attribute,'Der eingegebene Punkt muss immer ein positive Zahl sein.');
         }
     }
 

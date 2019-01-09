@@ -14,7 +14,7 @@ use kartik\datecontrol\DateControl;
 
 <div class="benutzer-anmelden-klausur-form">
 
-    <?php $form = ActiveForm::begin(['type' => ActiveForm::TYPE_HORIZONTAL]); echo Form::widget([
+    <?php $form = ActiveForm::begin(['type' => ActiveForm::TYPE_HORIZONTAL,'enableAjaxValidation'=>true,]); echo Form::widget([
 
         'model' => $model,
         'form' => $form,
@@ -22,10 +22,6 @@ use kartik\datecontrol\DateControl;
         'attributes' => [
 
             'Benutzer_MarterikelNr' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Benutzer  Marterikel Nr...']],
-
-            'KlausurID' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Klausur ID...']],
-
-            'Anmeldungszeit' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Anmeldungszeit...']],
 
         ]
 

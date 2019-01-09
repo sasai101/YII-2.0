@@ -32,7 +32,7 @@ class BenutzerAnmeldenKlausurSuchen extends BenutzerAnmeldenKlausur
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize'=>100
+                'pageSize'=>150
             ],
             'sort' => [
                 'defaultOrder' => [
@@ -51,7 +51,6 @@ class BenutzerAnmeldenKlausurSuchen extends BenutzerAnmeldenKlausur
             'Anmeldungszeit' => $this->Anmeldungszeit,
         ]);
 
-        $query->andFilterWhere(['like', 'Anmeldungsstatus', $this->Anmeldungsstatus]);
 
         return $dataProvider;
     }

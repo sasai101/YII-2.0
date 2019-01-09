@@ -13,17 +13,11 @@ use yii\widgets\ActiveForm;
 <div class="benutzer-anmelden-klausur-search">
 
     <?php $form = ActiveForm::begin([
-        'action' => ['index'],
+        'action' => ['klausuranmeldunglistview'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'Benutzer_MarterikelNr') ?>
-
-    <?= $form->field($model, 'KlausurID') ?>
-
-    <?= $form->field($model, 'Anmeldungszeit') ?>
-
-    <?= $form->field($model, 'Anmeldungsstatus') ?>
+    <?= $form->field($model, 'Bezeichnung') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

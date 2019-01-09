@@ -19,7 +19,11 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelKlausur->
 
 	<!-- Leere Zeile -->
 	<div class="row"></br></div>
-	<!-- Leere Zeile -->
+	
+	<div class="panel panel-default">
+  	<div class="panel-body">
+  	
+  	<!-- Leere Zeile -->
 	<div class="row"></br></div>
 	
 	<!-- Titel -->
@@ -47,10 +51,13 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelKlausur->
             ['class' => 'yii\grid\SerialColumn'],
 
             //'Benutzer_MarterikelNr',
+            
             [
                 'attribute'=>'Benutzer_MarterikelNr',
                 'contentOptions' => ['width'=>'100px']
             ],
+            
+            
             [
                 'attribute'=>'benutzerMarterikelNr',
                 'label'=>'Prüfername',
@@ -58,6 +65,15 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelKlausur->
                 return $model->benutzerMarterikelNr->Vorname." ".$model->benutzerMarterikelNr->Nachname;
                 }
             ],
+            
+            [
+                'attribute'=>'klausur',
+                'label'=>'Modul',
+                'value'=>function ($model) {
+                    return $model->klausur->modul->Bezeichnung;
+                }
+            ],
+            
             //'KlausurID',
             [
                 'attribute'=>'KlausurID',
@@ -71,24 +87,12 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelKlausur->
                 'format'=>['date','php:d-m-Y H:i:s'],
             ],
             //'Anmeldungsstatus',
-            [
-                'attribute'=>'klausur',
-                'label'=>'Modul',
-                'value'=>function ($model) {
-                    return $model->klausur->modul->Bezeichnung;
-                }
-            ],
+            
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'buttons' => [
-                    'update' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
-                            Yii::$app->urlManager->createUrl(['benutzer-anmelden-klausur/view', 'Benutzer_MarterikelNr' => $model->Benutzer_MarterikelNr, 'KlausurID' => $model->KlausurID, 'edit' => 't']),
-                            ['title' => Yii::t('yii', 'Edit'),]
-                        );
-                    }
-                ],
+                'template'=>'{delete}',
+                
             ],
         ],
         'responsive' => true,
@@ -99,10 +103,12 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelKlausur->
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
             'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create', 'id'=>$modelKlausur->KlausurID], ['class' => 'btn btn-success modalButton']),
+            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add Student', ['create', 'id'=>$modelKlausur->KlausurID], ['class' => 'btn btn-success modalButton']),
             'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index', 'id'=>$modelKlausur->KlausurID], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],
     ]); Pjax::end(); ?>
-
+  	
+  	</div>
+	</div>
 </div>

@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
     <div align="center">
     <?php Pjax::begin()?>
     <?php //echo "$model->UebungsID"?>
-    	<?= Html::a('<img src = "../../Uebung/Note.jpg" class="img-circle" alt="user image" height = "150" width="150" />', ['klausurnote/index','id'=>$model->KlausurID]) ?>
+    	<?= Html::a('<img src = "../../Uebung/Note.jpg" class="img-circle" alt="user image" height = "90" width="90" />', ['klausurnote/index','id'=>$model->KlausurID]) ?>
     </div>
     <div>&nbsp</div>
     <div align="center"><b><?= $model->Bezeichnung?></b></div>

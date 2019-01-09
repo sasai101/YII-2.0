@@ -8,6 +8,7 @@ use common\models\BenutzerAnmeldenKlausurSuchen;
 use common\models\Klausur;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\widgets\ActiveForm;
 use yii\filters\VerbFilter;
 use common\models\KlausurSuchen;
 
@@ -48,30 +49,20 @@ class BenutzerAnmeldenKlausurController extends Controller
     }
 
     /**
-     * Displays a single BenutzerAnmeldenKlausur model.
-     * @param integer $Benutzer_MarterikelNr
-     * @param integer $KlausurID
-     * @return mixed
-     */
-    public function actionView($Benutzer_MarterikelNr, $KlausurID)
-    {
-        $model = $this->findModel($Benutzer_MarterikelNr, $KlausurID);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->Benutzer_MarterikelNr]);
-        } else {
-            return $this->render('view', ['model' => $model]);
-        }
-    }
-
-    /**
      * Creates a new BenutzerAnmeldenKlausur model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         $model = new BenutzerAnmeldenKlausur;
+        $model->KlausurID = $id;
+        $model->Anmeldungszeit = time();
+        
+        if(Yii::$app->request->isAjax && $model->load($_POST)){
+            \Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'Benutzer_MarterikelNr' => $model->Benutzer_MarterikelNr, 'KlausurID' => $model->KlausurID]);
@@ -82,25 +73,7 @@ class BenutzerAnmeldenKlausurController extends Controller
         }
     }
 
-    /**
-     * Updates an existing BenutzerAnmeldenKlausur model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $Benutzer_MarterikelNr
-     * @param integer $KlausurID
-     * @return mixed
-     */
-    public function actionUpdate($Benutzer_MarterikelNr, $KlausurID)
-    {
-        $model = $this->findModel($Benutzer_MarterikelNr, $KlausurID);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'Benutzer_MarterikelNr' => $model->Benutzer_MarterikelNr, 'KlausurID' => $model->KlausurID]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
+    
 
     /**
      * Deletes an existing BenutzerAnmeldenKlausur model.
@@ -142,6 +115,19 @@ class BenutzerAnmeldenKlausurController extends Controller
         $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
         
         return $this->render('klausuranmeldunglistview', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
+    
+    /*
+     *
+     */
+    public function actionIndexklausur() {
+        $searchModel = new KlausurSuchen;
+        $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
+        
+        return $this->render('indexklausur', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
         ]);

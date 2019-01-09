@@ -7,6 +7,7 @@ use common\models\Klausurnote;
 use common\models\KlausurnoteSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\bootstrap\ActiveForm;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 use common\models\Benutzer;
@@ -73,11 +74,16 @@ class KlausurnoteController extends Controller
     {
         $model = new Klausurnote;
         
+        if(Yii::$app->request->isAjax && $model->load($_POST)){
+            \Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
         //Korrektor
         $model->Mitarbeiter_MarterikelNr = Yii::$app->user->identity->MarterikelNr;
         
         //Klausur ID
         $model->KlausurID = $id;
+        
         
         //Klausurnote automatisch ausfüllen
 
@@ -99,6 +105,12 @@ class KlausurnoteController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        
+        
+        if(Yii::$app->request->isAjax && $model->load($_POST)){
+            \Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'id' => $model->KlausurID]);
@@ -165,6 +177,19 @@ class KlausurnoteController extends Controller
         return $this->render('echartspieklausurnote',[
             'modelKlausurnote'=>$modelKlausurnote,
             'modelBenutzer'=>$modelBenutzer,
+        ]);
+    }
+    
+    /*
+     *
+     */
+    public function actionIndexklausur() {
+        $searchModel = new KlausurSuchen;
+        $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
+        
+        return $this->render('indexklausur', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
         ]);
     }
     

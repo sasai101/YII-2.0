@@ -43,7 +43,7 @@ use yii\widgets\Pjax;
     
         <?php $form = ActiveForm::begin([
             'id' => 'form-id',
-            'enableAjaxValidation' => true,
+            'enableAjaxValidation'=>true
         ]); ?>
     
         <?= $form->field($model, 'Punkt')->textInput() ?>

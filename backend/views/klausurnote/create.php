@@ -29,7 +29,9 @@ use yii\widgets\Pjax;
 
     <div class="klausurnote-form">
     
-        <?php $form = ActiveForm::begin([]); ?>
+        <?php $form = ActiveForm::begin([
+            'enableAjaxValidation'=>true
+        ]); ?>
     
         <?= $form->field($model, 'Benutzer_MarterikelNr')->textInput() ?>
     

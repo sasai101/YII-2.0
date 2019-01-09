@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="benutzer-anmelden-klausur-create">
     <div class="page-header">
-        <h1><?= Html::encode($this->title) ?></h1>
+        <h3><?= Html::encode($this->title) ?></h3>
     </div>
     <?= $this->render('_form', [
         'model' => $model,

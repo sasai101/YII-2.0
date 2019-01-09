@@ -15,16 +15,7 @@ use backend\controllers\ModulController;
             </div>
         </div>
 
-        <!-- search form -->
-        <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search..."/>
-              <span class="input-group-btn">
-                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-            </div>
-        </form>
+        
         <!-- /.search form -->
 
         <?= dmstr\widgets\Menu::widget(
@@ -32,8 +23,7 @@ use backend\controllers\ModulController;
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 
                 'items' => [
-                    ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
-                    ['label' => 'Gii', 'icon' => 'glyphicon glyphicon-user', 'url' => ['/gii']],
+                    ['label' => 'Menu Leistungssystem', 'options' => ['class' => 'header']],
                     
                     [
                         'label' => 'Hauptseite',
@@ -84,8 +74,8 @@ use backend\controllers\ModulController;
                         'url' => '#',
                         'items' => [
                             ['label' => 'Klausurerstellung', 'icon' => 'group', 'url'=>['/klausur/klausurlistview']],
-                            ['label' => 'Note eintragen', 'icon' => 'user', 'url'=>['/klausurnote/klausurnotelistview']],
                             ['label' => 'Klausuranmeldung', 'icon' => 'user', 'url'=>['/benutzer-anmelden-klausur/klausuranmeldunglistview']],
+                            ['label' => 'Note eintragen', 'icon' => 'user', 'url'=>['/klausurnote/klausurnotelistview']],
                         ],
                     ],
                     

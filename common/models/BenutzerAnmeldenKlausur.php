@@ -37,9 +37,18 @@ class BenutzerAnmeldenKlausur extends \yii\db\ActiveRecord
             [['Benutzer_MarterikelNr', 'KlausurID'], 'unique', 'targetAttribute' => ['Benutzer_MarterikelNr', 'KlausurID']],
             [['Benutzer_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['Benutzer_MarterikelNr' => 'marterikelnr']],
             [['KlausurID'], 'exist', 'skipOnError' => true, 'targetClass' => Klausur::className(), 'targetAttribute' => ['KlausurID' => 'KlausurID']],
+            ['Benutzer_MarterikelNr', 'MarterikelNrCheck'],
         ];
     }
 
+    
+    public function MarterikelNrCheck($attribute, $params) {
+        $benutzer = Benutzer::findOne($this->Benutzer_MarterikelNr);
+        if( $benutzer == null){
+            $this->addError($attribute,'Der von Ihnen eingegebene Benutzer MarterikelNr ist nicht existiert.');
+        }
+    }
+    
     /**
      * {@inheritdoc}
      */
