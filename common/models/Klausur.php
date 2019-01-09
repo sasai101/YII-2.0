@@ -73,7 +73,7 @@ class Klausur extends \yii\db\ActiveRecord
     public function checkDatum($attribute, $params) {
         $heute = date('d-m-Y H:i:s');
         $prufdatum = date($this->Pruefungsdatum);
-        if( $prufdatum > $heute){
+        if( $prufdatum < $heute){
             $this->addError($attribute,'Das Prüfungsdatum muss grösser als heute sein.');
         }
     }

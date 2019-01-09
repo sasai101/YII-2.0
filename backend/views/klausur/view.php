@@ -126,9 +126,9 @@ $this->params['breadcrumbs'][] = 'Klausureinsicht';
                 
                     <?= $form->field($model, 'punkt4_0')->textInput() ?>
     
-                    <!--  <div class="form-group">
+                    <div class="form-group">
                             <?php // echo Html::submitButton('Save', ['class' => 'btn btn-success']); ?>
-                    </div>-->
+                    </div>
                     <?php ActiveForm::end(); ?>
         		</div>
         	</div>
