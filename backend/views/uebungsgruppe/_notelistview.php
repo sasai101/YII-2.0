@@ -1,4 +1,5 @@
 <?php
+use yii\helpers\Html;
 use yii\widgets\Pjax;
 use common\models\Abgabe;
 use backend\assets\EchartsAsset;
@@ -12,7 +13,7 @@ use Hisune\EchartsPHP\ECharts;
 			<div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                    	Übungsblatt<?php echo $model->uebungsblaetter->UebungsNr?>
+                    	<?= Html::a("Übungsblatt: ".$model->uebungsblaetter->UebungsNr, ['abgabe/view', 'id'=>$model->AbgabeID]) ?>
                     </h3>
                 </div>
                 <div class="panel-body" >

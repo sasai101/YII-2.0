@@ -45,6 +45,21 @@ class UebungController extends Controller
     }
     
     /**
+     * Lists all Uebung models.
+     * @return mixed
+     */
+    public function actionIndexgruppe()
+    {
+        $searchModel = new UebungSuchen();
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        
+        return $this->render('indexgruppe', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
+    
+    /**
      * Displays a single Uebung model.
      * @param integer $id
      * @return mixed

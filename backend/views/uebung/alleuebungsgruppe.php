@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="row">
               			<div class="col-md-3">
               				<p>
-                                <?php echo Html::a('Tabellarische Form', ['index'], ['class' => 'btn btn-success'])  ?>
+                                <?php echo Html::a('Tabellarische Form', ['indexgruppe'], ['class' => 'btn btn-success'])  ?>
                             </p>
               			</div>
               		</div>
