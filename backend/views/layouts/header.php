@@ -86,8 +86,6 @@ use common\models\Benutzer;
                                 <?php endforeach;?>
                             </ul>
                         </li>
-                        <li class="footer"><?php echo Html::a('alle ansehen', ['uebung/alleuebungsgruppe'])?></li>
-                        
                     </ul>
                 </li>
             

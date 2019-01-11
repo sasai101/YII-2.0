@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = 'Übungsblatt '.$modelUebungsblaetter->UebungsN
         <?php /* echo Html::a('Create Abgabe', ['create'], ['class' => 'btn btn-success'])*/  ?>
     </p>
 
-    <?php Pjax::begin(); echo GridView::widget([
+    <?php echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -101,6 +101,7 @@ $this->params['breadcrumbs'][] = 'Übungsblatt '.$modelUebungsblaetter->UebungsN
             //Übungsblätter runterladen
             [
                 'attribute'=>'uebungsblaetterID',
+                'label' => 'Übungsblatt',
                 'format'=>'raw',
                 'value'=>function ($model) {
                 //return "Übungsblatt ".$model->uebungsblaetter->UebungsNr;
@@ -139,6 +140,6 @@ $this->params['breadcrumbs'][] = 'Übungsblatt '.$modelUebungsblaetter->UebungsN
             'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index', 'UebungsgruppeID'=>$modelUbungsgruppe->UebungsgruppeID, 'UebungsblaetterID'=>$modelUebungsblaetter->UebungsblatterID], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],
-    ]); Pjax::end(); ?>
+    ]);  ?>
 		
 </div>

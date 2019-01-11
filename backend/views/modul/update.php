@@ -14,6 +14,11 @@ $this->params['breadcrumbs'][] = 'Moduleränderung';
 ?>
 <div class="modul-update">
 
+	<div class="row"></br></div>
+	
+	<div class="panel panel-default">
+    <div class="panel-body">
+    
 	<!-- Leere Zeile -->
 	<div class="row"></br></div>
 	
@@ -44,5 +49,7 @@ $this->params['breadcrumbs'][] = 'Moduleränderung';
 				</div>
             </div>
 		</div>
+	</div>
+	</div>
 	</div>
 </div>

@@ -347,7 +347,7 @@ class Abgabe extends \yii\db\ActiveRecord
         $modelAbgabe = Abgabe::find()->where(['UebungsblaetterID'=>$uebungsblaetterID])->all();
         $allenoteArray = array();
         foreach ($modelAbgabe as $abgabe){
-            array_push($allenoteArray, (int)$abgabe->GesamtePunkt*100);
+            array_push($allenoteArray, (int)($abgabe->GesamtePunkt*100));
         }
         return array_count_values($allenoteArray);
     }
@@ -426,5 +426,42 @@ class Abgabe extends \yii\db\ActiveRecord
      */
     public static function AlleAbgabeVonGrup($gruppeID) {
         return Abgabe::find()->where(['UebungsgruppenID'=>$gruppeID])->all();
+    }
+    
+    /*
+     *  alle punkte zahl von Übung in form anzahl=>punkt zuruck
+     */
+    public static function AllePunktVonUebung($uebungsID){
+        $modelUebung = Uebung::findOne($uebungsID);
+        $arrayNote = array();
+        foreach ($modelUebung->uebungsgruppes as $gruppe){
+            foreach ($gruppe->abgabes as $abgabe){
+                array_push($arrayNote, (int)($abgabe->GesamtePunkt*100));
+            }
+        }
+        sort($arrayNote);        
+        return array_count_values($arrayNote);
+    }
+    
+    /*
+     *  Anzahl der person zuruck
+     */
+    public static function PunktzahlUebung($uebungsID) {
+        $arrayPerson = array();
+        foreach (Abgabe::AllePunktVonUebung($uebungsID) as $key=>$item){
+            array_push($arrayPerson, ((double)$key)/100);
+        }
+        return $arrayPerson;
+    }
+    
+    /*
+     *  Punktezhal zuruck
+     */
+    public static function AnzahlPersonUebung($uebungsID){
+        $arrayPunkt = array();
+        foreach (Abgabe::AllePunktVonUebung($uebungsID) as $item){
+            array_push($arrayPunkt, $item);
+        }
+        return $arrayPunkt;
     }
 }

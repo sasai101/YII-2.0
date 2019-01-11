@@ -14,6 +14,8 @@ use common\models\Uebungsblaetter;
 use common\models\Uebung;
 use common\models\Abgabe;
 use common\models\Benutzer;
+use common\models\Korrektor;
+use common\models\Tutor;
 
 /**
  * UebungsgruppeController implements the CRUD actions for Uebungsgruppe model.
@@ -54,16 +56,43 @@ class UebungsgruppeController extends Controller
      */
     public function actionAlleuebungsgruppe($id) 
     {
-        //tablle uebungsgruppe
-        $model = Uebung::findOne($id);
-        $searchModel = new UebungsgruppeSuchen();
-        $dateProvider = $searchModel->searchGruppe($id);
-        
-        return $this->render('alleuebungsgruppe',[
-            'dataProvider' => $dateProvider,
-            'searchModel' => $searchModel,
-            'model' => $model,
-        ]);
+        if(Korrektor::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
+            //tablle uebungsgruppe
+            $model = Uebung::findOne($id);
+            $searchModel = new UebungsgruppeSuchen();
+            $dateProvider = $searchModel->searchalleGruppeVonKorrektor(Yii::$app->request->getQueryParams(),$id,Yii::$app->user->identity->MarterikelNr);
+            
+            return $this->render('alleuebungsgruppe',[
+                'dataProvider' => $dateProvider,
+                'searchModel' => $searchModel,
+                'model' => $model,
+            ]);
+            
+        }else if(Tutor::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
+            
+            //tablle uebungsgruppe
+            $model = Uebung::findOne($id);
+            $searchModel = new UebungsgruppeSuchen();
+            $dateProvider = $searchModel->searchalleGruppeVonTutor(Yii::$app->request->getQueryParams(),$id,Yii::$app->user->identity->MarterikelNr);
+            
+            return $this->render('alleuebungsgruppe',[
+                'dataProvider' => $dateProvider,
+                'searchModel' => $searchModel,
+                'model' => $model,
+            ]);
+            
+        }else{
+            //tablle uebungsgruppe
+            $model = Uebung::findOne($id);
+            $searchModel = new UebungsgruppeSuchen();
+            $dateProvider = $searchModel->searchGruppe($id);
+            
+            return $this->render('alleuebungsgruppe',[
+                'dataProvider' => $dateProvider,
+                'searchModel' => $searchModel,
+                'model' => $model,
+            ]);
+        }
     }
     
     /*

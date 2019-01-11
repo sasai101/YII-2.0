@@ -4,6 +4,7 @@ use yii\helpers\HtmlPurifier;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
 use yii\widgets\Pjax;
+use common\models\ModulAnmeldenBenutzer;
 ?>
 
 <div class = "item" style="height: 400px">
@@ -51,6 +52,10 @@ use yii\widgets\Pjax;
             	    
             	    echo "<br>";
             	}?>
+            </p>
+            <!-- Gesamte Teilnamhe -->
+            <p>        
+            	<b>Anahl der Gesamten Teilenahmer: </b><?php echo ModulAnmeldenBenutzer::find()->where(['ModulID'=>$model->ModulID])->count()?>
             </p>
             
             

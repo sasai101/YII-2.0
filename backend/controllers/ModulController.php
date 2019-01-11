@@ -441,4 +441,16 @@ class ModulController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    /*
+     *  Echart Action von Uebungs (modul/view)
+     */
+    public function actionUebungsnoteverteilung($uebungsID) {
+        
+        $model = Uebung::findOne($uebungsID);
+        
+        return $this->render('uebungsnoteverteilung',[
+            'model'=>$model,
+        ]);
+    }
 }

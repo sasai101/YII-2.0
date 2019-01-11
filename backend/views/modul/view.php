@@ -17,7 +17,12 @@ use common\models\UebungsgruppeSuchen;
 ?>
 
 <div class="modul-view">
-
+	
+	<div class="row"></br></div>
+	
+	<div class="panel panel-default">
+    <div class="panel-body">
+    
 	<!-- Leere Zeile -->
 	<div class="row"></br></div>
 	
@@ -115,7 +120,9 @@ use common\models\UebungsgruppeSuchen;
                 		  			<h5>Teilnahmeranzahl <b><?php echo Uebung::AnzahlAllePersonUebung($uebung->UebungsID)?></b></h5>
                 		  			<h5>Anzahl der zugelassene Person: <b><?php echo Uebung::AnzahlderzugelassenenPerson($uebung->UebungsID)?></b></h5>
                 		  			<h5>Nicht zugelassen: <b><?php echo Uebung::AnzahldernichtzugelassenenPerson($uebung->UebungsID)?></b></h5>
-                		  			
+                		  			<?php foreach ($model->uebungs as $uebungen):?>
+                		  			<h3>Gesamte Übungsnotenverteilung:&nbsp&nbsp&nbsp&nbsp&nbsp<?php echo Html::a('<i class="fa fa-bar-chart"></i>',['modul/uebungsnoteverteilung','uebungsID'=>$uebungen->UebungsID])?></h3>
+                		  			<?php endforeach;?>
                 		  		</div>
                 		  </div>
                 		  
@@ -154,6 +161,8 @@ use common\models\UebungsgruppeSuchen;
                </div>
 			</div>
 		</div>
+	</div>
+	</div>
 	</div>
 	
 </div>

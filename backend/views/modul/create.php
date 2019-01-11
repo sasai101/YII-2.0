@@ -13,6 +13,10 @@ $this->params['breadcrumbs'][] = 'Modulerstellung';
 ?>
 <div class="modul-create">
 
+	<div class="row"></br></div>
+	
+	<div class="panel panel-default">
+    <div class="panel-body">
 
 	<!-- Leere Zeile -->
 	<div class="row"></br></div>
@@ -45,5 +49,7 @@ $this->params['breadcrumbs'][] = 'Modulerstellung';
             </div>
 		</div>
 	</div>
+	</div>
+  	</div>
 
 </div>
