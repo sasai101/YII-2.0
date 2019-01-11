@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'label'=>'Status',
                         'value'=>function($model) {
-                            $heute = date('d.m.Y H:i:s');
+                            $heute = date('d.m.Y H:i:s',time()+60*60);
                             $dethdatum = date($model->Deadline);
                             if(strtotime($dethdatum) > strtotime($heute)){
                                 return "abgeben";

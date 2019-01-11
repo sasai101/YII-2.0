@@ -171,6 +171,7 @@ class Uebungsblaetter extends \yii\db\ActiveRecord
                 $modelAgabe->Benutzer_MarterikelNr = $key;
                 $modelAgabe->UebungsgruppenID = $einzel;
                 $modelAgabe->UebungsblaetterID =$this->UebungsblatterID;
+                $modelAgabe->AbgabeZeit = null;
                 $modelAgabe->save();
             }
         }

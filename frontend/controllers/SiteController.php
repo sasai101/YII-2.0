@@ -21,19 +21,20 @@ class SiteController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
-                //'only' => ['logout', 'signup'],
+                'class' => \yii\filters\AccessControl::className(),
+                'only' => ['create', 'update'],
                 'rules' => [
+                    // deny all POST requests
                     [
-                        'actions' => ['signup','login'],
-                        'allow' => true,
-                        'roles' => ['?'],
+                        'allow' => false,
+                        'verbs' => ['POST']
                     ],
+                    // allow authenticated users
                     [
-                        'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                    // everything else is denied
                 ],
             ],
             'verbs' => [
