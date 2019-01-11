@@ -50,15 +50,6 @@ class Abgabe extends \yii\db\ActiveRecord
             //['GesamtePunkt','GesamtePunktCheck'],
         ];
     }
-
-    public function GesamtePunktCheck($attribute, $params)
-    {
-        if( $this->Punkte < 0){
-            $this->addError($attribute,'Punkt muss immer ein positive Zahl sein.');
-        }else if($this->Punkte>$this->uebungsblaetter->GesamtePunkte){
-            $this->addError($attribute,'Punkt muss immer kleiner als '.$model->uebungsblaetter->GesamtePunkte .' sein.');
-        }
-    }
     
     /**
      * {@inheritdoc}
@@ -149,7 +140,7 @@ class Abgabe extends \yii\db\ActiveRecord
             if( $flag==true){
                 if($note > $this->uebungsblaetter->GesamtePunkte){
                     
-                    echo "<script>alert('Der gesamte Punkt muss kleiner als '.$this->uebungsblaetter->GesamtePunkte.' sein')</script>";
+                    //echo "<script>alert('Der gesamte Punkt muss kleiner als '.$this->uebungsblaetter->GesamtePunkte.' sein')</script>";
                     
                     //alert("Der gesamte Punkt muss kleiner als ".$this->uebungsblaetter->GesamtePunkte."sein");
                     
@@ -162,7 +153,7 @@ class Abgabe extends \yii\db\ActiveRecord
                     return false;
                 }elseif ($note < 0){
                     
-                    echo "<script>alert('Der gesamte Punkt muss größer gleiche als 0 sein')</script>";
+                    //echo "<script>alert('Der gesamte Punkt muss größer gleiche als 0 sein')</script>";
                     
                     //echo alert("Der gesamte Punkt muss größer gleiche als 0 sein");
                     /*Alert::begin([
@@ -356,7 +347,7 @@ class Abgabe extends \yii\db\ActiveRecord
         $modelAbgabe = Abgabe::find()->where(['UebungsblaetterID'=>$uebungsblaetterID])->all();
         $allenoteArray = array();
         foreach ($modelAbgabe as $abgabe){
-            array_push($allenoteArray, $abgabe->GesamtePunkt);
+            array_push($allenoteArray, (int)$abgabe->GesamtePunkt*100);
         }
         return array_count_values($allenoteArray);
     }
@@ -380,7 +371,7 @@ class Abgabe extends \yii\db\ActiveRecord
         $array = Abgabe::AlleNoteInArray($uebungsblaetterID);
         $arrayAnzahl = array();
         foreach ($array as $key=>$item){
-            array_push($arrayAnzahl, $key);
+            array_push($arrayAnzahl, ((double)$key)/100);
         }
         return $arrayAnzahl;
     }
@@ -428,5 +419,12 @@ class Abgabe extends \yii\db\ActiveRecord
                 $model->save();
             }
         }
+    }
+    
+    /*
+     * Alle Abgabe zuruckgeben, von bestimmten Gruppe
+     */
+    public static function AlleAbgabeVonGrup($gruppeID) {
+        return Abgabe::find()->where(['UebungsgruppenID'=>$gruppeID])->all();
     }
 }

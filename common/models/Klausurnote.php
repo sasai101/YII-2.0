@@ -322,4 +322,19 @@ class Klausurnote extends \yii\db\ActiveRecord
         }
         return $arrayAnzahl;
     }
+    
+    /*
+     * Anzahl der unkorrigierte Note von Klausur , der von bestimmten Mitarbeiter erstellt wird (leyout/header)
+     */
+    public static function AnzahlKlausuren($mitarbeiterMarterikelNr){
+        $alleKlausur = Klausur::find()->where(['Mitarbeiter_MarterikelNr'=>$mitarbeiterMarterikelNr])->all();
+        $anzahl = 0;
+        foreach ($alleKlausur as $klausur){
+            if (\common\models\Klausurnote::find()->where(['KlausurID'=>$klausur->KlausurID,'Punkt'=>null])->count()!=0){
+                $anzahl += \common\models\Klausurnote::find()->where(['KlausurID'=>$klausur->KlausurID,'Punkt'=>null])->count();
+            }
+        }
+        return $anzahl;
+    }
+    
 }

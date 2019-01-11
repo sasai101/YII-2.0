@@ -71,7 +71,6 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelModul->Be
                 'attribute' => 'Pruefungsdatum',
                 'format'=>['date','php:d-m-Y H:i:s'],
             ],
-            'Raum', 
             'Bezeichnung', 
  
 

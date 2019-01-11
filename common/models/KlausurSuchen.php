@@ -20,7 +20,7 @@ class KlausurSuchen extends Klausur
     {
         return [
             [['KlausurID', 'Mitarbeiter_MarterikelNr', 'ModulID', 'Kreditpunkt', 'Max_Punkte', 'punkt1_0', 'punkt1_3', 'punkt1_7', 'punkt2_0', 'punkt2_3', 'punkt3_0', 'punkt3_3', 'punkt3_7', 'punkt4_0'], 'integer'],
-            [['Raum', 'Bezeichnung'], 'safe'],
+            [[ 'Bezeichnung'], 'safe'],
             [['modulBezeichnung'],'safe']
         ];
     }
@@ -62,7 +62,6 @@ class KlausurSuchen extends Klausur
         ]);
 
         $query->andFilterWhere(['like', 'Pruefungsdatum', $this->Pruefungsdatum])
-            ->andFilterWhere(['like', 'Raum', $this->Raum])
             ->andFilterWhere(['like', 'Bezeichnung', $this->Bezeichnung]);
 
         return $dataProvider;
@@ -91,8 +90,7 @@ class KlausurSuchen extends Klausur
             'Max_Punkte' => $this->Max_Punkte,
         ]);
         
-        $query->andFilterWhere(['like', 'Raum', $this->Raum])
-        ->andFilterWhere(['like', 'Klausur.Bezeichnung', $this->Bezeichnung])
+        $query->andFilterWhere(['like', 'Klausur.Bezeichnung', $this->Bezeichnung])
         ->andFilterWhere(['like', 'Modul.Bezeichnung', $this->modulBezeichnung]);
         
         return $dataProvider;

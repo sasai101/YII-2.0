@@ -12,7 +12,7 @@ use phpDocumentor\Reflection\Types\Null_;
  */
 
 $this->title = 'Abgabes';
-$this->params['breadcrumbs'][] = ['label' => 'Alle Übungen', 'url' => ['uebungsgruppe/alleuebungen']];
+$this->params['breadcrumbs'][] = ['label' => 'Alle Übungen', 'url' => ['uebung/alleuebungsgruppe']];
 $this->params['breadcrumbs'][] = ['label' => 'Alle Übungsgruppen', 'url' => ['uebungsgruppe/alleuebungsgruppe','id'=>$modelUbungsgruppe->UebungsID]];
 $this->params['breadcrumbs'][] = ['label' => 'Übungsgruppe'.$modelUbungsgruppe->GruppenNr, 'url'=>['uebungsgruppe/gruppendetails', 'id'=>$modelUbungsgruppe->UebungsgruppeID]];
 $this->params['breadcrumbs'][] = 'Übungsblatt '.$modelUebungsblaetter->UebungsNr;

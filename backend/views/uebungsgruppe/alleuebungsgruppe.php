@@ -11,7 +11,7 @@ use yii\widgets\Pjax;
  */
 
 $this->title = 'Alle Übungsgruppe';
-$this->params['breadcrumbs'][] = ['label' => 'Alle Übungen', 'url' => ['uebungsgruppe/alleuebungen']];
+$this->params['breadcrumbs'][] = ['label' => 'Alle Übungen', 'url' => ['uebung/alleuebungsgruppe']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

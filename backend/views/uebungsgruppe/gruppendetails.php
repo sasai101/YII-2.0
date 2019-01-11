@@ -4,7 +4,7 @@ use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
 $this->title = 'Übungsgruppe '.$modelUebungsgruppe->GruppenNr;
-$this->params['breadcrumbs'][] = ['label' => 'Alle Übungen', 'url' => ['uebungsgruppe/alleuebungen']];
+$this->params['breadcrumbs'][] = ['label' => 'Alle Übungen', 'url' => ['uebung/alleuebungsgruppe']];
 $this->params['breadcrumbs'][] = ['label' => 'Alle Übungsgruppen', 'url' => ['uebungsgruppe/alleuebungsgruppe','id'=>$modelUebungsgruppe->UebungsID]];
 $this->params['breadcrumbs'][] = 'Übungsgruppe '.$modelUebungsgruppe->GruppenNr;
 ?>

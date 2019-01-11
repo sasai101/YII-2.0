@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use common\models\Tutor;
 use wbraganca\dynamicform\DynamicFormWidget;
+use common\models\Korrektor;
 
 ?>
 
@@ -44,6 +45,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                 <?= $form->field($modelUebungsgruppe, "[{$indexUebung}][{$indexUebungsgruppe}]Tutor_MarterikelNr")->dropDownList(Tutor::tutorName(),['prompt'=>'Bitte wählen Sie einen Mitarbeiter aus'])?>
                 <?= $form->field($modelUebungsgruppe, "[{$indexUebung}][{$indexUebungsgruppe}]GruppenNr")->textInput(['maxlength' => true])?>
             	<?= $form->field($modelUebungsgruppe, "[{$indexUebung}][{$indexUebungsgruppe}]Max_Person")->textInput(['maxlength' => true])?>
+                <?= $form->field($modelUebungsgruppe, "[{$indexUebung}][{$indexUebungsgruppe}]Korrektor_MarterikelNr")->dropDownList(Korrektor::KorrektorName(),['prompt'=>'Bitte wählen Sie einen Mitarbeiter aus'])?>
             </td>
             <td class="text-center vcenter" style="width: 90px;">
                 <button type="button" class="remove-uebungsgruppe btn btn-danger btn-xs"><span class="glyphicon glyphicon-minus"></span></button>

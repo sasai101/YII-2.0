@@ -348,5 +348,19 @@ class Uebung extends \yii\db\ActiveRecord
         }
         return $arrayGruPer;
     }
+    
+    /*
+     * Anzahl der unkorregierte Abgabe von Übungen(header)
+     */
+    public static function AnzahlunkorregierteAbgabe($uebungsID){
+        $model = Uebung::findOne($uebungsID);
+        $anzahl = 0;
+        foreach ($model->uebungsgruppes as $gruppe){
+            $anzahl += Uebungsgruppe::AnzahlUnkorreigiteGruppe($gruppe->UebungsgruppeID);
+        }
+        return $anzahl;
+    }
+    
+
 }
 

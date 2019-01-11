@@ -44,9 +44,19 @@ class Einzelaufgabe extends \yii\db\ActiveRecord
             
             [['Bewertung'], 'string', 'max' => 255],
             [['AbgabeID'], 'exist', 'skipOnError' => true, 'targetClass' => Abgabe::className(), 'targetAttribute' => ['AbgabeID' => 'AbgabeID']],
+            //['Punkte', 'punkteCheck']
             
         ];
     }
+    
+    public function punkteCheck($attribute, $params) {
+        $model = Uebungsblaetter::findOne($this->abgabe->uebungsblaetter->UebungsblatterID);
+        if( $model->GesamtePunkte < (int)$this->Punkte){
+            $this->addError($attribute,'Das Prüfungsdatum muss grösser als heute sein.');
+        }
+    }
+    
+    
     /**
      * {@inheritdoc}
      */

@@ -38,8 +38,6 @@ use yii\widgets\ActiveForm;
                                         ]
                                     ) ?>
                 
-                    <?= $form->field($model, 'Raum')->textInput(['maxlength' => true]) ?>
-                
                     <?= $form->field($model,'Bezeichnung')->dropDownList(['Hauptklausur'=>'Hauptklausur', '1.Nachklausur'=>'1. Nachklausur', '2.Nachklausur'=>'2.Nachklausur', '3.Nachklausur'=>'3.Nachklausur']) ?>
     
 		  		</div>

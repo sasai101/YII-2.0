@@ -3,6 +3,14 @@ use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use common\models\Mitarbeiter;
+use phpDocumentor\Reflection\Types\Null_;
+use common\models\Klausur;
+use common\models\Klausurnote;
+use common\models\Uebung;
+use common\models\Korrektor;
+use common\models\Uebungsgruppe;
+use common\models\Abgabe;
+use common\models\Benutzer;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -21,81 +29,116 @@ use common\models\Mitarbeiter;
         <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
-
-                <!-- Messages: style can be found in dropdown.less-->
-                <li class="dropdown messages-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="label label-success">4</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                    <?php if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!= null):?>
-                        <li class="header">You have 4 messages</li>
-                        <li>
-                            <!-- inner menu: contains the actual data -->
-                            <ul class="menu">
-                                <li><!-- start message -->
-                                    <a href="#">
-                                        <div class="pull-left">
-                                            <img src="<?= Yii::$app->user->identity->Profiefoto ?>" class="img-circle"
-                                                 alt="User Image"/>
-                                        </div>
-                                        <h4>
-                                            Support Team
-                                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                        </h4>
-                                        <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="#">See All Messages</a></li>
-                        <?php endif;?>
-                    </ul>
-                </li>
-                <li class="dropdown notifications-menu">
+            
+            <!-- Für Mitarbeiter -->
+            <?php if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!= null):?>
+                <!-- Klausurnote -->
+            	<li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">10</span>
+                        <span class="label label-warning"><?php echo Klausurnote::AnzahlKlausuren(Yii::$app->user->identity->MarterikelNr);?></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">You have 10 notifications</li>
+                        <li class="header"><?php echo Klausurnote::AnzahlKlausuren(Yii::$app->user->identity->MarterikelNr);?> Klausurnote sollen Sie noch eintragen;</li>
                         <li>
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-warning text-yellow"></i> Very long description here that may
-                                        not fit into the page and may cause design problems
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-users text-red"></i> 5 new members joined
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-user text-red"></i> You changed your username
-                                    </a>
-                                </li>
+                            	<?php $alleKlausur = Klausur::find()->where(['Mitarbeiter_MarterikelNr'=>Yii::$app->user->identity->MarterikelNr])->all();?>
+                            	<?php foreach ($alleKlausur as $klausur):?>
+                                	<?php if (\common\models\Klausurnote::find()->where(['KlausurID'=>$klausur->KlausurID,'Punkt'=>null])->count()!=0):?>
+                                		<?php $anzahl = \common\models\Klausurnote::find()->where(['KlausurID'=>$klausur->KlausurID,'Punkt'=>null])->count()?>
+                                        <?php $modul = $klausur->modul->Bezeichnung?> 
+                                        <li>
+                                            <?php echo Html::a("<i class='fa fa-users text-aqua'></i> $anzahl  Klausurnote 
+                                            <p>von Klausur des Modules $modul nicht eingetragen</p>",['klausurnote/index', 'id'=>$klausur->KlausurID])?>
+                                        </li>
+                                    <?php endif;?>
+                                <?php endforeach;?>
                             </ul>
                         </li>
-                        <li class="footer"><a href="#">View all</a></li>
                     </ul>
                 </li>
                 
+                <!-- Übungsgruppe -->
+                <li class="dropdown notifications-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-bell-o"></i>
+                        <span class="label label-warning"><?php echo Mitarbeiter::AnzahlunkorregierteAbgabe(Yii::$app->user->identity->MarterikelNr);?></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header"><?php echo Mitarbeiter::AnzahlunkorregierteAbgabe(Yii::$app->user->identity->MarterikelNr);?> Abgabe noch nicht korregiert;</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                            	<?php $alleUebung = Uebung::find()->where(['Mitarbeiter_MarterikelNr'=>Yii::$app->user->identity->MarterikelNr])->all();?>
+                            	<?php foreach ($alleUebung as $uebung):?>
+                                	<?php foreach ($uebung->uebungsgruppes as $gruppe):?>
+                                    	<?php if (\common\models\Uebungsgruppe::AnzahlUnkorreigiteGruppe($gruppe->UebungsgruppeID)!=0):?>
+                                    		<?php $anzahl = \common\models\Uebungsgruppe::AnzahlUnkorreigiteGruppe($gruppe->UebungsgruppeID)?>
+                                            <?php $modul = $gruppe->uebungs->modul->Bezeichnung?> 
+                                            <?php $gruppen = $gruppe->GruppenNr?>
+                                            <li>
+                                                <?php echo Html::a("<i class='fa fa-users text-aqua'></i> $anzahl unkorregierte Abgabe 
+                                                <p>von Gruppe $gruppen des Modules $modul nicht eingetragen</p>",['uebungsgruppe/gruppendetails', 'id'=>$gruppe->UebungsgruppeID])?>
+                                            </li>
+                                        <?php endif;?>
+                                    <?php endforeach;?>
+                                <?php endforeach;?>
+                            </ul>
+                        </li>
+                        <li class="footer"><?php echo Html::a('alle ansehen', ['uebung/alleuebungsgruppe'])?></li>
+                        
+                    </ul>
+                </li>
+            
+            <?php endif;?>
+            
+            <!-- Korrektor -->
+            <?php if(Korrektor::findOne(Yii::$app->user->identity->MarterikelNr)!= null):?>
+                <!-- Abgabe -->
+                <li class="dropdown messages-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="label label-success"><?php echo Korrektor::AnzahlUnkorregiertAbgabe(Yii::$app->user->identity->MarterikelNr)?></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                    	<?php foreach (Korrektor::AlleUebungsgruppe(Yii::$app->user->identity->MarterikelNr) as $grupp):?>
+                            <li class="header">Sie habe <?php echo Uebungsgruppe::AnzahlUnkorreigiteGruppe($grupp->UebungsgruppeID)?> Abgabe von Gruppe <?php echo $grupp->GruppenNr?> noch nicht korregiert</li>
+                            <li>
+                                <!-- Alle abgabe -->
+                                <ul class="menu">
+                                	<?php foreach (Abgabe::AlleAbgabeVonGrup($grupp->UebungsgruppeID) as $abgabe):?>
+                                    <li><!-- EinzelAbgabe -->
+                                    	<?php $benutzer = Benutzer::findOne($abgabe->Benutzer_MarterikelNr)?>
+                                    	<?php $proffoto = $benutzer->Profiefoto?>
+                                    	<?php $blattNr = $abgabe->uebungsblaetter->UebungsNr?>
+                                    	<?php $ubung = $abgabe->uebungsblaetter->uebungs->Bezeichnung?>
+                                    	<?php $abgabezeit = date('d-m-Y',$abgabe->AbgabeZeit)?>
+                                    	
+                                    	<?php echo Html::a("
+                                    	    <div class='pull-left'>
+                                    	    <img src='$proffoto' class='img-circle'
+                                    	    alt='User Image'/>
+                                    	    </div>
+                                    	    <h4>
+                                    	    Übungsblatt $blattNr
+                                    	    <small><i class='fa fa-clock-o'></i> $abgabezeit</small>
+                                    	    </h4>
+                                    	    <p>Von Übung $ubung</p>"
+                                    	    ,['abgabe/update','id'=>$abgabe->AbgabeID],['title' => Yii::t('yii', 'Edit'),])?>
+                                    	
+                                    </li>
+                                    <?php endforeach;?>
+                                </ul>
+                            </li>
+                            <?php $gruppeNr = $grupp->GruppenNr?>
+                            <li class="footer"><?php echo Html::a("Alle Abgabe von Gruppe $gruppeNr ansehen",['uebungsgruppe/gruppendetails', 'id'=>$grupp->UebungsgruppeID])?></li>
+                        <?php endforeach;?>
+                    </ul>
+                </li>
+            <?php endif;?>
+            
+                       
                 <!-- User Account: style can be found in dropdown.less -->
 
                 <li class="dropdown user user-menu">

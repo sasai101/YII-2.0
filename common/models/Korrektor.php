@@ -160,4 +160,37 @@ class Korrektor extends \yii\db\ActiveRecord
     public static function DeleteKorrektor($marterikelNr){
         Abgabe::DeleteAbgabeMitKorretorMar($marterikelNr);
     }
+    
+    /*
+     * git Vorname von allen Korrektor zurück für Dropdownlist bei ModulCreate
+     */
+    public static function KorrektorName() {
+        
+        $model = Benutzer::find();
+        
+        return $model->join('INNER JOIN','korrektor','benutzer.MarterikelNr=korrektor.MarterikelNr')
+        ->select(['Benutzer.Vorname','Benutzer.MarterikelNr'])
+        ->indexBy('MarterikelNr')
+        ->column();
+    }
+    
+    /*
+     * Unkorrigierte Abgabe von Korrektor
+     */
+    public static function AnzahlUnkorregiertAbgabe($marterikelNr){
+        $model = Uebungsgruppe::find()->where(['Korrektor_MarterikelNr'=>$marterikelNr])->all();
+        $anzahl = 0;
+        foreach ($model as $gruppe){
+            $anzahl += Uebungsgruppe::AnzahlUnkorreigiteGruppe($gruppe->UebungsgruppeID);
+        }
+        return $anzahl;
+    }
+    
+    /*
+     * Alle Übungsgruppe von Korrektor
+     */
+    public static function AlleUebungsgruppe($marterikelNr){
+        return Uebungsgruppe::find()->where(['Korrektor_MarterikelNr'=>$marterikelNr])->all();
+    }
+    
 }

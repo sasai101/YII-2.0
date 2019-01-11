@@ -13,11 +13,13 @@ use Yii;
  * @property int $Anzahl_der_Personen
  * @property int $GruppenNr
  * @property int $Max_Person
+ * @property Korrektor $korrektorMarterikelNr 
  *
  * @property BenutzerTeilnimmtUebungsgruppe[] $benutzerTeilnimmtUebungsgruppes
  * @property Benutzer[] $benuterMarterikelNrs
  * @property Uebung $uebungs
  * @property Tutor $tutorMarterikelNr
+ * @property Korrektor $korrektorMarterikelNr 
  */
 class Uebungsgruppe extends \yii\db\ActiveRecord
 {
@@ -37,12 +39,13 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
         return [
             // sonst geht das beim Modulherstellung nicht mehr weiter
             //[['UebungsID'], 'required'],
-            [['Tutor_MarterikelNr', 'GruppenNr', 'Max_Person'], 'required'],
-            [['UebungsID', 'Tutor_MarterikelNr', 'Anzahl_der_Personen', 'GruppenNr', 'Max_Person'], 'integer'],
+            [['Tutor_MarterikelNr', 'GruppenNr', 'Max_Person','Korrektor_MarterikelNr'], 'required'],
+            [['UebungsID', 'Tutor_MarterikelNr', 'Anzahl_der_Personen', 'GruppenNr', 'Max_Person','Korrektor_MarterikelNr'], 'integer'],
             [['UebungsID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebung::className(), 'targetAttribute' => ['UebungsID' => 'UebungsID']],
             [['Tutor_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Tutor::className(), 'targetAttribute' => ['Tutor_MarterikelNr' => 'marterikelnr']],
             ['Max_Person', 'Max_PersonCheck'],
-            ['GruppenNr', 'GruppenNrCheck']
+            ['GruppenNr', 'GruppenNrCheck'],
+            [['Korrektor_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Korrektor::className(), 'targetAttribute' => ['Korrektor_MarterikelNr' => 'marterikelnr']],
         ];
     }
     
@@ -70,9 +73,11 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
             'UebungsgruppeID' => 'Uebungsgruppe ID',
             'UebungsID' => 'Uebungs ID',
             'Tutor_MarterikelNr' => 'Tutor',
-            'Anzahl_der_Personen' => 'Anzahl Der  Personen',
-            'GruppenNr' => 'Gruppen Nr',
+            'Anzahl_der_Personen' => 'Anzahl Der Personen',
+            'GruppenNr' => 'Gruppe Nrmmer',
             'Max_Person' => 'Max  Person',
+            'Tutor_MarterikelNr' => 'Tutor',
+            'Korrektor_MarterikelNr'=>'Korrektor'
         ];
     }
     
@@ -231,5 +236,19 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
             array_push($arrayGruppeID, $gruppe->UebungsgruppeID);
         }
         return array_reverse($arrayGruppeID);
+    }
+    
+    /*
+     * Anzahl der unkorrigierte Abgabe von Gruppe
+     */
+    public static function AlleunkorregierteAbgabe($gruppeID){
+        $model = Abgabe::find()->where(['UebungsgruppenID'=>$gruppeID])->all();
+        $anzahl = 0;
+        foreach ($model as $abgabe){
+            if($abgabe->GesamtePunkt == null){
+                $anzahl++;
+            }
+        }
+        return $anzahl;
     }
 }

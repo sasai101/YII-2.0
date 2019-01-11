@@ -88,7 +88,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'attribute' => 'Pruefungsdatum',
                                         'format'=>['date','php:d-m-Y H:i:s'],
                                     ],
-                                    'Raum', 
                                      
                          
                         

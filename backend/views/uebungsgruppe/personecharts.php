@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 use common\models\AbgabeSuchen;
 
 $this->title = 'Übungsgruppe '.$modelUebungsgruppe->GruppenNr;
-$this->params['breadcrumbs'][] = ['label' => 'Alle Übungen', 'url' => ['uebungsgruppe/alleuebungen']];
+$this->params['breadcrumbs'][] = ['label' => 'Alle Übungen', 'url' => ['uebung/alleuebungsgruppe']];
 $this->params['breadcrumbs'][] = ['label' => 'Alle Übungsgruppen', 'url' => ['uebungsgruppe/alleuebungsgruppe','id'=>$modelUebungsgruppe->UebungsID]];
 $this->params['breadcrumbs'][] = ['label' => 'Übungsgruppe '.$modelUebungsgruppe->GruppenNr, 'url' => ['uebungsgruppe/gruppendetails','id'=>$modelUebungsgruppe->UebungsgruppeID]];
 $this->params['breadcrumbs'][] = $modelBenutzer->Vorname." ".$modelBenutzer->Nachname;

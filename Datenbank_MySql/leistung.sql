@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 05, 2019 at 07:47 PM
+-- Generation Time: Jan 11, 2019 at 08:46 PM
 -- Server version: 8.0.12
 -- PHP Version: 7.2.9
 
@@ -33,7 +33,7 @@ CREATE TABLE `abgabe` (
   `Benutzer_MarterikelNr` int(32) NOT NULL,
   `Korrektor_MarterikelNr` int(32) DEFAULT NULL,
   `KorregierteZeit` int(11) DEFAULT NULL,
-  `AbgabeZeit` int(11) NOT NULL,
+  `AbgabeZeit` int(11) DEFAULT NULL,
   `GesamtePunkt` int(32) DEFAULT NULL,
   `UebungsblaetterID` int(11) NOT NULL,
   `UebungsgruppenID` int(11) NOT NULL
@@ -212,7 +212,7 @@ INSERT INTO `abgabe` (`AbgabeID`, `Benutzer_MarterikelNr`, `Korrektor_Marterikel
 (166, 2000187, NULL, NULL, 123123123, NULL, 76, 19),
 (167, 2000188, NULL, NULL, 123123123, NULL, 76, 19),
 (168, 2000189, NULL, NULL, 123123123, NULL, 76, 19),
-(169, 2000190, NULL, NULL, 123123123, NULL, 76, 20),
+(169, 2000190, 2000112, 1547236684, 123123123, 15, 76, 20),
 (170, 2000191, NULL, NULL, 123123123, NULL, 76, 20),
 (171, 2000192, NULL, NULL, 123123123, NULL, 76, 20),
 (172, 2000193, NULL, NULL, 123123123, NULL, 76, 20),
@@ -1907,7 +1907,6 @@ CREATE TABLE `klausur` (
   `ModulID` int(32) NOT NULL,
   `Kreditpunkt` int(32) NOT NULL,
   `Pruefungsdatum` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `Raum` varchar(255) NOT NULL,
   `Bezeichnung` varchar(255) NOT NULL,
   `Max_Punkte` int(32) NOT NULL,
   `punkt1_0` int(32) NOT NULL,
@@ -1926,14 +1925,14 @@ CREATE TABLE `klausur` (
 -- Dumping data for table `klausur`
 --
 
-INSERT INTO `klausur` (`KlausurID`, `Mitarbeiter_MarterikelNr`, `ModulID`, `Kreditpunkt`, `Pruefungsdatum`, `Raum`, `Bezeichnung`, `Max_Punkte`, `punkt1_0`, `punkt1_3`, `punkt1_7`, `punkt2_0`, `punkt2_3`, `punkt2_7`, `punkt3_0`, `punkt3_3`, `punkt3_7`, `punkt4_0`) VALUES
-(1, 2000002, 1, 15, '26.11.1973, 00:52', '12112', 'Hauptklausur', 100, 96, 90, 87, 83, 79, 77, 73, 68, 62, 60),
-(3, 2000001, 2, 15, '26.11.1973, 00:52', '12112', 'Hauptklausur', 100, 98, 90, 87, 83, 79, 77, 73, 68, 62, 50),
-(5, 2000003, 3, 15, '26.11.1973, 00:52', '12112', 'Hauptklausur', 100, 96, 90, 87, 83, 79, 77, 73, 68, 62, 50),
-(6, 2000004, 4, 15, '26.11.1973, 00:52', '12112', 'Hauptklausur', 100, 96, 90, 87, 83, 79, 77, 73, 68, 62, 50),
-(7, 2000005, 5, 15, '26.11.1973, 00:52', '12112', 'Hauptklausur', 100, 96, 90, 87, 83, 79, 77, 73, 68, 62, 50),
-(8, 2000006, 6, 15, '26.11.1973, 00:52', '12112', 'Hauptklausur', 100, 96, 90, 87, 83, 79, 77, 73, 68, 62, 50),
-(17, 2000001, 4, 13, '04.01.2019, 20:56', '12.21 6J', '1.Nachklausur', 100, 96, 90, 87, 83, 79, 77, 73, 68, 62, 50);
+INSERT INTO `klausur` (`KlausurID`, `Mitarbeiter_MarterikelNr`, `ModulID`, `Kreditpunkt`, `Pruefungsdatum`, `Bezeichnung`, `Max_Punkte`, `punkt1_0`, `punkt1_3`, `punkt1_7`, `punkt2_0`, `punkt2_3`, `punkt2_7`, `punkt3_0`, `punkt3_3`, `punkt3_7`, `punkt4_0`) VALUES
+(1, 2000002, 1, 15, '26.11.1973, 00:52', 'Hauptklausur', 100, 96, 90, 87, 83, 79, 77, 73, 68, 62, 60),
+(3, 2000001, 2, 15, '26.11.1973, 00:52', 'Hauptklausur', 100, 98, 90, 87, 83, 79, 77, 73, 68, 62, 50),
+(5, 2000003, 3, 15, '26.11.1973, 00:52', 'Hauptklausur', 100, 96, 90, 87, 83, 79, 77, 73, 68, 62, 50),
+(6, 2000004, 4, 15, '26.11.1973, 00:52', 'Hauptklausur', 100, 96, 90, 87, 83, 79, 77, 73, 68, 62, 50),
+(7, 2000005, 5, 15, '26.11.1973, 00:52', 'Hauptklausur', 100, 96, 90, 87, 83, 79, 77, 73, 68, 62, 50),
+(8, 2000006, 6, 15, '26.11.1973, 00:52', 'Hauptklausur', 100, 96, 90, 87, 83, 79, 77, 73, 68, 62, 50),
+(17, 2000001, 4, 13, '04.01.2019, 20:56', '1.Nachklausur', 100, 96, 90, 87, 83, 79, 77, 73, 68, 62, 50);
 
 -- --------------------------------------------------------
 
@@ -3062,27 +3061,28 @@ CREATE TABLE `uebungsgruppe` (
   `Tutor_MarterikelNr` int(32) NOT NULL,
   `Anzahl_der_Personen` int(32) DEFAULT NULL,
   `GruppenNr` int(32) NOT NULL,
-  `Max_Person` int(32) NOT NULL
+  `Max_Person` int(32) NOT NULL,
+  `Korrektor_MarterikelNr` int(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `uebungsgruppe`
 --
 
-INSERT INTO `uebungsgruppe` (`UebungsgruppeID`, `UebungsID`, `Tutor_MarterikelNr`, `Anzahl_der_Personen`, `GruppenNr`, `Max_Person`) VALUES
-(8, 2, 2000036, 12, 1, 20),
-(9, 2, 2000037, 12, 2, 20),
-(14, 3, 2000042, 12, 1, 20),
-(18, 5, 2000046, 12, 1, 20),
-(19, 5, 2000047, 12, 2, 20),
-(20, 5, 2000048, 12, 3, 20),
-(21, 5, 2000049, 12, 4, 20),
-(22, 6, 2000050, 12, 1, 20),
-(23, 6, 2000051, 12, 2, 20),
-(24, 6, 2000052, 12, 3, 20),
-(25, 6, 2000053, 5, 4, 20),
-(26, 7, 2000054, 10, 1, 20),
-(30, 8, 2000058, 10, 1, 20);
+INSERT INTO `uebungsgruppe` (`UebungsgruppeID`, `UebungsID`, `Tutor_MarterikelNr`, `Anzahl_der_Personen`, `GruppenNr`, `Max_Person`, `Korrektor_MarterikelNr`) VALUES
+(8, 2, 2000036, 12, 1, 20, 2000004),
+(9, 2, 2000037, 12, 2, 20, 2000004),
+(14, 3, 2000042, 12, 1, 20, 2000004),
+(18, 5, 2000046, 12, 1, 20, 2000111),
+(19, 5, 2000047, 12, 2, 20, 2000111),
+(20, 5, 2000048, 12, 3, 20, 2000112),
+(21, 5, 2000049, 12, 4, 20, 2000112),
+(22, 6, 2000050, 12, 1, 20, 2000113),
+(23, 6, 2000051, 12, 2, 20, 2000113),
+(24, 6, 2000052, 12, 3, 20, 2000115),
+(25, 6, 2000053, 5, 4, 20, 2000115),
+(26, 7, 2000054, 10, 1, 20, 2000116),
+(30, 8, 2000058, 10, 1, 20, 2000116);
 
 --
 -- Indexes for dumped tables
@@ -3241,7 +3241,8 @@ ALTER TABLE `uebungsblaetter`
 ALTER TABLE `uebungsgruppe`
   ADD PRIMARY KEY (`UebungsgruppeID`),
   ADD KEY `Übungs-ID` (`UebungsID`),
-  ADD KEY `Tutor-MarterikelNr` (`Tutor_MarterikelNr`);
+  ADD KEY `Tutor-MarterikelNr` (`Tutor_MarterikelNr`),
+  ADD KEY `Korrektor_MarterikelNr` (`Korrektor_MarterikelNr`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -3319,27 +3320,27 @@ ALTER TABLE `abgabe`
 --
 ALTER TABLE `benutzer_anmelden_klausur`
   ADD CONSTRAINT `benutzer_anmelden_klausur_ibfk_1` FOREIGN KEY (`Benutzer_MarterikelNr`) REFERENCES `benutzer` (`marterikelnr`),
-  ADD CONSTRAINT `benutzer_anmelden_klausur_ibfk_2` FOREIGN KEY (`KlausurID`) REFERENCES `klausur` (`KlausurID`);
+  ADD CONSTRAINT `benutzer_anmelden_klausur_ibfk_2` FOREIGN KEY (`KlausurID`) REFERENCES `klausur` (`klausurid`);
 
 --
 -- Constraints for table `benutzer_teilnimmt_uebungsgruppe`
 --
 ALTER TABLE `benutzer_teilnimmt_uebungsgruppe`
   ADD CONSTRAINT `benutzer_teilnimmt_uebungsgruppe_ibfk_1` FOREIGN KEY (`Benuter_MarterikelNr`) REFERENCES `benutzer` (`marterikelnr`),
-  ADD CONSTRAINT `benutzer_teilnimmt_uebungsgruppe_ibfk_2` FOREIGN KEY (`UebungsgruppeID`) REFERENCES `uebungsgruppe` (`UebungsgruppeID`);
+  ADD CONSTRAINT `benutzer_teilnimmt_uebungsgruppe_ibfk_2` FOREIGN KEY (`UebungsgruppeID`) REFERENCES `uebungsgruppe` (`uebungsgruppeid`);
 
 --
 -- Constraints for table `einzelaufgabe`
 --
 ALTER TABLE `einzelaufgabe`
-  ADD CONSTRAINT `einzelaufgabe_ibfk_1` FOREIGN KEY (`AbgabeID`) REFERENCES `abgabe` (`AbgabeID`);
+  ADD CONSTRAINT `einzelaufgabe_ibfk_1` FOREIGN KEY (`AbgabeID`) REFERENCES `abgabe` (`abgabeid`);
 
 --
 -- Constraints for table `klausur`
 --
 ALTER TABLE `klausur`
   ADD CONSTRAINT `klausur_ibfk_1` FOREIGN KEY (`Mitarbeiter_MarterikelNr`) REFERENCES `mitarbeiter` (`marterikelnr`),
-  ADD CONSTRAINT `klausur_ibfk_2` FOREIGN KEY (`ModulID`) REFERENCES `modul` (`ModulID`);
+  ADD CONSTRAINT `klausur_ibfk_2` FOREIGN KEY (`ModulID`) REFERENCES `modul` (`modulid`);
 
 --
 -- Constraints for table `klausurnote`
@@ -3365,14 +3366,14 @@ ALTER TABLE `mitarbeiter`
 -- Constraints for table `modul_anmelden_benutzer`
 --
 ALTER TABLE `modul_anmelden_benutzer`
-  ADD CONSTRAINT `modul_anmelden_benutzer_ibfk_1` FOREIGN KEY (`ModulID`) REFERENCES `modul` (`ModulID`),
+  ADD CONSTRAINT `modul_anmelden_benutzer_ibfk_1` FOREIGN KEY (`ModulID`) REFERENCES `modul` (`modulid`),
   ADD CONSTRAINT `modul_anmelden_benutzer_ibfk_2` FOREIGN KEY (`Benutzer_MarterikelNr`) REFERENCES `benutzer` (`marterikelnr`);
 
 --
 -- Constraints for table `modul_leitet_professor`
 --
 ALTER TABLE `modul_leitet_professor`
-  ADD CONSTRAINT `modul_leitet_professor_ibfk_1` FOREIGN KEY (`ModulID`) REFERENCES `modul` (`ModulID`),
+  ADD CONSTRAINT `modul_leitet_professor_ibfk_1` FOREIGN KEY (`ModulID`) REFERENCES `modul` (`modulid`),
   ADD CONSTRAINT `modul_leitet_professor_ibfk_2` FOREIGN KEY (`Professor_MarterikelNr`) REFERENCES `professor` (`marterikelnr`);
 
 --
@@ -3392,20 +3393,21 @@ ALTER TABLE `tutor`
 --
 ALTER TABLE `uebung`
   ADD CONSTRAINT `uebung_ibfk_1` FOREIGN KEY (`Mitarbeiter_MarterikelNr`) REFERENCES `mitarbeiter` (`marterikelnr`),
-  ADD CONSTRAINT `uebung_ibfk_2` FOREIGN KEY (`ModulID`) REFERENCES `modul` (`ModulID`);
+  ADD CONSTRAINT `uebung_ibfk_2` FOREIGN KEY (`ModulID`) REFERENCES `modul` (`modulid`);
 
 --
 -- Constraints for table `uebungsblaetter`
 --
 ALTER TABLE `uebungsblaetter`
-  ADD CONSTRAINT `uebungsblaetter_ibfk_1` FOREIGN KEY (`UebungsID`) REFERENCES `uebung` (`UebungsID`);
+  ADD CONSTRAINT `uebungsblaetter_ibfk_1` FOREIGN KEY (`UebungsID`) REFERENCES `uebung` (`uebungsid`);
 
 --
 -- Constraints for table `uebungsgruppe`
 --
 ALTER TABLE `uebungsgruppe`
-  ADD CONSTRAINT `uebungsgruppe_ibfk_1` FOREIGN KEY (`UebungsID`) REFERENCES `uebung` (`UebungsID`),
-  ADD CONSTRAINT `uebungsgruppe_ibfk_2` FOREIGN KEY (`Tutor_MarterikelNr`) REFERENCES `tutor` (`marterikelnr`);
+  ADD CONSTRAINT `uebungsgruppe_ibfk_1` FOREIGN KEY (`UebungsID`) REFERENCES `uebung` (`uebungsid`),
+  ADD CONSTRAINT `uebungsgruppe_ibfk_2` FOREIGN KEY (`Tutor_MarterikelNr`) REFERENCES `tutor` (`marterikelnr`),
+  ADD CONSTRAINT `uebungsgruppe_ibfk_3` FOREIGN KEY (`Korrektor_MarterikelNr`) REFERENCES `korrektor` (`marterikelnr`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -9,11 +9,16 @@ use kartik\datecontrol\DateControl;
  * @var common\models\Abgabe $model
  */
 
-$this->title = $model->AbgabeID;
-$this->params['breadcrumbs'][] = ['label' => 'Abgabes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Abgabe';
+$this->params['breadcrumbs'][] = ['label' => 'Alle Übungen', 'url' => ['uebung/alleuebungsgruppe']];
+$this->params['breadcrumbs'][] = ['label' => 'Alle Übungsgruppen', 'url' => ['uebungsgruppe/alleuebungsgruppe','id'=>$model->uebungsblaetter->uebungs->UebungsID]];
+$this->params['breadcrumbs'][] = ['label' => 'Übungsgruppe'.$model->uebungsgruppen->GruppenNr, 'url'=>['uebungsgruppe/gruppendetails', 'id'=>$model->uebungsgruppen->UebungsgruppeID]];
+$this->params['breadcrumbs'][] = ['label' => 'Alle Abgabe von Gruppe '.$model->uebungsgruppen->GruppenNr, 'url'=>['abgabe/index', 'UebungsgruppeID'=>$model->UebungsgruppenID, 'UebungsblaetterID'=>$model->UebungsblaetterID]];
+$this->params['breadcrumbs'][] = $model->benutzerMarterikelNr->Vorname." ".$model->benutzerMarterikelNr->Nachname;
 ?>
+	<div></br></div>
 <div class="panel panel-default">
+	<div></br></div>
     <div class="panel-body">
     	<div class="abgabe-update">
         	<div class="abgabe-index">
@@ -103,5 +108,6 @@ $this->params['breadcrumbs'][] = $this->title;
             	<?php endforeach;?>
         
         </div>
+    </div>
     </div>
 </div>

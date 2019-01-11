@@ -141,4 +141,15 @@ class Mitarbeiter extends \yii\db\ActiveRecord
         Uebung::DeleteUebungMitMitarbeitMar($marterikelNr);
     }
     
+    /*
+     * Anzahl der unkorregierte Abgabe von Mitarbeiter(header)
+     */
+    public static function AnzahlunkorregierteAbgabe($mitMarterikelNr) {
+        $model = Uebung::find()->where(['Mitarbeiter_MarterikelNr'=>$mitMarterikelNr])->all();
+        $anzahl = 0;
+        foreach ($model as $uebung){
+            $anzahl += Uebung::AnzahlunkorregierteAbgabe($uebung->UebungsID);
+        }
+        return $anzahl;
+    }
 }

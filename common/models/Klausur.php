@@ -13,7 +13,6 @@ use phpDocumentor\Reflection\Types\Null_;
  * @property int $ModulID
  * @property int $Kreditpunkt
  * @property string $Pruefungsdatum
- * @property string $Raum
  * @property string $Bezeichnung
  * @property int $Max_Punkte
  * @property int $punkt1_0
@@ -49,9 +48,9 @@ class Klausur extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Mitarbeiter_MarterikelNr', 'ModulID', 'Kreditpunkt', 'Pruefungsdatum', 'Raum', 'Bezeichnung', 'Max_Punkte', 'punkt1_0', 'punkt1_3', 'punkt1_7', 'punkt2_0', 'punkt2_3', 'punkt2_7', 'punkt3_0', 'punkt3_3', 'punkt3_7', 'punkt4_0'], 'required'],
+            [['Mitarbeiter_MarterikelNr', 'ModulID', 'Kreditpunkt', 'Pruefungsdatum', 'Bezeichnung', 'Max_Punkte', 'punkt1_0', 'punkt1_3', 'punkt1_7', 'punkt2_0', 'punkt2_3', 'punkt2_7', 'punkt3_0', 'punkt3_3', 'punkt3_7', 'punkt4_0'], 'required'],
             [['Mitarbeiter_MarterikelNr', 'ModulID', 'Kreditpunkt', 'Max_Punkte', 'punkt1_0', 'punkt1_3', 'punkt1_7', 'punkt2_0', 'punkt2_3', 'punkt2_7', 'punkt3_0', 'punkt3_3', 'punkt3_7', 'punkt4_0'], 'integer'],
-            [['Pruefungsdatum', 'Raum', 'Bezeichnung'], 'string', 'max' => 255],
+            [['Pruefungsdatum', 'Bezeichnung'], 'string', 'max' => 255],
             [['Mitarbeiter_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Mitarbeiter::className(), 'targetAttribute' => ['Mitarbeiter_MarterikelNr' => 'marterikelnr']],
             [['ModulID'], 'exist', 'skipOnError' => true, 'targetClass' => Modul::className(), 'targetAttribute' => ['ModulID' => 'ModulID']],
             ['Pruefungsdatum', 'checkDatum'],
@@ -224,7 +223,6 @@ class Klausur extends \yii\db\ActiveRecord
             'ModulID' => 'Modul',
             'Kreditpunkt' => 'Kreditpunkt',
             'Pruefungsdatum' => 'Prüfungsdatum',
-            'Raum' => 'Raum',
             'Bezeichnung' => 'Bezeichnung',
             'Max_Punkte' => 'Max  Punkte',
             'punkt1_0' => 'Punkt 1.0',

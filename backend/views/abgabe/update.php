@@ -9,11 +9,11 @@ use yii\helpers\Html;
  */
 
 $this->title = 'Abgabe';
-$this->params['breadcrumbs'][] = ['label' => 'Alle Übungen', 'url' => ['uebungsgruppe/alleuebungen']];
+$this->params['breadcrumbs'][] = ['label' => 'Alle Übungen', 'url' => ['uebung/alleuebungsgruppe']];
 $this->params['breadcrumbs'][] = ['label' => 'Alle Übungsgruppen', 'url' => ['uebungsgruppe/alleuebungsgruppe','id'=>$model->uebungsblaetter->uebungs->UebungsID]];
 $this->params['breadcrumbs'][] = ['label' => 'Übungsgruppe'.$model->uebungsgruppen->GruppenNr, 'url'=>['uebungsgruppe/gruppendetails', 'id'=>$model->uebungsgruppen->UebungsgruppeID]];
 $this->params['breadcrumbs'][] = ['label' => 'Alle Abgabe von Gruppe '.$model->uebungsgruppen->GruppenNr, 'url'=>['abgabe/index', 'UebungsgruppeID'=>$model->UebungsgruppenID, 'UebungsblaetterID'=>$model->UebungsblaetterID]];
-$this->params['breadcrumbs'][] = 'Übungsblatt '.$model->uebungsblaetter->UebungsNr;
+$this->params['breadcrumbs'][] = $model->benutzerMarterikelNr->Vorname." ".$model->benutzerMarterikelNr->Nachname;
 ?>
 
 
@@ -27,7 +27,6 @@ $this->params['breadcrumbs'][] = 'Übungsblatt '.$model->uebungsblaetter->Uebung
         	<div class="row"></br></div>
         	
         	<?php $form = ActiveForm::begin([
-        	    'enableAjaxValidation'=>true,
         	]); ?>
         	
         	<div>
