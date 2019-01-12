@@ -11,7 +11,6 @@ use yii\bootstrap\ActiveForm;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 use common\models\Benutzer;
-use common\models\Modul;
 use common\models\KlausurSuchen;
 use common\models\Klausur;
 
@@ -41,6 +40,22 @@ class KlausurnoteController extends Controller
         $modelKlausur = Klausur::findOne($id);
         $searchModel = new KlausurnoteSuchen;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        
+        if (Yii::$app->request->post('hasEditable')) {
+            $klausurnoteID = Yii::$app->request->post('editableKey');
+            $klausurnote = Klausurnote::findOne($klausurnoteID);
+            
+            $out = Json::encode(['output'=>'','message'=>'']);
+            $post = [];
+            $posted = current($_POST['Klausurnote']);
+            $post['Klausurnote'] = $posted;
+            
+            if($klausurnote->load($post)){
+                $klausurnote->save();
+            }
+            echo $out;
+            return ;
+        }
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -54,7 +69,7 @@ class KlausurnoteController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    /*public function actionView($id)
     {
         $model = $this->findModel($id);
         
@@ -68,7 +83,7 @@ class KlausurnoteController extends Controller
         } else {
             return $this->render('view', ['model' => $model]);
         }
-    }
+    }*/
 
     /**
      * Creates a new Klausurnote model.

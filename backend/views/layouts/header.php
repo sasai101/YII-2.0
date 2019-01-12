@@ -11,6 +11,9 @@ use common\models\Korrektor;
 use common\models\Uebungsgruppe;
 use common\models\Abgabe;
 use common\models\Benutzer;
+use common\models\Professor;
+use common\models\Modul;
+use common\models\Tutor;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -35,7 +38,7 @@ use common\models\Benutzer;
                 <!-- Klausurnote -->
             	<li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bell-o"></i>
+                        <i class="fa fa-font"></i>
                         <span class="label label-warning"><?php echo Klausurnote::AnzahlKlausuren(Yii::$app->user->identity->MarterikelNr);?></span>
                     </a>
                     <ul class="dropdown-menu">
@@ -62,7 +65,7 @@ use common\models\Benutzer;
                 <!-- Übungsgruppe -->
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bell-o"></i>
+                        <i class="fa fa-group"></i>
                         <span class="label label-warning"><?php echo Mitarbeiter::AnzahlunkorregierteAbgabe(Yii::$app->user->identity->MarterikelNr);?></span>
                     </a>
                     <ul class="dropdown-menu">
@@ -90,6 +93,138 @@ use common\models\Benutzer;
                 </li>
             
             <?php endif;?>
+            
+            
+            <!-- Für Professor -->
+            <?php if(Professor::findOne(Yii::$app->user->identity->MarterikelNr)!= null):?>
+                <!-- Modul -->
+            	<li class="dropdown notifications-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-graduation-cap"></i>
+                        <span class="label label-warning"><?php echo Professor::AnzahlModul(Yii::$app->user->identity->MarterikelNr);?></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">Sie haben<?php echo Professor::AnzahlModul(Yii::$app->user->identity->MarterikelNr);?> Modulgeleitet;</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                            	<?php foreach (Professor::AlleModul(Yii::$app->user->identity->MarterikelNr) as $modulPfro):?>
+                                    <?php $modulPfo = Modul::findOne($modulPfro);?>
+                                    <?php $modulBezeichnung = $modulPfo->Bezeichnung?> 
+                                    <li>
+                                        <?php echo Html::a("<i class='fa fa-users text-aqua'></i> 
+                                        <p>$modulBezeichnung</p>",['modul/view', 'id'=>$modulPfo->ModulID])?>
+                                    </li>
+                                <?php endforeach;?>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                
+                <!-- Klausur -->
+                <li class="dropdown notifications-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-font"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                            	<?php foreach (Professor::AlleModul(Yii::$app->user->identity->MarterikelNr) as $modulPfro):?>
+                            	<?php $alleKlausur = Klausur::find()->where(['ModulID'=>$modulPfro->ModulID])->all();?>
+                            	<?php foreach ($alleKlausur as $klausur):?>
+                                	<?php if (\common\models\Klausurnote::find()->where(['KlausurID'=>$klausur->KlausurID,'Punkt'=>null])->count()!=0):?>
+                                		<?php $anzahl = \common\models\Klausurnote::find()->where(['KlausurID'=>$klausur->KlausurID,'Punkt'=>null])->count()?>
+                                        <?php $modul = $klausur->modul->Bezeichnung?> 
+                                        <li>
+                                            <?php echo Html::a("<i class='fa fa-users text-aqua'></i> $anzahl  Klausurnote 
+                                            <p>von Klausur des Modules $modul nicht eingetragen</p>",['klausurnote/index', 'id'=>$klausur->KlausurID])?>
+                                        </li>
+                                    <?php endif;?>
+                                <?php endforeach;?>
+                                <?php endforeach;?>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                
+                
+                <!-- Übungen -->
+                <li class="dropdown notifications-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="label label-warning"><?php echo Professor::AnzahlAlleunkorregierteAbgabe(Yii::$app->user->identity->MarterikelNr);?></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                            <?php foreach (Professor::AlleModul(Yii::$app->user->identity->MarterikelNr) as $modulvonProf):?>
+                            	<?php $alleUebungen = Uebung::find()->where(['ModulID'=>$modulvonProf->ModulID])->all();?>
+                            	<?php $modul = Modul::findOne($modulvonProf->ModulID)?>
+                            	<?php foreach ($alleUebungen as $uebung):?>
+                            	<?php $UebungBeizeichnung = $uebung->Bezeichnung?>
+                            	<?php $modulname = $modul->Bezeichnung?>
+                            	<?php $anzahlen = Professor::AnzahlunkorregierteAbgabe($modulvonProf->ModulID)?>
+                                    <li>
+                                        <?php echo Html::a("<i class='fa fa-users text-aqua'></i>$anzahlen Abgabe von $UebungBeizeichnung
+                                        <p>von $modulname</p>",['uebungsgruppe/alleuebungsgruppe', 'id'=>$uebung->UebungsID])?>
+                                    </li>
+                                <?php endforeach;?>
+                            <?php endforeach;?>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            
+            <?php endif;?>
+            
+            <!-- Tutor -->
+            
+            <?php if(Tutor::findOne(Yii::$app->user->identity->MarterikelNr)!= null):?>
+                <!-- Abgabe -->
+                <li class="dropdown messages-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="label label-success"><?php echo Tutor::AnzahlUnkorregiertAbgabe(Yii::$app->user->identity->MarterikelNr)?></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                    	<?php foreach (Tutor::AlleUebungsgruppe(Yii::$app->user->identity->MarterikelNr) as $grupp):?>
+                            <li class="header">Sie habe <?php echo Uebungsgruppe::AnzahlUnkorreigiteGruppe($grupp->UebungsgruppeID)?> Abgabe von Gruppe <?php echo $grupp->GruppenNr?> noch nicht korregiert</li>
+                            <li>
+                                <!-- Alle abgabe -->
+                                <ul class="menu">
+                                	<?php foreach (Abgabe::AlleAbgabeVonGrup($grupp->UebungsgruppeID) as $abgabe):?>
+                                    <li><!-- EinzelAbgabe -->
+                                    	<?php $benutzer = Benutzer::findOne($abgabe->Benutzer_MarterikelNr)?>
+                                    	<?php $proffoto = $benutzer->Profiefoto?>
+                                    	<?php $blattNr = $abgabe->uebungsblaetter->UebungsNr?>
+                                    	<?php $ubung = $abgabe->uebungsblaetter->uebungs->Bezeichnung?>
+                                    	<?php $abgabezeit = date('d-m-Y',$abgabe->AbgabeZeit)?>
+                                    	
+                                    	<?php echo Html::a("
+                                    	    <div class='pull-left'>
+                                    	    <img src='$proffoto' class='img-circle'
+                                    	    alt='User Image'/>
+                                    	    </div>
+                                    	    <h4>
+                                    	    Übungsblatt $blattNr
+                                    	    <small><i class='fa fa-clock-o'></i> $abgabezeit</small>
+                                    	    </h4>
+                                    	    <p>Von Übung $ubung</p>"
+                                    	    ,['abgabe/view','id'=>$abgabe->AbgabeID],['title' => Yii::t('yii', 'Edit'),])?>
+                                    	
+                                    </li>
+                                    <?php endforeach;?>
+                                </ul>
+                            </li>
+                            <?php $gruppeNr = $grupp->GruppenNr?>
+                            <li class="footer"><?php echo Html::a("Alle Abgabe von Gruppe $gruppeNr ansehen",['uebungsgruppe/gruppendetails', 'id'=>$grupp->UebungsgruppeID])?></li>
+                        <?php endforeach;?>
+                    </ul>
+                </li>
+            <?php endif;?>
+            
             
             <!-- Korrektor -->
             <?php if(Korrektor::findOne(Yii::$app->user->identity->MarterikelNr)!= null):?>

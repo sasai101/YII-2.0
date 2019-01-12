@@ -129,4 +129,46 @@ class Professor extends \yii\db\ActiveRecord
             $prof->delete();
         }
     }
+    
+    /*
+     * Alle Module von bestimmten Professore
+     */
+    public static function AlleModul($marterikelNr) {
+        return ModulLeitetProfessor::find()->where(['Professor_MarterikelNr'=>$marterikelNr])->all();
+    }
+    
+    /*
+     * Anzahl der Module von bestimmten Professore geleitet werden
+     */
+    public static function AnzahlModul($marterikelNr) {
+        return ModulLeitetProfessor::find()->where(['Professor_MarterikelNr'=>$marterikelNr])->count();
+    }
+    
+    /*
+     * Anzahl der unkorregierte Abgabe von Professor(header)
+     */
+    public static function AnzahlunkorregierteAbgabe($modulID) {
+        $model = Uebung::find()->where(['ModulID'=>$modulID])->all();
+        $anzahl = 0;
+        foreach ($model as $uebung){
+            $anzahl += Uebung::AnzahlunkorregierteAbgabe($uebung->UebungsID);
+        }
+        return $anzahl;
+    }
+    
+    /*
+     * Anzahl der unkorregierte Abgabe von Professor(header)
+     */
+    public static function AnzahlAlleunkorregierteAbgabe($marterikelNr) {
+        
+        $modulModul = ModulLeitetProfessor::find()->where(['Professor_MarterikelNr'=>$marterikelNr])->all();
+        $anzahl = 0;
+        foreach ($modulModul as $modul){
+            $model = Uebung::find()->where(['ModulID'=>$modul->ModulID])->all();
+            foreach ($model as $uebung){
+                $anzahl += Uebung::AnzahlunkorregierteAbgabe($uebung->UebungsID);
+            }
+        }
+        return $anzahl;
+    }
 }

@@ -50,12 +50,16 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelKlausur->
             <?php Pjax::begin(); echo GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
+                'pjax'=>true,
+                'export'=>false,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
         
                     //'KlausurnoteID',
                     //'Mitarbeiter_MarterikelNr',
-              
+                    
+                    'Benutzer_MarterikelNr',
+                    
                     //Benutzervorname
                     [
                         'attribute' => 'vorname',
@@ -68,11 +72,11 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelKlausur->
                         'label' => 'Nachname',
                         'value' => 'nachname'
                     ],
-                    'Benutzer_MarterikelNr',
                     //'Punkt', 
                     [
+                        'class'=>'kartik\grid\EditableColumn',
                         'attribute' => 'Punkt',
-                        'contentOptions' => ['width'=>'100px']
+                        'contentOptions' => ['width'=>'100px'],
                     ],
                     
                     //'Note',
@@ -128,7 +132,7 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelKlausur->
                     'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index', 'id'=>$modelKlausur->KlausurID], ['class' => 'btn btn-info']),
                     'showFooter' => false
                 ],
-            ]); Pjax::end();?>
+            ]); Pjax::end()?>
 		</div>
     </div>
 </div>

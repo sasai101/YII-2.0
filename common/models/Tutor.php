@@ -115,5 +115,24 @@ class Tutor extends \yii\db\ActiveRecord
         Uebungsgruppe::DeleteUebungsgruppeMitMarter($marterikelNr);
     }
     
+    /*
+     * Unkorrigierte Abgabe von Korrektor
+     */
+    public static function AnzahlUnkorregiertAbgabe($marterikelNr){
+        $model = Uebungsgruppe::find()->where(['Tutor_MarterikelNr'=>$marterikelNr])->all();
+        $anzahl = 0;
+        foreach ($model as $gruppe){
+            $anzahl += Uebungsgruppe::AnzahlUnkorreigiteGruppe($gruppe->UebungsgruppeID);
+        }
+        return $anzahl;
+    }
+    
+    /*
+     * Alle Übungsgruppe von Korrektor
+     */
+    public static function AlleUebungsgruppe($marterikelNr){
+        return Uebungsgruppe::find()->where(['Tutor_MarterikelNr'=>$marterikelNr])->all();
+    }
+    
     
 }
