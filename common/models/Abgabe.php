@@ -349,6 +349,7 @@ class Abgabe extends \yii\db\ActiveRecord
         foreach ($modelAbgabe as $abgabe){
             array_push($allenoteArray, (int)($abgabe->GesamtePunkt*100));
         }
+        sort($allenoteArray);
         return array_count_values($allenoteArray);
     }
     

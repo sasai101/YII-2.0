@@ -172,4 +172,16 @@ class UebungsgruppeController extends Controller
         ]);
     }
     
+    /*
+     *  Echart Action von Uebungs (Uebungsgruppe/alleuebungsgruppe)
+     */
+    public function actionUebungsnoteverteilung($uebungsID) {
+        
+        $model = Uebung::findOne($uebungsID);
+        
+        return $this->render('uebungsnoteverteilung',[
+            'model'=>$model,
+        ]);
+    }
+    
 }

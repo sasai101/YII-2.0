@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Uebung;
+use yii\helpers\Html;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
@@ -43,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
 							<h4> Übung: <b><?php echo $model->Bezeichnung?></b></h4>
 							<h4> Übungsleiter: <b><?php echo $model->getBenutzerNname($model->Mitarbeiter_MarterikelNr)?></b></h4>
 							<h4> Anzahl der Teilnahmer: <b><?php echo Uebung::AnzahlAllePersonUebung($model->UebungsID)?></b></h4>
+							<h4>Gesamte Übungsnotenverteilung:&nbsp&nbsp&nbsp&nbsp&nbsp</h4><h3><?php echo Html::a('<i class="fa fa-bar-chart"></i>',['uebungsgruppe/uebungsnoteverteilung','uebungsID'=>$model->UebungsID])?></h3>
 						</div>
 					</div>
 					<div class="row"></br></div>

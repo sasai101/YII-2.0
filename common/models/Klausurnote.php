@@ -309,6 +309,7 @@ class Klausurnote extends \yii\db\ActiveRecord
         foreach ($modelPunkte as $klausurnote){
             array_push($arrayPunkte, (int)$klausurnote->Punkt*100);
         }
+        sort($arrayPunkte);
         return array_count_values($arrayPunkte);
     }
     

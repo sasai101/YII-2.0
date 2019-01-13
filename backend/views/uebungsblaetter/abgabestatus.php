@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                         $chart = new ECharts($asset->baseUrl);
                                         
                                         $chart->title = array(
-                                            'text' => 'Abgabestatus',
+                                            'text' => 'Übungspunktverteilung',
                                             'subtext' => 'Anzahl der Studenten bei jeden Punkt',
                                         );
                                         
