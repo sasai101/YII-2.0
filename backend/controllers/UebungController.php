@@ -12,6 +12,7 @@ use common\models\ModulSuchen;
 use common\models\Uebungsblaetter;
 use common\models\UebungsblaetterSuchen;
 use common\models\Mitarbeiter;
+use common\models\Admin;
 
 /**
  * UebungController implements the CRUD actions for Uebung model.
@@ -36,15 +37,7 @@ class UebungController extends Controller
      */
     public function actionIndex()
     {
-        if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
-            $searchModel = new UebungSuchen();
-            $dataProvider = $searchModel->searchMitarbeiter(Yii::$app->request->getQueryParams(),Yii::$app->user->identity->MarterikelNr);
-            
-            return $this->render('index', [
-                'dataProvider' => $dataProvider,
-                'searchModel' => $searchModel,
-            ]);
-        }else{
+        if(Admin::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
             $searchModel = new UebungSuchen();
             $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
             
@@ -52,6 +45,24 @@ class UebungController extends Controller
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
             ]);
+        }else{
+            if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
+                $searchModel = new UebungSuchen();
+                $dataProvider = $searchModel->searchMitarbeiter(Yii::$app->request->getQueryParams(),Yii::$app->user->identity->MarterikelNr);
+                
+                return $this->render('index', [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                ]);
+            }else{
+                $searchModel = new UebungSuchen();
+                $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+                
+                return $this->render('index', [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                ]);
+            }
         }
     }
     
@@ -61,22 +72,32 @@ class UebungController extends Controller
      */
     public function actionIndexgruppe()
     {
-        if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
+        if(Admin::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
             $searchModel = new UebungSuchen();
-            $dataProvider = $searchModel->searchMitarbeiter(Yii::$app->request->getQueryParams(),Yii::$app->user->identity->MarterikelNr);
+            $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
             
-            return $this->render('indexgruppe', [
+            return $this->render('index', [
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
             ]);
         }else{
-            $searchModel = new UebungSuchen();
-            $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-            
-            return $this->render('indexgruppe', [
-                'dataProvider' => $dataProvider,
-                'searchModel' => $searchModel,
-            ]);
+            if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
+                $searchModel = new UebungSuchen();
+                $dataProvider = $searchModel->searchMitarbeiter(Yii::$app->request->getQueryParams(),Yii::$app->user->identity->MarterikelNr);
+                
+                return $this->render('indexgruppe', [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                ]);
+            }else{
+                $searchModel = new UebungSuchen();
+                $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+                
+                return $this->render('indexgruppe', [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                ]);
+            }
         }
     }
     
@@ -141,15 +162,7 @@ class UebungController extends Controller
      */
     public function actionAlleuebungen()
     {
-        if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
-            $searchModel = new UebungSuchen();
-            $dataProvider = $searchModel->searchMitarbeiter(Yii::$app->request->getQueryParams(),Yii::$app->user->identity->MarterikelNr);
-            
-            return $this->render('alleuebungen', [
-                'dataProvider' => $dataProvider,
-                'searchModel' => $searchModel,
-            ]);
-        }else{
+        if(Admin::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
             $searchModel = new UebungSuchen();
             $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
             
@@ -157,7 +170,25 @@ class UebungController extends Controller
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
             ]);
-        }
+        }else{
+            if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
+                $searchModel = new UebungSuchen();
+                $dataProvider = $searchModel->searchMitarbeiter(Yii::$app->request->getQueryParams(),Yii::$app->user->identity->MarterikelNr);
+                
+                return $this->render('alleuebungen', [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                ]);
+            }else{
+                $searchModel = new UebungSuchen();
+                $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+                
+                return $this->render('alleuebungen', [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                ]);
+            }
+        }        
     }
     
     /*
@@ -165,15 +196,7 @@ class UebungController extends Controller
      */
     public function actionAlleuebungsgruppe()
     {
-        if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
-            $searchModel = new UebungSuchen();
-            $dataProvider = $searchModel->searchMitarbeiter(Yii::$app->request->getQueryParams(),Yii::$app->user->identity->MarterikelNr);
-            
-            return $this->render('alleuebungsgruppe', [
-                'dataProvider' => $dataProvider,
-                'searchModel' => $searchModel,
-            ]);
-        }else{
+        if(Admin::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
             $searchModel = new UebungSuchen();
             $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
             
@@ -181,6 +204,24 @@ class UebungController extends Controller
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
             ]);
+        }else{
+            if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
+                $searchModel = new UebungSuchen();
+                $dataProvider = $searchModel->searchMitarbeiter(Yii::$app->request->getQueryParams(),Yii::$app->user->identity->MarterikelNr);
+                
+                return $this->render('alleuebungsgruppe', [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                ]);
+            }else{
+                $searchModel = new UebungSuchen();
+                $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+                
+                return $this->render('alleuebungsgruppe', [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                ]);
+            }
         }
     }
 }

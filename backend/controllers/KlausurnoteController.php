@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\bootstrap\ActiveForm;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use common\models\Admin;
 use common\models\Benutzer;
 use common\models\KlausurSuchen;
 use common\models\Klausur;
@@ -178,17 +179,7 @@ class KlausurnoteController extends Controller
      */
     public function actionKlausurnotelistview() {
         
-        if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
-            
-            $searchModel = new KlausurSuchen;
-            $dataProvider = $searchModel->searchMitMitarbeiter(Yii::$app->request->getQueryParams(), Yii::$app->user->identity->MarterikelNr);
-            
-            return $this->render('klausurnotelistview', [
-                'dataProvider' => $dataProvider,
-                'searchModel' => $searchModel,
-            ]);
-            
-        }else {
+        if(Admin::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
             $searchModel = new KlausurSuchen;
             $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
             
@@ -196,6 +187,26 @@ class KlausurnoteController extends Controller
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
             ]);
+        }else{
+            if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
+                
+                $searchModel = new KlausurSuchen;
+                $dataProvider = $searchModel->searchMitMitarbeiter(Yii::$app->request->getQueryParams(), Yii::$app->user->identity->MarterikelNr);
+                
+                return $this->render('klausurnotelistview', [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                ]);
+                
+            }else {
+                $searchModel = new KlausurSuchen;
+                $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
+                
+                return $this->render('klausurnotelistview', [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                ]);
+            }
         }
     }
     
@@ -218,17 +229,7 @@ class KlausurnoteController extends Controller
      */
     public function actionIndexklausur() {
         
-        if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
-            
-            $searchModel = new KlausurSuchen;
-            $dataProvider = $searchModel->searchMitMitarbeiter(Yii::$app->request->getQueryParams(), Yii::$app->user->identity->MarterikelNr);
-            
-            return $this->render('indexklausur', [
-                'dataProvider' => $dataProvider,
-                'searchModel' => $searchModel,
-            ]);
-            
-        }else {
+        if(Admin::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
             $searchModel = new KlausurSuchen;
             $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
             
@@ -236,6 +237,26 @@ class KlausurnoteController extends Controller
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
             ]);
+        }else{
+            if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
+                
+                $searchModel = new KlausurSuchen;
+                $dataProvider = $searchModel->searchMitMitarbeiter(Yii::$app->request->getQueryParams(), Yii::$app->user->identity->MarterikelNr);
+                
+                return $this->render('indexklausur', [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                ]);
+                
+            }else {
+                $searchModel = new KlausurSuchen;
+                $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
+                
+                return $this->render('indexklausur', [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                ]);
+            }
         }
     }
 }

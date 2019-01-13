@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
+use common\models\Admin;
 use common\models\BenutzerAnmeldenKlausur;
 use common\models\BenutzerAnmeldenKlausurSuchen;
 use common\models\Klausur;
@@ -112,17 +113,7 @@ class BenutzerAnmeldenKlausurController extends Controller
      */
     public function actionKlausuranmeldunglistview() {
         
-        if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
-            
-            $searchModel = new KlausurSuchen;
-            $dataProvider = $searchModel->searchMitMitarbeiter(Yii::$app->request->getQueryParams(), Yii::$app->user->identity->MarterikelNr);
-            
-            return $this->render('klausuranmeldunglistview', [
-                'dataProvider' => $dataProvider,
-                'searchModel' => $searchModel,
-            ]);
-            
-        }else {
+        if(Admin::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
             $searchModel = new KlausurSuchen;
             $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
             
@@ -130,6 +121,26 @@ class BenutzerAnmeldenKlausurController extends Controller
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
             ]);
+        }else{
+            if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
+                
+                $searchModel = new KlausurSuchen;
+                $dataProvider = $searchModel->searchMitMitarbeiter(Yii::$app->request->getQueryParams(), Yii::$app->user->identity->MarterikelNr);
+                
+                return $this->render('klausuranmeldunglistview', [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                ]);
+                
+            }else {
+                $searchModel = new KlausurSuchen;
+                $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
+                
+                return $this->render('klausuranmeldunglistview', [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                ]);
+            }
         }
     }
     
@@ -138,17 +149,7 @@ class BenutzerAnmeldenKlausurController extends Controller
      */
     public function actionIndexklausur() {
         
-        if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
-            
-            $searchModel = new KlausurSuchen;
-            $dataProvider = $searchModel->searchMitMitarbeiter(Yii::$app->request->getQueryParams(), Yii::$app->user->identity->MarterikelNr);
-            
-            return $this->render('indexklausur', [
-                'dataProvider' => $dataProvider,
-                'searchModel' => $searchModel,
-            ]);
-            
-        }else {
+        if(Admin::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
             $searchModel = new KlausurSuchen;
             $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
             
@@ -156,6 +157,26 @@ class BenutzerAnmeldenKlausurController extends Controller
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
             ]);
+        }else{
+            if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
+                
+                $searchModel = new KlausurSuchen;
+                $dataProvider = $searchModel->searchMitMitarbeiter(Yii::$app->request->getQueryParams(), Yii::$app->user->identity->MarterikelNr);
+                
+                return $this->render('indexklausur', [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                ]);
+                
+            }else {
+                $searchModel = new KlausurSuchen;
+                $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
+                
+                return $this->render('indexklausur', [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                ]);
+            }
         }
     }
 }
