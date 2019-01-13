@@ -79,7 +79,7 @@ class BenutzerAnmeldenKlausur extends \yii\db\ActiveRecord
     }
     
     /*
-     * Klausuranmeldung, werden die Benutuer,die jenigen die schon Klausurzulassung hat, automotisch eintragen 
+     * Klausuranmeldung, werden die Benutuer,die jenigen die schon Klausurzulassung hat, automotisch eintragen, fur die alle Nachklausur automatisch anmelden
      */
     public static function Klausuranmeldung($id){
         
@@ -88,22 +88,85 @@ class BenutzerAnmeldenKlausur extends \yii\db\ActiveRecord
         $jetzt = date('d.m.Y H:i:s',time()+60*60);
         $klausurdatum = date($modelKlausur->Pruefungsdatum);
         if(strtotime($klausurdatum) > strtotime($jetzt)){
-            foreach ($modelKlausur->modul->uebungs as $uebung){
-                
-                $allePersonUebung = Uebung::AllerPersonUebung($uebung->UebungsID);
-                
-                foreach ($allePersonUebung as $person){
-                    $alleZugelassenePerson = Uebung::ZugelassenenPersonUebung($uebung->UebungsID);
-                    if (in_array($person, $alleZugelassenePerson)) {
-                        $model = new BenutzerAnmeldenKlausur;
-                        $model->Benutzer_MarterikelNr=$person;
-                        $model->KlausurID = $id;
-                        $model->Anmeldungszeit = time();
-                        $model->save();
-                    }else{
-                        $model = BenutzerAnmeldenKlausur::findOne($person,$id);
-                        if ($model != null) {
-                            $model->delete();
+            //Anmeldung für Hauptklausur
+            if($modelKlausur->Bezeichnung == "Hauptklausur"){
+                foreach ($modelKlausur->modul->uebungs as $uebung){
+                    
+                    $allePersonUebung = Uebung::AllerPersonUebung($uebung->UebungsID);
+                    
+                    foreach ($allePersonUebung as $person){
+                        $alleZugelassenePerson = Uebung::ZugelassenenPersonUebung($uebung->UebungsID);
+                        if (in_array($person, $alleZugelassenePerson)) {
+                            $model = new BenutzerAnmeldenKlausur;
+                            $model->Benutzer_MarterikelNr=$person;
+                            $model->KlausurID = $id;
+                            $model->Anmeldungszeit = time();
+                            $model->save();
+                        }else{
+                            $model = BenutzerAnmeldenKlausur::findOne($person,$id);
+                            if ($model != null) {
+                                $model->delete();
+                            }
+                        }
+                    }
+                }
+            // 1.Nachklausur anmeldung
+            }else if($modelKlausur->Bezeichnung == "1.Nachklausur"){
+                //exit(0);
+                //finde Hauptklausur
+                $hauptKlausur = Klausur::find()->where(['ModulID'=>$modelKlausur->ModulID, 'Bezeichnung'=>'Hauptklausur'])->all();
+                foreach ($hauptKlausur as $klausur){
+                    //Alle nicht bestandene Personen von Klausur KlausurID
+                    $arrayPerson = Klausurnote::KlausurnoteNichtBestand($klausur->KlausurID);
+//                     print_r($arrayPerson);
+//                     exit(0);
+                    foreach ($arrayPerson as $person){
+                        if (BenutzerAnmeldenKlausur::findOne($person, $klausur->KlausurID) != null) {
+                            $model = new BenutzerAnmeldenKlausur;
+                            $model->Benutzer_MarterikelNr=$person;
+                            $model->KlausurID = $id;
+                            $model->Anmeldungszeit = time();
+                            $model->save();
+                        }
+                    }                    
+                }
+            //2.Nachklausur 
+            }else if($modelKlausur->Bezeichnung == "2.Nachklausur"){
+                //exit(0);
+                //finde Hauptklausur
+                $erstNachKlausur = Klausur::find()->where(['ModulID'=>$modelKlausur->ModulID, 'Bezeichnung'=>'1.Nachklausur'])->all();
+                foreach ($erstNachKlausur as $klausur){
+                    //Alle nicht bestandene Personen von Klausur KlausurID
+                    $arrayPerson = Klausurnote::KlausurnoteNichtBestand($klausur->KlausurID);
+                    //                     print_r($arrayPerson);
+                    //                     exit(0);
+                    foreach ($arrayPerson as $person){
+                        if (BenutzerAnmeldenKlausur::findOne($person, $klausur->KlausurID) != null) {
+                            $model = new BenutzerAnmeldenKlausur;
+                            $model->Benutzer_MarterikelNr=$person;
+                            $model->KlausurID = $id;
+                            $model->Anmeldungszeit = time();
+                            $model->save();
+                        }
+                    }
+                }
+            // 3.Nachklausur
+            }else if($modelKlausur->Bezeichnung == "3.Nachklausur"){
+                //exit(0);
+                //finde Hauptklausur
+                $zweitNachKlausur = Klausur::find()->where(['ModulID'=>$modelKlausur->ModulID, 'Bezeichnung'=>'2.Nachklausur'])->all();
+                foreach ($zweitNachKlausur as $klausur){
+                    //Alle nicht bestandene Personen von Klausur KlausurID
+                    $arrayPerson = Klausurnote::KlausurnoteNichtBestand($klausur->KlausurID);
+                    //                     print_r($arrayPerson);
+                    //                     exit(0);
+                    foreach ($arrayPerson as $person){
+                        if (BenutzerAnmeldenKlausur::findOne($person, $klausur->KlausurID) != null) {
+                            $model = new BenutzerAnmeldenKlausur;
+                            $model->Benutzer_MarterikelNr=$person;
+                            $model->KlausurID = $id;
+                            $model->Anmeldungszeit = time();
+                            $model->save();
                         }
                     }
                 }

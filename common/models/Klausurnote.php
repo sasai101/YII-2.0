@@ -361,4 +361,29 @@ class Klausurnote extends \yii\db\ActiveRecord
         }
     }
     
+    /*
+     * Finde alle Person, wer Klausur nicht bestatnd hat
+     */
+    public static function KlausurnoteNichtBestand($klausurID) {
+        $model = Klausurnote::find()->where(['KlausurID'=>$klausurID])->all();
+        $arrayPerson = array();
+        $noteFlag = true;
+        // überprüfen ob alle Note eingeragen werden oder nicht
+        foreach ($model as $person){
+            if($person->Note == null){
+                $noteFlag = false;
+            }
+        }
+        if($noteFlag == true){
+            foreach ($model as $person){
+                if($person->Note > 4.0){
+                    array_push($arrayPerson, $person->Benutzer_MarterikelNr);
+                }
+            }
+            return $arrayPerson;
+        }else{
+            $arrayPerson = array();
+            return $arrayPerson;
+        }
+    }
 }
