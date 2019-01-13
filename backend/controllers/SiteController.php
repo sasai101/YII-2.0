@@ -6,6 +6,9 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\VerwalterLoginForm;
+use common\models\Mitarbeiter;
+use common\models\Klausur;
+use common\models\Klausurnote;
 
 /**
  * Site controller
@@ -61,6 +64,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
+            $modelAlleKlausur = Klausur::find()->where(['Mitarbeiter_MarterikelNr'=>Yii::$app->user->identity->MarterikelNr])->all();
+            foreach ($modelAlleKlausur as $klausur){
+                Klausurnote::KlausurnoteAutomEintragen($klausur->KlausurID);
+            }
+        }
         return $this->render('index');
     }
     

@@ -129,32 +129,33 @@ class Klausurnote extends \yii\db\ActiveRecord
             $this->Mitarbeiter_MarterikelNr = Yii::$app->user->identity->MarterikelNr;
             
             $model = Klausur::findOne($this->KlausurID);
-            
-            if($this->Punkt >= $model->punkt1_0 && $this->Punkt <= $model->Max_Punkte){
-                
-                $this->Note = 1.0;
-            }else if($this->Punkt >= $model->punkt1_3 && $this->Punkt <= $model->punkt1_0){
-                $this->Note = 1.3;
-            }else if($this->Punkt >= $model->punkt1_7 && $this->Punkt <= $model->punkt1_3){
-                $this->Note = 1.7;
-            }else if($this->Punkt >= $model->punkt2_0 && $this->Punkt <= $model->punkt1_7){
-                $this->Note = 2.0;
-            }else if($this->Punkt >= $model->punkt2_3 && $this->Punkt <= $model->punkt2_0){
-                $this->Note = 2.3;
-            }else if($this->Punkt >= $model->punkt2_7 && $this->Punkt <= $model->punkt2_3){
-                $this->Note = 2.7;
-            }else if($this->Punkt >= $model->punkt3_0 && $this->Punkt <= $model->punkt2_7){
-                $this->Note = 3.0;
-            }else if($this->Punkt >= $model->punkt3_3 && $this->Punkt <= $model->punkt3_0){
-                $this->Note = 3.3;
-            }else if($this->Punkt >= $model->punkt3_7 && $this->Punkt <= $model->punkt3_3){
-                $this->Note = 3.7;
-            }else if($this->Punkt >= $model->punkt4_0 && $this->Punkt <= $model->punkt3_7){
-                $this->Note = 4.0;
-            }else if($this->Punkt < $model->punkt4_0){
-                $this->Note = 5.0;
+            if($this->Punkt == null){
+                $this->Note = null;
+            }else{
+                if($this->Punkt >= $model->punkt1_0 && $this->Punkt <= $model->Max_Punkte){
+                    $this->Note = 1.0;
+                }else if($this->Punkt >= $model->punkt1_3 && $this->Punkt <= $model->punkt1_0){
+                    $this->Note = 1.3;
+                }else if($this->Punkt >= $model->punkt1_7 && $this->Punkt <= $model->punkt1_3){
+                    $this->Note = 1.7;
+                }else if($this->Punkt >= $model->punkt2_0 && $this->Punkt <= $model->punkt1_7){
+                    $this->Note = 2.0;
+                }else if($this->Punkt >= $model->punkt2_3 && $this->Punkt <= $model->punkt2_0){
+                    $this->Note = 2.3;
+                }else if($this->Punkt >= $model->punkt2_7 && $this->Punkt <= $model->punkt2_3){
+                    $this->Note = 2.7;
+                }else if($this->Punkt >= $model->punkt3_0 && $this->Punkt <= $model->punkt2_7){
+                    $this->Note = 3.0;
+                }else if($this->Punkt >= $model->punkt3_3 && $this->Punkt <= $model->punkt3_0){
+                    $this->Note = 3.3;
+                }else if($this->Punkt >= $model->punkt3_7 && $this->Punkt <= $model->punkt3_3){
+                    $this->Note = 3.7;
+                }else if($this->Punkt >= $model->punkt4_0 && $this->Punkt <= $model->punkt3_7){
+                    $this->Note = 4.0;
+                }else if($this->Punkt < $model->punkt4_0 && $this->Punkt >= 0){
+                    $this->Note = 5.0;
+                }
             }
-
             return true;
         }
         else
@@ -336,6 +337,28 @@ class Klausurnote extends \yii\db\ActiveRecord
             }
         }
         return $anzahl;
+    }
+    
+    /*
+     *  Alle an Klausur angemeldete Person , Automatisch in der Klausurnote eintragen
+     */
+    public static function KlausurnoteAutomEintragen($klausurID) {
+        $model = Klausur::findOne($klausurID);
+        $arrayPerson = BenutzerAnmeldenKlausur::AllePersonKlausun($klausurID);
+        
+        $jetze = date('d.m.Y H:i:s',time()+60*60);
+        $prufdatum = date($model->Pruefungsdatum);
+        if(strtotime($prufdatum) < strtotime($jetze)){
+            foreach ($arrayPerson as $person){
+                if(\common\models\Klausurnote::find()->where(['KlausurID'=>$klausurID, 'Benutzer_MarterikelNr'=>$person])->all() == null){
+                    $modelKlausurnote = new Klausurnote;
+                    $modelKlausurnote->Mitarbeiter_MarterikelNr = $model->Mitarbeiter_MarterikelNr;
+                    $modelKlausurnote->Benutzer_MarterikelNr = $person;
+                    $modelKlausurnote->KlausurID = $klausurID;
+                    $modelKlausurnote->save();
+                }
+            }
+        }
     }
     
 }

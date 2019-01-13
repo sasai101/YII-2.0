@@ -12,6 +12,7 @@ use common\models\Modul;
 use common\models\ModulSuchen;
 use common\models\Klausurnote;
 use yii\widgets\ActiveForm;
+use common\models\BenutzerAnmeldenKlausur;
 /**
  * KlausurController implements the CRUD actions for Klausur model.
  */
@@ -133,6 +134,10 @@ class KlausurController extends Controller
         $model = Klausurnote::find()->where(['KlausurID'=>$id])->all();
         foreach ($model as $klausurnote){
             $klausurnote->delete();
+        }
+        $modelAnmeldung = BenutzerAnmeldenKlausur::find()->where(['KlausurID'=>$id])->all();
+        foreach ($modelAnmeldung as $anmeldung){
+            $anmeldung->delete();
         }
         
         $this->findModel($id)->delete();

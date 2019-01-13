@@ -85,25 +85,29 @@ class BenutzerAnmeldenKlausur extends \yii\db\ActiveRecord
         
         $modelKlausur = Klausur::findOne($id);
         //alle Übungen
-        foreach ($modelKlausur->modul->uebungs as $uebung){
-            
-            $allePersonUebung = Uebung::AllerPersonUebung($uebung->UebungsID);
-            
-            foreach ($allePersonUebung as $person){
-                $alleZugelassenePerson = Uebung::ZugelassenenPersonUebung($uebung->UebungsID);
-                if (in_array($person, $alleZugelassenePerson)) {
-                    $model = new BenutzerAnmeldenKlausur;
-                    $model->Benutzer_MarterikelNr=$person;
-                    $model->KlausurID = $id;
-                    $model->Anmeldungszeit = time();
-                    $model->save();
-                }else{
-                    $model = BenutzerAnmeldenKlausur::findOne($person,$id);
-                    if ($model != null) {
-                        $model->delete();
+        $jetzt = date('d.m.Y H:i:s',time()+60*60);
+        $klausurdatum = date($modelKlausur->Pruefungsdatum);
+        if(strtotime($klausurdatum) > strtotime($jetzt)){
+            foreach ($modelKlausur->modul->uebungs as $uebung){
+                
+                $allePersonUebung = Uebung::AllerPersonUebung($uebung->UebungsID);
+                
+                foreach ($allePersonUebung as $person){
+                    $alleZugelassenePerson = Uebung::ZugelassenenPersonUebung($uebung->UebungsID);
+                    if (in_array($person, $alleZugelassenePerson)) {
+                        $model = new BenutzerAnmeldenKlausur;
+                        $model->Benutzer_MarterikelNr=$person;
+                        $model->KlausurID = $id;
+                        $model->Anmeldungszeit = time();
+                        $model->save();
+                    }else{
+                        $model = BenutzerAnmeldenKlausur::findOne($person,$id);
+                        if ($model != null) {
+                            $model->delete();
+                        }
                     }
-                } 
-            }    
+                }
+            }
         }
     }  
     
@@ -121,5 +125,17 @@ class BenutzerAnmeldenKlausur extends \yii\db\ActiveRecord
         foreach ($modelAnmeldKlausur as $anmelden){
             $anmelden->delete();
         }
+    }
+    
+    /*
+     * Alle angemeldete Person in Array zuruck
+     */
+    public static function AllePersonKlausun($klausurID){
+        $model = BenutzerAnmeldenKlausur::find()->where(['KlausurID'=>$klausurID])->all();
+        $arrayPerson = array();
+        foreach ($model as $person){
+            array_push($arrayPerson, $person->Benutzer_MarterikelNr);
+        }
+        return $arrayPerson;
     }
 }
