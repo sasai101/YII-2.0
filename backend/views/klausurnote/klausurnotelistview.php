@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
               		<div class="row">
               			<div class="col-md-3">
               				<p>
-                                <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+                                <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
                             </p>
               			</div>
               		</div>

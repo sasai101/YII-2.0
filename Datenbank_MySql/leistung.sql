@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 13, 2019 at 03:39 PM
+-- Generation Time: Jan 13, 2019 at 10:34 PM
 -- Server version: 8.0.12
 -- PHP Version: 7.2.9
 
@@ -571,6 +571,66 @@ CREATE TABLE `auth_assignment` (
   `created_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `auth_assignment`
+--
+
+INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
+('korr', '2000004', 1539779630),
+('korr', '2000111', 1539779630),
+('korr', '2000112', 1539779630),
+('korr', '2000113', 1539779630),
+('korr', '2000115', 1539779630),
+('korr', '2000116', 1539779630),
+('mitar', '2000001', 1539779630),
+('mitar', '2000002', 1539779630),
+('mitar', '2000003', 1539779630),
+('mitar', '2000004', 1539779630),
+('mitar', '2000005', 1539779630),
+('mitar', '2000006', 1539779630),
+('prof', '2000007', 1539779630),
+('prof', '2000008', 1539779630),
+('prof', '2000009', 1539779630),
+('prof', '2000010', 1539779630),
+('prof', '2000011', 1539779630),
+('prof', '2000012', 1539779630),
+('tut', '2000013', 1539779630),
+('tut', '2000014', 1539779630),
+('tut', '2000015', 1539779630),
+('tut', '2000016', 1539779630),
+('tut', '2000017', 1539779630),
+('tut', '2000025', 1539779630),
+('tut', '2000035', 1539779630),
+('tut', '2000036', 1539779630),
+('tut', '2000037', 1539779630),
+('tut', '2000038', 1539779630),
+('tut', '2000039', 1539779630),
+('tut', '2000040', 1539779630),
+('tut', '2000041', 1539779630),
+('tut', '2000042', 1539779630),
+('tut', '2000043', 1539779630),
+('tut', '2000044', 1539779630),
+('tut', '2000045', 1539779630),
+('tut', '2000046', 1539779630),
+('tut', '2000047', 1539779630),
+('tut', '2000048', 1539779630),
+('tut', '2000049', 1539779630),
+('tut', '2000050', 1539779630),
+('tut', '2000051', 1539779630),
+('tut', '2000052', 1539779630),
+('tut', '2000053', 1539779630),
+('tut', '2000054', 1539779630),
+('tut', '2000055', 1539779630),
+('tut', '2000056', 1539779630),
+('tut', '2000057', 1539779630),
+('tut', '2000058', 1539779630),
+('tut', '2000059', 1539779630),
+('tut', '2000060', 1539779630),
+('tut', '2000061', 1539779630),
+('tut', '2000062', 1539779630),
+('tut', '2000063', 1539779630),
+('tut', '2000064', 1539779630);
+
 -- --------------------------------------------------------
 
 --
@@ -587,6 +647,57 @@ CREATE TABLE `auth_item` (
   `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `auth_item`
+--
+
+INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
+('admin', 1, 'Systemverwalter', NULL, NULL, 1539716790, 1539716790),
+('alleUebungUebungsblaetter', 2, 'UebungsblaetterAlleUebung', NULL, NULL, 1539716790, 1539716790),
+('befugnisBenutzer', 2, 'BenutzerBefugnis', NULL, NULL, 1539716790, 1539716790),
+('createKlausuranmeldung', 2, 'KlausuranmeldungCreate', NULL, NULL, 1539716790, 1539716790),
+('createKlausurerstellung', 2, 'KlausurerstellungCreate', NULL, NULL, 1539716790, 1539716790),
+('createModul', 2, 'ModulCreate', NULL, NULL, 1539716790, 1539716790),
+('createNoteneintragung', 2, 'NoteneintragungCreate', NULL, NULL, 1539716790, 1539716790),
+('createUebungsblaetter', 2, 'UebungsblaetterCreate', NULL, NULL, 1539716790, 1539716790),
+('deleteBenutzer', 2, 'BenutzerDelete', NULL, NULL, 1539716790, 1539716790),
+('deleteKlausuranmeldung', 2, 'KlausuranmeldungDelete', NULL, NULL, 1539716790, 1539716790),
+('deleteKlausurerstellung', 2, 'KlausurerstellungDelete', NULL, NULL, 1539716790, 1539716790),
+('deleteKorrektor', 2, 'KorrektorDelete', NULL, NULL, 1539716790, 1539716790),
+('deleteMitarbeiter', 2, 'Mitarbeiterdelete', NULL, NULL, 1539716790, 1539716790),
+('deleteModul', 2, 'ModulDelete', NULL, NULL, 1539716790, 1539716790),
+('deleteNoteneintragung', 2, 'NoteneintragungDelete', NULL, NULL, 1539716790, 1539716790),
+('deleteProfessor', 2, 'ProfessorDelete', NULL, NULL, 1539716790, 1539716790),
+('deleteTutor', 2, 'TutorDelete', NULL, NULL, 1539716790, 1539716790),
+('deleteUebungsblaetter', 2, 'UebungsblaetterDelete', NULL, NULL, 1539716790, 1539716790),
+('einsehenAbgabe', 2, 'AbgabeEinsehen', NULL, NULL, 1539716790, 1539716790),
+('indexBenutzer', 2, 'BenutzerIndex', NULL, NULL, 1539716790, 1539716790),
+('indexKlausuranmeldung', 2, 'KlausuranmeldungIndex', NULL, NULL, 1539716790, 1539716790),
+('indexKlausurerstellung', 2, 'KlausurerstellungIndex', NULL, NULL, 1539716790, 1539716790),
+('indexKorrektor', 2, 'KorrektorIndex', NULL, NULL, 1539716790, 1539716790),
+('indexMitarbeiter', 2, 'MitarbeiterIndex', NULL, NULL, 1539716790, 1539716790),
+('indexModul', 2, 'ModulIndex', NULL, NULL, 1539716790, 1539716790),
+('indexProfessor', 2, 'ProfessorIndex', NULL, NULL, 1539716790, 1539716790),
+('indexTutor', 2, 'TutorIndex', NULL, NULL, 1539716790, 1539716790),
+('indexUebungsblaetter', 2, 'UebungsblaetterIndex', NULL, NULL, 1539716790, 1539716790),
+('klausurnotelistNoteneintragung', 2, 'NoteneintragungKlausurnotelist', NULL, NULL, 1539716790, 1539716790),
+('korr', 1, 'Korrektor', NULL, NULL, 1539716790, 1539716790),
+('korregierenAbgabe', 2, 'AbgabeKorregieren', NULL, NULL, 1539716790, 1539716790),
+('mitar', 1, 'Mitarbeiter', NULL, NULL, 1539716790, 1539716790),
+('passwortBenutzer', 2, 'BenutzerPasswort', NULL, NULL, 1539716790, 1539716790),
+('prof', 1, 'Professor', NULL, NULL, 1539716790, 1539716790),
+('tut', 1, 'Tutor', NULL, NULL, 1539716790, 1539716790),
+('updateBenutzer', 2, 'BenutzerUpdate', NULL, NULL, 1539716790, 1539716790),
+('updateKlausurerstellung', 2, 'KlausurerstellungUpdate', NULL, NULL, 1539716790, 1539716790),
+('updateUebungsblaetter', 2, 'UebungsblaetterUpdate', NULL, NULL, 1539716790, 1539716790),
+('viewBenutzer', 2, 'BenutzerView', NULL, NULL, 1539716790, 1539716790),
+('viewKlausurerstellung', 2, 'KlausurerstellungView', NULL, NULL, 1539716790, 1539716790),
+('viewKorrektor', 2, 'KorrektorView', NULL, NULL, 1539716790, 1539716790),
+('viewMitarbeiter', 2, 'MitarbeiterView', NULL, NULL, 1539716790, 1539716790),
+('viewModul', 2, 'ModulView', NULL, NULL, 1539716790, 1539716790),
+('viewProfessor', 2, 'ProfessorView', NULL, NULL, 1539716790, 1539716790),
+('viewTutor', 2, 'TutorView', NULL, NULL, 1539716790, 1539716790);
+
 -- --------------------------------------------------------
 
 --
@@ -597,6 +708,58 @@ CREATE TABLE `auth_item_child` (
   `parent` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `child` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `auth_item_child`
+--
+
+INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
+('mitar', 'alleUebungUebungsblaetter'),
+('mitar', 'befugnisBenutzer'),
+('mitar', 'createKlausuranmeldung'),
+('mitar', 'createKlausurerstellung'),
+('prof', 'createModul'),
+('mitar', 'createNoteneintragung'),
+('mitar', 'createUebungsblaetter'),
+('mitar', 'deleteBenutzer'),
+('mitar', 'deleteKlausuranmeldung'),
+('mitar', 'deleteKlausurerstellung'),
+('mitar', 'deleteKorrektor'),
+('mitar', 'deleteMitarbeiter'),
+('prof', 'deleteModul'),
+('mitar', 'deleteNoteneintragung'),
+('mitar', 'deleteProfessor'),
+('mitar', 'deleteTutor'),
+('mitar', 'deleteUebungsblaetter'),
+('tut', 'einsehenAbgabe'),
+('mitar', 'indexBenutzer'),
+('mitar', 'indexKlausuranmeldung'),
+('mitar', 'indexKlausurerstellung'),
+('mitar', 'indexKorrektor'),
+('mitar', 'indexMitarbeiter'),
+('prof', 'indexModul'),
+('mitar', 'indexProfessor'),
+('mitar', 'indexTutor'),
+('mitar', 'indexUebungsblaetter'),
+('mitar', 'klausurnotelistNoteneintragung'),
+('admin', 'korr'),
+('mitar', 'korr'),
+('korr', 'korregierenAbgabe'),
+('admin', 'mitar'),
+('mitar', 'passwortBenutzer'),
+('admin', 'prof'),
+('admin', 'tut'),
+('mitar', 'tut'),
+('mitar', 'updateBenutzer'),
+('mitar', 'updateKlausurerstellung'),
+('mitar', 'updateUebungsblaetter'),
+('mitar', 'viewBenutzer'),
+('mitar', 'viewKlausurerstellung'),
+('mitar', 'viewKorrektor'),
+('mitar', 'viewMitarbeiter'),
+('prof', 'viewModul'),
+('mitar', 'viewProfessor'),
+('mitar', 'viewTutor');
 
 -- --------------------------------------------------------
 
@@ -2717,7 +2880,7 @@ INSERT INTO `klausurnote` (`KlausurnoteID`, `Mitarbeiter_MarterikelNr`, `Benutze
 (804, 2000001, 2000146, 5.0, NULL, 1547337140, 20),
 (805, 2000001, 2000168, 5.0, 45.0, 1547387401, 21),
 (806, 2000001, 2000169, 4.0, 56.0, 1547387403, 21),
-(807, 2000001, 2000170, NULL, NULL, 1547337948, 21),
+(807, 2000001, 2000170, 4.0, 50.0, 1547395508, 21),
 (808, 2000001, 2000171, 5.0, 12.0, 1547337976, 21),
 (809, 2000001, 2000172, 3.7, 65.0, 1547337983, 21),
 (810, 2000001, 2000173, 4.0, 50.0, 1547387389, 21),
@@ -3596,7 +3759,7 @@ ALTER TABLE `einzelaufgabe`
 -- AUTO_INCREMENT for table `klausur`
 --
 ALTER TABLE `klausur`
-  MODIFY `KlausurID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `KlausurID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `klausurnote`

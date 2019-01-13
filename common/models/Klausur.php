@@ -65,10 +65,16 @@ class Klausur extends \yii\db\ActiveRecord
             ['punkt3_3', 'checkPunkt3_3'],
             ['punkt3_7', 'checkPunkt3_7'],
             ['punkt4_0', 'checkPunkt4_0'],
+            ['Bezeichnung', 'checkBezeichnung']
         ];
     }
     
-    
+    public function checkBezeichnung($attribute, $params) {
+        $modelKlausur = Klausur::find()->where(['ModulID'=>$this->ModulID, 'Bezeichnung'=>$this->Bezeichnung])->all();
+        if($modelKlausur !=null){
+            $this->addError($attribute, 'Diese Klausur ist schon existiert, bitte geben die Bezeichnung erneut');
+        }
+    }
     public function checkDatum($attribute, $params) {
         $heute = date('d-m-Y H:i:s');
         $prufdatum = date($this->Pruefungsdatum);
@@ -89,9 +95,9 @@ class Klausur extends \yii\db\ActiveRecord
         }else {
             if( $this->punkt1_0 < 0){
                 $this->addError($attribute,'Punkt 1.0 muss immer ein positive Zahl sein.');
-            }else if($this->punkt1_0 < $this->punkt1_3){
+            }else if($this->punkt1_0 <= $this->punkt1_3){
                 $this->addError($attribute,'Punkt 1.0 muss immer größer als Punkt 1.3 sein.');
-            }else if($this->punkt1_0 > $this->Max_Punkte){
+            }else if($this->punkt1_0 >= $this->Max_Punkte){
                 $this->addError($attribute,'Punkt 1.0 muss kleine als Max Punkt sein.');
             }
         }
@@ -102,9 +108,9 @@ class Klausur extends \yii\db\ActiveRecord
         }else {
             if( $this->punkt1_3 < 0){
                 $this->addError($attribute,'Punkt 1.3 muss immer ein positive Zahl sein.');
-            }else if($this->punkt1_3 < $this->punkt1_7){
+            }else if($this->punkt1_3 <= $this->punkt1_7){
                 $this->addError($attribute,'Punkt 1.3 muss immer größer als Punkt 1.7 sein.');
-            }else if($this->punkt1_3 > $this->punkt1_0){
+            }else if($this->punkt1_3 >= $this->punkt1_0){
                 $this->addError($attribute,'Punkt 1.3 muss kleine als Punkt 1.0 sein..');
             }
         }
@@ -115,9 +121,9 @@ class Klausur extends \yii\db\ActiveRecord
         }else {
             if( $this->punkt1_7 < 0){
                 $this->addError($attribute,'Punkt 1.7 muss immer ein positive Zahl sein.');
-            }else if($this->punkt1_7 < $this->punkt2_0){
+            }else if($this->punkt1_7 <= $this->punkt2_0){
                 $this->addError($attribute,'Punkt 1.7 muss immer größer als Punkt 2.0 sein.');
-            }else if($this->punkt1_7 > $this->punkt1_3){
+            }else if($this->punkt1_7 >= $this->punkt1_3){
                 $this->addError($attribute,'Punkt 1.7 muss kleine als Punkt 1.3 sein..');
             }
         }
@@ -128,9 +134,9 @@ class Klausur extends \yii\db\ActiveRecord
         }else {
             if( $this->punkt2_0 < 0){
                 $this->addError($attribute,'Punkt 2.0 muss immer ein positive Zahl sein.');
-            }else if($this->punkt2_0 < $this->punkt2_3){
+            }else if($this->punkt2_0 <= $this->punkt2_3){
                 $this->addError($attribute,'Punkt 2.0 muss immer größer als Punkt 2.3 sein.');
-            }else if($this->punkt2_0 > $this->punkt1_7){
+            }else if($this->punkt2_0 >= $this->punkt1_7){
                 $this->addError($attribute,'Punkt 2.0 muss kleine als Punkt 1.7 sein..');
             }
         }
@@ -141,9 +147,9 @@ class Klausur extends \yii\db\ActiveRecord
         }else {
             if( $this->punkt2_3 < 0){
                 $this->addError($attribute,'Punkt 2.3 muss immer ein positive Zahl sein.');
-            }else if($this->punkt2_3 < $this->punkt2_7){
+            }else if($this->punkt2_3 <= $this->punkt2_7){
                 $this->addError($attribute,'Punkt 2.3 muss immer größer als Punkt 2.7 sein..');
-            }else if($this->punkt2_3 > $this->punkt2_0){
+            }else if($this->punkt2_3 >= $this->punkt2_0){
                 $this->addError($attribute,'Punkt 2.3 muss kleine als Punkt 2.0 sein..');
             }
         }
@@ -154,9 +160,9 @@ class Klausur extends \yii\db\ActiveRecord
         }else {
             if( $this->punkt2_7 < 0){
                 $this->addError($attribute,'Punkt 2.7 muss immer ein positive Zahl sein.');
-            }else if($this->punkt2_7 < $this->punkt3_0){
+            }else if($this->punkt2_7 <= $this->punkt3_0){
                 $this->addError($attribute,'Punkt 2.7 muss immer größer als Punkt 3.0 sein.');
-            }else if($this->punkt2_7 > $this->punkt2_3){
+            }else if($this->punkt2_7 >= $this->punkt2_3){
                 $this->addError($attribute,'Punkt 2.7 muss kleine als Punkt 2.3 sein.');
             }
         }
@@ -167,9 +173,9 @@ class Klausur extends \yii\db\ActiveRecord
         }else {
             if( $this->punkt3_0 < 0){
                 $this->addError($attribute,'Punkt 3.0 muss immer ein positive Zahl sein.');
-            }else if($this->punkt3_0 < $this->punkt3_3){
+            }else if($this->punkt3_0 <= $this->punkt3_3){
                 $this->addError($attribute,'Punkt 3.0 muss immer größer als Punkt 3.3 sein.');
-            }else if($this->punkt3_0 > $this->punkt2_7){
+            }else if($this->punkt3_0 >= $this->punkt2_7){
                 $this->addError($attribute,'Punkt 3.0 muss kleine als Punkt 2.7 sein.');
             }
         }
@@ -180,9 +186,9 @@ class Klausur extends \yii\db\ActiveRecord
         }else {
             if( $this->punkt3_3 < 0){
                 $this->addError($attribute,'Punkt 3.3 muss immer ein positive Zahl sein.');
-            }else if($this->punkt3_3 < $this->punkt3_7){
+            }else if($this->punkt3_3 <= $this->punkt3_7){
                 $this->addError($attribute,'Punkt 3.3 muss immer größer als Punkt 3.7 sein.');
-            }else if($this->punkt3_3 > $this->punkt3_0){
+            }else if($this->punkt3_3 >= $this->punkt3_0){
                 $this->addError($attribute,'Punkt 3.3 muss kleine als Punkt 3.0 sein.');
             }
         }
@@ -193,9 +199,9 @@ class Klausur extends \yii\db\ActiveRecord
         }else {
             if( $this->punkt3_7 < 0){
                 $this->addError($attribute,'Punkt 3.7 muss immer ein positive Zahl sein.');
-            }else if($this->punkt3_7 < $this->punkt4_0){
+            }else if($this->punkt3_7 <= $this->punkt4_0){
                 $this->addError($attribute,'Punkt 3.7 muss immer größer als Punkt 4.0 sein.');
-            }else if($this->punkt3_7 > $this->punkt3_3){
+            }else if($this->punkt3_7 >= $this->punkt3_3){
                 $this->addError($attribute,'Punkt 3.7 muss kleine als Punkt 3.3 sein.');
             }
         }
@@ -204,9 +210,9 @@ class Klausur extends \yii\db\ActiveRecord
         if( $this->punkt3_7 == null){
             $this->addError($attribute,'Bitte füllen Sie erst die Punkt 3.3 aus.');
         }else {
-            if( $this->punkt4_0 < 0){
+            if( $this->punkt4_0 <= 0){
                 $this->addError($attribute,'Punkt 4.0 muss immer ein positive Zahl sein.');
-            }else if($this->punkt4_0 > $this->punkt3_7){
+            }else if($this->punkt4_0 >= $this->punkt3_7){
                 $this->addError($attribute,'Punkt 4.0 muss immer kleiner als Punkt 4.0 sein.');
             }
         }

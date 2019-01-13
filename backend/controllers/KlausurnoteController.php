@@ -13,6 +13,7 @@ use yii\helpers\Json;
 use common\models\Benutzer;
 use common\models\KlausurSuchen;
 use common\models\Klausur;
+use common\models\Mitarbeiter;
 
 /**
  * KlausurnoteController implements the CRUD actions for Klausurnote model.
@@ -177,13 +178,25 @@ class KlausurnoteController extends Controller
      */
     public function actionKlausurnotelistview() {
         
-        $searchModel = new KlausurSuchen;
-        $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
-        
-        return $this->render('klausurnotelistview', [
-            'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
-        ]);
+        if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
+            
+            $searchModel = new KlausurSuchen;
+            $dataProvider = $searchModel->searchMitMitarbeiter(Yii::$app->request->getQueryParams(), Yii::$app->user->identity->MarterikelNr);
+            
+            return $this->render('klausurnotelistview', [
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+            ]);
+            
+        }else {
+            $searchModel = new KlausurSuchen;
+            $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
+            
+            return $this->render('klausurnotelistview', [
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+            ]);
+        }
     }
     
     /*
@@ -204,13 +217,25 @@ class KlausurnoteController extends Controller
      *
      */
     public function actionIndexklausur() {
-        $searchModel = new KlausurSuchen;
-        $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
         
-        return $this->render('indexklausur', [
-            'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
-        ]);
+        if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
+            
+            $searchModel = new KlausurSuchen;
+            $dataProvider = $searchModel->searchMitMitarbeiter(Yii::$app->request->getQueryParams(), Yii::$app->user->identity->MarterikelNr);
+            
+            return $this->render('indexklausur', [
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+            ]);
+            
+        }else {
+            $searchModel = new KlausurSuchen;
+            $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
+            
+            return $this->render('indexklausur', [
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+            ]);
+        }
     }
-    
 }

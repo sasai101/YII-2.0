@@ -34,6 +34,12 @@ $this->params['breadcrumbs'][] = 'Klausureinsicht';
 		</h3>
 	</div>
 	
+	<div>
+		<h3>
+			<?= Html::encode($model->Bezeichnung); ?>
+		</h3>
+	</div>
+	
 	<!-- Leere Zeile -->
 	<div class="row"></br></div>
 	<!-- Leere Zeile -->

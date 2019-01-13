@@ -48,4 +48,27 @@ class UebungSuchen extends Uebung
 
         return $dataProvider;
     }
+    
+    public function searchMitarbeiter($params,$marterikelNr)
+    {
+        $query = Uebung::find()->where(['Mitarbeiter_MarterikelNr'=>$marterikelNr]);
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+        
+        $query->andFilterWhere([
+            'UebungsID' => $this->UebungsID,
+            'ModulID' => $this->ModulID,
+            'Mitarbeiter_MarterikelNr' => $this->Mitarbeiter_MarterikelNr,
+        ]);
+        
+        $query->andFilterWhere(['like', 'Bezeichnung', $this->Bezeichnung]);
+        
+        return $dataProvider;
+    }
 }

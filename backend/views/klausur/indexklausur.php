@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
-use yii\helpers\HtmlPurifier;
 
 /**
  * @var yii\web\View $this
@@ -80,10 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'attribute' => 'Pruefungsdatum',
                                         'format'=>['date','php:d-m-Y H:i:s'],
                                     ],
-                                    'Raum', 
                                     'Bezeichnung', 
-                         
-                        
                                     [
                                         'class' => 'yii\grid\ActionColumn',
                                         'buttons' => [

@@ -126,7 +126,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="row">
                 		<div class="col-md-3">
                 			<p>
-                                <?php echo Html::a('Listview Form', ['klausuranmeldunglistview'], ['class' => 'btn btn-success'])  ?>
+                                <?php echo Html::a('Listview Form', ['klausurnote/klausurnotelistview'], ['class' => 'btn btn-success'])  ?>
                             </p>
                 		</div>
                 	</div>

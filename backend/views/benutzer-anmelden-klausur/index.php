@@ -33,6 +33,11 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelKlausur->
 			<?= Html::encode($modelKlausur->modul->Bezeichnung); ?>
 		</h3>
 	</div>
+	<div>
+		<h3>
+			Anmeldungslist
+		</h3>
+	</div>
 	
 	<!-- Leere Zeile -->
 	<div class="row"></br></div>

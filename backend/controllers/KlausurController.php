@@ -13,6 +13,7 @@ use common\models\ModulSuchen;
 use common\models\Klausurnote;
 use yii\widgets\ActiveForm;
 use common\models\BenutzerAnmeldenKlausur;
+use common\models\Mitarbeiter;
 /**
  * KlausurController implements the CRUD actions for Klausur model.
  */
@@ -179,6 +180,7 @@ class KlausurController extends Controller
      * echarts Klausur, mitarbeiter/view->_klausurlistview
      */
     public function actionEchartsbarklausur($id) {
+        
         $model = $this->findModel($id);
         
         /*if(Yii::$app->request->isAjax && $model->load($_POST)){
@@ -199,12 +201,23 @@ class KlausurController extends Controller
      * 
      */
     public function actionIndexklausur() {
-        $searchModel = new KlausurSuchen;
-        $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
         
-        return $this->render('indexklausur', [
-            'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
-        ]);
+        if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
+            $searchModel = new KlausurSuchen;
+            $dataProvider = $searchModel->searchMitMitarbeiter(Yii::$app->request->getQueryParams(),Yii::$app->user->identity->MarterikelNr);
+            
+            return $this->render('indexklausur', [
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+            ]);
+        } else{
+            $searchModel = new KlausurSuchen;
+            $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
+            
+            return $this->render('indexklausur', [
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+            ]);
+        }
     }
 }

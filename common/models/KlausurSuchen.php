@@ -2,10 +2,8 @@
 
 namespace common\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Klausur;
 
 /**
  * KlausurSuchen represents the model behind the search form about `common\models\Klausur`.
@@ -104,6 +102,8 @@ class KlausurSuchen extends Klausur
         //Alle Klausur
         $query = Klausur::find()->where(['Mitarbeiter_MarterikelNr'=>$marterikelNr]);
         
+        $query->join('INNER JOIN','Modul','Klausur.ModulID=Modul.ModulID');
+        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -111,6 +111,17 @@ class KlausurSuchen extends Klausur
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
+        
+        $query->andFilterWhere([
+            'KlausurID' => $this->KlausurID,
+            'Mitarbeiter_MarterikelNr' => $this->Mitarbeiter_MarterikelNr,
+            'ModulID' => $this->ModulID,
+            'Kreditpunkt' => $this->Kreditpunkt,
+            'Max_Punkte' => $this->Max_Punkte,
+        ]);
+        
+        $query->andFilterWhere(['like', 'Klausur.Bezeichnung', $this->Bezeichnung])
+        ->andFilterWhere(['like', 'Modul.Bezeichnung', $this->modulBezeichnung]);
         
         return $dataProvider;
     }
