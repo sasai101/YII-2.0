@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 13, 2019 at 10:34 PM
+-- Generation Time: Jan 14, 2019 at 02:10 PM
 -- Server version: 8.0.12
 -- PHP Version: 7.2.9
 
@@ -420,6 +420,24 @@ INSERT INTO `abgabe` (`AbgabeID`, `Benutzer_MarterikelNr`, `Korrektor_Marterikel
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `MarterikelNr` int(11) NOT NULL,
+  `create_time` int(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`MarterikelNr`, `create_time`) VALUES
+(2000001, 1539779630);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `anzahl_des_benutzers`
 --
 
@@ -576,6 +594,7 @@ CREATE TABLE `auth_assignment` (
 --
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
+('admin', '2000001', 1539779630),
 ('korr', '2000004', 1539779630),
 ('korr', '2000111', 1539779630),
 ('korr', '2000112', 1539779630),
@@ -652,7 +671,7 @@ CREATE TABLE `auth_item` (
 --
 
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
-('admin', 1, 'Systemverwalter', NULL, NULL, 1539716790, 1539716790),
+('admin', 1, 'Adminuser', NULL, NULL, 1539716790, 1539716790),
 ('alleUebungUebungsblaetter', 2, 'UebungsblaetterAlleUebung', NULL, NULL, 1539716790, 1539716790),
 ('befugnisBenutzer', 2, 'BenutzerBefugnis', NULL, NULL, 1539716790, 1539716790),
 ('createKlausuranmeldung', 2, 'KlausuranmeldungCreate', NULL, NULL, 1539716790, 1539716790),
@@ -2916,7 +2935,27 @@ INSERT INTO `klausurnote` (`KlausurnoteID`, `Mitarbeiter_MarterikelNr`, `Benutze
 (840, 2000001, 2000092, 1.3, 90.0, 1547390469, 23),
 (841, 2000001, 2000265, 3.0, 76.0, 1547390353, 23),
 (842, 2000001, 2000084, 4.0, 50.0, 1547390533, 24),
-(843, 2000001, 2000086, 1.3, 90.0, 1547390529, 24);
+(843, 2000001, 2000086, 1.3, 90.0, 1547390529, 24),
+(844, 2000002, 2000001, NULL, NULL, 1547420549, 1),
+(845, 2000002, 2000065, NULL, NULL, 1547420549, 1),
+(846, 2000002, 2000066, NULL, NULL, 1547420549, 1),
+(847, 2000002, 2000067, NULL, NULL, 1547420549, 1),
+(848, 2000002, 2000068, NULL, NULL, 1547420549, 1),
+(849, 2000002, 2000069, NULL, NULL, 1547420549, 1),
+(850, 2000002, 2000070, NULL, NULL, 1547420549, 1),
+(851, 2000002, 2000071, NULL, NULL, 1547420549, 1),
+(852, 2000002, 2000072, NULL, NULL, 1547420549, 1),
+(853, 2000002, 2000073, NULL, NULL, 1547420549, 1),
+(854, 2000002, 2000074, NULL, NULL, 1547420549, 1),
+(855, 2000002, 2000075, NULL, NULL, 1547420549, 1),
+(856, 2000002, 2000076, NULL, NULL, 1547420549, 1),
+(857, 2000002, 2000077, NULL, NULL, 1547420549, 1),
+(858, 2000002, 2000078, NULL, NULL, 1547420549, 1),
+(859, 2000002, 2000079, NULL, NULL, 1547420549, 1),
+(860, 2000002, 2000080, NULL, NULL, 1547420549, 1),
+(861, 2000002, 2000081, NULL, NULL, 1547420549, 1),
+(862, 2000002, 2000082, NULL, NULL, 1547420549, 1),
+(863, 2000002, 2000083, NULL, NULL, 1547420549, 1);
 
 -- --------------------------------------------------------
 
@@ -3560,6 +3599,12 @@ ALTER TABLE `abgabe`
   ADD KEY `Uebungsgruppe` (`UebungsgruppenID`);
 
 --
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`MarterikelNr`);
+
+--
 -- Indexes for table `anzahl_des_benutzers`
 --
 ALTER TABLE `anzahl_des_benutzers`
@@ -3765,7 +3810,7 @@ ALTER TABLE `klausur`
 -- AUTO_INCREMENT for table `klausurnote`
 --
 ALTER TABLE `klausurnote`
-  MODIFY `KlausurnoteID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=844;
+  MODIFY `KlausurnoteID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=864;
 
 --
 -- AUTO_INCREMENT for table `modul`

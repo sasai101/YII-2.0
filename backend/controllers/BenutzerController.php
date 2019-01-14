@@ -14,13 +14,19 @@ use yii\imagine\Image;
 use Imagine\Gd;
 use Imagine\Image\Box;
 use Imagine\Image\BoxInterface;
+use common\models\AuthAssignment;
 use common\models\BenutzerTeilnimmtUebungsgruppe;
 use common\models\Abgabe;
 use common\models\Einzelaufgabe;
 use common\models\Klausurnote;
+use common\models\Korrektor;
 use common\models\ModulAnmeldenBenutzer;
 use common\models\BenutzerAnmeldenKlausur;
 use common\models\Mitarbeiter;
+use common\models\AuthItem;
+use common\models\Admin;
+use common\models\Professor;
+use common\models\Tutor;
 
 /**
  * BenutzerController implements the CRUD actions for Benutzer model.
@@ -255,4 +261,137 @@ class BenutzerController extends Controller
             'searchModel' => $searchModel,
         ]);
     }
+    
+    /*
+     * Befugnisse für Benutzer addieren und löschen
+     */
+    public function actionBefugnis($id) {
+        
+        $model = $this->findModel($id);
+        //finde alle Befugnisse 
+        $allBefugnisse = AuthItem::find()->select(['name','description'])->where(['type'=>1])->orderBy('description')->all();
+        
+        foreach($allBefugnisse as $befugnis){
+            $allBefugnisseInArray[$befugnis->name]=$befugnis->description;
+        }
+        
+        //finde alle Befugnisse, die man schon hat
+        $AuthAssignments = AuthAssignment::find()->select(['item_name'])
+        ->where(['user_id'=>$id])->orderBy('item_name')->all();
+        
+        $AuthAssignmentInArray = array();
+        foreach ($AuthAssignments as $AuthAssignment){
+            array_push($AuthAssignmentInArray, $AuthAssignment->item_name);
+        }
+        
+        // refresh tabelle AuthAssignment, durch die abgegebene Daten
+        if(isset($_POST['neueBefugnis'])){
+            //print_r($_POST['neueBefugnis']);
+            //print_r($AuthAssignmentInArray);
+            //Alle gelöschte Befugnis
+            $modeldelte = array_diff($AuthAssignmentInArray, $_POST['neueBefugnis']);
+            
+            
+            //Daten in der entsprechende Tabelle löschen
+            foreach ($modeldelte as $roller){
+                if($roller == 'mitar'){
+                    // Mitarbeiter aus der Tabelle löschen
+                    if(Mitarbeiter::findOne($id)!=null){
+                        Mitarbeiter::DeleteMitarbeiter($id);
+                        Mitarbeiter::findOne($id)->delete();
+                    }
+                    
+                }else if($roller == 'admin'){
+                    // Admin aus der Tabelle löschen
+                    if(Admin::findOne($id)!=null){
+                        Admin::findOne($id)->delete();
+                    }
+                    
+                }else if($roller == 'korr'){
+                    // Korrektor aus der Tabelle löschen
+                    if(Korrektor::findOne($id)!=null){
+                        Korrektor::DeleteKorrektor($id);
+                        Korrektor::findOne($id)->delete();
+                    }
+                    
+                }else if($roller == 'prof'){
+                    // Professor aus der Tabelle löschen
+                    if(Professor::findOne($id)!=null){
+                        Professor::DeleteModulLeitePro($id);
+                        Professor::findOne($id)->delete();
+                    }
+                    
+                }else if($roller == 'tut'){
+                    // Tutor aus der Tabelle löschen
+                    if(Tutor::findOne($id)!=null){
+                        Tutor::DeleteTutor($id);
+                        Tutor::findOne($id)->delete();
+                    }
+                }
+            }
+            
+            AuthAssignment::deleteAll('user_id=:id',[':id'=>$id]);
+            
+            
+            // neue Addierte Befunis
+            $modelNeue = array_diff( $_POST['neueBefugnis'],$AuthAssignmentInArray);
+            
+            foreach ($modelNeue as $roller){
+                if($roller == 'mitar'){
+                    // Mitarbeiter in der Tabelle reinschreiben
+                    $modelnew = new Mitarbeiter;
+                    $modelnew->MarterikelNr = $id;
+                    $modelnew->save();
+                    
+                }else if($roller == 'admin'){
+                    // Admin in der Tabelle reinschreiben
+                    $modelnew = New Admin;
+                    $modelnew->MarterikelNr = $id;
+                    $modelnew->create_time = time();
+                    $modelnew->save();
+                    
+                }else if($roller == 'korr'){
+                    // Korrektor in der Tabelle reinschreiben
+                    $modelnew = New Korrektor;
+                    $modelnew->MarterikelNr = $id;
+                    $modelnew->save();
+                    
+                }else if($roller == 'prof'){
+                    // Professor in der Tabelle reinschreiben
+                    $modelnew = New Professor;
+                    $modelnew->MarterikelNr = $id;
+                    $modelnew->save();
+                    
+                }else if($roller == 'tut'){
+                    // Tutor in der Tabelle reinschreiben
+                    $modelnew = New Tutor;
+                    $modelnew->MarterikelNr = $id;
+                    $modelnew->save();
+                    
+                }
+            }
+            
+            
+            
+            $neueBefugnis = $_POST['neueBefugnis'];
+            $arrayBefugnis = count($neueBefugnis);
+            // Alle neue Befugniss in der Tabelle AuthAssignment reinschreiben
+            for($i=0;$i<$arrayBefugnis;$i++){
+                $neueBefug = new AuthAssignment;
+                $neueBefug->item_name = $neueBefugnis[$i];
+                $neueBefug->user_id = $id;
+                $neueBefug->created_at = time();
+                $neueBefug->save();
+            }
+            return $this->redirect(['index']);
+            
+        }
+        
+        return $this->render('befugnis',[
+            'id' => $id,
+            'model'=>$model,
+            'AuthAssignmentInArray' => $AuthAssignmentInArray,
+            'allBefugnisseInArray' => $allBefugnisseInArray,
+        ]);
+    }   
 }

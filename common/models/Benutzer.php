@@ -422,9 +422,12 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
             
             Tutor::DeleteTutor($marterikelNr);
             Tutor::findOne($marterikelNr)->delete();
+            
         }else if (Korrektor::findOne($marterikelNr)!=null) {
+            
             Korrektor::DeleteKorrektor($marterikelNr);
             Korrektor::findOne($marterikelNr)->delete();
+            
         }
     }
 }
