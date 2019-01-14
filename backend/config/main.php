@@ -41,6 +41,13 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        //Befugnis
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'itemTable' => 'auth_item',
+            'assignmentTable' => 'auth_assignment',
+            'itemChildTable' => 'auth_item_child',
+        ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,

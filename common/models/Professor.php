@@ -128,6 +128,7 @@ class Professor extends \yii\db\ActiveRecord
         foreach ($modelProf as $prof){
             $prof->delete();
         }
+        Professor::DeletAuthAssignment($marterikelNr);
     }
     
     /*
@@ -170,5 +171,12 @@ class Professor extends \yii\db\ActiveRecord
             }
         }
         return $anzahl;
+    }
+    
+    /*
+     * Delete aus AuthAssignment
+     */
+    public static function DeletAuthAssignment($marterikelNr) {
+        AuthAssignment::findOne('prof',$marterikelNr)->delete();
     }
 }

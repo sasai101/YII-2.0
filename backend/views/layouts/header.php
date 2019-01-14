@@ -241,6 +241,8 @@ use common\models\Tutor;
                                 <!-- Alle abgabe -->
                                 <ul class="menu">
                                 	<?php foreach (Abgabe::AlleAbgabeVonGrup($grupp->UebungsgruppeID) as $abgabe):?>
+                                	
+                                    <?php if($abgabe->GesamtePunkt == null):?>
                                     <li><!-- EinzelAbgabe -->
                                     	<?php $benutzer = Benutzer::findOne($abgabe->Benutzer_MarterikelNr)?>
                                     	<?php $proffoto = $benutzer->Profiefoto?>
@@ -261,6 +263,7 @@ use common\models\Tutor;
                                     	    ,['abgabe/update','id'=>$abgabe->AbgabeID],['title' => Yii::t('yii', 'Edit'),])?>
                                     	
                                     </li>
+                                    <?php endif;?>
                                     <?php endforeach;?>
                                 </ul>
                             </li>

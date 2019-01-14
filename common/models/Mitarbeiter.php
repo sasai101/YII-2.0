@@ -139,6 +139,7 @@ class Mitarbeiter extends \yii\db\ActiveRecord
         Klausurnote::DeleteKlausurnotMitMitarbeitMar($marterikelNr);
         Klausur::DeleteKlausurMitMitarbeitMar($marterikelNr);
         Uebung::DeleteUebungMitMitarbeitMar($marterikelNr);
+        Mitarbeiter::DeletAuthAssignment($marterikelNr);
     }
     
     /*
@@ -151,5 +152,12 @@ class Mitarbeiter extends \yii\db\ActiveRecord
             $anzahl += Uebung::AnzahlunkorregierteAbgabe($uebung->UebungsID);
         }
         return $anzahl;
+    }
+    
+    /*
+     * Delete aus AuthAssignment
+     */
+    public static function DeletAuthAssignment($marterikelNr) {
+        AuthAssignment::findOne('mitar',$marterikelNr)->delete();
     }
 }

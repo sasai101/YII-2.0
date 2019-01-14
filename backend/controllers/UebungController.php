@@ -8,12 +8,9 @@ use common\models\UebungSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use common\models\ModulSuchen;
-use common\models\Uebungsblaetter;
-use common\models\UebungsblaetterSuchen;
 use common\models\Mitarbeiter;
 use common\models\Admin;
-
+use yii\web\ForbiddenHttpException;
 /**
  * UebungController implements the CRUD actions for Uebung model.
  */
@@ -37,6 +34,11 @@ class UebungController extends Controller
      */
     public function actionIndex()
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('indexUebungsblaetter')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         if(Admin::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
             $searchModel = new UebungSuchen();
             $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
@@ -81,23 +83,13 @@ class UebungController extends Controller
                 'searchModel' => $searchModel,
             ]);
         }else{
-            if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
-                $searchModel = new UebungSuchen();
-                $dataProvider = $searchModel->searchMitarbeiter(Yii::$app->request->getQueryParams(),Yii::$app->user->identity->MarterikelNr);
-                
-                return $this->render('indexgruppe', [
-                    'dataProvider' => $dataProvider,
-                    'searchModel' => $searchModel,
-                ]);
-            }else{
-                $searchModel = new UebungSuchen();
-                $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-                
-                return $this->render('indexgruppe', [
-                    'dataProvider' => $dataProvider,
-                    'searchModel' => $searchModel,
-                ]);
-            }
+            $searchModel = new UebungSuchen();
+            $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+            
+            return $this->render('indexgruppe', [
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+            ]);
         }
     }
     
@@ -162,6 +154,11 @@ class UebungController extends Controller
      */
     public function actionAlleuebungen()
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('alleUebungUebungsblaetter')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         if(Admin::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
             $searchModel = new UebungSuchen();
             $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
@@ -205,7 +202,7 @@ class UebungController extends Controller
                 'searchModel' => $searchModel,
             ]);
         }else{
-            if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
+            /*if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
                 $searchModel = new UebungSuchen();
                 $dataProvider = $searchModel->searchMitarbeiter(Yii::$app->request->getQueryParams(),Yii::$app->user->identity->MarterikelNr);
                 
@@ -213,7 +210,7 @@ class UebungController extends Controller
                     'dataProvider' => $dataProvider,
                     'searchModel' => $searchModel,
                 ]);
-            }else{
+            }else{*/
                 $searchModel = new UebungSuchen();
                 $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
                 
@@ -221,7 +218,7 @@ class UebungController extends Controller
                     'dataProvider' => $dataProvider,
                     'searchModel' => $searchModel,
                 ]);
-            }
+            //}
         }
     }
 }

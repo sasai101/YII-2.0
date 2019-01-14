@@ -42,4 +42,11 @@ class Admin extends \yii\db\ActiveRecord
             'create_time' => 'Create Time',
         ];
     }
+    
+    /*
+     * Delete aus AuthAssignment
+     */
+    public static function DeletAuthAssignment($marterikelNr) {
+        AuthAssignment::findOne('admin',$marterikelNr)->delete();
+    }
 }

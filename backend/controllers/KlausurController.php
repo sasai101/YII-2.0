@@ -14,6 +14,8 @@ use common\models\Klausurnote;
 use yii\widgets\ActiveForm;
 use common\models\BenutzerAnmeldenKlausur;
 use common\models\Mitarbeiter;
+use yii\web\ForbiddenHttpException;
+use common\models\Admin;
 /**
  * KlausurController implements the CRUD actions for Klausur model.
  */
@@ -37,6 +39,11 @@ class KlausurController extends Controller
      */
     public function actionIndex($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('indexKlausurerstellung')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $searchModel = new KlausurSuchen;
         $dataProvider = $searchModel->search($id);
         $modelModul = Modul::findOne($id);
@@ -55,6 +62,11 @@ class KlausurController extends Controller
      */
     public function actionView($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('viewKlausurerstellung')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $model = $this->findModel($id);
         
         /*if(Yii::$app->request->isAjax && $model->load($_POST)){
@@ -76,6 +88,11 @@ class KlausurController extends Controller
      */
     public function actionCreate($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('createKlausurerstellung')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $model = new Klausur;
         
         //Einlogger
@@ -105,6 +122,11 @@ class KlausurController extends Controller
      */
     public function actionUpdate($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('updateKlausurerstellung')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $model = $this->findModel($id);
         
         if(Yii::$app->request->isAjax && $model->load($_POST)){
@@ -129,6 +151,11 @@ class KlausurController extends Controller
      */
     public function actionDelete($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('deleteKlausurerstellung')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $indexID = $this->findModel($id)->modul->ModulID;
         
         //finde alle Klausurnote unter diesen Klausur 
@@ -167,6 +194,11 @@ class KlausurController extends Controller
      */
     public function actionKlausurlistview() {
         
+        //BefugnisTeil
+        if(!Yii::$app->user->can('listviewKlausurerstellung')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $searchModel = new ModulSuchen;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
         
@@ -202,15 +234,7 @@ class KlausurController extends Controller
      */
     public function actionIndexklausur() {
         
-        if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
-            $searchModel = new KlausurSuchen;
-            $dataProvider = $searchModel->searchMitMitarbeiter(Yii::$app->request->getQueryParams(),Yii::$app->user->identity->MarterikelNr);
-            
-            return $this->render('indexklausur', [
-                'dataProvider' => $dataProvider,
-                'searchModel' => $searchModel,
-            ]);
-        } else{
+        if(Admin::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
             $searchModel = new KlausurSuchen;
             $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
             
@@ -218,6 +242,24 @@ class KlausurController extends Controller
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
             ]);
+        }else{
+            if(Mitarbeiter::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
+                $searchModel = new KlausurSuchen;
+                $dataProvider = $searchModel->searchMitMitarbeiter(Yii::$app->request->getQueryParams(),Yii::$app->user->identity->MarterikelNr);
+                
+                return $this->render('indexklausur', [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                ]);
+            } else{
+                $searchModel = new KlausurSuchen;
+                $dataProvider = $searchModel->searchAlle(Yii::$app->request->getQueryParams());
+                
+                return $this->render('indexklausur', [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                ]);
+            }
         }
     }
 }

@@ -171,7 +171,7 @@ class UebungsgruppeSuchen extends Uebungsgruppe
     
     public function searchalleGruppeVonTutor($params,$id,$tutorMarterikelNr)
     {
-        $query = Uebungsgruppe::find()->where(['UebungsID'=>$id,'Korrektor_MarterikelNr'=>$tutorMarterikelNr]);
+        $query = Uebungsgruppe::find()->where(['UebungsID'=>$id,'Tutor_MarterikelNr'=>$tutorMarterikelNr]);
         
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

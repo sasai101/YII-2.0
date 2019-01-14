@@ -8,20 +8,12 @@ use common\models\BenutzerSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 use backend\models\PasswortVerandern;
 use yii\imagine\Image;
-use Imagine\Gd;
-use Imagine\Image\Box;
-use Imagine\Image\BoxInterface;
 use common\models\AuthAssignment;
-use common\models\BenutzerTeilnimmtUebungsgruppe;
-use common\models\Abgabe;
-use common\models\Einzelaufgabe;
-use common\models\Klausurnote;
 use common\models\Korrektor;
-use common\models\ModulAnmeldenBenutzer;
-use common\models\BenutzerAnmeldenKlausur;
 use common\models\Mitarbeiter;
 use common\models\AuthItem;
 use common\models\Admin;
@@ -51,6 +43,11 @@ class BenutzerController extends Controller
      */
     public function actionIndex()
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('indexBenutzer')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $searchModel = new BenutzerSuchen;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
@@ -67,6 +64,11 @@ class BenutzerController extends Controller
      */
     public function actionView($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('viewBenutzer')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -84,6 +86,11 @@ class BenutzerController extends Controller
      */
     public function actionUpdate($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('updateBenutzer')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $model = $this->findModel($id);
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -119,6 +126,11 @@ class BenutzerController extends Controller
      */
     public function actionDelete($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('deleteBenutzer')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         // Löschen alle Item in der Tabelle, welche mit dem Tabelle Benutzer eine Realtion hat
         Benutzer::DeleteBenutzersDaten($id);
         
@@ -163,6 +175,11 @@ class BenutzerController extends Controller
      */
     public function actionPasswortveranderung($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('passwortBenutzer')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $model = new PasswortVerandern();
         $model1 = Benutzer::findOne($id);
         
@@ -265,7 +282,12 @@ class BenutzerController extends Controller
     /*
      * Befugnisse für Benutzer addieren und löschen
      */
-    public function actionBefugnis($id) {
+    public function actionBefugnis($id) 
+    {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('befugnisBenutzer')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
         
         $model = $this->findModel($id);
         //finde alle Befugnisse 
@@ -370,8 +392,6 @@ class BenutzerController extends Controller
                     
                 }
             }
-            
-            
             
             $neueBefugnis = $_POST['neueBefugnis'];
             $arrayBefugnis = count($neueBefugnis);

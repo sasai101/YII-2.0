@@ -7,6 +7,7 @@ use common\models\Mitarbeiter;
 use common\models\MitarbeiterSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 
 /**
@@ -32,6 +33,11 @@ class MitarbeiterController extends Controller
      */
     public function actionIndex()
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('indexMitarbeiter')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $searchModel = new MitarbeiterSuchen;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
@@ -48,6 +54,11 @@ class MitarbeiterController extends Controller
      */
     public function actionView($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('viewMitarbeiter')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -65,6 +76,11 @@ class MitarbeiterController extends Controller
      */
     public function actionDelete($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('deleteMitarbeiter')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         // alles Dinges über Mitarbeiter löschen
         Mitarbeiter::DeleteMitarbeiter($id);
         

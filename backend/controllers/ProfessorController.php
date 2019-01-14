@@ -7,6 +7,7 @@ use common\models\Professor;
 use common\models\ProfessorSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 
 /**
@@ -32,6 +33,11 @@ class ProfessorController extends Controller
      */
     public function actionIndex()
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('indexProfessor')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $searchModel = new ProfessorSuchen;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
@@ -48,6 +54,11 @@ class ProfessorController extends Controller
      */
     public function actionView($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('viewProfessor')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -65,6 +76,11 @@ class ProfessorController extends Controller
      */
     public function actionDelete($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('deleteProfessor')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         //alles über Prof löschen
         Professor::DeleteModulLeitePro($id);
         

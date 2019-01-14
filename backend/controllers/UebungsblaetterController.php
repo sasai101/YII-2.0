@@ -10,10 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 use yii\widgets\ActiveForm;
 use yii\filters\VerbFilter;
-use yii\helpers\VarDumper;
+use yii\web\ForbiddenHttpException;
 use common\models\Uebung;
-use phpDocumentor\Reflection\Types\Null_;
-use common\models\UebungSuchen;
 
 /**
  * UebungsblaetterController implements the CRUD actions for Uebungsblaetter model.
@@ -73,6 +71,11 @@ class UebungsblaetterController extends Controller
      */
     public function actionCreate($id)
     {        
+        //BefugnisTeil
+        if(!Yii::$app->user->can('createUebungsblaetter')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $model = new Uebungsblaetter;
         $modelUebung = Uebung::findOne($id);
         
@@ -135,6 +138,11 @@ class UebungsblaetterController extends Controller
      */
     public function actionUpdate($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('updateUebungsblaetter')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $model = $this->findModel($id);
         
         $modelUebung = Uebung::findOne($model->UebungsID);
@@ -175,6 +183,11 @@ class UebungsblaetterController extends Controller
      */
     public function actionDelete($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('deleteUebungsblaetter')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         // Die UebungsID herausfinden und in der redirect weiter geben, um die richtig Gridview zu zeigen
         $model = $this->findModel($id);
         $uebungsID = $model->UebungsID;

@@ -159,6 +159,8 @@ class Korrektor extends \yii\db\ActiveRecord
     
     public static function DeleteKorrektor($marterikelNr){
         Abgabe::DeleteAbgabeMitKorretorMar($marterikelNr);
+        Uebungsgruppe::DeleteUebungsgruppeMitKorrektor($marterikelNr);
+        Korrektor::DeletAuthAssignment($marterikelNr);
     }
     
     /*
@@ -191,6 +193,13 @@ class Korrektor extends \yii\db\ActiveRecord
      */
     public static function AlleUebungsgruppe($marterikelNr){
         return Uebungsgruppe::find()->where(['Korrektor_MarterikelNr'=>$marterikelNr])->all();
+    }
+    
+    /*
+     * Delete aus AuthAssignment
+     */
+    public static function DeletAuthAssignment($marterikelNr) {
+        AuthAssignment::findOne('korr',$marterikelNr)->delete();
     }
     
 }

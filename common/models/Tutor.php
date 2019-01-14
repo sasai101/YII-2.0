@@ -113,6 +113,7 @@ class Tutor extends \yii\db\ActiveRecord
     // Alles über Tutor löschen
     public static function DeleteTutor($marterikelNr) {
         Uebungsgruppe::DeleteUebungsgruppeMitMarter($marterikelNr);
+        Tutor::DeletAuthAssignment($marterikelNr);
     }
     
     /*
@@ -134,5 +135,10 @@ class Tutor extends \yii\db\ActiveRecord
         return Uebungsgruppe::find()->where(['Tutor_MarterikelNr'=>$marterikelNr])->all();
     }
     
-    
+    /*
+     * Delete aus AuthAssignment
+     */
+    public static function DeletAuthAssignment($marterikelNr) {
+        AuthAssignment::findOne('tut',$marterikelNr)->delete();
+    }
 }

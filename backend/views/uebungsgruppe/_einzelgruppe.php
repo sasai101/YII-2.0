@@ -16,7 +16,8 @@ use common\models\Uebungsgruppe;
     	<span class="badge badge-pill badge-info"><?php echo Uebungsgruppe::AnzahlUnkorreigiteGruppe($model->UebungsgruppeID)?></span>
     </div>
     <div align = "center">Totur: <?= $model->getTutorname($model->Tutor_MarterikelNr)?></div>
-    <div align = "center">Übungsguppe <?= $model->GruppenNr ?></div>
+    <div align = "center">Korrektor: <?= $model->korrektorMarterikelNr->marterikelNr->Vorname." ".$model->korrektorMarterikelNr->marterikelNr->Nachname?></div>
+    <div align = "center">Übungsguppe <b><?= $model->GruppenNr ?></b></div>
     <div>&nbsp</div>
     
 </div>

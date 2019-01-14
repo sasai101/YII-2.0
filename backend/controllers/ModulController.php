@@ -9,7 +9,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\widgets\ActiveForm;
 use yii\filters\VerbFilter;
-use yii\db\Query;
 use common\models\ModulLeitetProfessor;
 use Behat\Gherkin\Exception\Exception;
 use backend\models\Model;
@@ -18,6 +17,7 @@ use common\models\Uebungsgruppe;
 use yii\helpers\ArrayHelper;
 use backend\models\ModelProfe;
 use backend\models\ModelUebung;
+use yii\web\ForbiddenHttpException;
 /**
  * ModulController implements the CRUD actions for Modul model.
  */
@@ -42,6 +42,11 @@ class ModulController extends Controller
      */
     public function actionIndex()
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('indexModul')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $searchModel = new ModulSuchen;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
@@ -58,6 +63,11 @@ class ModulController extends Controller
      */
     public function actionView($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('viewModul')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -74,6 +84,11 @@ class ModulController extends Controller
      */
     public function actionCreate()
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('createModul')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $modelModul = new Modul();
         $modelsProfessor = [new ModulLeitetProfessor];
         $modelsUebung = [new Uebung];
@@ -176,6 +191,11 @@ class ModulController extends Controller
      */
     public function actionUpdate($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('updateModul')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $modelModul = $this->findModel($id);
         //Professor
         $modelsProfessor = $modelModul->modulLeitetProfessors;
@@ -392,6 +412,11 @@ class ModulController extends Controller
      */
     public function actionDelete($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('deleteModul')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         // die Übung und zugehörigen Übungsgruppen löschen
         /*$model = (new Query())->select(['UebungsID'])->from('uebung')->where(['ModulID'=>$id])->all();
         foreach ($model as $index){

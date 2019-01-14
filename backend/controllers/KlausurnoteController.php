@@ -15,6 +15,7 @@ use common\models\Benutzer;
 use common\models\KlausurSuchen;
 use common\models\Klausur;
 use common\models\Mitarbeiter;
+use yii\web\ForbiddenHttpException;
 
 /**
  * KlausurnoteController implements the CRUD actions for Klausurnote model.
@@ -39,6 +40,11 @@ class KlausurnoteController extends Controller
      */
     public function actionIndex($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('indexKlausurnote')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $modelKlausur = Klausur::findOne($id);
         $searchModel = new KlausurnoteSuchen;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
@@ -94,6 +100,11 @@ class KlausurnoteController extends Controller
      */
     public function actionCreate($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('createNoteneintragung')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $model = new Klausurnote;
         
         if(Yii::$app->request->isAjax && $model->load($_POST)){
@@ -151,6 +162,11 @@ class KlausurnoteController extends Controller
      */
     public function actionDelete($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('deleteNoteneintragung     ')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $model = $this->findModel($id);
         $klausurID = $model->KlausurID;
         $this->findModel($id)->delete();
@@ -178,6 +194,10 @@ class KlausurnoteController extends Controller
      *  Klausurnote Listview Controller
      */
     public function actionKlausurnotelistview() {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('klausurnotelistNoteneintragung')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
         
         if(Admin::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
             $searchModel = new KlausurSuchen;
@@ -228,6 +248,10 @@ class KlausurnoteController extends Controller
      *
      */
     public function actionIndexklausur() {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('indexklausuKlausurnote')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
         
         if(Admin::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
             $searchModel = new KlausurSuchen;

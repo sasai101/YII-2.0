@@ -411,23 +411,30 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
         if(Mitarbeiter::findOne($marterikelNr)!=null){
             
             Mitarbeiter::DeleteMitarbeiter($marterikelNr);
+            Mitarbeiter::DeletAuthAssignment($marterikelNr);
             Mitarbeiter::findOne($marterikelNr)->delete();
             
         }else if(Professor::findOne($marterikelNr)!=null){
             
             Professor::DeleteModulLeitePro($marterikelNr);
+            Professor::DeletAuthAssignment($marterikelNr);
             Professor::findOne($marterikelNr)->delete();
             
         }else if(Tutor::findOne($marterikelNr)!=null){
             
             Tutor::DeleteTutor($marterikelNr);
+            Tutor::DeletAuthAssignment($marterikelNr);
             Tutor::findOne($marterikelNr)->delete();
             
         }else if (Korrektor::findOne($marterikelNr)!=null) {
             
             Korrektor::DeleteKorrektor($marterikelNr);
+            Korrektor::DeletAuthAssignment($marterikelNr);
             Korrektor::findOne($marterikelNr)->delete();
             
+        }else if(Admin::findOne($marterikelNr)!=null){
+            Admin::DeletAuthAssignment($marterikelNr);
+            Admin::findOne($marterikelNr)->delete();
         }
     }
 }

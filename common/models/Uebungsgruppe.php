@@ -121,6 +121,15 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
         return $this->hasOne(Tutor::className(), ['marterikelnr' => 'Tutor_MarterikelNr']);
     }
     
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getKorrektorMarterikelNr()
+    {
+        return $this->hasOne(Korrektor::className(), ['marterikelnr' => 'Korrektor_MarterikelNr']);
+    }
+    
+    
     /*
      *  gibt die URL des Profifotos von Tutor zurück
      */
@@ -250,5 +259,15 @@ class Uebungsgruppe extends \yii\db\ActiveRecord
             }
         }
         return $anzahl;
+    }
+    
+    // Uebungsgruppen löschen mit Korrektor MarterikelNr
+    public static function DeleteUebungsgruppeMitKorrektor($marterikelNr) {
+        $modelUeubngsgruppe = Uebungsgruppe::find()->where(['Korrektor_MarterikelNr'=>$marterikelNr])->all();
+        foreach ($modelUeubngsgruppe as $uebungsgruppe){
+            BenutzerTeilnimmtUebungsgruppe::DeleteBenutzerTeiUebungsgruppe($uebungsgruppe->UebungsgruppeID);
+            Abgabe::DeleteAbgabeMitGruppeID($uebungsgruppe->UebungsgruppeID);
+            $uebungsgruppe->delete();
+        }
     }
 }

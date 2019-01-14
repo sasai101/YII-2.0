@@ -7,6 +7,7 @@ use common\models\Korrektor;
 use common\models\KorrektorSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 
 /**
@@ -32,6 +33,11 @@ class KorrektorController extends Controller
      */
     public function actionIndex()
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('indexKorrektor')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $searchModel = new KorrektorSuchen;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
@@ -48,6 +54,11 @@ class KorrektorController extends Controller
      */
     public function actionView($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('viewKorrektor')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -66,6 +77,11 @@ class KorrektorController extends Controller
      */
     public function actionDelete($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('deleteKorrektor')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         Korrektor::DeleteKorrektor($id);
         
         $this->findModel($id)->delete();

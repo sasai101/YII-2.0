@@ -7,14 +7,13 @@ use common\models\Abgabe;
 use common\models\AbgabeSuchen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\widgets\ActiveForm;
 use yii\filters\VerbFilter;
 use common\models\Uebungsgruppe;
 use common\models\Uebungsblaetter;
 use yii\base\Model;
 use common\models\Benutzer;
 use common\models\Uebung;
-use common\models\Klausurnote;
+use yii\web\ForbiddenHttpException;
 
 /**
  * AbgabeController implements the CRUD actions for Abgabe model.
@@ -60,10 +59,13 @@ class AbgabeController extends Controller
      */
     public function actionUpdate($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('korregierenAbgabe')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $model = $this->findModel($id);
         $modelEinzelaufgabe =$model->einzelaufgabes;
-        
-        
         
         if(Model::loadMultiple($modelEinzelaufgabe, Yii::$app->request->post()))
         {
@@ -85,6 +87,11 @@ class AbgabeController extends Controller
      * View action
      */
     public function actionView($id) {
+        
+        //BefugnisTeil
+        if(!Yii::$app->user->can('einsehenAbgabe')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
         
         $model = $this->findModel($id);
         

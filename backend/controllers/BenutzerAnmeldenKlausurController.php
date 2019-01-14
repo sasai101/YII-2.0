@@ -13,6 +13,7 @@ use yii\widgets\ActiveForm;
 use yii\filters\VerbFilter;
 use common\models\KlausurSuchen;
 use common\models\Mitarbeiter;
+use yii\web\ForbiddenHttpException;
 
 /**
  * BenutzerAnmeldenKlausurController implements the CRUD actions for BenutzerAnmeldenKlausur model.
@@ -36,7 +37,7 @@ class BenutzerAnmeldenKlausurController extends Controller
      * @return mixed
      */
     public function actionIndex($id)
-    {
+    {        
         BenutzerAnmeldenKlausur::Klausuranmeldung($id);
         
         $modelKlausur = Klausur::findOne($id);
@@ -57,6 +58,11 @@ class BenutzerAnmeldenKlausurController extends Controller
      */
     public function actionCreate($id)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('createKlausuranmeldung')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $model = new BenutzerAnmeldenKlausur;
         $model->KlausurID = $id;
         $model->Anmeldungszeit = time();
@@ -86,6 +92,11 @@ class BenutzerAnmeldenKlausurController extends Controller
      */
     public function actionDelete($Benutzer_MarterikelNr, $KlausurID)
     {
+        //BefugnisTeil
+        if(!Yii::$app->user->can('deleteKlausuranmeldung')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
+        
         $this->findModel($Benutzer_MarterikelNr, $KlausurID)->delete();
 
         return $this->redirect(['index']);
@@ -112,6 +123,11 @@ class BenutzerAnmeldenKlausurController extends Controller
      *  KlausurAnmeldung Listview Controller
      */
     public function actionKlausuranmeldunglistview() {
+        
+        //BefugnisTeil
+        if(!Yii::$app->user->can('listviewKlausuranmeldung')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
         
         if(Admin::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
             $searchModel = new KlausurSuchen;
@@ -148,6 +164,11 @@ class BenutzerAnmeldenKlausurController extends Controller
      *
      */
     public function actionIndexklausur() {
+        
+        //BefugnisTeil
+        if(!Yii::$app->user->can('indexKlausuranmeldung')){
+            throw new ForbiddenHttpException('Sie haben kein Befugniss');
+        }
         
         if(Admin::findOne(Yii::$app->user->identity->MarterikelNr)!=null){
             $searchModel = new KlausurSuchen;
