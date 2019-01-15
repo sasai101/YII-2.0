@@ -13,7 +13,6 @@ use yii\bootstrap\Alert;
  * @property int $AbgabeID
  * @property int $AufgabeNr
  * @property string $Text
- * @property string $Datein
  * @property double $Punkte
  * @property string $Bewertung
  *
@@ -37,7 +36,7 @@ class Einzelaufgabe extends \yii\db\ActiveRecord
         return [
             [['AbgabeID', 'AufgabeNr'], 'required'],
             [['AbgabeID', 'AufgabeNr'], 'integer'],
-            [['Text', 'Datein', 'Bewertung'], 'string'],
+            [['Text', 'Bewertung'], 'string'],
             //Validierung
             
             [['Punkte'], 'double'],
@@ -66,8 +65,7 @@ class Einzelaufgabe extends \yii\db\ActiveRecord
             'EinzelaufgabeID' => 'Einzelaufgabe ID',
             'AbgabeID' => 'Abgabe ID',
             'AufgabeNr' => 'Aufgabe Nr',
-            'Text' => 'Text',
-            'Datein' => 'Datein',
+            'Text' => 'Antwort',
             'Punkte' => 'Punkte',
             'Bewertung' => 'Bewertung',
         ];

@@ -30,7 +30,7 @@ class PasswortVerandern extends Model
     public function attributeLabels() {
         return [
             'Passwort' => 'Passwort',
-            'Passwort_widerholung' => 'Wiederholung des Passwortes'
+            'Passwort_widerholung' => 'Wiederholung des Passwortes',
         ];
     }
     

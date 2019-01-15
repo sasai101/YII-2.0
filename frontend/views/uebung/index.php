@@ -64,19 +64,26 @@ $this->title = 'Uebungs';
                     ],
                     [
                         'label'=>'Status',
+                        'format'=>'raw',
                         'value'=>function($model) {
                             $heute = date('d.m.Y H:i:s',time()+60*60);
                             $dethdatum = date($model->Deadline);
                             if(strtotime($dethdatum) > strtotime($heute)){
-                                return "abgeben";
+                                $modelAbgabe = Abgabe::find()->where(['UebungsblaetterID'=>$model->UebungsblatterID, 'Benutzer_MarterikelNr'=>Yii::$app->user->identity])->all();
+                                foreach ($modelAbgabe as $Abgabe){
+                                    return Html::a("abgeben",['abgabe/abgabeabgeben','id'=>$Abgabe->AbgabeID]);
+                                }
                             }else{
-                                return "korregieren";
+                                $modelAbgabe = Abgabe::find()->where(['UebungsblaetterID'=>$model->UebungsblatterID, 'Benutzer_MarterikelNr'=>Yii::$app->user->identity])->all();
+                                foreach ($modelAbgabe as $Abgabe){
+                                    return Html::a("korregieren",['abgabe/view','id'=>$Abgabe->AbgabeID]);
+                                }
                             }
-                        }
+                        },
                     ],
                     [
                         'label'=>'Gesamte Punkt',
-                        'contentOptions' => ['width'=>'70px'],
+                        'contentOptions' => ['width'=>'150px'],
                         'value'=>function ($model) {
                             $modelAbgabe = Abgabe::find()->where(['UebungsblaetterID'=>$model->UebungsblatterID, 'Benutzer_MarterikelNr'=>Yii::$app->user->identity])->all();
                             foreach ($modelAbgabe as $Abgabe){

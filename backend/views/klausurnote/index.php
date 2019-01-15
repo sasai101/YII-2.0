@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = HtmlPurifier::process(mb_substr($modelKlausur->
                         'format'=>['date','php:d-m-Y H:i:s'],
                     ],
                     //'ModulID', 
-                    'KlausurID',
+                    //'KlausurID',
                     [
                         'attribute'=>'KlausurID',
                         'label'=>'Klausur',

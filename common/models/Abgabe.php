@@ -18,6 +18,7 @@ use yii\db\Query;
  * @property int $GesamtePunkt
  * @property int $UebungsblaetterID
  * @property int $UebungsgruppenID 
+ * @property string $Datein
  *
  * @property Benutzer $benutzerMarterikelNr
  * @property Korrektor $korrektorMarterikelNr
@@ -27,6 +28,9 @@ use yii\db\Query;
  */
 class Abgabe extends \yii\db\ActiveRecord
 {
+    // Abgabe in zip Datein
+    public $file;
+    
     /**
      * {@inheritdoc}
      */
@@ -43,11 +47,15 @@ class Abgabe extends \yii\db\ActiveRecord
         return [
             [['Benutzer_MarterikelNr', 'UebungsblaetterID', 'UebungsgruppenID'], 'required'],
             [['Benutzer_MarterikelNr', 'Korrektor_MarterikelNr', 'KorregierteZeit', 'AbgabeZeit', 'GesamtePunkt', 'UebungsblaetterID', 'UebungsgruppenID'], 'integer'],
+            [['Datein'], 'string'],
             [['Benutzer_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Benutzer::className(), 'targetAttribute' => ['Benutzer_MarterikelNr' => 'marterikelnr']],
             [['Korrektor_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Korrektor::className(), 'targetAttribute' => ['Korrektor_MarterikelNr' => 'marterikelnr']],
             [['UebungsblaetterID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebungsblaetter::className(), 'targetAttribute' => ['UebungsblaetterID' => 'uebungsblatterid']],
             [['UebungsgruppenID'], 'exist', 'skipOnError' => true, 'targetClass' => Uebungsgruppe::className(), 'targetAttribute' => ['UebungsgruppenID' => 'uebungsgruppeid']],
             //['GesamtePunkt','GesamtePunktCheck'],
+            
+            [['file'],'file', 'extensions' => 'zip' ,'checkExtensionByMimeType'=>false],
+            
         ];
     }
     
@@ -64,6 +72,8 @@ class Abgabe extends \yii\db\ActiveRecord
             'AbgabeZeit' => 'Abgabe Zeit',
             'GesamtePunkt' => 'Gesamte Punkt',
             'UebungsblaetterID' => 'Übungsblätter',
+            'file' => 'Abgabe',
+            'Datein' => 'Datein',
         ];
     }
 
@@ -125,48 +135,28 @@ class Abgabe extends \yii\db\ActiveRecord
         // die orignale Funktion erstmal durchfueren,
         if(parent::beforeSave($insert))
         {
-            $model = $this->einzelaufgabes;
-            $note = 0;
-            $flag = true;
-            foreach ($model as $aufgabe){
-                if($aufgabe->Punkte==null){
-                    $note = 0;
-                    return false;
-                    break;
-                }else{
-                    $note += $aufgabe->Punkte;
-                }
-            }
-            if( $flag==true){
-                if($note > $this->uebungsblaetter->GesamtePunkte){
-                    
-                    //echo "<script>alert('Der gesamte Punkt muss kleiner als '.$this->uebungsblaetter->GesamtePunkte.' sein')</script>";
-                    
-                    //alert("Der gesamte Punkt muss kleiner als ".$this->uebungsblaetter->GesamtePunkte."sein");
-                    
-                    /*Alert::begin([
-                        'options'=>[
-                            'class'=>'alert-warning',
-                        ],
-                    ]);
-                    echo "Der gesamte Punkt muss kleiner als ".$this->uebungsblaetter->GesamtePunkte."sein";*/
-                    return false;
-                }elseif ($note < 0){
-                    
-                    //echo "<script>alert('Der gesamte Punkt muss größer gleiche als 0 sein')</script>";
-                    
-                    //echo alert("Der gesamte Punkt muss größer gleiche als 0 sein");
-                    /*Alert::begin([
-                        'options'=>[
-                            'class'=>'alert-warning',
-                        ],
-                    ]);
-                    echo "Der gesamte Punkt muss größer gleiche als 0 sein";*/
-                    return false;
-                }else{
-                    if($insert){
-                        return true;
+            if(Korrektor::findOne(\Yii::$app->user->identity->MarterikelNr)!=null || Mitarbeiter::findOne(\Yii::$app->user->identity->MarterikelNr)!=null){
+                $model = $this->einzelaufgabes;
+                $note = 0;
+                $flag = true;
+                foreach ($model as $aufgabe){
+                    if($aufgabe->Punkte==null){
+                        $note = 0;
+                        return false;
+                        break;
                     }else{
+                        $note += $aufgabe->Punkte;
+                    }
+                }
+                if( $flag==true){
+                    if($note > $this->uebungsblaetter->GesamtePunkte){
+                        
+                        return false;
+                    }elseif ($note < 0){
+                        
+                        return false;
+                    }else{
+                        
                         if(Korrektor::findOne(\Yii::$app->user->identity->MarterikelNr)==null){
                             $this->KorregierteZeit = time();
                             $this->GesamtePunkt = $note;
@@ -176,9 +166,13 @@ class Abgabe extends \yii\db\ActiveRecord
                             $this->setMarterikelNr(Yii::$app->user->identity->MarterikelNr);
                         }
                         return true;
+                        
                     }
                 }
-            }  
+            }else{
+                $this->AbgabeZeit = time();
+                return true;
+            }
         }
         else
         {
@@ -275,7 +269,7 @@ class Abgabe extends \yii\db\ActiveRecord
         $leeraufgabe = 0;
         foreach ($modelAbgabe as $abgabe){
             foreach ($abgabe->einzelaufgabes as $einzel){
-                if($einzel->Text==NULL && $einzel->Datein==NULL){
+                if($einzel->Text==NULL && $abgabe->Datein==NULL){
                     $leeraufgabe += 1;
                 }
             }
@@ -387,7 +381,7 @@ class Abgabe extends \yii\db\ActiveRecord
         $leeraufgabe = 0;
         foreach ($modelAbgabe as $abgabe){
             foreach ($abgabe->einzelaufgabes as $einzel){
-                if($einzel->Text==NULL && $einzel->Datein==NULL){
+                if($einzel->Text==NULL && $abgabe->Datein==NULL){
                     $leeraufgabe += 1;
                 }
             }

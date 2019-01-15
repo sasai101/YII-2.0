@@ -56,6 +56,13 @@ $this->params['breadcrumbs'][] = $model->benutzerMarterikelNr->Vorname." ".$mode
         	
         	<!-- Leere Zeile -->
         	<div class="row"></br></div>
+        	<?php if($model->Datein != null):?>
+        	<div>
+        		<h2>
+        			Hochgeladene Abgabe: <b><?php echo  Html::a("Antwort vom Übungsblatt ".$model->uebungsblaetter->UebungsNr,['downloadantwort', 'id'=>$model->AbgabeID]);?></b>
+        		</h2>
+        	</div>
+        	<?php endif;?>
         	<!-- Leere Zeile -->
         	<div class="row"></br></div>	
             	

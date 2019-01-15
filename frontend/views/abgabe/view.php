@@ -1,72 +1,60 @@
 <?php
 
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
-use kartik\detail\DetailView;
-use kartik\datecontrol\DateControl;
+use yii\widgets\DetailView;
 
-/**
- * @var yii\web\View $this
- * @var common\models\Abgabe $model
- */
+/* @var $this yii\web\View */
+/* @var $model common\models\Abgabe */
 
-$this->title = 'Abgabe';
-$this->params['breadcrumbs'][] = ['label' => 'Alle Übungen', 'url' => ['uebung/alleuebungsgruppe']];
-$this->params['breadcrumbs'][] = ['label' => 'Alle Übungsgruppen', 'url' => ['uebungsgruppe/alleuebungsgruppe','id'=>$model->uebungsblaetter->uebungs->UebungsID]];
-$this->params['breadcrumbs'][] = ['label' => 'Übungsgruppe'.$model->uebungsgruppen->GruppenNr, 'url'=>['uebungsgruppe/gruppendetails', 'id'=>$model->uebungsgruppen->UebungsgruppeID]];
-$this->params['breadcrumbs'][] = ['label' => 'Alle Abgabe von Gruppe '.$model->uebungsgruppen->GruppenNr, 'url'=>['abgabe/index', 'UebungsgruppeID'=>$model->UebungsgruppenID, 'UebungsblaetterID'=>$model->UebungsblaetterID]];
-$this->params['breadcrumbs'][] = $model->benutzerMarterikelNr->Vorname." ".$model->benutzerMarterikelNr->Nachname;
 ?>
-	<div></br></div>
+<div class="row"></br></div>
 <div class="panel panel-default">
-	<div></br></div>
     <div class="panel-body">
     	<div class="abgabe-update">
         	<div class="abgabe-index">
             <!-- Leere Zeile -->
         	<div class="row"></br></div>
         	
+        	<?php $form = ActiveForm::begin([
+        	]); ?>
+        	
         	<div>
-        		<h2>
+        		<h3>
         			Modul: <?php echo $model->uebungsblaetter->uebungs->modul->Bezeichnung ?>
-        		</h2>
+        		</h3>
         	</div>
         	
         	<div>
-        		<h2>
+        		<h3>
         			Übungsgruppe: <?php echo $model->uebungsgruppen->GruppenNr ?>
-        		</h2>
+        		</h3>
         	</div>
         	<!-- Titel -->
         	<div>
-        		<h2>
+        		<h3>
         			Übungsblatt <?php echo $model->uebungsblaetter->UebungsNr ?>
-        		</h2>
+        		</h3>
         	</div>
         	
-        	<!-- Abgabe gehört zu  -->
-        	<div>
-        		<h2>
-        			Abgabe von <?php echo $model->benutzerMarterikelNr->Vorname." ".$model->benutzerMarterikelNr->Nachname ?>
-        		<h2>
-        	</div>
         	
         	<!-- Leere Zeile -->
         	<div class="row"></br></div>
         	<?php if($model->Datein != null):?>
         	<div>
-        		<h2>
-        			Hochgeladene Abgabe: <b><?php echo  Html::a("Antwort vom Übungsblatt ".$model->uebungsblaetter->UebungsNr,['downloadantwort', 'id'=>$model->AbgabeID]);?></b>
-        		</h2>
+        		<h4>
+        			Hochgeladene Abgabe: <b><?php echo  Html::a("Antwort vom Übungsblatt ".$model->uebungsblaetter->UebungsNr,['download', 'id'=>$model->AbgabeID]);?></b>
+        		</h4>
         	</div>
         	<?php endif;?>
         	<!-- Leere Zeile -->
         	<div class="row"></br></div>	
             	
             	<?php foreach ($model->einzelaufgabes as $index=>$aufgabe):?>
-            	<div class="panel panel-primary">
+            	<div class="panel panel-default">
                 	<div class="panel-heading">
                 		<p>
-                			<b><h4>Aufabe <?php echo $aufgabe->AufgabeNr?></b>
+                			<h5>Aufabe <?php echo $aufgabe->AufgabeNr?></h5>
                 		</p>
                 	</div>
                 	<div class="panel-body">
@@ -80,6 +68,7 @@ $this->params['breadcrumbs'][] = $model->benutzerMarterikelNr->Vorname." ".$mode
             			<div class="col-md-1">		
             			</div>
             			<div class="col-md-8">
+            			<p>Antwort</p>
             				<pre> <?php echo  $aufgabe->Text?></pre>
             			</div>
             		</div>
@@ -91,6 +80,7 @@ $this->params['breadcrumbs'][] = $model->benutzerMarterikelNr->Vorname." ".$mode
             			<div class="col-md-1">		
             			</div>
             			<div class="col-md-1">
+            			<p>Punkt</p>
             				<pre> <?php echo  $aufgabe->Punkte?></pre>
             			</div>
             		</div>
@@ -102,9 +92,11 @@ $this->params['breadcrumbs'][] = $model->benutzerMarterikelNr->Vorname." ".$mode
             			<div class="col-md-1">		
             			</div>
             			<div class="col-md-4">
+            			<p>Kommentar</p>
             				<pre> <?php echo  $aufgabe->Bewertung?></pre>
             			</div>
             		</div>
+            		
             		
             		<!-- Leerzeichen -->
             		<div class="row">
@@ -113,8 +105,14 @@ $this->params['breadcrumbs'][] = $model->benutzerMarterikelNr->Vorname." ".$mode
             		</div>
             	</div>
             	<?php endforeach;?>
+        		
+        		<div class="form-group">
+                    <?= Html::submitButton('Abrechen', ['class' => 'btn btn-success']) ?>
+                </div>
+               
         
+            <?php ActiveForm::end(); ?>
+        		
         </div>
-    </div>
     </div>
 </div>

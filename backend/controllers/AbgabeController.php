@@ -129,6 +129,16 @@ class AbgabeController extends Controller
     }
     
     /*
+     * Runterladen
+     */
+    public function actionDownloadantwort($id){
+        $model = Abgabe::findOne($id);
+        if(file_exists($model->Datein)){
+            Yii::$app->response->sendFile($model->Datein);
+        }
+    }
+    
+    /*
      * Einzeln Abgabeecharts für benutzer/notelistview
      */
     public function actionEchartsabgabe($uebungsID, $marterikelNr) {
