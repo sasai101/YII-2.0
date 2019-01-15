@@ -93,11 +93,8 @@ class AbgabeController extends Controller
         
         $model = $this->findModel($id);
         
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['uebung/index']);
-        } else {
-            return $this->render('view', ['model' => $model]);
-        }
+        return $this->render('view', ['model' => $model]);
+        
     }
 
     /**

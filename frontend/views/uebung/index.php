@@ -113,9 +113,18 @@ $this->title = 'Uebungs';
     
     
 	<div>
-		<?php if(BenutzerTeilnimmtUebungsgruppe::BenutzerPruefen(Yii::$app->user->identity->MarterikelNr) != null):?>
+	
+    <!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+    <!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+    <!-- Leere Zeile -->
+	<div class="row"></br></div>
+		<?php if(Uebungsgruppe::AlleTeilnahmGruppe(Yii::$app->user->identity->MarterikelNr) == null):?>
 			<div>
-				Sie haben an keinem Gruppe teilgenommen.
+				<h4>Sie haben an keinem Gruppe teilgenommen.</h4>
 			</div>
 		<?php endif;?>
 	</div>

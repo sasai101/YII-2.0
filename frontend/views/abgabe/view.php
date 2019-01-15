@@ -107,7 +107,7 @@ use yii\widgets\DetailView;
             	<?php endforeach;?>
         		
         		<div class="form-group">
-                    <?= Html::submitButton('Abrechen', ['class' => 'btn btn-success']) ?>
+                    <?= Html::a('Abrechen',['uebung/index'], ['class' => 'btn btn-success']) ?>
                 </div>
                
         
