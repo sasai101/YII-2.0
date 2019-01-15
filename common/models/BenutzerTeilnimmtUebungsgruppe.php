@@ -81,4 +81,18 @@ class BenutzerTeilnimmtUebungsgruppe extends \yii\db\ActiveRecord
             $item->delete();
         }
     }
+    
+    /*
+     *  Benutzer überprüfen ob Benutzer schon Gruppe hat oder nicht
+     */
+    public static function BenutzerPruefen($marterikelNr){
+        $model = BenutzerTeilnimmtUebungsgruppe::find()->where(['Benuter_MarterikelNr'=>$marterikelNr])->all();
+        $flag = true;
+        foreach ($model as $gruppe){
+            if($gruppe == null){
+                $flag = false;
+            }
+        }
+        return $flag;
+    }
 }

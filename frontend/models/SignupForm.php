@@ -2,6 +2,7 @@
 namespace frontend\models;
 
 use yii\base\Model;
+use yii\helpers\VarDumper;
 use common\models\Benutzer;
 
 /**
@@ -16,8 +17,6 @@ class SignupForm extends Model
     public $Passwort;
     public $Passwort_widerholung;
     public $MarterikelNr;
-    public $Profiefoto;
-    public $file;
     
 
 
@@ -31,12 +30,12 @@ class SignupForm extends Model
             
             ['Benutzername', 'trim'],
             ['Benutzername', 'required'],
-            ['Benutzername', 'unique', 'targetClass' => '\common\models\Benutzer', 'message' => 'This username has already been taken.'],
+            ['Benutzername', 'unique', 'targetClass' => '\common\models\Benutzer', 'message' => 'Dieser Benutzername ist schon exisitiert.'],
             ['Benutzername', 'string', 'min' => 2, 'max' => 255],
             
             ['MarterikelNr', 'trim'],
             ['MarterikelNr', 'required'],
-            ['MarterikelNr', 'unique', 'targetClass' => '\common\models\Benutzer', 'message' => 'This username has already been taken.'],
+            ['MarterikelNr', 'unique', 'targetClass' => '\common\models\Benutzer', 'message' => 'Dieser MarterikelNr ist schon exisitiert.'],
             ['MarterikelNr', 'integer'],
             ['MarterikelNr', 'checkMarterikelNr'],
 
@@ -44,14 +43,12 @@ class SignupForm extends Model
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\Benutzer', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\Benutzer', 'message' => 'Dieser Email ist schon exisitiert.'],
 
             ['Passwort', 'required'],
             ['Passwort', 'string', 'min' => 6],
             // vergleichen die beiden neue gegebene Passwort
             ['Passwort_widerholung','compare','compareAttribute'=>'Passwort','message'=>'Die beiden eingegebene Passworte sind nicht einig!'],
-            
-            [['file'],'file', 'extensions' => 'jpg','checkExtensionByMimeType'=>false, 'maxSize' => 1024 * 1024 * 2],
         ];
     }
     
@@ -64,6 +61,13 @@ class SignupForm extends Model
         }
     }
 
+    public function attributeLabels() {
+        return [
+            'Passwort' => 'Passwort',
+            'Passwort_widerholung' => 'Wiederholung des Passwortes',
+        ];
+    }
+    
     /**
      * Signs user up.
      *
@@ -75,38 +79,22 @@ class SignupForm extends Model
             return null;
         }
         
-        $user = new Benutzer();
+        $user = new Benutzer;
+        $user->MarterikelNr = $this->MarterikelNr;
         $user->Benutzername = $this->Benutzername;
         $user->email = $this->email;
-        $user->setPassword($this->password);
+        $user->Vorname = $this->Vorname;
+        $user->Nachname = $this->Nachname;
+        $user->setPassword($this->Passwort);
         $user->generateAuthKey();
+        $user->Passwort = "*";
+        $user->created_at = time();
+        $user->updated_at = time();
+        $user->Profiefoto = "../../profiefoto/normal.jpg";
+        //$user->save();
+        //VarDumper::dump($user->errors);
+        //exit(0);
         
         return $user->save() ? $user : null;
-    }
-    
-    /**
-     * Signs user up.
-     *
-     * @return Benutzer|null the saved model or null if saving fails
-     */
-    public function passwortZurucksetzen($id)
-    {
-        if (!$this->validate()) {
-            return null;
-        }
-        
-        $benutzer = Benutzer::findOne($id);
-        $benutzer->setPassword($this->Passwort);
-        $benutzer->removePasswordResetToken();
-        /*
-         $benutzer->save();
-         VarDumper::dump($benutzer->errors);
-         exit(0);
-         ==> [ 'Passwort' => [ 0 => 'Passwort darf nicht leer sein.' ] ]
-         */
-        $benutzer->Passwort = "*";
-        //$benutzer->Profiefoto = "**";
-        return $benutzer->save() ? true : false;
-    }
-    
+    }    
 }

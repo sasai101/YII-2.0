@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\web\IdentityInterface;
 use yii\base\NotSupportedException;
+use yii\helpers\VarDumper;
 use phpDocumentor\Reflection\Types\Null_;
 
 /**
@@ -317,21 +318,24 @@ class Benutzer extends \yii\db\ActiveRecord implements IdentityInterface
     */
     public function beforeSave($insert)
     {
-
         // die orignale Funktion erstmal durchfueren,
         if(parent::beforeSave($insert))
         {
             //um sich zu entscheiden ,ob es ein neue Kunde ist oder alte
             if($insert)
             {
-                $this->created_at = time();
-                $this->updated_at = time();
+//                 $this->created_at = time();
+//                 $this->updated_at = time();
+//                 $this->Profiefoto = "../../profiefoto/normal.jpg";
+//                 $this->save();
+//                 VarDumper::dump($this->errors);
+//                 exit(0);
             }
             else 
             {
                 $this->updated_at = time();
             }
-            return true; 
+            return true;
         }
         else  
         {

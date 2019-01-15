@@ -37,8 +37,11 @@ AppAsset::register($this);
             ['label' => 'Übungen', 'url' => ['/uebung/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Profie', 'url' => ['/benutzer/profieandern']],
+            ['label' => 'Passwort', 'url' => ['/benutzer/profiepassword']],
         ];
     }
+    
     
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];

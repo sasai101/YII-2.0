@@ -6,6 +6,7 @@ use common\models\Uebungsgruppe;
 use common\models\UebungsblaetterSuchen;
 use common\models\Uebung;
 use common\models\Abgabe;
+use common\models\BenutzerTeilnimmtUebungsgruppe;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\UebungSuchen */
@@ -109,4 +110,14 @@ $this->title = 'Uebungs';
     </div>
     <div><br/></div>
     <?php endforeach;?>
+    
+    
+	<div>
+		<?php if(BenutzerTeilnimmtUebungsgruppe::BenutzerPruefen(Yii::$app->user->identity->MarterikelNr) != null):?>
+			<div>
+				Sie haben an keinem Gruppe teilgenommen.
+			</div>
+		<?php endif;?>
+	</div>
+    
 </div>

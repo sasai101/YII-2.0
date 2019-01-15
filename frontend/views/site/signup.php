@@ -7,8 +7,8 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Signup';
-$this->params['breadcrumbs'][] = $this->title;
+// $this->title = 'Signup';
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -17,13 +17,24 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+            <?php $form = ActiveForm::begin([
+                'id' => 'form-signup',
+                'enableAjaxValidation'=>true,
+            ]); ?>
+            
+            	<?php echo $form->field($model, 'MarterikelNr')->textInput()?>
+            	
+            	<?php echo $form->field($model, 'Vorname')->textInput()?>
+            	
+            	<?php echo $form->field($model, 'Nachname')->textInput()?>
 
                 <?= $form->field($model, 'Benutzername')->textInput(['autofocus' => true]) ?>
 
                 <?= $form->field($model, 'email') ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
+                <?= $form->field($model, 'Passwort')->passwordInput() ?>
+                
+                <?= $form->field($model, 'Passwort_widerholung')->passwordInput() ?>
 
                 <div class="form-group">
                     <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>

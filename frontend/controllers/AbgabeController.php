@@ -42,7 +42,7 @@ class AbgabeController extends Controller
         if(Model::loadMultiple($modelEinzelaufgabe, Yii::$app->request->post()))
         {
             // Path wo die Datein speichern
-            $modelPath = "../../Uebung/Abgabe/Modul".$model->uebungsblaetter->uebungs->modul->ModulID."/UebungsID".$model->uebungsblaetter->uebungs->UebungsID."/Uebungsgruppe".$model->uebungsgruppen->GruppenNr;
+            $modelPath = "../../Uebung/Abgabe/Modul".$model->uebungsblaetter->uebungs->modul->ModulID."/UebungsID".$model->uebungsblaetter->uebungs->UebungsID."/Uebungsgruppe".$model->uebungsgruppen->GruppenNr."/Uebungsblaetter".$model->uebungsblaetter->UebungsNr;
                        
             // die Instance von File zu kriegen
             // 0777 ist Befugnis
@@ -94,7 +94,7 @@ class AbgabeController extends Controller
         $model = $this->findModel($id);
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->MarterikelNr]);
+            return $this->redirect(['uebung/index']);
         } else {
             return $this->render('view', ['model' => $model]);
         }

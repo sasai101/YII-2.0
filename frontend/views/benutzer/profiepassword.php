@@ -1,0 +1,71 @@
+<?php
+use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
+//use yii\widgets\ActiveForm;
+//use yii\helpers\Html;
+
+
+/* @var $this yii\web\View */
+/* @var $model common\models\Benutzer */
+
+ $this->title = "Passwortveränderung";
+ /*
+ $this->params['breadcrumbs'][] = ['label' => 'Benutzer', 'url' => ['index']];
+ $this->params['breadcrumbs'][] = $this->title;
+ */
+?>
+<div class="benutzer-profiepassword">
+
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	<!-- Leere Zeile -->
+	<div class="row"></br></div>
+	
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    	Passwortveränderung
+                </h3>
+            </div>
+            <div class="panel-body">
+            	<div class="col-md-12">
+              		<div class="benutzer-form">
+
+                        <div class="benutzer-form">
+
+                		    <?php $form = ActiveForm::begin(); ?>
+                		    
+                		    <?= $form->field($model, 'Passwort')->passwordInput(['maxlength' => true]) ?>
+                		    
+                		    <?= $form->field($model, 'Passwort_widerholung')->passwordInput(['maxlength' => true]) ?>
+                		
+                		    <div class="form-group">
+                		        <?= Html::submitButton('Speichern', ['class' =>'btn btn-success']) ?>
+                		    </div>
+                		   
+                		    <?php ActiveForm::end(); ?>
+                		
+                		</div>
+            		
+            		</div>
+              	</div>
+            </div>
+        	</div>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+	
+</div>
