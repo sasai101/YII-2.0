@@ -5,13 +5,14 @@ use yii\grid\GridView;
 use common\models\Uebungsgruppe;
 use common\models\UebungsblaetterSuchen;
 use common\models\Uebung;
+use common\models\Abgabe;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\UebungSuchen */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Uebungs';
-$this->params['breadcrumbs'][] = $this->title;
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="uebung-index">
 
@@ -32,17 +33,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 'dataProvider' => $dataProvider,
                 //'filterModel' => $searchModel,
                 'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
+                    //['class' => 'yii\grid\SerialColumn'],
         
                     //'UebungsID',
                     [
                         'attribute'=>'UebungsNr',
-                        'value'=>function($model) {
-                            return "Übungsblatt".$model->UebungsNr;
+                        'contentOptions' => ['width'=>'100px'],
+                        'format'=>'raw',
+                        'value'=>function ($model) {
+                            //return "Übungsblatt ".$model->uebungsblaetter->UebungsNr;
+                            return Html::a("Übungsblatt ".$model->UebungsNr,['download', 'id'=>$model->UebungsblatterID]);
                         }
                     ],
                     [
                         'label'=>'Übung',
+                        'contentOptions' => ['width'=>'400px'],
                         'value'=>function ($model) {
                             return $model->uebungs->Bezeichnung;
                         }
@@ -66,6 +71,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return "abgeben";
                             }else{
                                 return "korregieren";
+                            }
+                        }
+                    ],
+                    [
+                        'label'=>'Gesamte Punkt',
+                        'contentOptions' => ['width'=>'70px'],
+                        'value'=>function ($model) {
+                            $modelAbgabe = Abgabe::find()->where(['UebungsblaetterID'=>$model->UebungsblatterID, 'Benutzer_MarterikelNr'=>Yii::$app->user->identity])->all();
+                            foreach ($modelAbgabe as $Abgabe){
+                                if($Abgabe->GesamtePunkt != null){
+                                    return "(".$Abgabe->GesamtePunkt."/".$model->GesamtePunkte.")";
+                                }else{
+                                    return "noch nicht korregiert";
+                                }
                             }
                         }
                     ],

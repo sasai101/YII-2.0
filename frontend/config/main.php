@@ -46,4 +46,6 @@ return [
         */
     ],
     'params' => $params,
+    // Eingangsseite
+    'defaultRoute' => 'site/login',
 ];

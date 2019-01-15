@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use common\models\Uebung;
 use common\models\UebungSuchen;
+use common\models\Uebungsblaetter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -45,71 +46,6 @@ class UebungController extends Controller
     }
 
     /**
-     * Displays a single Uebung model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new Uebung model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Uebung();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->UebungsID]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing Uebung model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->UebungsID]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Deletes an existing Uebung model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
      * Finds the Uebung model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
@@ -126,15 +62,12 @@ class UebungController extends Controller
     }
     
     /*
-     * Alle teilgenommene Übung in Listview
+     * Runterladen
      */
-    public function actionAllenuebungen() {
-        $searchModel = new UebungSuchen();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
-        return $this->render('alleuebungen', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+    public function actionDownload($id){
+        $model = Uebungsblaetter::findOne($id);
+        if(file_exists($model->Datein)){
+            Yii::$app->response->sendFile($model->Datein);
+        }
     }
 }
