@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\BenutzerAnmeldenKlausur;
+use common\models\Klausurnote;
 
 /**
  * KlausurController implements the CRUD actions for Klausur model.
@@ -41,6 +42,21 @@ class KlausurController extends Controller
         ]);
 
         return $this->render('klausur', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    
+    /**
+     * Lists all Klausur models.
+     * @return mixed
+     */
+    public function actionKlausurnote()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Klausurnote::find()->where(['Benutzer_MarterikelNr'=>Yii::$app->user->identity->MarterikelNr]),
+        ]);
+        
+        return $this->render('klausurnote', [
             'dataProvider' => $dataProvider,
         ]);
     }
