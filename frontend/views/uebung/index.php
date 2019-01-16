@@ -4,9 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use common\models\Uebungsgruppe;
 use common\models\UebungsblaetterSuchen;
-use common\models\Uebung;
 use common\models\Abgabe;
-use common\models\BenutzerTeilnimmtUebungsgruppe;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\UebungSuchen */

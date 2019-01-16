@@ -70,4 +70,18 @@ class UebungController extends Controller
             Yii::$app->response->sendFile($model->Datein);
         }
     }
+    
+    /*
+     *  Übungsanmeldung
+     */
+    public function actionUebungmeldung() {
+        
+        $searchModel = new UebungSuchen();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+        return $this->render('uebungmeldung',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 }

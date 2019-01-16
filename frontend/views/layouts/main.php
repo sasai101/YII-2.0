@@ -35,8 +35,8 @@ AppAsset::register($this);
     if(!Yii::$app->user->isGuest){
         $menuItems = [
             ['label' => 'Übungen', 'url' => ['/uebung/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Anmelden', 'url' => ['/uebung/uebungmeldung']],
+            ['label' => 'Contact', 'url' => ['/uebungsgruppe/index']],
             ['label' => 'Profie', 'url' => ['/benutzer/profieandern']],
             ['label' => 'Passwort', 'url' => ['/benutzer/profiepassword']],
         ];
