@@ -36,7 +36,7 @@ AppAsset::register($this);
         $menuItems = [
             ['label' => 'Übungen', 'url' => ['/uebung/index']],
             ['label' => 'Anmelden', 'url' => ['/uebung/uebungmeldung']],
-            ['label' => 'Contact', 'url' => ['/uebungsgruppe/index']],
+            ['label' => 'Klausur', 'url' => ['/klausur/klausur']],
             ['label' => 'Profie', 'url' => ['/benutzer/profieandern']],
             ['label' => 'Passwort', 'url' => ['/benutzer/profiepassword']],
         ];
