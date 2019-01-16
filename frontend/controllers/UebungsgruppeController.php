@@ -7,11 +7,14 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\UebungsgruppeSuchen;
+use common\models\BenutzerTeilnimmtUebungsgruppe;
+use common\models\Uebung;
 
 /**
  * UbungsgruppeController implements the CRUD actions for Uebungsgruppe model.
  */
-class UbungsgruppeController extends Controller
+class UebungsgruppeController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -34,11 +37,13 @@ class UbungsgruppeController extends Controller
      */
     public function actionIndex($id)
     {
-        $searchModel = new Uebungsgruppe();
-        $dataProvider = $searchModel->search($id);
+        $modelUebung = Uebung::findOne($id);
+        $searchModel = new UebungsgruppeSuchen();
+        $dataProvider = $searchModel->searchGruppe($id);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'modelUebung' => $modelUebung,
         ]);
     }
 
@@ -56,5 +61,13 @@ class UbungsgruppeController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    
+    /*
+     * Anmeldung 
+     */
+    public function actionAnmelden($id, $marterikelNr) {
+        BenutzerTeilnimmtUebungsgruppe::BenutzeranmeldenUebungsgruppe($id, $marterikelNr);
+        return $this->redirect(['uebung/index']);
     }
 }

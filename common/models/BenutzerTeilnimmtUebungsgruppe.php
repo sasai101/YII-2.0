@@ -95,4 +95,31 @@ class BenutzerTeilnimmtUebungsgruppe extends \yii\db\ActiveRecord
         }
         return $flag;
     }
+    
+    /*
+     * Uebungsgrupppe anmelden
+     */
+    public static function BenutzeranmeldenUebungsgruppe($id,$marterikelNr){
+        $model = new BenutzerTeilnimmtUebungsgruppe;
+        $model->UebungsgruppeID = $id;
+        $model->Benuter_MarterikelNr = $marterikelNr;
+        $model->save();
+        $modelGruppe = Uebungsgruppe::findOne($id);
+        $modelGruppe->Anzahl_der_Personen += 1;
+        $modelGruppe->save();
+    }
+    
+    /*
+     * Überprufen ob Benutzer schon an der Übung teinimmt oder nicht
+     */
+    public static function BenutzerMeldungStatus($uebungsID,$marterikelNr) {
+        $modelUebung = Uebung::findOne($uebungsID);
+        $flag = 1;
+        foreach ($modelUebung->uebungsgruppes as $gruppe){
+            if(BenutzerTeilnimmtUebungsgruppe::find()->where(['Benuter_MarterikelNr'=>$marterikelNr, 'UebungsgruppeID'=>$gruppe->UebungsgruppeID])->all()!=null){
+                $flag = 0;
+            }
+        }
+        return $flag;
+    }
 }
