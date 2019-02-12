@@ -65,16 +65,16 @@ class Klausur extends \yii\db\ActiveRecord
             ['punkt3_3', 'checkPunkt3_3'],
             ['punkt3_7', 'checkPunkt3_7'],
             ['punkt4_0', 'checkPunkt4_0'],
-            ['Bezeichnung', 'checkBezeichnung']
+            //['Bezeichnung', 'checkBezeichnung']
         ];
     }
     
-    public function checkBezeichnung($attribute, $params) {
+    /*public function checkBezeichnung($attribute, $params) {
         $modelKlausur = Klausur::find()->where(['ModulID'=>$this->ModulID, 'Bezeichnung'=>$this->Bezeichnung])->all();
         if($modelKlausur !=null){
             $this->addError($attribute, 'Diese Klausur ist schon existiert, bitte geben die Bezeichnung erneut');
         }
-    }
+    }*/
     public function checkDatum($attribute, $params) {
         $heute = date('d-m-Y H:i:s');
         $prufdatum = date($this->Pruefungsdatum);
