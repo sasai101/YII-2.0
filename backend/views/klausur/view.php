@@ -7,6 +7,8 @@ use yii\helpers\HtmlPurifier;
 use backend\assets\EchartsAsset;
 use Hisune\EchartsPHP\ECharts;
 use yii\widgets\Pjax;
+use common\models\Uebung;
+use common\models\Klausur;
 
 /**
  * @var yii\web\View $this
@@ -307,6 +309,94 @@ $this->params['breadcrumbs'][] = 'Klausureinsicht';
                           </div>
                         </div>
             	</div>
+            	
+            	<!--  Klausur Punktestatus  -->
+            	<div class="col-md-12">
+            			<div class="panel panel-default">
+                          <div class="panel-heading"><?= Html::a("Klausurpunktdetails ", ['klausur/klausurdetails', 'id'=>$model->KlausurID],['class' => 'btn btn-success modalButton']) ?></div>
+                          <div class="panel-body">
+                          <div class="row">
+                          	<div class="col-md-12">
+                          		<?php Pjax::begin();
+                              		
+                          		
+                                    $asset = EchartsAsset::register($this);
+                                    $chart = new ECharts($asset->baseUrl);
+                                    
+                                    $chart->title = array(
+                                        'text' => 'Klausurpunktstatus',
+                                        'subtext' => 'Klausurpunkt vorhersagen',
+                                    );
+                                    
+                                    $chart->tooltip = array(
+                                        'trigger' => 'axis',
+                                        'axisPointer' =>array(
+                                            'type' => 'cross',
+                                            'crossStyle' => array(
+                                                'color' => '#999',
+                                            ),
+                                        ),
+                                    );
+                                    
+                                    $chart->legend->data = array(
+                                        'Anzahl der Studenten'
+                                    );
+                                    
+                                    $chart->toolbox = array(
+                                        'show'=>true,
+                                        'feature'=> array(
+                                            'mark' => array(
+                                                'show'=>true,
+                                            ),
+                                            'dataView'=>array(
+                                                'show'=>true,
+                                                'readOnly'=>false,
+                                            ),
+                                            'magicType'=>array(
+                                                'show'=>true,
+                                                'type'=>array('line','bar'),
+                                            ),
+                                            'restore'=>array(
+                                                'show'=>true,
+                                            ),
+                                            'saveAslmage'=>array(
+                                                'show'=>true,
+                                            ),
+                                        ),
+                                    );                      
+                                    
+                                    $chart->xAxis = array(
+                                        array(
+                                            'type' => 'category',
+                                            'data' => Klausur::KlausurnotePunktzahlInarray($model->KlausurID),
+                                            'axisPointer' => array(
+                                                'type' => 'shadow'
+                                            )
+                                        )
+                                    );
+                                    $chart->yAxis = array(
+                                        array(
+                                            'type' => 'value',
+                                        )
+                                    );
+                                    $chart->series = array(
+                                        
+                                        array(
+                                            'name' => 'Anzahl der Studenten',
+                                            'type' => 'bar',
+                                            'data' => Klausur::AnzahlderPerson($model->KlausurID),   
+                                        )
+                                    );
+                                    echo $chart->render('simple-custom-3');
+                                    Pjax::end()?>
+                                    
+                          	</div>
+                          </div>
+                          </div>
+                        </div>
+            	</div>
+            	
+            	
             	</div>
     
         	</div>

@@ -53,7 +53,7 @@ class Klausur extends \yii\db\ActiveRecord
             [['Pruefungsdatum', 'Bezeichnung'], 'string', 'max' => 255],
             [['Mitarbeiter_MarterikelNr'], 'exist', 'skipOnError' => true, 'targetClass' => Mitarbeiter::className(), 'targetAttribute' => ['Mitarbeiter_MarterikelNr' => 'marterikelnr']],
             [['ModulID'], 'exist', 'skipOnError' => true, 'targetClass' => Modul::className(), 'targetAttribute' => ['ModulID' => 'ModulID']],
-            ['Pruefungsdatum', 'checkDatum'],
+//             ['Pruefungsdatum', 'checkDatum'],
             ['Max_Punkte', 'checkMax'],
             ['punkt1_0', 'checkPunkt1_0'],
             ['punkt1_3', 'checkPunkt1_3'],
@@ -75,13 +75,13 @@ class Klausur extends \yii\db\ActiveRecord
             $this->addError($attribute, 'Diese Klausur ist schon existiert, bitte geben die Bezeichnung erneut');
         }
     }*/
-    public function checkDatum($attribute, $params) {
+    /*public function checkDatum($attribute, $params) {
         $heute = date('d-m-Y H:i:s');
         $prufdatum = date($this->Pruefungsdatum);
         if( $prufdatum < $heute){
             $this->addError($attribute,'Das Prüfungsdatum muss grösser als heute sein.');
         }
-    }
+    }*/
     public function checkMax($attribute, $params) {
         if( $this->Max_Punkte < 0){
             $this->addError($attribute,'Max Punkt muss immer ein positive Zahl sein.');
@@ -365,5 +365,208 @@ class Klausur extends \yii\db\ActiveRecord
             Klausurnote::DeleteKlausurnotMitKlausurID($klausur->KlausurID);
             $klausur->delete();
         }
+    }
+    
+    // AngemeldetePerson in Array
+    public static function AngemeldetePerson($uebungsID){
+        $person = array();
+        $person = Uebung::ZugelassenenPersonUebung($uebungsID);
+        return $person;
+    }
+    
+    // ÜbungsblätterID in Array
+    public static function UebungsblaetterIDArray($uebungsID){
+        $uebungsblaetter = array();
+        $uebung = Uebung::findOne($uebungsID);
+        foreach ($uebung->uebungsblaetters as $uebungsblatt){
+            array_push($uebungsblaetter, $uebungsblatt->UebungsblatterID);
+        }
+        return $uebungsblaetter;
+    }
+    
+    // Uebungspunkte eines Studierendes In Array
+    public static function UebungsPunkteInArray($klausurID){
+        
+        $Klausur = Klausur::findOne($klausurID);
+        $uebungsID = 0;
+        foreach ($Klausur->modul->uebungs as $uebung){
+            $uebungsID = $uebung->UebungsID;
+        }
+        
+        $persons = Klausur::AngemeldetePerson($uebungsID);
+        $uebungsblaetter = Klausur::UebungsblaetterIDArray($uebungsID);
+        
+        
+        $vorhersagePunkte = array();
+        
+        foreach ($persons as $person){
+            $punkte = array();
+            $UbungsNr = array();
+            foreach ($uebungsblaetter as $key => $blatt){
+                $uebungsblatt = Uebungsblaetter::findOne($blatt);
+                $abgaben = Abgabe::find()->where(['Benutzer_MarterikelNr'=>$person, 'UebungsblaetterID'=>$blatt])->all();
+                foreach ($abgaben as $abgabe ){
+                    $punkt = ($abgabe->GesamtePunkt/$uebungsblatt->GesamtePunkte)*$Klausur->Max_Punkte;
+                }
+                if($abgabe->AbgabeZeit != null){
+                    array_push($punkte, $punkt);
+                    array_push($UbungsNr, $key+1);
+                }
+             }
+//             echo "<br/>";
+//             echo "Anzahl der Übung: ".count($punkte);
+//             echo "<br/>";
+//             echo $person;
+//             echo "<br/>";
+            if(count($punkte)<=3){
+                array_push($vorhersagePunkte, 0);
+                //echo "OK";
+            }else {
+                array_push($vorhersagePunkte, (int)Klausur::LienearRession($UbungsNr, $punkte)*100);
+            }
+//             echo "<br/>";
+//             var_dump($punkte);
+//             echo "<br/>";
+//             Klausur::LienearRession($UbungsNr, $punkte);
+//             echo "<br/>";
+            //break;
+        }
+//          var_dump(array_count_values($vorhersagePunkte));
+//          exit(0);
+        sort($vorhersagePunkte);
+        return array_count_values($vorhersagePunkte);
+    }
+    
+    /*
+     * Alle Punktezahl in array Zuruck.(klausur/echartsbarkalsur)mit Klausur ID
+     */
+    public static function AnzahlderPerson($klausurID) {
+        $arrayAnzahl = array();
+        $array = Klausur::UebungsPunkteInArray($klausurID);
+        foreach ($array as $key=>$item){
+            array_push($arrayAnzahl, $item);
+        }
+        return $arrayAnzahl;
+    }
+    
+    /*
+     * Alle Punktezahl in array Zuruck.(klausur/echartsbarkalsur)mit Klausur ID
+     */
+    public static function KlausurnotePunktzahlInarray($klausurID) {
+        $arrayAnzahl = array();
+        $array = Klausur::UebungsPunkteInArray($klausurID);
+        foreach ($array as $key=>$item){
+            array_push($arrayAnzahl, (double)$key/100);
+        }
+        return $arrayAnzahl;
+    }
+    
+    // Linearte Regession
+    public static function LienearRession($x, $y) {
+        $n = count($x);
+        $SumX = array_sum($x);
+        $SumY = array_sum($y);
+        
+        $RR = 0;
+        
+        $SumXX = 0;
+        $SumXY = 0;
+        $SumYY = 0;
+        $YDurch = $SumY/$n;
+        
+        for($i = 0; $i < $n; $i++){
+            $SumXY += ($x[$i]*$y[$i]);
+            $SumXX += ($x[$i]*$x[$i]);
+            //$SumYY += ($y[$i]*$x[$i]);
+        }
+        
+        $Beta1 = ($n * $SumXY - $SumX * $SumY) / ($n * $SumXX - $SumX * $SumX);
+        $Beta0 = $SumY / $n - $Beta1 * $SumX / $n;
+        
+//         echo $Beta0." ".$Beta1;
+//         echo "<br/>";
+        
+        $sumDeltaYY = 0;
+        $sumTotYY = 0;
+        
+        for($i = 0; $i < $n; $i++){
+            $yi = $y[$i];
+            $Yhot = $Beta0 + $Beta1 * $x[$i];
+            $deltaY = $yi -$Yhot;
+            $deltaYY = $deltaY*$deltaY;
+            $sumDeltaYY += $deltaYY;
+            $totY = $y[$i] - $YDurch;
+            $totYY = $totY * $totY;
+            $sumTotYY += $totYY; 
+        }
+        if($sumTotYY != 0){
+            
+        }
+//         echo "<br/>";
+//         echo $YDurch;
+//         echo "<br/>";
+//         echo $yi;
+//         echo "<br/>";
+//         echo $yi;
+//         echo "<br/>";
+        if($sumTotYY == 0){
+            return $SumY/$n;
+        }else{
+            $RR = 1 - ($sumDeltaYY / $sumTotYY);
+            
+//          echo "<br/>";
+//          echo $RR;
+            if($RR <= 1 && $RR > 0){
+                return $Beta0 + $Beta1 * ($n+1);
+            }else{
+                return $SumY/$n;
+            }
+        }
+    } 
+    
+    // Uebungspunkte eines Studierendes In Array
+    public static function UebungsPunkteInArrayMitMarterikelNR($klausurID){
+        
+        $Klausur = Klausur::findOne($klausurID);
+        $uebungsID = 0;
+        foreach ($Klausur->modul->uebungs as $uebung){
+            $uebungsID = $uebung->UebungsID;
+        }
+        
+        $persons = Klausur::AngemeldetePerson($uebungsID);
+        $uebungsblaetter = Klausur::UebungsblaetterIDArray($uebungsID);
+        
+        
+        $vorhersagePunkte = array();
+        
+        foreach ($persons as $person){
+            $punkte = array();
+            $UbungsNr = array();
+            foreach ($uebungsblaetter as $key => $blatt){
+                $uebungsblatt = Uebungsblaetter::findOne($blatt);
+                $abgaben = Abgabe::find()->where(['Benutzer_MarterikelNr'=>$person, 'UebungsblaetterID'=>$blatt])->all();
+                foreach ($abgaben as $abgabe ){
+                    $punkt = ($abgabe->GesamtePunkt/$uebungsblatt->GesamtePunkte)*$Klausur->Max_Punkte;
+                }
+                if($abgabe->AbgabeZeit != null){
+                    array_push($punkte, $punkt);
+                    array_push($UbungsNr, $key+1);
+                }
+            }           echo "<br/>";
+            if(count($punkte)<=3){
+                array_push($vorhersagePunkte, -1);
+            }else {
+                array_push($vorhersagePunkte, Klausur::LienearRession($UbungsNr, $punkte));
+            }
+        }
+        $n = 0;
+        foreach($vorhersagePunkte as $key => $val){
+            
+            $vorhersagePunkte[$persons[$n]] = $val;
+            unset($vorhersagePunkte[$key]);
+            $n++;
+            
+        }
+        return $vorhersagePunkte;
     }
 }

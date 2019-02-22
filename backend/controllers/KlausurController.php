@@ -262,4 +262,12 @@ class KlausurController extends Controller
             }
         }
     }
+    
+    public function actionKlausurdetails($id)
+    {
+        $KlausurID  = $id;
+        return $this->renderAjax('klausurdetails',[
+            'KlausurID' => $KlausurID,
+        ]);
+    }
 }
