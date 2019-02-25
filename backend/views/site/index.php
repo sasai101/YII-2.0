@@ -26,8 +26,8 @@ use common\models\Benutzer;
                                 $chart = new ECharts($asset->baseUrl);
                                 
                                 $chart->title = array(
-                                    'text' => 'Übungsnote',
-                                    'subtext' => 'für jeden Blatt',
+                                    'text' => 'Anzahel des registriert Benutzers',
+                                    'subtext' => 'für jede Zeitpunkt',
                                 );
                                 
                                 $chart->tooltip = array(
@@ -79,8 +79,8 @@ use common\models\Benutzer;
                                 $chart = new ECharts($asset->baseUrl);
                                 
                                 $chart->title = array(
-                                    'text' => 'Klausurnote',
-                                    'subtext' => 'Proportionalität',
+                                    'text' => 'Anteil der Benutzer',
+                                    'subtext' => 'für jeweilige Rolle',
                                     'x' => 'center'
                                 );
                                 
@@ -146,20 +146,6 @@ use common\models\Benutzer;
                 </div>
 			</div>
 		</div>
-    	<div class="col-md-12">
-			<div class="col-md-6">
-				<div class="panel panel-warning">
-                  <div class="panel-heading">Panel with panel-warning class</div>
-                  <div class="panel-body">Panel Content</div>
-                </div>
-			</div>
-			
-			<div class="col-md-6">
-				<div class="panel panel-danger">
-                  <div class="panel-heading">Panel with panel-danger class</div>
-                  <div class="panel-body">Panel Content</div>
-                </div>
-			</div>
-		</div>
+    	
     </div>
 </div>
