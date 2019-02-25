@@ -36,6 +36,10 @@ $this->title = 'Uebungs';
             	<h5>Sie brauchen noch : <b><?= Uebung::zulassungsGrenze($modelUeubng->uebungs->UebungsID)-Uebung::GesamtePunktederPerson($modelUeubng->UebungsgruppeID, Yii::$app->user->identity->MarterikelNr)?></b> Punkte.</h5>
             <?php endif;?>
             
+            <?php if(Uebung::zulassungsGrenze($modelUeubng->uebungs->UebungsID)-Uebung::GesamtePunktederPerson($modelUeubng->UebungsgruppeID, Yii::$app->user->identity->MarterikelNr) < 0):?>	
+            	<h5>Sie sind bis jetzt zugelassen</h5>
+            <?php endif;?>
+            
             <?php $searchModel = new UebungsblaetterSuchen();
                   $dataProvider = $searchModel->searchMitID($modelUeubng->UebungsID);
             ?>
