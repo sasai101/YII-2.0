@@ -5,6 +5,8 @@ use yii\grid\GridView;
 use common\models\Uebungsgruppe;
 use common\models\UebungsblaetterSuchen;
 use common\models\Abgabe;
+use common\models\Uebung;
+use common\models\Uebungsblaetter;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\UebungSuchen */
@@ -14,7 +16,13 @@ $this->title = 'Uebungs';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="uebung-index">
-
+	<div align = "center">
+		<?php $imge = Yii::$app->user->identity->Profiefoto?>
+		<?= Html::img($imge,['class'=>'img-circle','alt'=>'user image', 'height'=>'150', 'width'=>'150'])?>
+		<br/>
+		<h2><b><?php echo Yii::$app->user->identity->Vorname." ".Yii::$app->user->identity->Nachname?></b></h2>
+	</div>
+	
 	<?php foreach (Uebungsgruppe::AlleTeilnahmGruppe(Yii::$app->user->identity->MarterikelNr) as $uebung):?>
 	<?php $modelUeubng = Uebungsgruppe::findOne($uebung)?>
 	<div><br/></div>
@@ -24,6 +32,10 @@ $this->title = 'Uebungs';
             <h3>Modul: <b><?= $modelUeubng->uebungs->modul->Bezeichnung ?></b></h3>
             <h5>Totur: <b><?= $modelUeubng->tutorMarterikelNr->marterikelNr->Vorname." ".$modelUeubng->tutorMarterikelNr->marterikelNr->Nachname?></b></h5>
             <h5>Übungsgruppe: <b><?= $modelUeubng->GruppenNr?></b></h5>
+            <?php if(Uebung::zulassungsGrenze($modelUeubng->uebungs->UebungsID)-Uebung::GesamtePunktederPerson($modelUeubng->UebungsgruppeID, Yii::$app->user->identity->MarterikelNr) >= 0):?>	
+            	<h5>Sie brauchen noch : <b><?= Uebung::zulassungsGrenze($modelUeubng->uebungs->UebungsID)-Uebung::GesamtePunktederPerson($modelUeubng->UebungsgruppeID, Yii::$app->user->identity->MarterikelNr)?></b> Punkte.</h5>
+            <?php endif;?>
+            
             <?php $searchModel = new UebungsblaetterSuchen();
                   $dataProvider = $searchModel->searchMitID($modelUeubng->UebungsID);
             ?>
